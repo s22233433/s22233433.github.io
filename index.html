@@ -3,93 +3,201 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Weiting | 數據驅動的 KOL 行銷專家</title>
+    <title>KOL Master | 榛菓行銷 - 專業網紅媒合與行銷規劃</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
-        body { font-family: 'Inter', sans-serif; }
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap');
+        body { font-family: 'Inter', sans-serif; scroll-behavior: smooth; }
+        .lang-active { color: #2563eb; font-weight: 700; border-bottom: 2px solid #2563eb; }
+        .service-card:hover { transform: translateY(-5px); transition: all 0.3s ease; }
     </style>
 </head>
-<body class="bg-slate-50 text-slate-900 antialiased">
+<body class="bg-gray-50 text-gray-900">
 
-    <!-- Navigation -->
-    <nav class="max-w-6xl mx-auto px-6 py-8 flex justify-between items-center">
-        <div class="text-2xl font-bold tracking-tight text-blue-600">ZHENGUOCool.</div>
-        <a href="mailto:weiting@zhenguocool.com" class="bg-blue-600 text-white px-5 py-2 rounded-full font-medium hover:bg-blue-700 transition">聯繫合作</a>
-    </nav>
+    <header class="fixed w-full bg-white/90 backdrop-blur-md shadow-sm z-50">
+        <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+            <div class="text-2xl font-black tracking-tighter text-blue-600">KOL MASTER <span class="text-gray-400 font-light">| 榛菓行銷</span></div>
+            
+            <nav class="hidden md:flex space-x-8 font-medium text-sm uppercase tracking-wide">
+                <a href="#services" data-i18n="nav_services" class="hover:text-blue-600 transition">服務範疇</a>
+                <a href="#process" data-i18n="nav_process" class="hover:text-blue-600 transition">合作流程</a>
+                <a href="#pricing" data-i18n="nav_pricing" class="hover:text-blue-600 transition">收費模式</a>
+                <a href="#contact" data-i18n="nav_contact" class="hover:text-blue-600 transition">聯繫我們</a>
+            </nav>
 
-    <!-- Hero Section -->
-    <header class="max-w-6xl mx-auto px-6 py-16 md:py-24 grid md:grid-cols-2 gap-12 items-center">
-        <div>
-            <span class="text-blue-600 font-semibold tracking-wide uppercase text-sm">數位行銷策略師</span>
-            <h1 class="text-5xl md:text-6xl font-bold mt-4 leading-tight">為品牌方精準匹配 <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-500">頂級 KOL 資源</span></h1>
-            <p class="text-lg text-slate-600 mt-6 leading-relaxed">
-                立足深圳，我們不只找紅人，更透過數據分析優化推廣策略。結合跨境電商實戰經驗，協助品牌在全球市場實現高轉化增長。
-            </p>
-            <div class="mt-10 flex gap-4">
-                <a href="#services" class="border-2 border-slate-200 px-8 py-3 rounded-xl font-semibold hover:bg-slate-100 transition">服務範疇</a>
-            </div>
-        </div>
-        <div class="bg-white p-8 rounded-3xl shadow-xl border border-slate-100">
-            <div class="space-y-4">
-                <div class="flex items-center gap-4 p-4 bg-slate-50 rounded-xl">
-                    <div class="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center text-blue-600 font-bold">1</div>
-                    <div class="text-sm font-medium">KOL/KOC 精準畫像匹配</div>
-                </div>
-                <div class="flex items-center gap-4 p-4 bg-slate-50 rounded-xl">
-                    <div class="w-10 h-10 bg-indigo-100 rounded-full flex items-center justify-center text-indigo-600 font-bold">2</div>
-                    <div class="text-sm font-medium">跨境支付與物流解決方案</div>
-                </div>
-                <div class="flex items-center gap-4 p-4 bg-slate-50 rounded-xl">
-                    <div class="w-10 h-10 bg-emerald-100 rounded-full flex items-center justify-center text-emerald-600 font-bold">3</div>
-                    <div class="text-sm font-medium">Python 自動化行銷數據監測</div>
-                </div>
+            <div class="flex items-center space-x-3 text-xs font-bold border-l pl-6 border-gray-200">
+                <button onclick="changeLang('en')" id="btn-en" class="hover:text-blue-600">EN</button>
+                <button onclick="changeLang('cn')" id="btn-cn" class="hover:text-blue-600">簡</button>
+                <button onclick="changeLang('tw')" id="btn-tw" class="hover:text-blue-600">繁</button>
             </div>
         </div>
     </header>
 
-    <!-- Expertise Section -->
-    <section id="services" class="bg-white py-20">
-        <div class="max-w-6xl mx-auto px-6">
-            <h2 class="text-3xl font-bold text-center">為什麼選擇我們？</h2>
-            <div class="grid md:grid-cols-3 gap-8 mt-16">
-                <!-- Card 1 -->
-                <div class="p-8 rounded-2xl bg-slate-50 hover:shadow-lg transition">
-                    <div class="text-3xl mb-4">🚀</div>
-                    <h3 class="text-xl font-bold mb-3">實戰背景</h3>
-                    <p class="text-slate-600 text-sm">
-                        曾成功運營 "Razor" 等跨境品牌，深諳 YouTube 與 Instagram 行銷邏輯，能站在品牌方視角思考 ROI。
-                    </p>
+    <section class="pt-40 pb-20 px-6">
+        <div class="max-w-7xl mx-auto text-center">
+            <h1 class="text-5xl md:text-7xl font-extrabold leading-tight mb-8" data-i18n="hero_title">
+                精準數據，<br><span class="text-blue-600">引爆品牌影響力</span>
+            </h1>
+            <p class="text-xl text-gray-600 max-w-2xl mx-auto mb-10" data-i18n="hero_desc">
+                榛菓行銷憑藉專業網紅數據分析系統與豐富實戰經驗，解決您的網紅行銷煩惱，讓廣告精準切中核心受眾。
+            </p>
+            <a href="#contact" class="bg-blue-600 text-white px-10 py-4 rounded-full font-bold text-lg hover:bg-blue-700 transition shadow-lg inline-block" data-i18n="hero_cta">立即開案</a>
+        </div>
+    </section>
+
+    <section id="services" class="py-24 bg-white px-6">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl font-bold mb-4" data-i18n="s_title">核心服務內容</h2>
+                <p class="text-gray-500" data-i18n="s_subtitle">客製化、專業、迅速，解決您的煩惱</p>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-10">
+                <div class="service-card p-10 bg-gray-50 rounded-3xl border border-gray-100">
+                    <div class="w-12 h-12 bg-blue-600 text-white rounded-2xl flex items-center justify-center mb-6 text-xl">🤝</div>
+                    <h3 class="text-2xl font-bold mb-4" data-i18n="s1_title">網紅媒合服務</h3>
+                    <ul class="space-y-3 text-gray-600">
+                        <li class="flex items-start gap-2">✓ <span data-i18n="s1_l1">跨平台數據分析 (YT/FB/IG/TikTok)</span></li>
+                        <li class="flex items-start gap-2">✓ <span data-i18n="s1_l2">豐富資源：藝人、實況主、KOC、微網紅</span></li>
+                        <li class="flex items-start gap-2">✓ <span data-i18n="s1_l3">深度人選評估：TA年齡、性別比、互動率</span></li>
+                        <li class="flex items-start gap-2">✓ <span data-i18n="s1_l4">一條龍管理：溝通、監督、成效報告</span></li>
+                    </ul>
                 </div>
-                <!-- Card 2 -->
-                <div class="p-8 rounded-2xl bg-slate-50 hover:shadow-lg transition">
-                    <div class="text-3xl mb-4">📊</div>
-                    <h3 class="text-xl font-bold mb-3">數據驅動</h3>
-                    <p class="text-slate-600 text-sm">
-                        利用 Python 開發自動化腳本進行數據爬取與市場洞察，拒絕盲目投送，確保每一次合作都有據可依。
-                    </p>
-                </div>
-                <!-- Card 3 -->
-                <div class="p-8 rounded-2xl bg-slate-50 hover:shadow-lg transition">
-                    <div class="text-3xl mb-4">💳</div>
-                    <h3 class="text-xl font-bold mb-3">流程閉環</h3>
-                    <p class="text-slate-600 text-sm">
-                        處理繁瑣的跨境支付與佣金清算業務，解決品牌與 KOL 之間最棘手的資金結算痛點。
-                    </p>
+
+                <div class="service-card p-10 bg-gray-50 rounded-3xl border border-gray-100">
+                    <div class="w-12 h-12 bg-indigo-600 text-white rounded-2xl flex items-center justify-center mb-6 text-xl">🎯</div>
+                    <h3 class="text-2xl font-bold mb-4" data-i18n="s2_title">網路行銷規劃</h3>
+                    <ul class="space-y-3 text-gray-600">
+                        <li class="flex items-start gap-2">✓ <span data-i18n="s2_l1">市場狀況分析與品牌定位評估</span></li>
+                        <li class="flex items-start gap-2">✓ <span data-i18n="s2_l2">創意發想、印象建立與時程規劃</span></li>
+                        <li class="flex items-start gap-2">✓ <span data-i18n="s2_l3">預算安排、廣告拍攝與宣傳製作</span></li>
+                        <li class="flex items-start gap-2">✓ <span data-i18n="s2_l4">代言合作、媒體洽談與結案數據分析</span></li>
+                    </ul>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Footer -->
-    <footer class="max-w-6xl mx-auto px-6 py-12 border-t border-slate-200 mt-20 text-center">
-        <h2 class="text-2xl font-bold mb-4">準備好啟動你的品牌增長了嗎？</h2>
-        <p class="text-slate-600 mb-8">立刻聯繫 Weiting，獲取量身定制的 KOL 行銷方案。</p>
-        <a href="mailto:weiting@zhenguocool.com" class="text-xl font-semibold text-blue-600 underline">weiting@zhenguocool.com</a>
-        <div class="mt-12 text-slate-400 text-xs uppercase tracking-widest">
-            © 2026 ZHENGUOCool. All Rights Reserved.
+    <section id="process" class="py-24 px-6 bg-slate-900 text-white">
+        <div class="max-w-7xl mx-auto">
+            <h2 class="text-3xl font-bold text-center mb-16" data-i18n="p_title">專業合作流程</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
+                <div class="text-center">
+                    <div class="text-4xl font-black text-blue-500 mb-4">01</div>
+                    <h4 class="text-xl font-bold mb-2" data-i18n="p1_h">前期：需求與媒合</h4>
+                    <p class="text-gray-400 text-sm" data-i18n="p1_d">確認預算形式、人選提案 (1-3次名單提供)</p>
+                </div>
+                <div class="text-center">
+                    <div class="text-4xl font-black text-blue-500 mb-4">02</div>
+                    <h4 class="text-xl font-bold mb-2" data-i18n="p2_h">中期：執行與監督</h4>
+                    <p class="text-gray-400 text-sm" data-i18n="p2_d">合約製作、成品上刊、作品監督與製作溝通</p>
+                </div>
+                <div class="text-center">
+                    <div class="text-4xl font-black text-blue-500 mb-4">03</div>
+                    <h4 class="text-xl font-bold mb-2" data-i18n="p3_h">後期：結案與結算</h4>
+                    <p class="text-gray-400 text-sm" data-i18n="p3_d">數據報告提供、創作者撥款、發票開立</p>
+                </div>
+            </div>
         </div>
+    </section>
+
+    <section id="pricing" class="py-24 bg-white px-6">
+        <div class="max-w-4xl mx-auto">
+            <h2 class="text-3xl font-bold text-center mb-16" data-i18n="price_title">透明化收費模式</h2>
+            <div class="space-y-6">
+                <div class="p-6 bg-gray-50 rounded-2xl flex justify-between items-center border border-gray-100">
+                    <div>
+                        <h4 class="font-bold text-lg" data-i18n="pr1_h">精品合作 / 影片 / 直播</h4>
+                        <p class="text-gray-500 text-sm" data-i18n="pr1_d">專注於高質量內容與 KOL 深度合作</p>
+                    </div>
+                    <div class="text-blue-600 font-black text-xl" data-i18n="pr1_p">15% 服務費</div>
+                </div>
+                <div class="p-6 bg-gray-50 rounded-2xl flex justify-between items-center border border-gray-100">
+                    <div>
+                        <h4 class="font-bold text-lg" data-i18n="pr2_h">大量合作 (>15人) / 微網紅</h4>
+                        <p class="text-gray-500 text-sm" data-i18n="pr2_d">適合品牌擴散與 KOC 心得鋪蓋</p>
+                    </div>
+                    <div class="text-blue-600 font-black text-xl" data-i18n="pr2_p">底價 + 每人固定費</div>
+                </div>
+            </div>
+            <p class="mt-8 text-center text-gray-400 text-xs" data-i18n="price_note">* 詳細報價依需求計畫規劃，所有金額均含清楚說明。 </p>
+        </div>
+    </section>
+
+    <section id="contact" class="py-24 bg-blue-600 px-6">
+        <div class="max-w-4xl mx-auto text-center text-white">
+            <h2 class="text-4xl font-bold mb-6" data-i18n="c_title">準備好提升您的品牌聲量了嗎？</h2>
+            <p class="text-blue-100 mb-10 text-lg" data-i18n="c_desc">立足深圳，服務全球品牌。立刻聯繫我們獲取客製化行銷提案。</p>
+            <div class="bg-white text-blue-600 px-8 py-6 rounded-3xl inline-block shadow-2xl">
+                <p class="text-xs uppercase tracking-widest font-bold mb-2">Contact Email</p>
+                <a href="mailto:weiting@zhenguocool.com" class="text-2xl md:text-3xl font-black hover:underline">weiting@zhenguocool.com</a>
+            </div>
+        </div>
+    </section>
+
+    <footer class="py-10 text-center text-gray-400 text-xs bg-white">
+        © 2025 KOL Master | 榛菓行銷有限公司 Zhenguo Marketing Co., Ltd.
     </footer>
 
+    <script>
+        const translations = {
+            'tw': {
+                'nav_services': '服務範疇', 'nav_process': '合作流程', 'nav_pricing': '收費模式', 'nav_contact': '聯繫我們',
+                'hero_title': '精準數據，<br><span class="text-blue-600">引爆品牌影響力</span>',
+                'hero_desc': '榛菓行銷憑藉專業網紅數據分析系統與豐富實戰經驗，解決您的網紅行銷煩惱，讓廣告精準切中核心受眾。',
+                'hero_cta': '立即開案',
+                's_title': '核心服務內容', 's_subtitle': '客製化、專業、迅速，解決您的煩惱',
+                's1_title': '網紅媒合服務', 's1_l1': '跨平台數據分析 (YT/FB/IG/TikTok)', 's1_l2': '豐富資源：藝人、實況主、KOC、微網紅', 's1_l3': '深度人選評估：TA年齡、性別比、互動率', 's1_l4': '一條龍管理：溝通、監督、成效報告',
+                's2_title': '網路行銷規劃', 's2_l1': '市場狀況分析與品牌定位評估', 's2_l2': '創意發想、印象建立與時程規劃', 's2_l3': '預算安排、廣告拍攝與宣傳製作', 's2_l4': '代言合作、媒體洽談與數據分析',
+                'p_title': '專業合作流程', 'p1_h': '前期：需求與媒合', 'p1_d': '需求確認、1-3次人選提案', 'p2_h': '中期：執行與監督', 'p2_d': '合約製作、成品上刊、作品監督', 'p3_h': '後期：結案與結算', 'p3_d': '數據報告、創作者撥款',
+                'price_title': '透明化收費模式', 'pr1_h': '精品合作 / 影片 / 直播', 'pr1_d': '高質量內容與深度合作', 'pr1_p': '15% 服務費', 'pr2_h': '大量合作 / 微網紅', 'pr2_d': '品牌擴散與 KOC 鋪蓋', 'pr2_p': '開案底價 + 人頭費',
+                'price_note': '* 詳細報價依需求計畫規劃，所有金額均含清楚說明。',
+                'c_title': '準備好提升您的品牌聲量了嗎？', 'c_desc': '立足深圳，服務全球品牌。立刻聯繫我們獲取客製化行銷提案。'
+            },
+            'cn': {
+                'nav_services': '服务范畴', 'nav_process': '合作流程', 'nav_pricing': '收费模式', 'nav_contact': '联系我们',
+                'hero_title': '精准数据，<br><span class="text-blue-600">引爆品牌影响力</span>',
+                'hero_desc': '榛菓营销凭借专业网红数据分析系统与丰富实战经验，解決您的网红营销烦恼，让广告精准切中核心受众。',
+                'hero_cta': '立即开案',
+                's_title': '核心服务内容', 's_subtitle': '客制化、专业、迅速，解決您的烦恼',
+                's1_title': '网红媒合服务', 's1_l1': '跨平台数据分析 (YT/FB/IG/TikTok)', 's1_l2': '丰富资源：艺人、实况主、KOC、微网红', 's1_l3': '深度人选评估：TA年龄、性别比、互动率', 's1_l4': '一送龙管理：沟通、监督、成效报告',
+                's2_title': '网络营销规划', 's2_l1': '市场状况分析与品牌定位评估', 's2_l2': '创意发想、印象建立与时程规划', 's2_l3': '预算安排、广告拍摄与宣传制作', 's2_l4': '代言合作、媒体洽谈与数据分析',
+                'p_title': '专业合作流程', 'p1_h': '前期：需求与媒合', 'p1_d': '需求确认、1-3次人选提案', 'p2_h': '中期：执行与监督', 'p2_d': '合约制作、成品上刊、作品监督', 'p3_h': '后期：结案与结算', 'p3_d': '数据报告、创作者拨款',
+                'price_title': '透明化收费模式', 'pr1_h': '精品合作 / 影片 / 直播', 'pr1_d': '高质量内容与深度合作', 'pr1_p': '15% 服务费', 'pr2_h': '大量合作 / 微网红', 'pr2_d': '品牌扩散与 KOC 铺盖', 'pr2_p': '开案底价 + 人头费',
+                'price_note': '* 详细报价依需求计划规划，所有金额均含清楚说明。',
+                'c_title': '准备好提升您的品牌声量了吗？', 'c_desc': '立足深圳，服务全球品牌。立刻联系我们获取客制化营销提案。'
+            },
+            'en': {
+                'nav_services': 'Services', 'nav_process': 'Process', 'nav_pricing': 'Pricing', 'nav_contact': 'Contact',
+                'hero_title': 'Data-Driven <br><span class="text-blue-600">Brand Influence</span>',
+                'hero_desc': 'Zhenguo Marketing solves your influencer marketing headaches with professional analysis systems and extensive execution experience.',
+                'hero_cta': 'Start Now',
+                's_title': 'Our Services', 's_subtitle': 'Customized, Professional, Fast Solutions',
+                's1_title': 'KOL Matching', 's1_l1': 'Cross-platform Data (YT/FB/IG/TikTok)', 's1_l2': 'Vast Resources: Streamers, Bloggers, KOCs', 's1_l3': 'Deep Evaluation: TA Age, Gender, Engagement', 's1_l4': 'One-stop: Selection, Supervision, Reporting',
+                's2_title': 'Marketing Planning', 's2_l1': 'Market Analysis & Brand Assessment', 's2_l2': 'Creative Ideas & Timeline Planning', 's2_l3': 'Budgeting, Ad Shoots & Production', 's2_l4': 'Ambassadors, Media Relations & Data Analysis',
+                'p_title': 'Work Process', 'p1_h': 'Phase 1: Discovery', 'p1_d': 'Requirement & 1-3 Rounds of Proposals', 'p2_h': 'Phase 2: Execution', 'p2_d': 'Contracting, Supervision & Publishing', 'p3_h': 'Phase 3: Closing', 'p3_d': 'Data Reports & Creator Payouts',
+                'price_title': 'Transparent Pricing', 'pr1_h': 'Premium / Video / Live', 'pr1_d': 'High-quality content & Deep integration', 'pr1_p': '15% Service Fee', 'pr2_h': 'Bulk Micro-Influencers', 'pr2_d': 'Brand awareness & Social proofing', 'pr2_p': 'Base Fee + Per Person',
+                'price_note': '* Detailed quotes are customized per project with transparent breakdowns.',
+                'c_title': 'Ready to Scale Your Brand?', 'c_desc': 'Based in Shenzhen, serving global brands. Contact us for a custom proposal today.'
+            }
+        };
+
+        function changeLang(lang) {
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                el.innerHTML = translations[lang][key] || el.innerHTML;
+            });
+            // Update active state
+            ['en', 'cn', 'tw'].forEach(l => {
+                document.getElementById(`btn-${l}`).classList.remove('lang-active');
+            });
+            document.getElementById(`btn-${lang}`).classList.add('lang-active');
+            localStorage.setItem('preferredLang', lang);
+        }
+
+        // Initialize with TW or saved preference
+        const savedLang = localStorage.getItem('preferredLang') || 'tw';
+        changeLang(savedLang);
+    </script>
 </body>
 </html>
