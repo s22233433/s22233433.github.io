@@ -67,11 +67,42 @@
       font-weight: 700;
     }
     nav a:hover { color: var(--coral); }
+    .nav-tools {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+    }
     .nav-cta {
       color: var(--surface);
       background: var(--ink);
       padding: 10px 16px;
       border-radius: 999px;
+    }
+    .lang-switch {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 4px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: rgba(255,255,255,.76);
+    }
+    .lang-switch button {
+      appearance: none;
+      border: 0;
+      border-radius: 999px;
+      background: transparent;
+      color: var(--muted);
+      cursor: pointer;
+      font: inherit;
+      font-size: 12px;
+      font-weight: 900;
+      line-height: 1;
+      padding: 8px 10px;
+    }
+    .lang-switch button[aria-pressed="true"] {
+      color: white;
+      background: var(--teal);
     }
     .hero {
       position: relative;
@@ -359,6 +390,8 @@
     @keyframes rise { to { opacity: 1; transform: translateY(0); } }
     @media (max-width: 920px) {
       nav { display: none; }
+      .nav { gap: 12px; }
+      .nav-tools { margin-left: auto; }
       .hero-grid, .section-head, .case-study, .contact-box { grid-template-columns: 1fr; }
       .hero-panel { min-height: auto; border-left: 0; padding-left: 0; }
       .services, .case-grid, .pricing { grid-template-columns: 1fr; }
@@ -376,17 +409,24 @@
 <body>
   <header>
     <div class="wrap nav">
-      <a class="brand" href="#top" aria-label="榛菓行銷首頁">
-        榛菓行銷
-        <small>Influence Marketing</small>
+      <a class="brand" href="#top" aria-label="榛菓行銷首頁" data-i18n-aria-label="brandAria">
+        <span data-i18n="brand">榛菓行銷</span>
+        <small data-i18n="brandSmall">Influence Marketing</small>
       </a>
-      <nav aria-label="主要導覽">
-        <a href="#services">服務</a>
-        <a href="#process">流程</a>
-        <a href="#cases">案例</a>
-        <a href="#pricing">收費</a>
-        <a class="nav-cta" href="#contact">聯繫我們</a>
-      </nav>
+      <div class="nav-tools">
+        <nav aria-label="主要導覽" data-i18n-aria-label="navAria">
+          <a href="#services" data-i18n="navServices">服務</a>
+          <a href="#process" data-i18n="navProcess">流程</a>
+          <a href="#cases" data-i18n="navCases">案例</a>
+          <a href="#pricing" data-i18n="navPricing">收費</a>
+          <a class="nav-cta" href="#contact" data-i18n="navContact">聯繫我們</a>
+        </nav>
+        <div class="lang-switch" aria-label="語言切換" data-i18n-aria-label="langAria">
+          <button type="button" data-lang="zh-Hant" aria-pressed="true">繁</button>
+          <button type="button" data-lang="zh-Hans" aria-pressed="false">简</button>
+          <button type="button" data-lang="en" aria-pressed="false">EN</button>
+        </div>
+      </div>
     </div>
   </header>
 
@@ -395,22 +435,22 @@
       <div class="wrap hero-grid">
         <div class="reveal">
           <span class="eyebrow">ZHENGUOCool</span>
-          <h1>讓品牌被真正合適的人看見</h1>
-          <p>榛菓行銷以創作者媒合、社群數據、內容監督與行銷規劃為核心，協助品牌在 YouTube、Instagram、Facebook、TikTok 與直播場景中找到有效受眾。</p>
+          <h1 data-i18n="heroTitle">讓品牌被真正合適的人看見</h1>
+          <p data-i18n="heroBody">榛菓行銷以創作者媒合、社群數據、內容監督與行銷規劃為核心，協助品牌在 YouTube、Instagram、Facebook、TikTok 與直播場景中找到有效受眾。</p>
           <div class="hero-actions">
-            <a class="button primary" href="#contact">預約專案討論</a>
-            <a class="button secondary" href="#cases">查看案例</a>
+            <a class="button primary" href="#contact" data-i18n="heroCta">預約專案討論</a>
+            <a class="button secondary" href="#cases" data-i18n="heroSecondary">查看案例</a>
           </div>
         </div>
         <aside class="hero-panel reveal" style="--delay:120ms">
           <div class="metric-stack">
-            <div class="metric"><strong>1-3</strong><span>輪人選提案，依時程與需求精準媒合</span></div>
-            <div class="metric"><strong>15%</strong><span>精緻合作、YouTube、直播合作服務費參考</span></div>
-            <div class="metric"><strong>4+</strong><span>橫跨影音、圖文、直播、線下活動場景</span></div>
+            <div class="metric"><strong>1-3</strong><span data-i18n="metricOne">輪人選提案，依時程與需求精準媒合</span></div>
+            <div class="metric"><strong>15%</strong><span data-i18n="metricTwo">精緻合作、YouTube、直播合作服務費參考</span></div>
+            <div class="metric"><strong>4+</strong><span data-i18n="metricThree">橫跨影音、圖文、直播、線下活動場景</span></div>
           </div>
           <div class="signal-card">
-            <h2>不是只找名單，是把合作做完。</h2>
-            <p>從需求確認、創作者溝通、內容方向、成品上刊到結案報告，讓品牌少一點混亂，多一點可掌握的成果。</p>
+            <h2 data-i18n="signalTitle">不是只找名單，是把合作做完。</h2>
+            <p data-i18n="signalBody">從需求確認、創作者溝通、內容方向、成品上刊到結案報告，讓品牌少一點混亂，多一點可掌握的成果。</p>
           </div>
         </aside>
       </div>
@@ -419,38 +459,38 @@
     <section id="services">
       <div class="wrap">
         <div class="section-head">
-          <h2>服務範疇</h2>
-          <p>依品牌目標拆解成創作者、內容、媒體與成效四個層面，讓每一次合作都有明確角色與判斷依據。</p>
+          <h2 data-i18n="servicesTitle">服務範疇</h2>
+          <p data-i18n="servicesBody">依品牌目標拆解成創作者、內容、媒體與成效四個層面，讓每一次合作都有明確角色與判斷依據。</p>
         </div>
         <div class="services">
           <article class="service reveal">
             <b>1</b>
-            <h3>創作者媒合與數據篩選</h3>
-            <p>依照預算、受眾、平台與內容風格，提供適合的創作者名單與合作建議。</p>
+            <h3 data-i18n="serviceOneTitle">創作者媒合與數據篩選</h3>
+            <p data-i18n="serviceOneBody">依照預算、受眾、平台與內容風格，提供適合的創作者名單與合作建議。</p>
             <ul>
-              <li>粉絲數、互動率、平均讚留言檢視</li>
-              <li>受眾性別、年齡與平台風格分析</li>
-              <li>藝人、部落客、直播主、Vtuber、KOC 等資源</li>
+              <li data-i18n="serviceOneLi1">粉絲數、互動率、平均讚留言檢視</li>
+              <li data-i18n="serviceOneLi2">受眾性別、年齡與平台風格分析</li>
+              <li data-i18n="serviceOneLi3">藝人、部落客、直播主、Vtuber、KOC 等資源</li>
             </ul>
           </article>
           <article class="service reveal" style="--delay:80ms">
             <b>2</b>
-            <h3>內容執行與合作監督</h3>
-            <p>協助品牌與創作者之間溝通方向、時程、腳本、素材與上刊細節。</p>
+            <h3 data-i18n="serviceTwoTitle">內容執行與合作監督</h3>
+            <p data-i18n="serviceTwoBody">協助品牌與創作者之間溝通方向、時程、腳本、素材與上刊細節。</p>
             <ul>
-              <li>檔期確認、合約與拍攝協助</li>
-              <li>作品監督、製作溝通與細節確認</li>
-              <li>素材授權、投廣與版權問題協助</li>
+              <li data-i18n="serviceTwoLi1">檔期確認、合約與拍攝協助</li>
+              <li data-i18n="serviceTwoLi2">作品監督、製作溝通與細節確認</li>
+              <li data-i18n="serviceTwoLi3">素材授權、投廣與版權問題協助</li>
             </ul>
           </article>
           <article class="service reveal" style="--delay:160ms">
             <b>3</b>
-            <h3>行銷規劃與成效分析</h3>
-            <p>從市場狀況、創意發想、媒體結合到結案數據，建立可執行的完整計畫。</p>
+            <h3 data-i18n="serviceThreeTitle">行銷規劃與成效分析</h3>
+            <p data-i18n="serviceThreeBody">從市場狀況、創意發想、媒體結合到結案數據，建立可執行的完整計畫。</p>
             <ul>
-              <li>市場分析、預算安排、效益評估</li>
-              <li>廣告拍攝、宣傳製作與代言合作</li>
-              <li>結案數據報告與後續優化建議</li>
+              <li data-i18n="serviceThreeLi1">市場分析、預算安排、效益評估</li>
+              <li data-i18n="serviceThreeLi2">廣告拍攝、宣傳製作與代言合作</li>
+              <li data-i18n="serviceThreeLi3">結案數據報告與後續優化建議</li>
             </ul>
           </article>
         </div>
@@ -460,15 +500,15 @@
     <section id="process" class="process-band">
       <div class="wrap">
         <div class="section-head">
-          <h2>合作流程</h2>
-          <p>每一步都讓品牌知道現在要決定什麼、誰負責、下一步如何推進。</p>
+          <h2 data-i18n="processTitle">合作流程</h2>
+          <p data-i18n="processBody">每一步都讓品牌知道現在要決定什麼、誰負責、下一步如何推進。</p>
         </div>
         <div class="steps">
-          <article class="step"><span>01</span><h3>需求確認</h3><p>確認類型、粉絲數、時間、預算、形式與可行性。</p></article>
-          <article class="step"><span>02</span><h3>人選提案</h3><p>依專案進程提供創作者名單與媒合建議。</p></article>
-          <article class="step"><span>03</span><h3>合作啟動</h3><p>確認人選、檔期、撰寫方向、合約與拍攝協助。</p></article>
-          <article class="step"><span>04</span><h3>內容上刊</h3><p>作品監督、製作溝通、細節確認與成品發布。</p></article>
-          <article class="step"><span>05</span><h3>結案報告</h3><p>整理數據報告、請款資料與創作者撥款流程。</p></article>
+          <article class="step"><span>01</span><h3 data-i18n="stepOneTitle">需求確認</h3><p data-i18n="stepOneBody">確認類型、粉絲數、時間、預算、形式與可行性。</p></article>
+          <article class="step"><span>02</span><h3 data-i18n="stepTwoTitle">人選提案</h3><p data-i18n="stepTwoBody">依專案進程提供創作者名單與媒合建議。</p></article>
+          <article class="step"><span>03</span><h3 data-i18n="stepThreeTitle">合作啟動</h3><p data-i18n="stepThreeBody">確認人選、檔期、撰寫方向、合約與拍攝協助。</p></article>
+          <article class="step"><span>04</span><h3 data-i18n="stepFourTitle">內容上刊</h3><p data-i18n="stepFourBody">作品監督、製作溝通、細節確認與成品發布。</p></article>
+          <article class="step"><span>05</span><h3 data-i18n="stepFiveTitle">結案報告</h3><p data-i18n="stepFiveBody">整理數據報告、請款資料與創作者撥款流程。</p></article>
         </div>
       </div>
     </section>
@@ -476,97 +516,97 @@
     <section id="cases">
       <div class="wrap">
         <div class="section-head">
-          <h2>案例與場景</h2>
-          <p>從遊戲直播、家電門市、美妝內容、短影音到線下活動，讓不同類型品牌找到對應的內容語境。</p>
+          <h2 data-i18n="casesTitle">案例與場景</h2>
+          <p data-i18n="casesBody">從遊戲直播、家電門市、美妝內容、短影音到線下活動，讓不同類型品牌找到對應的內容語境。</p>
         </div>
         <div class="case-grid">
           
             <article class="case-card reveal" style="--delay:55ms">
-              <img src="web-assets/image12.webp" alt="遊戲與偶像合作案例圖">
+              <img src="web-assets/image12.webp" alt="遊戲與偶像合作案例圖" data-i18n-alt="caseOneAlt">
               <div class="case-copy">
                 <span>Case 01</span>
-                <h3>遊戲與偶像合作</h3>
-                <p>跨遊戲、直播與偶像團體的話題合作規劃。</p>
+                <h3 data-i18n="caseOneTitle">遊戲與偶像合作</h3>
+                <p data-i18n="caseOneBody">跨遊戲、直播與偶像團體的話題合作規劃。</p>
               </div>
             </article>
             
 
             <article class="case-card reveal" style="--delay:110ms">
-              <img src="web-assets/image26.webp" alt="門市體驗貼文案例圖">
+              <img src="web-assets/image26.webp" alt="門市體驗貼文案例圖" data-i18n-alt="caseTwoAlt">
               <div class="case-copy">
                 <span>Case 02</span>
-                <h3>門市體驗貼文</h3>
-                <p>以生活情境與真實體驗帶動家電門市聲量。</p>
+                <h3 data-i18n="caseTwoTitle">門市體驗貼文</h3>
+                <p data-i18n="caseTwoBody">以生活情境與真實體驗帶動家電門市聲量。</p>
               </div>
             </article>
             
 
             <article class="case-card reveal" style="--delay:165ms">
-              <img src="web-assets/image23.webp" alt="家電新品曝光案例圖">
+              <img src="web-assets/image23.webp" alt="家電新品曝光案例圖" data-i18n-alt="caseThreeAlt">
               <div class="case-copy">
                 <span>Case 03</span>
-                <h3>家電新品曝光</h3>
-                <p>創作者現場示範，放大產品功能與使用想像。</p>
+                <h3 data-i18n="caseThreeTitle">家電新品曝光</h3>
+                <p data-i18n="caseThreeBody">創作者現場示範，放大產品功能與使用想像。</p>
               </div>
             </article>
             
 
             <article class="case-card reveal" style="--delay:220ms">
-              <img src="web-assets/image22.webp" alt="生活家電內容案例圖">
+              <img src="web-assets/image22.webp" alt="生活家電內容案例圖" data-i18n-alt="caseFourAlt">
               <div class="case-copy">
                 <span>Case 04</span>
-                <h3>生活家電內容</h3>
-                <p>把產品亮點轉成好理解、可分享的社群內容。</p>
+                <h3 data-i18n="caseFourTitle">生活家電內容</h3>
+                <p data-i18n="caseFourBody">把產品亮點轉成好理解、可分享的社群內容。</p>
               </div>
             </article>
             
 
             <article class="case-card reveal" style="--delay:275ms">
-              <img src="web-assets/image31.webp" alt="短影音擴散案例圖">
+              <img src="web-assets/image31.webp" alt="短影音擴散案例圖" data-i18n-alt="caseFiveAlt">
               <div class="case-copy">
                 <span>Case 05</span>
-                <h3>短影音擴散</h3>
-                <p>TikTok 與短影片創作者導入流量與討論。</p>
+                <h3 data-i18n="caseFiveTitle">短影音擴散</h3>
+                <p data-i18n="caseFiveBody">TikTok 與短影片創作者導入流量與討論。</p>
               </div>
             </article>
             
 
             <article class="case-card reveal" style="--delay:330ms">
-              <img src="web-assets/image42.webp" alt="社群短片素材案例圖">
+              <img src="web-assets/image42.webp" alt="社群短片素材案例圖" data-i18n-alt="caseSixAlt">
               <div class="case-copy">
                 <span>Case 06</span>
-                <h3>社群短片素材</h3>
-                <p>以影片素材承接促銷、活動與站外投放需求。</p>
+                <h3 data-i18n="caseSixTitle">社群短片素材</h3>
+                <p data-i18n="caseSixBody">以影片素材承接促銷、活動與站外投放需求。</p>
               </div>
             </article>
             
 
             <article class="case-card reveal" style="--delay:385ms">
-              <img src="web-assets/image44.webp" alt="直播合作案例圖">
+              <img src="web-assets/image44.webp" alt="直播合作案例圖" data-i18n-alt="caseSevenAlt">
               <div class="case-copy">
                 <span>Case 07</span>
-                <h3>直播合作</h3>
-                <p>直播主合作、聊天室互動與即時轉換情境。</p>
+                <h3 data-i18n="caseSevenTitle">直播合作</h3>
+                <p data-i18n="caseSevenBody">直播主合作、聊天室互動與即時轉換情境。</p>
               </div>
             </article>
             
 
             <article class="case-card reveal" style="--delay:440ms">
-              <img src="web-assets/image43.webp" alt="美妝社群案例圖">
+              <img src="web-assets/image43.webp" alt="美妝社群案例圖" data-i18n-alt="caseEightAlt">
               <div class="case-copy">
                 <span>Case 08</span>
-                <h3>美妝社群案例</h3>
-                <p>生活風格創作者協助品牌建立可信任的內容語境。</p>
+                <h3 data-i18n="caseEightTitle">美妝社群案例</h3>
+                <p data-i18n="caseEightBody">生活風格創作者協助品牌建立可信任的內容語境。</p>
               </div>
             </article>
             
 
             <article class="case-card reveal" style="--delay:495ms">
-              <img src="web-assets/image58.webp" alt="影像製作支援案例圖">
+              <img src="web-assets/image58.webp" alt="影像製作支援案例圖" data-i18n-alt="caseNineAlt">
               <div class="case-copy">
                 <span>Case 09</span>
-                <h3>影像製作支援</h3>
-                <p>從拍攝場景、素材規劃到廣告製作執行。</p>
+                <h3 data-i18n="caseNineTitle">影像製作支援</h3>
+                <p data-i18n="caseNineBody">從拍攝場景、素材規劃到廣告製作執行。</p>
               </div>
             </article>
             
@@ -579,15 +619,15 @@
         <div class="case-study">
           <div>
             <span class="eyebrow">Case Study</span>
-            <h2>安益穩成人奶粉：從市場分析到影像製作</h2>
-            <p>針對營養品市場與媒體使用習慣，建立專案目標、預算時程、廣告拍攝方向與代言合作建議，讓策略不只停留在簡報，而能落到製作與投放素材。</p>
+            <h2 data-i18n="studyTitle">安益穩成人奶粉：從市場分析到影像製作</h2>
+            <p data-i18n="studyBody">針對營養品市場與媒體使用習慣，建立專案目標、預算時程、廣告拍攝方向與代言合作建議，讓策略不只停留在簡報，而能落到製作與投放素材。</p>
             <ul>
-              <li>市場狀況分析與評估</li>
-              <li>預算規劃與時程安排</li>
-              <li>廣告拍攝、宣傳製作、媒體洽談</li>
+              <li data-i18n="studyLi1">市場狀況分析與評估</li>
+              <li data-i18n="studyLi2">預算規劃與時程安排</li>
+              <li data-i18n="studyLi3">廣告拍攝、宣傳製作、媒體洽談</li>
             </ul>
           </div>
-          <img src="web-assets/image60.webp" alt="安益穩成人奶粉行銷規劃案例">
+          <img src="web-assets/nutritionist-zh-hant.webp" alt="營養師健康內容行銷案例" data-i18n-src="studyImage" data-i18n-alt="studyImageAlt">
         </div>
       </div>
     </section>
@@ -595,26 +635,26 @@
     <section id="pricing">
       <div class="wrap">
         <div class="section-head">
-          <h2>透明收費</h2>
-          <p>實際費用會依創作者報價、合作人數、內容形式與執行範圍調整，所有項目都會在報價中清楚列示。</p>
+          <h2 data-i18n="pricingTitle">透明收費</h2>
+          <p data-i18n="pricingBody">實際費用會依創作者報價、合作人數、內容形式與執行範圍調整，所有項目都會在報價中清楚列示。</p>
         </div>
         <div class="pricing">
           <article class="price-card">
-            <h3>精緻合作 / YouTube / 直播</h3>
+            <h3 data-i18n="priceOneTitle">精緻合作 / YouTube / 直播</h3>
             <strong>15%</strong>
             <ul>
-              <li>以創作者總報價計算服務費</li>
-              <li>適合高溝通密度、高內容要求的合作</li>
-              <li>包含媒合、溝通、監督與結案協助</li>
+              <li data-i18n="priceOneLi1">以創作者總報價計算服務費</li>
+              <li data-i18n="priceOneLi2">適合高溝通密度、高內容要求的合作</li>
+              <li data-i18n="priceOneLi3">包含媒合、溝通、監督與結案協助</li>
             </ul>
           </article>
           <article class="price-card">
-            <h3>大量合作 / 微網紅 / 奈米網紅</h3>
-            <strong>3,600 + 人數 x 400</strong>
+            <h3 data-i18n="priceTwoTitle">大量合作 / 微網紅 / 奈米網紅</h3>
+            <strong data-i18n="priceTwoRate">3,600 + 人數 x 400</strong>
             <ul>
-              <li>適合需要快速擴散與大量曝光的活動</li>
-              <li>可依需求規劃計畫預算</li>
-              <li>樣品寄送等活動執行可另行估算</li>
+              <li data-i18n="priceTwoLi1">適合需要快速擴散與大量曝光的活動</li>
+              <li data-i18n="priceTwoLi2">可依需求規劃計畫預算</li>
+              <li data-i18n="priceTwoLi3">樣品寄送等活動執行可另行估算</li>
             </ul>
           </article>
         </div>
@@ -624,21 +664,371 @@
     <section id="contact" class="contact">
       <div class="wrap contact-box">
         <div>
-          <h2>準備開始下一檔合作了嗎？</h2>
-          <p>把品牌目標、預算區間、希望合作的平台與時程寄給我們，我們會協助整理可行方向與初步合作形式。</p>
+          <h2 data-i18n="contactTitle">準備開始下一檔合作了嗎？</h2>
+          <p data-i18n="contactBody">把品牌目標、預算區間、希望合作的平台與時程寄給我們，我們會協助整理可行方向與初步合作形式。</p>
         </div>
         <div class="contact-card">
           <p>Email</p>
           <a href="mailto:weiting@zhenguocool.com">weiting@zhenguocool.com</a>
-          <p style="margin-top:28px">深圳辦事處</p>
-          <p>深圳市榛果酷科技有限公司<br>廣東省深圳市南山區前海合作區自貿西街18號前海香繽大廈2009-B050</p>
+          <p style="margin-top:28px" data-i18n="officeTitle">深圳辦事處</p>
+          <p data-i18n-html="officeAddress">深圳市榛果酷科技有限公司<br>廣東省深圳市南山區前海合作區自貿西街18號前海香繽大廈2009-B050</p>
         </div>
       </div>
     </section>
   </main>
 
   <footer>
-    <div class="wrap">© 2026 榛菓行銷 / ZHENGUOCool. All Rights Reserved.</div>
+    <div class="wrap" data-i18n="footer">© 2026 榛菓行銷 / ZHENGUOCool. All Rights Reserved.</div>
   </footer>
+  <script>
+    const translations = {
+      "zh-Hant": {
+        metaTitle: "榛菓行銷 | 網紅媒合與數位行銷規劃",
+        metaDescription: "榛菓行銷提供網紅媒合、社群內容、直播合作、行銷規劃與成效報告，協助品牌找到合適受眾。",
+        brandAria: "榛菓行銷首頁",
+        navAria: "主要導覽",
+        langAria: "語言切換",
+        brand: "榛菓行銷",
+        brandSmall: "Influence Marketing",
+        navServices: "服務",
+        navProcess: "流程",
+        navCases: "案例",
+        navPricing: "收費",
+        navContact: "聯繫我們",
+        heroTitle: "讓品牌被真正合適的人看見",
+        heroBody: "榛菓行銷以創作者媒合、社群數據、內容監督與行銷規劃為核心，協助品牌在 YouTube、Instagram、Facebook、TikTok 與直播場景中找到有效受眾。",
+        heroCta: "預約專案討論",
+        heroSecondary: "查看案例",
+        metricOne: "輪人選提案，依時程與需求精準媒合",
+        metricTwo: "精緻合作、YouTube、直播合作服務費參考",
+        metricThree: "橫跨影音、圖文、直播、線下活動場景",
+        signalTitle: "不是只找名單，是把合作做完。",
+        signalBody: "從需求確認、創作者溝通、內容方向、成品上刊到結案報告，讓品牌少一點混亂，多一點可掌握的成果。",
+        servicesTitle: "服務範疇",
+        servicesBody: "依品牌目標拆解成創作者、內容、媒體與成效四個層面，讓每一次合作都有明確角色與判斷依據。",
+        serviceOneTitle: "創作者媒合與數據篩選",
+        serviceOneBody: "依照預算、受眾、平台與內容風格，提供適合的創作者名單與合作建議。",
+        serviceOneLi1: "粉絲數、互動率、平均讚留言檢視",
+        serviceOneLi2: "受眾性別、年齡與平台風格分析",
+        serviceOneLi3: "藝人、部落客、直播主、Vtuber、KOC 等資源",
+        serviceTwoTitle: "內容執行與合作監督",
+        serviceTwoBody: "協助品牌與創作者之間溝通方向、時程、腳本、素材與上刊細節。",
+        serviceTwoLi1: "檔期確認、合約與拍攝協助",
+        serviceTwoLi2: "作品監督、製作溝通與細節確認",
+        serviceTwoLi3: "素材授權、投廣與版權問題協助",
+        serviceThreeTitle: "行銷規劃與成效分析",
+        serviceThreeBody: "從市場狀況、創意發想、媒體結合到結案數據，建立可執行的完整計畫。",
+        serviceThreeLi1: "市場分析、預算安排、效益評估",
+        serviceThreeLi2: "廣告拍攝、宣傳製作與代言合作",
+        serviceThreeLi3: "結案數據報告與後續優化建議",
+        processTitle: "合作流程",
+        processBody: "每一步都讓品牌知道現在要決定什麼、誰負責、下一步如何推進。",
+        stepOneTitle: "需求確認",
+        stepOneBody: "確認類型、粉絲數、時間、預算、形式與可行性。",
+        stepTwoTitle: "人選提案",
+        stepTwoBody: "依專案進程提供創作者名單與媒合建議。",
+        stepThreeTitle: "合作啟動",
+        stepThreeBody: "確認人選、檔期、撰寫方向、合約與拍攝協助。",
+        stepFourTitle: "內容上刊",
+        stepFourBody: "作品監督、製作溝通、細節確認與成品發布。",
+        stepFiveTitle: "結案報告",
+        stepFiveBody: "整理數據報告、請款資料與創作者撥款流程。",
+        casesTitle: "案例與場景",
+        casesBody: "從遊戲直播、家電門市、美妝內容、短影音到線下活動，讓不同類型品牌找到對應的內容語境。",
+        caseOneTitle: "遊戲與偶像合作",
+        caseOneBody: "跨遊戲、直播與偶像團體的話題合作規劃。",
+        caseOneAlt: "遊戲與偶像合作案例圖",
+        caseTwoTitle: "門市體驗貼文",
+        caseTwoBody: "以生活情境與真實體驗帶動家電門市聲量。",
+        caseTwoAlt: "門市體驗貼文案例圖",
+        caseThreeTitle: "家電新品曝光",
+        caseThreeBody: "創作者現場示範，放大產品功能與使用想像。",
+        caseThreeAlt: "家電新品曝光案例圖",
+        caseFourTitle: "生活家電內容",
+        caseFourBody: "把產品亮點轉成好理解、可分享的社群內容。",
+        caseFourAlt: "生活家電內容案例圖",
+        caseFiveTitle: "短影音擴散",
+        caseFiveBody: "TikTok 與短影片創作者導入流量與討論。",
+        caseFiveAlt: "短影音擴散案例圖",
+        caseSixTitle: "社群短片素材",
+        caseSixBody: "以影片素材承接促銷、活動與站外投放需求。",
+        caseSixAlt: "社群短片素材案例圖",
+        caseSevenTitle: "直播合作",
+        caseSevenBody: "直播主合作、聊天室互動與即時轉換情境。",
+        caseSevenAlt: "直播合作案例圖",
+        caseEightTitle: "美妝社群案例",
+        caseEightBody: "生活風格創作者協助品牌建立可信任的內容語境。",
+        caseEightAlt: "美妝社群案例圖",
+        caseNineTitle: "影像製作支援",
+        caseNineBody: "從拍攝場景、素材規劃到廣告製作執行。",
+        caseNineAlt: "影像製作支援案例圖",
+        studyTitle: "安益穩成人奶粉：從市場分析到影像製作",
+        studyBody: "針對營養品市場與媒體使用習慣，建立專案目標、預算時程、廣告拍攝方向與代言合作建議，讓策略不只停留在簡報，而能落到製作與投放素材。",
+        studyLi1: "市場狀況分析與評估",
+        studyLi2: "預算規劃與時程安排",
+        studyLi3: "廣告拍攝、宣傳製作、媒體洽談",
+        studyImage: "web-assets/nutritionist-zh-hant.webp",
+        studyImageAlt: "營養師健康內容行銷案例",
+        pricingTitle: "透明收費",
+        pricingBody: "實際費用會依創作者報價、合作人數、內容形式與執行範圍調整，所有項目都會在報價中清楚列示。",
+        priceOneTitle: "精緻合作 / YouTube / 直播",
+        priceOneLi1: "以創作者總報價計算服務費",
+        priceOneLi2: "適合高溝通密度、高內容要求的合作",
+        priceOneLi3: "包含媒合、溝通、監督與結案協助",
+        priceTwoTitle: "大量合作 / 微網紅 / 奈米網紅",
+        priceTwoRate: "3,600 + 人數 x 400",
+        priceTwoLi1: "適合需要快速擴散與大量曝光的活動",
+        priceTwoLi2: "可依需求規劃計畫預算",
+        priceTwoLi3: "樣品寄送等活動執行可另行估算",
+        contactTitle: "準備開始下一檔合作了嗎？",
+        contactBody: "把品牌目標、預算區間、希望合作的平台與時程寄給我們，我們會協助整理可行方向與初步合作形式。",
+        officeTitle: "深圳辦事處",
+        officeAddress: "深圳市榛果酷科技有限公司<br>廣東省深圳市南山區前海合作區自貿西街18號前海香繽大廈2009-B050",
+        footer: "© 2026 榛菓行銷 / ZHENGUOCool. All Rights Reserved."
+      },
+      "zh-Hans": {
+        metaTitle: "榛果营销 | 网红媒合与数字营销规划",
+        metaDescription: "榛果营销提供网红媒合、社群内容、直播合作、营销规划与成效报告，协助品牌找到合适受众。",
+        brandAria: "榛果营销首页",
+        navAria: "主要导航",
+        langAria: "语言切换",
+        brand: "榛果营销",
+        brandSmall: "Influence Marketing",
+        navServices: "服务",
+        navProcess: "流程",
+        navCases: "案例",
+        navPricing: "收费",
+        navContact: "联系我们",
+        heroTitle: "让品牌被真正合适的人看见",
+        heroBody: "榛果营销以创作者媒合、社群数据、内容监督与营销规划为核心，协助品牌在 YouTube、Instagram、Facebook、TikTok 与直播场景中找到有效受众。",
+        heroCta: "预约项目讨论",
+        heroSecondary: "查看案例",
+        metricOne: "轮人选提案，依时间与需求精准媒合",
+        metricTwo: "精致合作、YouTube、直播合作服务费参考",
+        metricThree: "横跨影音、图文、直播、线下活动场景",
+        signalTitle: "不是只找名单，是把合作做完。",
+        signalBody: "从需求确认、创作者沟通、内容方向、成品发布到结案报告，让品牌少一点混乱，多一点可掌握的成果。",
+        servicesTitle: "服务范围",
+        servicesBody: "依品牌目标拆解成创作者、内容、媒体与成效四个层面，让每一次合作都有明确角色与判断依据。",
+        serviceOneTitle: "创作者媒合与数据筛选",
+        serviceOneBody: "依照预算、受众、平台与内容风格，提供适合的创作者名单与合作建议。",
+        serviceOneLi1: "粉丝数、互动率、平均点赞留言检视",
+        serviceOneLi2: "受众性别、年龄与平台风格分析",
+        serviceOneLi3: "艺人、博主、直播主、Vtuber、KOC 等资源",
+        serviceTwoTitle: "内容执行与合作监督",
+        serviceTwoBody: "协助品牌与创作者之间沟通方向、时间、脚本、素材与发布细节。",
+        serviceTwoLi1: "档期确认、合约与拍摄协助",
+        serviceTwoLi2: "作品监督、制作沟通与细节确认",
+        serviceTwoLi3: "素材授权、投放与版权问题协助",
+        serviceThreeTitle: "营销规划与成效分析",
+        serviceThreeBody: "从市场状况、创意发想到媒体结合与结案数据，建立可执行的完整计划。",
+        serviceThreeLi1: "市场分析、预算安排、效益评估",
+        serviceThreeLi2: "广告拍摄、宣传制作与代言合作",
+        serviceThreeLi3: "结案数据报告与后续优化建议",
+        processTitle: "合作流程",
+        processBody: "每一步都让品牌知道现在要决定什么、谁负责、下一步如何推进。",
+        stepOneTitle: "需求确认",
+        stepOneBody: "确认类型、粉丝数、时间、预算、形式与可行性。",
+        stepTwoTitle: "人选提案",
+        stepTwoBody: "依项目进程提供创作者名单与媒合建议。",
+        stepThreeTitle: "合作启动",
+        stepThreeBody: "确认人选、档期、撰写方向、合约与拍摄协助。",
+        stepFourTitle: "内容发布",
+        stepFourBody: "作品监督、制作沟通、细节确认与成品发布。",
+        stepFiveTitle: "结案报告",
+        stepFiveBody: "整理数据报告、请款资料与创作者拨款流程。",
+        casesTitle: "案例与场景",
+        casesBody: "从游戏直播、家电门店、美妆内容、短视频到线下活动，让不同类型品牌找到对应的内容语境。",
+        caseOneTitle: "游戏与偶像合作",
+        caseOneBody: "跨游戏、直播与偶像团体的话题合作规划。",
+        caseOneAlt: "游戏与偶像合作案例图",
+        caseTwoTitle: "门店体验帖文",
+        caseTwoBody: "以生活情境与真实体验带动家电门店声量。",
+        caseTwoAlt: "门店体验帖文案例图",
+        caseThreeTitle: "家电新品曝光",
+        caseThreeBody: "创作者现场示范，放大产品功能与使用想象。",
+        caseThreeAlt: "家电新品曝光案例图",
+        caseFourTitle: "生活家电内容",
+        caseFourBody: "把产品亮点转成好理解、可分享的社群内容。",
+        caseFourAlt: "生活家电内容案例图",
+        caseFiveTitle: "短视频扩散",
+        caseFiveBody: "TikTok 与短视频创作者导入流量与讨论。",
+        caseFiveAlt: "短视频扩散案例图",
+        caseSixTitle: "社群短片素材",
+        caseSixBody: "以视频素材承接促销、活动与站外投放需求。",
+        caseSixAlt: "社群短片素材案例图",
+        caseSevenTitle: "直播合作",
+        caseSevenBody: "直播主合作、聊天室互动与即时转化情境。",
+        caseSevenAlt: "直播合作案例图",
+        caseEightTitle: "美妆社群案例",
+        caseEightBody: "生活风格创作者协助品牌建立可信任的内容语境。",
+        caseEightAlt: "美妆社群案例图",
+        caseNineTitle: "影像制作支持",
+        caseNineBody: "从拍摄场景、素材规划到广告制作执行。",
+        caseNineAlt: "影像制作支持案例图",
+        studyTitle: "安益稳成人奶粉：从市场分析到影像制作",
+        studyBody: "针对营养品市场与媒体使用习惯，建立项目目标、预算时间、广告拍摄方向与代言合作建议，让策略不只停留在简报，而能落到制作与投放素材。",
+        studyLi1: "市场状况分析与评估",
+        studyLi2: "预算规划与时间安排",
+        studyLi3: "广告拍摄、宣传制作、媒体洽谈",
+        studyImage: "web-assets/nutritionist-zh-hans.webp",
+        studyImageAlt: "营养师健康内容营销案例",
+        pricingTitle: "透明收费",
+        pricingBody: "实际费用会依创作者报价、合作人数、内容形式与执行范围调整，所有项目都会在报价中清楚列示。",
+        priceOneTitle: "精致合作 / YouTube / 直播",
+        priceOneLi1: "以创作者总报价计算服务费",
+        priceOneLi2: "适合高沟通密度、高内容要求的合作",
+        priceOneLi3: "包含媒合、沟通、监督与结案协助",
+        priceTwoTitle: "大量合作 / 微网红 / 奈米网红",
+        priceTwoRate: "3,600 + 人数 x 400",
+        priceTwoLi1: "适合需要快速扩散与大量曝光的活动",
+        priceTwoLi2: "可依需求规划项目预算",
+        priceTwoLi3: "样品寄送等活动执行可另行估算",
+        contactTitle: "准备开始下一档合作了吗？",
+        contactBody: "把品牌目标、预算区间、希望合作的平台与时间寄给我们，我们会协助整理可行方向与初步合作形式。",
+        officeTitle: "深圳办事处",
+        officeAddress: "深圳市榛果酷科技有限公司<br>广东省深圳市南山区前海合作区自贸西街18号前海香缤大厦2009-B050",
+        footer: "© 2026 榛果营销 / ZHENGUOCool. All Rights Reserved."
+      },
+      en: {
+        metaTitle: "Zhenguo Marketing | Influencer Matchmaking and Digital Campaign Planning",
+        metaDescription: "Zhenguo Marketing helps brands with influencer matchmaking, social content, livestream partnerships, campaign planning, and performance reporting.",
+        brandAria: "Zhenguo Marketing home",
+        navAria: "Main navigation",
+        langAria: "Language switcher",
+        brand: "Zhenguo Marketing",
+        brandSmall: "Influence Marketing",
+        navServices: "Services",
+        navProcess: "Process",
+        navCases: "Cases",
+        navPricing: "Pricing",
+        navContact: "Contact",
+        heroTitle: "Put your brand in front of the right people",
+        heroBody: "Zhenguo Marketing combines creator matchmaking, social data, content supervision, and campaign planning to help brands reach useful audiences across YouTube, Instagram, Facebook, TikTok, and livestream channels.",
+        heroCta: "Book a project call",
+        heroSecondary: "View cases",
+        metricOne: "rounds of creator proposals matched to timing and goals",
+        metricTwo: "reference service fee for premium YouTube and livestream collaborations",
+        metricThree: "formats across video, social posts, livestreams, and offline events",
+        signalTitle: "We do more than find names. We finish the collaboration.",
+        signalBody: "From brief alignment and creator communication to content direction, publishing, and final reporting, we make campaigns easier to manage and easier to measure.",
+        servicesTitle: "What We Do",
+        servicesBody: "We translate brand goals into creator fit, content quality, media execution, and measurable outcomes.",
+        serviceOneTitle: "Creator Matchmaking and Data Screening",
+        serviceOneBody: "We recommend suitable creators based on budget, audience, platform, and content style.",
+        serviceOneLi1: "Follower scale, engagement rate, likes, and comment quality review",
+        serviceOneLi2: "Audience gender, age, and platform-style analysis",
+        serviceOneLi3: "Talent, bloggers, livestreamers, Vtubers, KOC resources, and more",
+        serviceTwoTitle: "Content Execution and Collaboration Management",
+        serviceTwoBody: "We coordinate direction, schedule, scripts, assets, and publishing details between brands and creators.",
+        serviceTwoLi1: "Schedule confirmation, contracts, and production support",
+        serviceTwoLi2: "Content supervision, production communication, and detail checks",
+        serviceTwoLi3: "Asset licensing, paid media usage, and rights coordination",
+        serviceThreeTitle: "Marketing Planning and Performance Analysis",
+        serviceThreeBody: "From market context and creative direction to media integration and reporting, we build plans that can actually be executed.",
+        serviceThreeLi1: "Market analysis, budget planning, and impact evaluation",
+        serviceThreeLi2: "Ad production, campaign assets, and ambassador partnerships",
+        serviceThreeLi3: "Final performance reports and optimization suggestions",
+        processTitle: "How We Work",
+        processBody: "Each step clarifies what needs to be decided, who owns it, and how the next move happens.",
+        stepOneTitle: "Brief Alignment",
+        stepOneBody: "Confirm creator type, follower range, timing, budget, format, and feasibility.",
+        stepTwoTitle: "Creator Proposal",
+        stepTwoBody: "Provide creator options and matchmaking suggestions based on the project stage.",
+        stepThreeTitle: "Collaboration Kickoff",
+        stepThreeBody: "Confirm creator selection, schedule, content direction, contracts, and production support.",
+        stepFourTitle: "Publishing",
+        stepFourBody: "Supervise content, coordinate production, confirm details, and support final posting.",
+        stepFiveTitle: "Final Report",
+        stepFiveBody: "Organize performance data, billing documents, and creator payment workflow.",
+        casesTitle: "Cases and Scenarios",
+        casesBody: "From game livestreams and appliance retail to beauty content, short videos, and offline activations, we shape the right content context for each brand.",
+        caseOneTitle: "Game and Idol Collaboration",
+        caseOneBody: "Topical partnerships across games, livestreams, and idol groups.",
+        caseOneAlt: "Game and idol collaboration case image",
+        caseTwoTitle: "Retail Experience Posts",
+        caseTwoBody: "Lifestyle-led content that builds attention for appliance retail locations.",
+        caseTwoAlt: "Retail experience post case image",
+        caseThreeTitle: "New Appliance Exposure",
+        caseThreeBody: "Creator demonstrations that expand product understanding and usage imagination.",
+        caseThreeAlt: "New appliance exposure case image",
+        caseFourTitle: "Lifestyle Appliance Content",
+        caseFourBody: "Turning product strengths into clear, shareable social content.",
+        caseFourAlt: "Lifestyle appliance content case image",
+        caseFiveTitle: "Short-Video Reach",
+        caseFiveBody: "TikTok and short-video creators bring traffic and conversation.",
+        caseFiveAlt: "Short-video reach case image",
+        caseSixTitle: "Social Video Assets",
+        caseSixBody: "Video materials that support promotions, activations, and paid media.",
+        caseSixAlt: "Social video asset case image",
+        caseSevenTitle: "Livestream Collaboration",
+        caseSevenBody: "Host partnerships, chat interaction, and live conversion moments.",
+        caseSevenAlt: "Livestream collaboration case image",
+        caseEightTitle: "Beauty Social Content",
+        caseEightBody: "Lifestyle creators help brands build credible content contexts.",
+        caseEightAlt: "Beauty social content case image",
+        caseNineTitle: "Visual Production Support",
+        caseNineBody: "From shooting scenes and asset planning to ad production execution.",
+        caseNineAlt: "Visual production support case image",
+        studyTitle: "Adult Milk Powder: From Market Analysis to Visual Production",
+        studyBody: "For the nutrition market and media habits, we shape project goals, budget timing, ad production direction, and ambassador partnership suggestions so strategy becomes usable campaign material.",
+        studyLi1: "Market situation analysis and evaluation",
+        studyLi2: "Budget planning and timeline arrangement",
+        studyLi3: "Ad shooting, campaign production, and media coordination",
+        studyImage: "web-assets/nutritionist-en.webp",
+        studyImageAlt: "Nutritionist wellness content marketing case",
+        pricingTitle: "Transparent Pricing",
+        pricingBody: "Actual fees vary by creator quote, creator count, content format, and scope. Every line item is shown clearly in the proposal.",
+        priceOneTitle: "Premium / YouTube / Livestream",
+        priceOneLi1: "Service fee based on total creator quote",
+        priceOneLi2: "Built for high-communication, high-content-requirement collaborations",
+        priceOneLi3: "Includes matchmaking, communication, supervision, and wrap-up support",
+        priceTwoTitle: "High-Volume / Micro and Nano Influencers",
+        priceTwoRate: "3,600 + creators x 400",
+        priceTwoLi1: "Suitable for fast reach and broad exposure campaigns",
+        priceTwoLi2: "Project budget can be planned according to campaign needs",
+        priceTwoLi3: "Sample delivery and activity execution can be estimated separately",
+        contactTitle: "Ready to plan the next collaboration?",
+        contactBody: "Send us your brand goals, budget range, preferred platforms, and timeline. We will help organize feasible directions and initial collaboration formats.",
+        officeTitle: "Shenzhen Office",
+        officeAddress: "Shenzhen Zhenguocool Technology Co., Ltd.<br>Room 2009-B050, Qianhai Champagne Building, No. 18 Free Trade West Street, Qianhai Cooperation Zone, Nanshan District, Shenzhen, Guangdong",
+        footer: "© 2026 Zhenguo Marketing / ZHENGUOCool. All Rights Reserved."
+      }
+    };
+
+    const applyLanguage = (lang) => {
+      const copy = translations[lang] || translations["zh-Hant"];
+      document.documentElement.lang = lang;
+      document.title = copy.metaTitle;
+      document.querySelector('meta[name="description"]').setAttribute("content", copy.metaDescription);
+      document.querySelectorAll("[data-i18n]").forEach((node) => {
+        node.textContent = copy[node.dataset.i18n] || "";
+      });
+      document.querySelectorAll("[data-i18n-html]").forEach((node) => {
+        node.innerHTML = copy[node.dataset.i18nHtml] || "";
+      });
+      document.querySelectorAll("[data-i18n-alt]").forEach((node) => {
+        node.setAttribute("alt", copy[node.dataset.i18nAlt] || "");
+      });
+      document.querySelectorAll("[data-i18n-src]").forEach((node) => {
+        node.setAttribute("src", copy[node.dataset.i18nSrc] || "");
+      });
+      document.querySelectorAll("[data-i18n-aria-label]").forEach((node) => {
+        node.setAttribute("aria-label", copy[node.dataset.i18nAriaLabel] || "");
+      });
+      document.querySelectorAll("[data-lang]").forEach((button) => {
+        button.setAttribute("aria-pressed", String(button.dataset.lang === lang));
+      });
+      localStorage.setItem("zg-lang", lang);
+    };
+
+    document.querySelectorAll("[data-lang]").forEach((button) => {
+      button.addEventListener("click", () => applyLanguage(button.dataset.lang));
+    });
+
+    const savedLang = localStorage.getItem("zg-lang");
+    const browserLang = navigator.language && navigator.language.toLowerCase().startsWith("zh-cn") ? "zh-Hans" : "zh-Hant";
+    applyLanguage(translations[savedLang] ? savedLang : browserLang);
+  </script>
 </body>
 </html>
