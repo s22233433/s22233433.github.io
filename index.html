@@ -61,7 +61,7 @@
     nav {
       display: flex;
       align-items: center;
-      gap: 22px;
+      gap: 18px;
       color: var(--muted);
       font-size: 14px;
       font-weight: 700;
@@ -188,7 +188,7 @@
       line-height: 1;
       font-family: Georgia, "Times New Roman", serif;
     }
-    .metric span { color: var(--muted); font-weight: 700; }
+    .metric span { display: block; color: var(--muted); font-weight: 700; }
     .signal-card {
       margin-top: 28px;
       background: var(--ink);
@@ -286,6 +286,72 @@
     }
     .step h3 { font-size: 20px; margin-bottom: 10px; }
     .step p { color: #d7e6df; margin: 0; font-size: 15px; }
+    .planning-section {
+      background:
+        linear-gradient(180deg, rgba(255,255,255,.72), rgba(251,250,246,0)),
+        var(--paper);
+    }
+    .planning-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+    }
+    .planning-card {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 16px 42px rgba(20,33,61,.06);
+    }
+    .planning-card img {
+      width: 100%;
+      aspect-ratio: 16 / 10;
+      object-fit: contain;
+      background: #f5f1e8;
+      border-bottom: 1px solid var(--line);
+    }
+    .planning-copy { padding: 20px; }
+    .planning-copy span {
+      color: var(--teal);
+      font-size: 12px;
+      font-weight: 900;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+    }
+    .planning-copy h3 { margin: 8px 0 8px; font-size: 20px; line-height: 1.25; }
+    .planning-copy p { color: var(--muted); margin: 0; font-size: 15px; }
+    .featured-cases {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+      margin-bottom: 24px;
+    }
+    .featured-case {
+      overflow: hidden;
+      background: var(--ink);
+      border-radius: 8px;
+      border: 1px solid rgba(20,33,61,.12);
+      box-shadow: var(--shadow);
+    }
+    .featured-case img {
+      width: 100%;
+      aspect-ratio: 16 / 10;
+      object-fit: contain;
+      background: #f7f3ed;
+    }
+    .featured-copy {
+      padding: 20px;
+      color: white;
+    }
+    .featured-copy span {
+      color: var(--mustard);
+      font-size: 12px;
+      font-weight: 900;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+    }
+    .featured-copy h3 { margin: 8px 0 8px; font-size: 22px; }
+    .featured-copy p { margin: 0; color: #d9e3f0; font-size: 15px; }
     .case-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
@@ -394,7 +460,7 @@
       .nav-tools { margin-left: auto; }
       .hero-grid, .section-head, .case-study, .contact-box { grid-template-columns: 1fr; }
       .hero-panel { min-height: auto; border-left: 0; padding-left: 0; }
-      .services, .case-grid, .pricing { grid-template-columns: 1fr; }
+      .services, .planning-grid, .featured-cases, .case-grid, .pricing { grid-template-columns: 1fr; }
       .steps { grid-template-columns: 1fr; }
       section { padding: 66px 0; }
     }
@@ -416,6 +482,7 @@
       <div class="nav-tools">
         <nav aria-label="主要導覽" data-i18n-aria-label="navAria">
           <a href="#services" data-i18n="navServices">服務</a>
+          <a href="#planning" data-i18n="navPlanning">規劃</a>
           <a href="#process" data-i18n="navProcess">流程</a>
           <a href="#cases" data-i18n="navCases">案例</a>
           <a href="#pricing" data-i18n="navPricing">收費</a>
@@ -444,9 +511,9 @@
         </div>
         <aside class="hero-panel reveal" style="--delay:120ms">
           <div class="metric-stack">
-            <div class="metric"><strong>1-3</strong><span data-i18n="metricOne">輪人選提案，依時程與需求精準媒合</span></div>
-            <div class="metric"><strong>15%</strong><span data-i18n="metricTwo">精緻合作、YouTube、直播合作服務費參考</span></div>
-            <div class="metric"><strong>4+</strong><span data-i18n="metricThree">橫跨影音、圖文、直播、線下活動場景</span></div>
+            <div class="metric"><strong data-i18n="metricOneValue">1-3輪</strong><span data-i18n="metricOne">候選名單提案：依預算、平台與時程提供可比較的人選方向。</span></div>
+            <div class="metric"><strong data-i18n="metricTwoValue">5階段</strong><span data-i18n="metricTwo">從需求確認、媒合、合作啟動、內容上刊到結案報告。</span></div>
+            <div class="metric"><strong data-i18n="metricThreeValue">4大場景</strong><span data-i18n="metricThree">影音、圖文、直播、線下活動都能整合規劃。</span></div>
           </div>
           <div class="signal-card">
             <h2 data-i18n="signalTitle">不是只找名單，是把合作做完。</h2>
@@ -497,6 +564,49 @@
       </div>
     </section>
 
+    <section id="planning" class="planning-section">
+      <div class="wrap">
+        <div class="section-head">
+          <h2 data-i18n="planningTitle">行銷規劃實作</h2>
+          <p data-i18n="planningBody">營養品案例不只呈現視覺素材，而是把市場、預算、代言洽談與拍攝製作拆成可執行的工作流。</p>
+        </div>
+        <div class="planning-grid">
+          <article class="planning-card reveal">
+            <img src="web-assets/planning-market.webp" alt="營養品市場聲量與媒體使用分析" data-i18n-alt="planningOneAlt">
+            <div class="planning-copy">
+              <span>Planning 01</span>
+              <h3 data-i18n="planningOneTitle">市場狀況分析與評估</h3>
+              <p data-i18n="planningOneBody">先看聲量波段、媒體使用與受眾習慣，判斷溝通切入點。</p>
+            </div>
+          </article>
+          <article class="planning-card reveal" style="--delay:80ms">
+            <img src="web-assets/planning-budget.webp" alt="專案預算規劃與時程安排" data-i18n-alt="planningTwoAlt">
+            <div class="planning-copy">
+              <span>Planning 02</span>
+              <h3 data-i18n="planningTwoTitle">預算規劃與時程安排</h3>
+              <p data-i18n="planningTwoBody">把預算拆成管理、人員與案件強化，讓每一筆投入有任務。</p>
+            </div>
+          </article>
+          <article class="planning-card reveal" style="--delay:160ms">
+            <img src="web-assets/planning-spokesperson.webp" alt="代言合作與媒體洽談規劃" data-i18n-alt="planningThreeAlt">
+            <div class="planning-copy">
+              <span>Planning 03</span>
+              <h3 data-i18n="planningThreeTitle">代言合作 / 媒體洽談</h3>
+              <p data-i18n="planningThreeBody">規劃專業信任背書、自然露出與品牌價值提升的合作方式。</p>
+            </div>
+          </article>
+          <article class="planning-card reveal" style="--delay:240ms">
+            <img src="web-assets/planning-production.webp" alt="廣告拍攝與宣傳製作現場" data-i18n-alt="planningFourAlt">
+            <div class="planning-copy">
+              <span>Planning 04</span>
+              <h3 data-i18n="planningFourTitle">廣告拍攝與宣傳製作</h3>
+              <p data-i18n="planningFourBody">從腳本、場地、拍攝到素材投放，讓策略落成可使用的內容。</p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
     <section id="process" class="process-band">
       <div class="wrap">
         <div class="section-head">
@@ -518,6 +628,32 @@
         <div class="section-head">
           <h2 data-i18n="casesTitle">案例與場景</h2>
           <p data-i18n="casesBody">從遊戲直播、家電門市、美妝內容、短影音到線下活動，讓不同類型品牌找到對應的內容語境。</p>
+        </div>
+        <div class="featured-cases">
+          <article class="featured-case reveal">
+            <img src="web-assets/game-liming-cheer.webp" alt="黎明在線與味全龍啦啦隊合作案例" data-i18n-alt="gameCaseOneAlt">
+            <div class="featured-copy">
+              <span>Featured 01</span>
+              <h3 data-i18n="gameCaseOneTitle">黎明在線 x 味全龍啦啦隊</h3>
+              <p data-i18n="gameCaseOneBody">以啦啦隊與遊戲題材做話題連結，提升活動感與社群討論。</p>
+            </div>
+          </article>
+          <article class="featured-case reveal" style="--delay:90ms">
+            <img src="web-assets/game-lords-gacha.webp" alt="王國紀元與少女轉蛋合作案例" data-i18n-alt="gameCaseTwoAlt">
+            <div class="featured-copy">
+              <span>Featured 02</span>
+              <h3 data-i18n="gameCaseTwoTitle">王國紀元 x 少女轉蛋</h3>
+              <p data-i18n="gameCaseTwoBody">結合遊戲角色、團體曝光與活動訴求，讓合作更有記憶點。</p>
+            </div>
+          </article>
+          <article class="featured-case reveal" style="--delay:180ms">
+            <img src="web-assets/game-viking-akb.webp" alt="維京崛起與 AKB48-TP 合作案例" data-i18n-alt="gameCaseThreeAlt">
+            <div class="featured-copy">
+              <span>Featured 03</span>
+              <h3 data-i18n="gameCaseThreeTitle">維京崛起 x AKB48-TP</h3>
+              <p data-i18n="gameCaseThreeBody">運用偶像團體與遊戲世界觀，打造粉絲可參與、可分享的合作情境。</p>
+            </div>
+          </article>
         </div>
         <div class="case-grid">
           
@@ -691,6 +827,7 @@
         brand: "榛菓行銷",
         brandSmall: "Influence Marketing",
         navServices: "服務",
+        navPlanning: "規劃",
         navProcess: "流程",
         navCases: "案例",
         navPricing: "收費",
@@ -699,9 +836,12 @@
         heroBody: "榛菓行銷以創作者媒合、社群數據、內容監督與行銷規劃為核心，協助品牌在 YouTube、Instagram、Facebook、TikTok 與直播場景中找到有效受眾。",
         heroCta: "預約專案討論",
         heroSecondary: "查看案例",
-        metricOne: "輪人選提案，依時程與需求精準媒合",
-        metricTwo: "精緻合作、YouTube、直播合作服務費參考",
-        metricThree: "橫跨影音、圖文、直播、線下活動場景",
+        metricOneValue: "1-3輪",
+        metricOne: "候選名單提案：依預算、平台與時程提供可比較的人選方向。",
+        metricTwoValue: "5階段",
+        metricTwo: "從需求確認、媒合、合作啟動、內容上刊到結案報告。",
+        metricThreeValue: "4大場景",
+        metricThree: "影音、圖文、直播、線下活動都能整合規劃。",
         signalTitle: "不是只找名單，是把合作做完。",
         signalBody: "從需求確認、創作者溝通、內容方向、成品上刊到結案報告，讓品牌少一點混亂，多一點可掌握的成果。",
         servicesTitle: "服務範疇",
@@ -721,6 +861,20 @@
         serviceThreeLi1: "市場分析、預算安排、效益評估",
         serviceThreeLi2: "廣告拍攝、宣傳製作與代言合作",
         serviceThreeLi3: "結案數據報告與後續優化建議",
+        planningTitle: "行銷規劃實作",
+        planningBody: "營養品案例不只呈現視覺素材，而是把市場、預算、代言洽談與拍攝製作拆成可執行的工作流。",
+        planningOneTitle: "市場狀況分析與評估",
+        planningOneBody: "先看聲量波段、媒體使用與受眾習慣，判斷溝通切入點。",
+        planningOneAlt: "營養品市場聲量與媒體使用分析",
+        planningTwoTitle: "預算規劃與時程安排",
+        planningTwoBody: "把預算拆成管理、人員與案件強化，讓每一筆投入有任務。",
+        planningTwoAlt: "專案預算規劃與時程安排",
+        planningThreeTitle: "代言合作 / 媒體洽談",
+        planningThreeBody: "規劃專業信任背書、自然露出與品牌價值提升的合作方式。",
+        planningThreeAlt: "代言合作與媒體洽談規劃",
+        planningFourTitle: "廣告拍攝與宣傳製作",
+        planningFourBody: "從腳本、場地、拍攝到素材投放，讓策略落成可使用的內容。",
+        planningFourAlt: "廣告拍攝與宣傳製作現場",
         processTitle: "合作流程",
         processBody: "每一步都讓品牌知道現在要決定什麼、誰負責、下一步如何推進。",
         stepOneTitle: "需求確認",
@@ -735,6 +889,15 @@
         stepFiveBody: "整理數據報告、請款資料與創作者撥款流程。",
         casesTitle: "案例與場景",
         casesBody: "從遊戲直播、家電門市、美妝內容、短影音到線下活動，讓不同類型品牌找到對應的內容語境。",
+        gameCaseOneTitle: "黎明在線 x 味全龍啦啦隊",
+        gameCaseOneBody: "以啦啦隊與遊戲題材做話題連結，提升活動感與社群討論。",
+        gameCaseOneAlt: "黎明在線與味全龍啦啦隊合作案例",
+        gameCaseTwoTitle: "王國紀元 x 少女轉蛋",
+        gameCaseTwoBody: "結合遊戲角色、團體曝光與活動訴求，讓合作更有記憶點。",
+        gameCaseTwoAlt: "王國紀元與少女轉蛋合作案例",
+        gameCaseThreeTitle: "維京崛起 x AKB48-TP",
+        gameCaseThreeBody: "運用偶像團體與遊戲世界觀，打造粉絲可參與、可分享的合作情境。",
+        gameCaseThreeAlt: "維京崛起與 AKB48-TP 合作案例",
         caseOneTitle: "遊戲與偶像合作",
         caseOneBody: "跨遊戲、直播與偶像團體的話題合作規劃。",
         caseOneAlt: "遊戲與偶像合作案例圖",
@@ -795,6 +958,7 @@
         brand: "榛果营销",
         brandSmall: "Influence Marketing",
         navServices: "服务",
+        navPlanning: "规划",
         navProcess: "流程",
         navCases: "案例",
         navPricing: "收费",
@@ -803,9 +967,12 @@
         heroBody: "榛果营销以创作者媒合、社群数据、内容监督与营销规划为核心，协助品牌在 YouTube、Instagram、Facebook、TikTok 与直播场景中找到有效受众。",
         heroCta: "预约项目讨论",
         heroSecondary: "查看案例",
-        metricOne: "轮人选提案，依时间与需求精准媒合",
-        metricTwo: "精致合作、YouTube、直播合作服务费参考",
-        metricThree: "横跨影音、图文、直播、线下活动场景",
+        metricOneValue: "1-3轮",
+        metricOne: "候选名单提案：依预算、平台与时间提供可比较的人选方向。",
+        metricTwoValue: "5阶段",
+        metricTwo: "从需求确认、媒合、合作启动、内容发布到结案报告。",
+        metricThreeValue: "4大场景",
+        metricThree: "影音、图文、直播、线下活动都能整合规划。",
         signalTitle: "不是只找名单，是把合作做完。",
         signalBody: "从需求确认、创作者沟通、内容方向、成品发布到结案报告，让品牌少一点混乱，多一点可掌握的成果。",
         servicesTitle: "服务范围",
@@ -825,6 +992,20 @@
         serviceThreeLi1: "市场分析、预算安排、效益评估",
         serviceThreeLi2: "广告拍摄、宣传制作与代言合作",
         serviceThreeLi3: "结案数据报告与后续优化建议",
+        planningTitle: "营销规划实作",
+        planningBody: "营养品案例不只呈现视觉素材，而是把市场、预算、代言洽谈与拍摄制作拆成可执行的工作流。",
+        planningOneTitle: "市场状况分析与评估",
+        planningOneBody: "先看声量波段、媒体使用与受众习惯，判断沟通切入点。",
+        planningOneAlt: "营养品市场声量与媒体使用分析",
+        planningTwoTitle: "预算规划与时间安排",
+        planningTwoBody: "把预算拆成管理、人员与项目强化，让每一笔投入有任务。",
+        planningTwoAlt: "项目预算规划与时间安排",
+        planningThreeTitle: "代言合作 / 媒体洽谈",
+        planningThreeBody: "规划专业信任背书、自然露出与品牌价值提升的合作方式。",
+        planningThreeAlt: "代言合作与媒体洽谈规划",
+        planningFourTitle: "广告拍摄与宣传制作",
+        planningFourBody: "从脚本、场地、拍摄到素材投放，让策略落成可使用的内容。",
+        planningFourAlt: "广告拍摄与宣传制作现场",
         processTitle: "合作流程",
         processBody: "每一步都让品牌知道现在要决定什么、谁负责、下一步如何推进。",
         stepOneTitle: "需求确认",
@@ -839,6 +1020,15 @@
         stepFiveBody: "整理数据报告、请款资料与创作者拨款流程。",
         casesTitle: "案例与场景",
         casesBody: "从游戏直播、家电门店、美妆内容、短视频到线下活动，让不同类型品牌找到对应的内容语境。",
+        gameCaseOneTitle: "黎明在线 x 味全龙啦啦队",
+        gameCaseOneBody: "以啦啦队与游戏题材做话题连结，提升活动感与社群讨论。",
+        gameCaseOneAlt: "黎明在线与味全龙啦啦队合作案例",
+        gameCaseTwoTitle: "王国纪元 x 少女转蛋",
+        gameCaseTwoBody: "结合游戏角色、团体曝光与活动诉求，让合作更有记忆点。",
+        gameCaseTwoAlt: "王国纪元与少女转蛋合作案例",
+        gameCaseThreeTitle: "维京崛起 x AKB48-TP",
+        gameCaseThreeBody: "运用偶像团体与游戏世界观，打造粉丝可参与、可分享的合作情境。",
+        gameCaseThreeAlt: "维京崛起与 AKB48-TP 合作案例",
         caseOneTitle: "游戏与偶像合作",
         caseOneBody: "跨游戏、直播与偶像团体的话题合作规划。",
         caseOneAlt: "游戏与偶像合作案例图",
@@ -899,6 +1089,7 @@
         brand: "Zhenguo Marketing",
         brandSmall: "Influence Marketing",
         navServices: "Services",
+        navPlanning: "Planning",
         navProcess: "Process",
         navCases: "Cases",
         navPricing: "Pricing",
@@ -907,9 +1098,12 @@
         heroBody: "Zhenguo Marketing combines creator matchmaking, social data, content supervision, and campaign planning to help brands reach useful audiences across YouTube, Instagram, Facebook, TikTok, and livestream channels.",
         heroCta: "Book a project call",
         heroSecondary: "View cases",
-        metricOne: "rounds of creator proposals matched to timing and goals",
-        metricTwo: "reference service fee for premium YouTube and livestream collaborations",
-        metricThree: "formats across video, social posts, livestreams, and offline events",
+        metricOneValue: "1-3 rounds",
+        metricOne: "Creator proposals: comparable creator directions based on budget, platform, and timing.",
+        metricTwoValue: "5 stages",
+        metricTwo: "From brief alignment and matchmaking to kickoff, publishing, and final reporting.",
+        metricThreeValue: "4 formats",
+        metricThree: "Video, social posts, livestreams, and offline activations can be planned together.",
         signalTitle: "We do more than find names. We finish the collaboration.",
         signalBody: "From brief alignment and creator communication to content direction, publishing, and final reporting, we make campaigns easier to manage and easier to measure.",
         servicesTitle: "What We Do",
@@ -929,6 +1123,20 @@
         serviceThreeLi1: "Market analysis, budget planning, and impact evaluation",
         serviceThreeLi2: "Ad production, campaign assets, and ambassador partnerships",
         serviceThreeLi3: "Final performance reports and optimization suggestions",
+        planningTitle: "Campaign Planning in Practice",
+        planningBody: "The nutrition case is more than a visual sample. It turns market analysis, budgeting, spokesperson coordination, and production into an executable workflow.",
+        planningOneTitle: "Market Analysis and Evaluation",
+        planningOneBody: "Start with volume trends, media usage, and audience habits to find the right communication angle.",
+        planningOneAlt: "Nutrition market volume and media usage analysis",
+        planningTwoTitle: "Budget and Timeline Planning",
+        planningTwoBody: "Split the budget into management, talent, and campaign enhancement so every spend has a job.",
+        planningTwoAlt: "Project budget and timeline planning",
+        planningThreeTitle: "Spokesperson and Media Coordination",
+        planningThreeBody: "Plan professional credibility, natural exposure, and brand-value building through partnership formats.",
+        planningThreeAlt: "Spokesperson partnership and media coordination plan",
+        planningFourTitle: "Ad Shooting and Campaign Production",
+        planningFourBody: "From script, location, and shooting to usable assets for distribution and paid media.",
+        planningFourAlt: "Ad shooting and campaign production setup",
         processTitle: "How We Work",
         processBody: "Each step clarifies what needs to be decided, who owns it, and how the next move happens.",
         stepOneTitle: "Brief Alignment",
@@ -943,6 +1151,15 @@
         stepFiveBody: "Organize performance data, billing documents, and creator payment workflow.",
         casesTitle: "Cases and Scenarios",
         casesBody: "From game livestreams and appliance retail to beauty content, short videos, and offline activations, we shape the right content context for each brand.",
+        gameCaseOneTitle: "Liming Online x Wei Chuan Dragons Cheerleaders",
+        gameCaseOneBody: "A cheerleading and game collaboration that builds event energy and social conversation.",
+        gameCaseOneAlt: "Liming Online and Wei Chuan Dragons cheerleaders campaign case",
+        gameCaseTwoTitle: "Lords Mobile x Girl Gacha",
+        gameCaseTwoBody: "Game characters, group exposure, and campaign messaging combined into a memorable partnership.",
+        gameCaseTwoAlt: "Lords Mobile and Girl Gacha campaign case",
+        gameCaseThreeTitle: "Viking Rise x AKB48-TP",
+        gameCaseThreeBody: "An idol-group collaboration shaped around the game world so fans can participate and share.",
+        gameCaseThreeAlt: "Viking Rise and AKB48-TP campaign case",
         caseOneTitle: "Game and Idol Collaboration",
         caseOneBody: "Topical partnerships across games, livestreams, and idol groups.",
         caseOneAlt: "Game and idol collaboration case image",
