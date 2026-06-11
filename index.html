@@ -178,17 +178,22 @@
       background: rgba(255,255,255,.82);
       border: 1px solid var(--line);
       border-radius: 8px;
-      padding: 22px;
+      padding: 20px 22px;
       box-shadow: 0 16px 40px rgba(20,33,61,.08);
     }
     .metric strong {
       display: block;
       color: var(--coral);
-      font-size: 42px;
+      font-size: clamp(40px, 4.4vw, 54px);
       line-height: 1;
       font-family: Georgia, "Times New Roman", serif;
     }
-    .metric span { display: block; color: var(--muted); font-weight: 700; }
+    .metric span {
+      display: block;
+      margin-top: 8px;
+      color: var(--muted);
+      font-weight: 800;
+    }
     .signal-card {
       margin-top: 28px;
       background: var(--ink);
@@ -398,6 +403,11 @@
       font-family: Georgia, "Times New Roman", serif;
       font-size: clamp(36px, 5vw, 58px);
       line-height: 1;
+      white-space: nowrap;
+      overflow-wrap: normal;
+    }
+    .price-card .price-formula {
+      font-size: clamp(26px, 2.35vw, 34px);
     }
     .case-study {
       display: grid;
@@ -420,16 +430,17 @@
     .contact {
       background: var(--coral);
       color: white;
+      padding: 72px 0;
     }
     .contact-box {
       display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 42px;
+      grid-template-columns: 1.05fr .95fr;
+      gap: 34px;
       align-items: center;
     }
     .contact h2 {
       font-family: Georgia, "Times New Roman", serif;
-      font-size: clamp(38px, 6vw, 74px);
+      font-size: clamp(36px, 5.2vw, 66px);
       line-height: 1;
       margin-bottom: 18px;
     }
@@ -438,9 +449,65 @@
       background: rgba(255,255,255,.13);
       border: 1px solid rgba(255,255,255,.26);
       border-radius: 8px;
-      padding: 28px;
+      padding: 24px;
+      display: grid;
+      gap: 18px;
     }
-    .contact-card a { font-size: 24px; font-weight: 900; }
+    .contact-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: center;
+    }
+    .icon-link,
+    .contact-reveal summary {
+      width: 46px;
+      height: 46px;
+      display: inline-grid;
+      place-items: center;
+      border: 1px solid rgba(255,255,255,.36);
+      border-radius: 50%;
+      background: rgba(255,255,255,.12);
+      color: white;
+      cursor: pointer;
+      transition: transform .2s ease, background .2s ease;
+    }
+    .icon-link:hover,
+    .contact-reveal summary:hover {
+      transform: translateY(-2px);
+      background: rgba(255,255,255,.22);
+    }
+    .icon-link svg,
+    .contact-reveal svg {
+      width: 22px;
+      height: 22px;
+      stroke: currentColor;
+      fill: none;
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+    .contact-reveal { display: inline-block; }
+    .contact-reveal summary { list-style: none; }
+    .contact-reveal summary::-webkit-details-marker { display: none; }
+    .contact-email {
+      margin-top: 10px;
+      display: inline-block;
+      color: white;
+      font-size: 20px;
+      font-weight: 900;
+    }
+    .office-list {
+      display: grid;
+      gap: 14px;
+    }
+    .office-list p { margin: 0; }
+    .office-list strong {
+      display: block;
+      margin-bottom: 4px;
+      color: white;
+      font-size: 15px;
+    }
     footer {
       padding: 22px 0;
       color: var(--muted);
@@ -468,7 +535,10 @@
       .wrap { width: min(100% - 28px, 1160px); }
       h1 { font-size: 46px; }
       .case-study { padding: 18px; }
+      .contact { padding: 56px 0; }
       .contact-card a { font-size: 19px; }
+      .price-card { padding: 24px; }
+      .price-card .price-formula { font-size: clamp(20px, 5.3vw, 23px); }
     }
   </style>
 </head>
@@ -511,9 +581,9 @@
         </div>
         <aside class="hero-panel reveal" style="--delay:120ms">
           <div class="metric-stack">
-            <div class="metric"><strong data-i18n="metricOneValue">1-3輪</strong><span data-i18n="metricOne">候選名單提案：依預算、平台與時程提供可比較的人選方向。</span></div>
-            <div class="metric"><strong data-i18n="metricTwoValue">5階段</strong><span data-i18n="metricTwo">從需求確認、媒合、合作啟動、內容上刊到結案報告。</span></div>
-            <div class="metric"><strong data-i18n="metricThreeValue">4大場景</strong><span data-i18n="metricThree">影音、圖文、直播、線下活動都能整合規劃。</span></div>
+            <div class="metric"><strong data-i18n="metricOneValue">3,600+</strong><span data-i18n="metricOne">大量微網紅專案起案費，搭配人數 x 400 快速估算擴散預算。</span></div>
+            <div class="metric"><strong data-i18n="metricTwoValue">15%</strong><span data-i18n="metricTwo">精緻合作、YouTube 與直播合作服務費參考，成本更清楚。</span></div>
+            <div class="metric"><strong data-i18n="metricThreeValue">5類資源</strong><span data-i18n="metricThree">藝人、部落客、直播主、Vtuber、KOC 都能依情境媒合。</span></div>
           </div>
           <div class="signal-card">
             <h2 data-i18n="signalTitle">不是只找名單，是把合作做完。</h2>
@@ -786,7 +856,7 @@
           </article>
           <article class="price-card">
             <h3 data-i18n="priceTwoTitle">大量合作 / 微網紅 / 奈米網紅</h3>
-            <strong data-i18n="priceTwoRate">3,600 + 人數 x 400</strong>
+            <strong class="price-formula" data-i18n="priceTwoRate">3,600 + 人數 x 400</strong>
             <ul>
               <li data-i18n="priceTwoLi1">適合需要快速擴散與大量曝光的活動</li>
               <li data-i18n="priceTwoLi2">可依需求規劃計畫預算</li>
@@ -804,10 +874,21 @@
           <p data-i18n="contactBody">把品牌目標、預算區間、希望合作的平台與時程寄給我們，我們會協助整理可行方向與初步合作形式。</p>
         </div>
         <div class="contact-card">
-          <p>Email</p>
-          <a href="mailto:weiting@zhenguocool.com">weiting@zhenguocool.com</a>
-          <p style="margin-top:28px" data-i18n="officeTitle">深圳辦事處</p>
-          <p data-i18n-html="officeAddress">深圳市榛果酷科技有限公司<br>廣東省深圳市南山區前海合作區自貿西街18號前海香繽大廈2009-B050</p>
+          <div class="contact-actions" aria-label="聯絡方式" data-i18n-aria-label="contactActionsAria">
+            <details class="contact-reveal">
+              <summary aria-label="顯示 Email" data-i18n-aria-label="emailRevealAria">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"></rect><path d="m3 7 9 6 9-6"></path></svg>
+              </summary>
+              <a class="contact-email" href="mailto:weiting@zhenguocool.com">weiting@zhenguocool.com</a>
+            </details>
+            <a class="icon-link" href="https://www.instagram.com/kolmasters_tw" target="_blank" rel="noopener" aria-label="Instagram" data-i18n-aria-label="instagramAria">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="4" width="16" height="16" rx="5"></rect><circle cx="12" cy="12" r="3.5"></circle><path d="M17.5 6.5h.01"></path></svg>
+            </a>
+          </div>
+          <div class="office-list">
+            <p><strong data-i18n="taiwanOfficeTitle">台灣辦事處</strong><span data-i18n-html="taiwanOfficeAddress">榛菓行銷有限公司<br>臺北市大安區和安里復興南路一段３５２號２樓之３</span></p>
+            <p><strong data-i18n="officeTitle">深圳辦事處</strong><span data-i18n-html="officeAddress">深圳市榛果酷科技有限公司<br>廣東省深圳市南山區前海合作區自貿西街18號前海香繽大廈2009-B050</span></p>
+          </div>
         </div>
       </div>
     </section>
@@ -836,12 +917,12 @@
         heroBody: "榛菓行銷以創作者媒合、社群數據、內容監督與行銷規劃為核心，協助品牌在 YouTube、Instagram、Facebook、TikTok 與直播場景中找到有效受眾。",
         heroCta: "預約專案討論",
         heroSecondary: "查看案例",
-        metricOneValue: "1-3輪",
-        metricOne: "候選名單提案：依預算、平台與時程提供可比較的人選方向。",
-        metricTwoValue: "5階段",
-        metricTwo: "從需求確認、媒合、合作啟動、內容上刊到結案報告。",
-        metricThreeValue: "4大場景",
-        metricThree: "影音、圖文、直播、線下活動都能整合規劃。",
+        metricOneValue: "3,600+",
+        metricOne: "大量微網紅專案起案費，搭配人數 x 400 快速估算擴散預算。",
+        metricTwoValue: "15%",
+        metricTwo: "精緻合作、YouTube 與直播合作服務費參考，成本更清楚。",
+        metricThreeValue: "5類資源",
+        metricThree: "藝人、部落客、直播主、Vtuber、KOC 都能依情境媒合。",
         signalTitle: "不是只找名單，是把合作做完。",
         signalBody: "從需求確認、創作者溝通、內容方向、成品上刊到結案報告，讓品牌少一點混亂，多一點可掌握的成果。",
         servicesTitle: "服務範疇",
@@ -945,6 +1026,11 @@
         priceTwoLi3: "樣品寄送等活動執行可另行估算",
         contactTitle: "準備開始下一檔合作了嗎？",
         contactBody: "把品牌目標、預算區間、希望合作的平台與時程寄給我們，我們會協助整理可行方向與初步合作形式。",
+        contactActionsAria: "聯絡方式",
+        emailRevealAria: "顯示 Email",
+        instagramAria: "Instagram",
+        taiwanOfficeTitle: "台灣辦事處",
+        taiwanOfficeAddress: "榛菓行銷有限公司<br>臺北市大安區和安里復興南路一段３５２號２樓之３",
         officeTitle: "深圳辦事處",
         officeAddress: "深圳市榛果酷科技有限公司<br>廣東省深圳市南山區前海合作區自貿西街18號前海香繽大廈2009-B050",
         footer: "© 2026 榛菓行銷 / ZHENGUOCool. All Rights Reserved."
@@ -967,12 +1053,12 @@
         heroBody: "榛果营销以创作者媒合、社群数据、内容监督与营销规划为核心，协助品牌在 YouTube、Instagram、Facebook、TikTok 与直播场景中找到有效受众。",
         heroCta: "预约项目讨论",
         heroSecondary: "查看案例",
-        metricOneValue: "1-3轮",
-        metricOne: "候选名单提案：依预算、平台与时间提供可比较的人选方向。",
-        metricTwoValue: "5阶段",
-        metricTwo: "从需求确认、媒合、合作启动、内容发布到结案报告。",
-        metricThreeValue: "4大场景",
-        metricThree: "影音、图文、直播、线下活动都能整合规划。",
+        metricOneValue: "3,600+",
+        metricOne: "大量微网红项目起案费，搭配人数 x 400 快速估算扩散预算。",
+        metricTwoValue: "15%",
+        metricTwo: "精致合作、YouTube 与直播合作服务费参考，成本更清楚。",
+        metricThreeValue: "5类资源",
+        metricThree: "艺人、博主、直播主、Vtuber、KOC 都能依场景媒合。",
         signalTitle: "不是只找名单，是把合作做完。",
         signalBody: "从需求确认、创作者沟通、内容方向、成品发布到结案报告，让品牌少一点混乱，多一点可掌握的成果。",
         servicesTitle: "服务范围",
@@ -1076,6 +1162,11 @@
         priceTwoLi3: "样品寄送等活动执行可另行估算",
         contactTitle: "准备开始下一档合作了吗？",
         contactBody: "把品牌目标、预算区间、希望合作的平台与时间寄给我们，我们会协助整理可行方向与初步合作形式。",
+        contactActionsAria: "联系方式",
+        emailRevealAria: "显示 Email",
+        instagramAria: "Instagram",
+        taiwanOfficeTitle: "台湾办事处",
+        taiwanOfficeAddress: "榛果营销有限公司<br>台北市大安区和安里复兴南路一段352号2楼之3",
         officeTitle: "深圳办事处",
         officeAddress: "深圳市榛果酷科技有限公司<br>广东省深圳市南山区前海合作区自贸西街18号前海香缤大厦2009-B050",
         footer: "© 2026 榛果营销 / ZHENGUOCool. All Rights Reserved."
@@ -1098,12 +1189,12 @@
         heroBody: "Zhenguo Marketing combines creator matchmaking, social data, content supervision, and campaign planning to help brands reach useful audiences across YouTube, Instagram, Facebook, TikTok, and livestream channels.",
         heroCta: "Book a project call",
         heroSecondary: "View cases",
-        metricOneValue: "1-3 rounds",
-        metricOne: "Creator proposals: comparable creator directions based on budget, platform, and timing.",
-        metricTwoValue: "5 stages",
-        metricTwo: "From brief alignment and matchmaking to kickoff, publishing, and final reporting.",
-        metricThreeValue: "4 formats",
-        metricThree: "Video, social posts, livestreams, and offline activations can be planned together.",
+        metricOneValue: "3,600+",
+        metricOne: "Base fee for high-volume micro-creator campaigns, with creators x 400 for quick budget planning.",
+        metricTwoValue: "15%",
+        metricTwo: "Reference service fee for premium, YouTube, and livestream collaborations.",
+        metricThreeValue: "5 resource types",
+        metricThree: "Talent, bloggers, livestreamers, Vtubers, and KOC resources matched by context.",
         signalTitle: "We do more than find names. We finish the collaboration.",
         signalBody: "From brief alignment and creator communication to content direction, publishing, and final reporting, we make campaigns easier to manage and easier to measure.",
         servicesTitle: "What We Do",
@@ -1207,6 +1298,11 @@
         priceTwoLi3: "Sample delivery and activity execution can be estimated separately",
         contactTitle: "Ready to plan the next collaboration?",
         contactBody: "Send us your brand goals, budget range, preferred platforms, and timeline. We will help organize feasible directions and initial collaboration formats.",
+        contactActionsAria: "Contact channels",
+        emailRevealAria: "Show Email",
+        instagramAria: "Instagram",
+        taiwanOfficeTitle: "Taiwan Office",
+        taiwanOfficeAddress: "Zhenguo Marketing Co., Ltd.<br>2F.-3, No. 352, Sec. 1, Fuxing S. Rd., Da'an Dist., Taipei City, Taiwan",
         officeTitle: "Shenzhen Office",
         officeAddress: "Shenzhen Zhenguocool Technology Co., Ltd.<br>Room 2009-B050, Qianhai Champagne Building, No. 18 Free Trade West Street, Qianhai Cooperation Zone, Nanshan District, Shenzhen, Guangdong",
         footer: "© 2026 Zhenguo Marketing / ZHENGUOCool. All Rights Reserved."
