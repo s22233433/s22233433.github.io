@@ -16,484 +16,143 @@ const allLocales = [rootLocale, ...locales];
 
 const servicePages = [
   {
-    "slug": "kol-marketing",
-    "name": {
+    slug: "kol-marketing",
+    name: {
       "zh-Hant": "KOL 行銷",
       "zh-Hans": "KOL 营销",
-      "en": "KOL Marketing"
+      en: "KOL Marketing"
     },
-    "title": {
+    title: {
       "zh-Hant": "KOL 行銷服務 | 海外創作者合作與品牌口碑",
       "zh-Hans": "KOL 营销服务 | 海外创作者合作与品牌口碑",
-      "en": "KOL Marketing Service | Overseas Creator Partnerships"
+      en: "KOL Marketing Service | Overseas Creator Partnerships"
     },
-    "description": {
+    description: {
       "zh-Hant": "榛菓行銷提供 KOL 行銷服務，協助品牌依市場、受眾與內容情境篩選海外 KOL/KOC，管理洽談、寄樣、內容審核與成效追蹤。",
       "zh-Hans": "榛果营销提供 KOL 营销服务，协助品牌依市场、受众与内容情境筛选海外 KOL/KOC，管理洽谈、寄样、内容审核与成效追踪。",
-      "en": "Zhenguo Marketing provides KOL marketing services for overseas creator screening, negotiation, product seeding, content review, and performance tracking."
+      en: "Zhenguo Marketing provides KOL marketing services for overseas creator screening, negotiation, product seeding, content review, and performance tracking."
     },
-    "intro": {
+    intro: {
       "zh-Hant": "KOL 行銷適合需要建立市場認知、品牌信任與口碑討論的品牌。榛菓會依品牌定位、受眾市場、內容風格與合作目標，協助篩選適合的 KOL/KOC，而不是只用粉絲數判斷。",
       "zh-Hans": "KOL 营销适合需要建立市场认知、品牌信任与口碑讨论的品牌。榛果会依品牌定位、受众市场、内容风格与合作目标，协助筛选适合的 KOL/KOC，而不是只用粉丝数判断。",
-      "en": "KOL marketing is useful when a brand needs awareness, trust, and word of mouth. Zhenguo screens KOLs and KOCs by brand positioning, audience market, content style, and campaign objective, not follower count alone."
+      en: "KOL marketing is useful when a brand needs awareness, trust, and word of mouth. Zhenguo screens KOLs and KOCs by brand positioning, audience market, content style, and campaign objective, not follower count alone."
     },
-    "faqOne": {
-      "zh-Hant": [
-        "KOL 行銷適合哪些品牌？",
-        "適合正在進入新市場、需要建立信任背書、或希望讓產品被更自然說明的品牌。"
-      ],
-      "zh-Hans": [
-        "KOL 营销适合哪些品牌？",
-        "适合正在进入新市场、需要建立信任背书，或希望让产品被更自然说明的品牌。"
-      ],
-      "en": [
-        "Which brands should use KOL marketing?",
-        "It fits brands entering new markets, building trust, or needing creators to explain product value naturally."
-      ]
+    faqOne: {
+      "zh-Hant": ["KOL 行銷適合哪些品牌？", "適合正在進入新市場、需要建立信任背書、或希望讓產品被更自然說明的品牌。"],
+      "zh-Hans": ["KOL 营销适合哪些品牌？", "适合正在进入新市场、需要建立信任背书，或希望让产品被更自然说明的品牌。"],
+      en: ["Which brands should use KOL marketing?", "It fits brands entering new markets, building trust, or needing creators to explain product value naturally."]
     }
   },
   {
-    "slug": "tiktok-influencer-marketing",
-    "name": {
+    slug: "tiktok-influencer-marketing",
+    name: {
       "zh-Hant": "TikTok 網紅行銷",
       "zh-Hans": "TikTok 网红营销",
-      "en": "TikTok Influencer Marketing"
+      en: "TikTok Influencer Marketing"
     },
-    "title": {
+    title: {
       "zh-Hant": "TikTok 網紅行銷服務 | 短影音創作者合作",
       "zh-Hans": "TikTok 网红营销服务 | 短视频创作者合作",
-      "en": "TikTok Influencer Marketing Service | Short-Video Creator Campaigns"
+      en: "TikTok Influencer Marketing Service | Short-Video Creator Campaigns"
     },
-    "description": {
+    description: {
       "zh-Hant": "TikTok 網紅行銷服務協助品牌規劃短影音合作、創作者篩選、腳本方向、內容審核與發布追蹤，適合海外市場快速建立曝光與討論。",
       "zh-Hans": "TikTok 网红营销服务协助品牌规划短视频合作、创作者筛选、脚本方向、内容审核与发布追踪，适合海外市场快速建立曝光与讨论。",
-      "en": "TikTok influencer marketing service for short-video creator screening, script direction, content review, publishing, and tracking in overseas markets."
+      en: "TikTok influencer marketing service for short-video creator screening, script direction, content review, publishing, and tracking in overseas markets."
     },
-    "intro": {
+    intro: {
       "zh-Hant": "TikTok 適合用快速、生活化、可複製的內容切入海外受眾。榛菓會依市場與產品特性，協助品牌找到適合的短影音創作者與內容角度。",
       "zh-Hans": "TikTok 适合用快速、生活化、可复制的内容切入海外受众。榛果会依市场与产品特性，协助品牌找到适合的短视频创作者与内容角度。",
-      "en": "TikTok is useful for fast, everyday, repeatable content that reaches overseas audiences. Zhenguo helps brands select short-video creators and content angles by market and product context."
+      en: "TikTok is useful for fast, everyday, repeatable content that reaches overseas audiences. Zhenguo helps brands select short-video creators and content angles by market and product context."
     },
-    "faqOne": {
-      "zh-Hant": [
-        "TikTok 網紅合作費用如何計算？",
-        "通常依創作者等級、影片支數、授權範圍、腳本修改需求與是否搭配投放而不同。"
-      ],
-      "zh-Hans": [
-        "TikTok 网红合作费用如何计算？",
-        "通常依创作者等级、视频支数、授权范围、脚本修改需求与是否搭配投放而不同。"
-      ],
-      "en": [
-        "How are TikTok creator fees calculated?",
-        "Fees usually depend on creator tier, video count, usage rights, script revisions, and whether paid amplification is included."
-      ]
+    faqOne: {
+      "zh-Hant": ["TikTok 網紅合作費用如何計算？", "通常依創作者等級、影片支數、授權範圍、腳本修改需求與是否搭配投放而不同。"],
+      "zh-Hans": ["TikTok 网红合作费用如何计算？", "通常依创作者等级、视频支数、授权范围、脚本修改需求与是否搭配投放而不同。"],
+      en: ["How are TikTok creator fees calculated?", "Fees usually depend on creator tier, video count, usage rights, script revisions, and whether paid amplification is included."]
     }
   },
   {
-    "slug": "youtube-influencer-marketing",
-    "name": {
+    slug: "youtube-influencer-marketing",
+    name: {
       "zh-Hant": "YouTube 網紅行銷",
       "zh-Hans": "YouTube 网红营销",
-      "en": "YouTube Influencer Marketing"
+      en: "YouTube Influencer Marketing"
     },
-    "title": {
+    title: {
       "zh-Hant": "YouTube 網紅行銷服務 | 長影音業配與內容合作",
       "zh-Hans": "YouTube 网红营销服务 | 长视频业配与内容合作",
-      "en": "YouTube Influencer Marketing Service | Sponsored Video Campaigns"
+      en: "YouTube Influencer Marketing Service | Sponsored Video Campaigns"
     },
-    "description": {
+    description: {
       "zh-Hant": "YouTube 網紅行銷適合需要完整說明產品價值、建立信任與沉澱搜尋內容的品牌，榛菓協助創作者提案、腳本審核、發布與成效整理。",
       "zh-Hans": "YouTube 网红营销适合需要完整说明产品价值、建立信任与沉淀搜索内容的品牌，榛果协助创作者提案、脚本审核、发布与成效整理。",
-      "en": "YouTube influencer marketing helps brands explain product value, build trust, and create searchable content through creator proposals, script review, publishing, and reporting."
+      en: "YouTube influencer marketing helps brands explain product value, build trust, and create searchable content through creator proposals, script review, publishing, and reporting."
     },
-    "intro": {
+    intro: {
       "zh-Hant": "YouTube 適合需要深度說明、使用教學、評測或信任背書的產品。榛菓協助品牌管理主題確認、創作者提案、腳本或大綱審核、成片確認與發布追蹤。",
       "zh-Hans": "YouTube 适合需要深度说明、使用教学、评测或信任背书的产品。榛果协助品牌管理主题确认、创作者提案、脚本或大纲审核、成片确认与发布追踪。",
-      "en": "YouTube fits products that need deeper explanation, tutorials, reviews, or trust-building. Zhenguo manages topic alignment, creator proposals, script or outline review, final video checks, and publishing follow-up."
+      en: "YouTube fits products that need deeper explanation, tutorials, reviews, or trust-building. Zhenguo manages topic alignment, creator proposals, script or outline review, final video checks, and publishing follow-up."
     },
-    "faqOne": {
-      "zh-Hant": [
-        "YouTube 業配合作流程是什麼？",
-        "流程包含主題確認、創作者提案、腳本或大綱審核、拍攝製作、成片確認、發布與數據整理。"
-      ],
-      "zh-Hans": [
-        "YouTube 业配合作流程是什么？",
-        "流程包含主题确认、创作者提案、脚本或大纲审核、拍摄制作、成片确认、发布与数据整理。"
-      ],
-      "en": [
-        "What is the YouTube sponsorship workflow?",
-        "It includes topic alignment, creator proposal, script or outline review, production, final video check, publishing, and reporting."
-      ]
+    faqOne: {
+      "zh-Hant": ["YouTube 業配合作流程是什麼？", "流程包含主題確認、創作者提案、腳本或大綱審核、拍攝製作、成片確認、發布與數據整理。"],
+      "zh-Hans": ["YouTube 业配合作流程是什么？", "流程包含主题确认、创作者提案、脚本或大纲审核、拍摄制作、成片确认、发布与数据整理。"],
+      en: ["What is the YouTube sponsorship workflow?", "It includes topic alignment, creator proposal, script or outline review, production, final video check, publishing, and reporting."]
     }
   },
   {
-    "slug": "instagram-influencer-marketing",
-    "name": {
+    slug: "instagram-influencer-marketing",
+    name: {
       "zh-Hant": "Instagram 網紅行銷",
       "zh-Hans": "Instagram 网红营销",
-      "en": "Instagram Influencer Marketing"
+      en: "Instagram Influencer Marketing"
     },
-    "title": {
+    title: {
       "zh-Hant": "Instagram 網紅行銷服務 | Reels、貼文與品牌口碑",
       "zh-Hans": "Instagram 网红营销服务 | Reels、帖文与品牌口碑",
-      "en": "Instagram Influencer Marketing Service | Reels, Posts, and Brand Trust"
+      en: "Instagram Influencer Marketing Service | Reels, Posts, and Brand Trust"
     },
-    "description": {
+    description: {
       "zh-Hant": "Instagram 網紅行銷服務協助品牌規劃 Reels、圖文貼文與限時動態合作，適合美妝、生活、餐飲、旅遊與品牌形象建立。",
       "zh-Hans": "Instagram 网红营销服务协助品牌规划 Reels、图文帖文与限时动态合作，适合美妆、生活、餐饮、旅游与品牌形象建立。",
-      "en": "Instagram influencer marketing service for Reels, posts, and Stories, suitable for beauty, lifestyle, food, travel, and brand image building."
+      en: "Instagram influencer marketing service for Reels, posts, and Stories, suitable for beauty, lifestyle, food, travel, and brand image building."
     },
-    "intro": {
+    intro: {
       "zh-Hant": "Instagram 適合建立生活風格、品牌美感與可分享的口碑內容。榛菓協助品牌依目標市場挑選創作者，規劃 Reels、貼文、限時動態與素材授權。",
       "zh-Hans": "Instagram 适合建立生活风格、品牌美感与可分享的口碑内容。榛果协助品牌依目标市场挑选创作者，规划 Reels、帖文、限时动态与素材授权。",
-      "en": "Instagram is useful for lifestyle positioning, brand aesthetics, and shareable word-of-mouth content. Zhenguo helps select creators and plan Reels, posts, Stories, and usage rights."
+      en: "Instagram is useful for lifestyle positioning, brand aesthetics, and shareable word-of-mouth content. Zhenguo helps select creators and plan Reels, posts, Stories, and usage rights."
     },
-    "faqOne": {
-      "zh-Hant": [
-        "Instagram 網紅行銷適合什麼目標？",
-        "適合建立品牌形象、生活情境、產品口碑與可再利用的社群素材。"
-      ],
-      "zh-Hans": [
-        "Instagram 网红营销适合什么目标？",
-        "适合建立品牌形象、生活情境、产品口碑与可再利用的社群素材。"
-      ],
-      "en": [
-        "What goals fit Instagram influencer marketing?",
-        "It fits brand image, lifestyle context, product word of mouth, and reusable social assets."
-      ]
+    faqOne: {
+      "zh-Hant": ["Instagram 網紅行銷適合什麼目標？", "適合建立品牌形象、生活情境、產品口碑與可再利用的社群素材。"],
+      "zh-Hans": ["Instagram 网红营销适合什么目标？", "适合建立品牌形象、生活情境、产品口碑与可再利用的社群素材。"],
+      en: ["What goals fit Instagram influencer marketing?", "It fits brand image, lifestyle context, product word of mouth, and reusable social assets."]
     }
   },
   {
-    "slug": "overseas-influencer-marketing",
-    "name": {
+    slug: "overseas-influencer-marketing",
+    name: {
       "zh-Hant": "海外網紅行銷",
       "zh-Hans": "海外网红营销",
-      "en": "Overseas Influencer Marketing"
+      en: "Overseas Influencer Marketing"
     },
-    "title": {
+    title: {
       "zh-Hant": "海外網紅行銷服務 | 美國、日本、韓國與東南亞市場",
       "zh-Hans": "海外网红营销服务 | 美国、日本、韩国与东南亚市场",
-      "en": "Overseas Influencer Marketing Service | US, Japan, Korea, and Southeast Asia"
+      en: "Overseas Influencer Marketing Service | US, Japan, Korea, and Southeast Asia"
     },
-    "description": {
+    description: {
       "zh-Hant": "海外網紅行銷服務協助跨境品牌進入美國、日本、韓國與東南亞市場，包含市場方向、創作者篩選、合作洽談、寄樣管理與內容追蹤。",
       "zh-Hans": "海外网红营销服务协助跨境品牌进入美国、日本、韩国与东南亚市场，包含市场方向、创作者筛选、合作洽谈、寄样管理与内容追踪。",
-      "en": "Overseas influencer marketing service for brands entering the US, Japan, Korea, and Southeast Asia, covering market direction, creator screening, negotiation, seeding, and content tracking."
+      en: "Overseas influencer marketing service for brands entering the US, Japan, Korea, and Southeast Asia, covering market direction, creator screening, negotiation, seeding, and content tracking."
     },
-    "intro": {
+    intro: {
       "zh-Hant": "海外網紅行銷不只是翻譯內容，而是要理解目標市場的平台習慣、創作者溝通方式、寄樣節奏與內容審核標準。榛菓協助品牌把出海合作拆成可執行流程。",
       "zh-Hans": "海外网红营销不只是翻译内容，而是要理解目标市场的平台习惯、创作者沟通方式、寄样节奏与内容审核标准。榛果协助品牌把出海合作拆成可执行流程。",
-      "en": "Overseas influencer marketing is not just translated content. It requires market understanding, platform habits, creator communication, product seeding rhythm, and content review standards. Zhenguo turns market entry collaborations into executable workflows."
+      en: "Overseas influencer marketing is not just translated content. It requires market understanding, platform habits, creator communication, product seeding rhythm, and content review standards. Zhenguo turns market entry collaborations into executable workflows."
     },
-    "faqOne": {
-      "zh-Hant": [
-        "海外網紅行銷如何開始？",
-        "先確認目標市場、平台、產品限制與預算範圍，再進行創作者篩選、合作洽談與內容規劃。"
-      ],
-      "zh-Hans": [
-        "海外网红营销如何开始？",
-        "先确认目标市场、平台、产品限制与预算范围，再进行创作者筛选、合作洽谈与内容规划。"
-      ],
-      "en": [
-        "How should overseas influencer marketing start?",
-        "Start by confirming the target market, platform, product constraints, and budget range, then move into creator screening, negotiation, and content planning."
-      ]
-    }
-  },
-  {
-    "slug": "tiktok-koc-marketing",
-    "name": {
-      "zh-Hant": "TikTok KOC 行銷",
-      "zh-Hans": "TikTok KOC 营销",
-      "en": "TikTok KOC Marketing"
-    },
-    "title": {
-      "zh-Hant": "TikTok KOC 行銷服務 | 短影音口碑擴散",
-      "zh-Hans": "TikTok KOC 营销服务 | 短视频口碑扩散",
-      "en": "TikTok KOC Marketing Service | Short-Video Word of Mouth"
-    },
-    "description": {
-      "zh-Hant": "以 TikTok KOC 建立多點口碑與短影音素材，適合測試內容角度、受眾反應與二次投放素材。",
-      "zh-Hans": "以 TikTok KOC 建立多点口碑与短视频素材，适合测试内容角度、受众反应与二次投放素材。",
-      "en": "Use TikTok KOCs to build multi-point word of mouth and short-video assets for angle testing, audience feedback, and paid media reuse."
-    },
-    "intro": {
-      "zh-Hant": "以 TikTok KOC 建立多點口碑與短影音素材，適合測試內容角度、受眾反應與二次投放素材。",
-      "zh-Hans": "以 TikTok KOC 建立多点口碑与短视频素材，适合测试内容角度、受众反应与二次投放素材。",
-      "en": "Use TikTok KOCs to build multi-point word of mouth and short-video assets for angle testing, audience feedback, and paid media reuse."
-    },
-    "faqOne": {
-      "zh-Hant": [
-        "TikTok KOC 行銷 適合哪些品牌？",
-        "適合已有產品、基礎素材、目標市場與預算，並希望把創作者合作變成可追蹤專案的品牌。"
-      ],
-      "zh-Hans": [
-        "TikTok KOC 营销 适合哪些品牌？",
-        "适合已有产品、基础素材、目标市场与预算，并希望把创作者合作变成可追踪项目的品牌。"
-      ],
-      "en": [
-        "Which brands fit TikTok KOC Marketing?",
-        "Brands with product readiness, basic assets, target market, and budget that want creator work managed as a trackable project."
-      ]
-    }
-  },
-  {
-    "slug": "youtube-influencer-review",
-    "name": {
-      "zh-Hant": "YouTube 網紅評測",
-      "zh-Hans": "YouTube 网红评测",
-      "en": "YouTube Influencer Reviews"
-    },
-    "title": {
-      "zh-Hant": "YouTube 網紅評測服務 | 長影音產品說明",
-      "zh-Hans": "YouTube 网红评测服务 | 长视频产品说明",
-      "en": "YouTube Influencer Review Service | Long-Form Product Explanation"
-    },
-    "description": {
-      "zh-Hant": "YouTube 評測適合需要深度說明、比較、教學與長效搜尋內容的產品。",
-      "zh-Hans": "YouTube 评测适合需要深度说明、比较、教学与长效搜索内容的产品。",
-      "en": "YouTube reviews fit products that need deeper explanation, comparison, tutorials, and searchable long-form content."
-    },
-    "intro": {
-      "zh-Hant": "YouTube 評測適合需要深度說明、比較、教學與長效搜尋內容的產品。",
-      "zh-Hans": "YouTube 评测适合需要深度说明、比较、教学与长效搜索内容的产品。",
-      "en": "YouTube reviews fit products that need deeper explanation, comparison, tutorials, and searchable long-form content."
-    },
-    "faqOne": {
-      "zh-Hant": [
-        "YouTube 網紅評測 適合哪些品牌？",
-        "適合已有產品、基礎素材、目標市場與預算，並希望把創作者合作變成可追蹤專案的品牌。"
-      ],
-      "zh-Hans": [
-        "YouTube 网红评测 适合哪些品牌？",
-        "适合已有产品、基础素材、目标市场与预算，并希望把创作者合作变成可追踪项目的品牌。"
-      ],
-      "en": [
-        "Which brands fit YouTube Influencer Reviews?",
-        "Brands with product readiness, basic assets, target market, and budget that want creator work managed as a trackable project."
-      ]
-    }
-  },
-  {
-    "slug": "instagram-kol-collaboration",
-    "name": {
-      "zh-Hant": "Instagram KOL 合作",
-      "zh-Hans": "Instagram KOL 合作",
-      "en": "Instagram KOL Collaboration"
-    },
-    "title": {
-      "zh-Hant": "Instagram KOL 合作服務 | Reels 與品牌口碑",
-      "zh-Hans": "Instagram KOL 合作服务 | Reels 与品牌口碑",
-      "en": "Instagram KOL Collaboration Service | Reels and Brand Trust"
-    },
-    "description": {
-      "zh-Hant": "Instagram KOL 合作適合建立生活情境、品牌美感與可再利用社群素材。",
-      "zh-Hans": "Instagram KOL 合作适合建立生活情境、品牌美感与可再利用社群素材。",
-      "en": "Instagram KOL collaboration helps build lifestyle context, brand aesthetics, and reusable social assets."
-    },
-    "intro": {
-      "zh-Hant": "Instagram KOL 合作適合建立生活情境、品牌美感與可再利用社群素材。",
-      "zh-Hans": "Instagram KOL 合作适合建立生活情境、品牌美感与可再利用社群素材。",
-      "en": "Instagram KOL collaboration helps build lifestyle context, brand aesthetics, and reusable social assets."
-    },
-    "faqOne": {
-      "zh-Hant": [
-        "Instagram KOL 合作 適合哪些品牌？",
-        "適合已有產品、基礎素材、目標市場與預算，並希望把創作者合作變成可追蹤專案的品牌。"
-      ],
-      "zh-Hans": [
-        "Instagram KOL 合作 适合哪些品牌？",
-        "适合已有产品、基础素材、目标市场与预算，并希望把创作者合作变成可追踪项目的品牌。"
-      ],
-      "en": [
-        "Which brands fit Instagram KOL Collaboration?",
-        "Brands with product readiness, basic assets, target market, and budget that want creator work managed as a trackable project."
-      ]
-    }
-  },
-  {
-    "slug": "korea-influencer-marketing",
-    "name": {
-      "zh-Hant": "韓國網紅行銷",
-      "zh-Hans": "韩国网红营销",
-      "en": "Korea Influencer Marketing"
-    },
-    "title": {
-      "zh-Hant": "韓國網紅行銷服務 | 韓國創作者合作",
-      "zh-Hans": "韩国网红营销服务 | 韩国创作者合作",
-      "en": "Korea Influencer Marketing Service | Korean Creator Campaigns"
-    },
-    "description": {
-      "zh-Hant": "協助品牌用韓國創作者切入生活、餐飲、美妝、旅遊與新品話題。",
-      "zh-Hans": "协助品牌用韩国创作者切入生活、餐饮、美妆、旅游与新品话题。",
-      "en": "Use Korean creators to enter lifestyle, food, beauty, travel, and launch conversations."
-    },
-    "intro": {
-      "zh-Hant": "協助品牌用韓國創作者切入生活、餐飲、美妝、旅遊與新品話題。",
-      "zh-Hans": "协助品牌用韩国创作者切入生活、餐饮、美妆、旅游与新品话题。",
-      "en": "Use Korean creators to enter lifestyle, food, beauty, travel, and launch conversations."
-    },
-    "faqOne": {
-      "zh-Hant": [
-        "韓國網紅行銷 適合哪些品牌？",
-        "適合已有產品、基礎素材、目標市場與預算，並希望把創作者合作變成可追蹤專案的品牌。"
-      ],
-      "zh-Hans": [
-        "韩国网红营销 适合哪些品牌？",
-        "适合已有产品、基础素材、目标市场与预算，并希望把创作者合作变成可追踪项目的品牌。"
-      ],
-      "en": [
-        "Which brands fit Korea Influencer Marketing?",
-        "Brands with product readiness, basic assets, target market, and budget that want creator work managed as a trackable project."
-      ]
-    }
-  },
-  {
-    "slug": "japan-influencer-marketing",
-    "name": {
-      "zh-Hant": "日本網紅行銷",
-      "zh-Hans": "日本网红营销",
-      "en": "Japan Influencer Marketing"
-    },
-    "title": {
-      "zh-Hant": "日本網紅行銷服務 | 日本創作者合作",
-      "zh-Hans": "日本网红营销服务 | 日本创作者合作",
-      "en": "Japan Influencer Marketing Service | Japanese Creator Campaigns"
-    },
-    "description": {
-      "zh-Hant": "協助品牌評估日本市場內容語境、創作者配合度與品牌安全。",
-      "zh-Hans": "协助品牌评估日本市场内容语境、创作者配合度与品牌安全。",
-      "en": "Evaluate Japanese content context, creator cooperation, and brand safety for market entry."
-    },
-    "intro": {
-      "zh-Hant": "協助品牌評估日本市場內容語境、創作者配合度與品牌安全。",
-      "zh-Hans": "协助品牌评估日本市场内容语境、创作者配合度与品牌安全。",
-      "en": "Evaluate Japanese content context, creator cooperation, and brand safety for market entry."
-    },
-    "faqOne": {
-      "zh-Hant": [
-        "日本網紅行銷 適合哪些品牌？",
-        "適合已有產品、基礎素材、目標市場與預算，並希望把創作者合作變成可追蹤專案的品牌。"
-      ],
-      "zh-Hans": [
-        "日本网红营销 适合哪些品牌？",
-        "适合已有产品、基础素材、目标市场与预算，并希望把创作者合作变成可追踪项目的品牌。"
-      ],
-      "en": [
-        "Which brands fit Japan Influencer Marketing?",
-        "Brands with product readiness, basic assets, target market, and budget that want creator work managed as a trackable project."
-      ]
-    }
-  },
-  {
-    "slug": "gaming-influencer-marketing",
-    "name": {
-      "zh-Hant": "遊戲網紅行銷",
-      "zh-Hans": "游戏网红营销",
-      "en": "Gaming Influencer Marketing"
-    },
-    "title": {
-      "zh-Hant": "遊戲網紅行銷服務 | 實況與社群活動",
-      "zh-Hans": "游戏网红营销服务 | 实况与社群活动",
-      "en": "Gaming Influencer Marketing Service | Streams and Social Activations"
-    },
-    "description": {
-      "zh-Hant": "遊戲合作需要把玩法、角色、活動與粉絲參與設計成可分享內容。",
-      "zh-Hans": "游戏合作需要把玩法、角色、活动与粉丝参与设计成可分享内容。",
-      "en": "Gaming campaigns should turn mechanics, characters, events, and fandom participation into shareable content."
-    },
-    "intro": {
-      "zh-Hant": "遊戲合作需要把玩法、角色、活動與粉絲參與設計成可分享內容。",
-      "zh-Hans": "游戏合作需要把玩法、角色、活动与粉丝参与设计成可分享内容。",
-      "en": "Gaming campaigns should turn mechanics, characters, events, and fandom participation into shareable content."
-    },
-    "faqOne": {
-      "zh-Hant": [
-        "遊戲網紅行銷 適合哪些品牌？",
-        "適合已有產品、基礎素材、目標市場與預算，並希望把創作者合作變成可追蹤專案的品牌。"
-      ],
-      "zh-Hans": [
-        "游戏网红营销 适合哪些品牌？",
-        "适合已有产品、基础素材、目标市场与预算，并希望把创作者合作变成可追踪项目的品牌。"
-      ],
-      "en": [
-        "Which brands fit Gaming Influencer Marketing?",
-        "Brands with product readiness, basic assets, target market, and budget that want creator work managed as a trackable project."
-      ]
-    }
-  },
-  {
-    "slug": "beauty-influencer-marketing",
-    "name": {
-      "zh-Hant": "美妝網紅行銷",
-      "zh-Hans": "美妆网红营销",
-      "en": "Beauty Influencer Marketing"
-    },
-    "title": {
-      "zh-Hant": "美妝網紅行銷服務 | 試用與口碑內容",
-      "zh-Hans": "美妆网红营销服务 | 试用与口碑内容",
-      "en": "Beauty Influencer Marketing Service | Trials and Word of Mouth"
-    },
-    "description": {
-      "zh-Hant": "美妝保養合作重點在膚質情境、使用方式、前後差異與品牌安全。",
-      "zh-Hans": "美妆保养合作重点在肤质情境、使用方式、前后差异与品牌安全。",
-      "en": "Beauty campaigns depend on skin context, usage demonstration, before/after framing, and brand safety."
-    },
-    "intro": {
-      "zh-Hant": "美妝保養合作重點在膚質情境、使用方式、前後差異與品牌安全。",
-      "zh-Hans": "美妆保养合作重点在肤质情境、使用方式、前后差异与品牌安全。",
-      "en": "Beauty campaigns depend on skin context, usage demonstration, before/after framing, and brand safety."
-    },
-    "faqOne": {
-      "zh-Hant": [
-        "美妝網紅行銷 適合哪些品牌？",
-        "適合已有產品、基礎素材、目標市場與預算，並希望把創作者合作變成可追蹤專案的品牌。"
-      ],
-      "zh-Hans": [
-        "美妆网红营销 适合哪些品牌？",
-        "适合已有产品、基础素材、目标市场与预算，并希望把创作者合作变成可追踪项目的品牌。"
-      ],
-      "en": [
-        "Which brands fit Beauty Influencer Marketing?",
-        "Brands with product readiness, basic assets, target market, and budget that want creator work managed as a trackable project."
-      ]
-    }
-  },
-  {
-    "slug": "food-influencer-marketing",
-    "name": {
-      "zh-Hant": "食品網紅行銷",
-      "zh-Hans": "食品网红营销",
-      "en": "Food Influencer Marketing"
-    },
-    "title": {
-      "zh-Hant": "食品網紅行銷服務 | 餐飲與食品口碑",
-      "zh-Hans": "食品网红营销服务 | 餐饮与食品口碑",
-      "en": "Food Influencer Marketing Service | Food and Beverage Word of Mouth"
-    },
-    "description": {
-      "zh-Hant": "食品餐飲合作要把口味、場景、到店理由與嘗鮮動機說清楚。",
-      "zh-Hans": "食品餐饮合作要把口味、场景、到店理由与尝鲜动机说清楚。",
-      "en": "Food campaigns need to explain taste, context, reasons to visit, and trial motivation."
-    },
-    "intro": {
-      "zh-Hant": "食品餐飲合作要把口味、場景、到店理由與嘗鮮動機說清楚。",
-      "zh-Hans": "食品餐饮合作要把口味、场景、到店理由与尝鲜动机说清楚。",
-      "en": "Food campaigns need to explain taste, context, reasons to visit, and trial motivation."
-    },
-    "faqOne": {
-      "zh-Hant": [
-        "食品網紅行銷 適合哪些品牌？",
-        "適合已有產品、基礎素材、目標市場與預算，並希望把創作者合作變成可追蹤專案的品牌。"
-      ],
-      "zh-Hans": [
-        "食品网红营销 适合哪些品牌？",
-        "适合已有产品、基础素材、目标市场与预算，并希望把创作者合作变成可追踪项目的品牌。"
-      ],
-      "en": [
-        "Which brands fit Food Influencer Marketing?",
-        "Brands with product readiness, basic assets, target market, and budget that want creator work managed as a trackable project."
-      ]
+    faqOne: {
+      "zh-Hant": ["海外網紅行銷如何開始？", "先確認目標市場、平台、產品限制與預算範圍，再進行創作者篩選、合作洽談與內容規劃。"],
+      "zh-Hans": ["海外网红营销如何开始？", "先确认目标市场、平台、产品限制与预算范围，再进行创作者筛选、合作洽谈与内容规划。"],
+      en: ["How should overseas influencer marketing start?", "Start by confirming the target market, platform, product constraints, and budget range, then move into creator screening, negotiation, and content planning."]
     }
   }
 ];
