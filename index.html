@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="榛菓行銷協助品牌完成海外 KOL/KOC 合作，包含創作者篩選、合作洽談、寄樣、腳本方向、內容審核、發布追蹤與結案整理。">
+  <meta name="description" content="榛菓行銷協助品牌完成海內外 KOL/KOC 合作，包含創作者篩選、合作洽談、寄樣、腳本方向、內容審核、發布追蹤與結案整理。">
   <meta name="robots" content="index, follow">
   <meta name="theme-color" content="#fbfaf6">
   <link rel="icon" type="image/png" sizes="16x16" href="web-assets/icons/favicon-16x16.png">
@@ -18,15 +18,15 @@
   <link rel="alternate" hreflang="x-default" href="https://zhenguocool.com/">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="榛菓行銷">
-  <meta property="og:title" content="榛菓行銷 | 海外 KOL/KOC 行銷執行團隊">
-  <meta property="og:description" content="榛菓行銷協助品牌完成海外 KOL/KOC 合作，包含創作者篩選、合作洽談、寄樣、腳本方向、內容審核、發布追蹤與結案整理。">
+  <meta property="og:title" content="榛菓行銷 | 海內外 KOL/KOC 行銷執行團隊">
+  <meta property="og:description" content="榛菓行銷協助品牌完成海內外 KOL/KOC 合作，包含創作者篩選、合作洽談、寄樣、腳本方向、內容審核、發布追蹤與結案整理。">
   <meta property="og:url" content="https://zhenguocool.com/">
   <meta property="og:image" content="https://zhenguocool.com/web-assets/game-liming-cheer.webp">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="榛菓行銷 | 海外 KOL/KOC 行銷執行團隊">
-  <meta name="twitter:description" content="榛菓行銷協助品牌完成海外 KOL/KOC 合作，包含創作者篩選、合作洽談、寄樣、腳本方向、內容審核、發布追蹤與結案整理。">
+  <meta name="twitter:title" content="榛菓行銷 | 海內外 KOL/KOC 行銷執行團隊">
+  <meta name="twitter:description" content="榛菓行銷協助品牌完成海內外 KOL/KOC 合作，包含創作者篩選、合作洽談、寄樣、腳本方向、內容審核、發布追蹤與結案整理。">
   <meta name="twitter:image" content="https://zhenguocool.com/web-assets/game-liming-cheer.webp">
-  <title>榛菓行銷 | 海外 KOL/KOC 行銷執行團隊</title>
+  <title>榛菓行銷 | 海內外 KOL/KOC 行銷執行團隊</title>
   <script type="application/ld+json" id="structured-data">
 {
   "@context": "https://schema.org",
@@ -93,7 +93,7 @@
         "Southeast Asia",
         "Taiwan"
       ],
-      "description": "榛菓行銷協助品牌完成海外 KOL/KOC 合作，包含創作者篩選、合作洽談、寄樣、腳本方向、內容審核、發布追蹤與結案整理。"
+      "description": "榛菓行銷協助品牌完成海內外 KOL/KOC 合作，包含創作者篩選、合作洽談、寄樣、腳本方向、內容審核、發布追蹤與結案整理。"
     },
     {
       "@type": "FAQPage",
@@ -1016,9 +1016,14 @@
     }
     .button.on-dark:hover { background: rgba(255,255,255,.12); }
     @media (min-width: 921px) {
+      .section-head {
+        grid-template-columns: minmax(0, .95fr) minmax(320px, .72fr);
+        align-items: start;
+      }
       .section-head h2 {
-        font-size: clamp(34px, 3.4vw, 50px);
-        white-space: nowrap;
+        font-size: clamp(34px, 3vw, 48px);
+        white-space: normal;
+        overflow-wrap: anywhere;
       }
     }
     .office-list strong {
@@ -1063,6 +1068,10 @@
       section { padding: 66px 0; }
     }
     @media (max-width: 560px) {
+      html,
+      body {
+        overflow-x: hidden;
+      }
       .wrap { width: min(calc(100% - 28px), 1160px); }
       .brand small {
         max-width: 176px;
@@ -1083,6 +1092,7 @@
       .hero p {
         max-width: 100%;
         font-size: 18px;
+        overflow-wrap: anywhere;
       }
       .hero-actions,
       .trust-grid,
@@ -1095,8 +1105,34 @@
         max-width: calc(100vw - 28px);
       }
       .hero-actions .button {
+        width: 100%;
+        max-width: calc(100vw - 28px);
         min-width: 0;
         flex: 1 1 100%;
+      }
+      .hero,
+      .hero-grid,
+      .hero-grid > *,
+      .hero-panel,
+      .metric-stack {
+        max-width: 100%;
+        overflow-x: hidden;
+      }
+      .hero-grid > .reveal,
+      .hero h1,
+      .hero p,
+      .hero-actions {
+        width: calc(100vw - 56px);
+        max-width: calc(100vw - 56px);
+      }
+      .hero-actions {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr);
+        justify-items: start;
+      }
+      .hero-actions .button {
+        width: min(320px, calc(100vw - 56px));
+        max-width: calc(100vw - 56px);
       }
       .case-study { padding: 18px; }
       .contact { padding: 56px 0; }
@@ -1115,7 +1151,7 @@
       </a>
       <div class="nav-tools">
         <nav aria-label="主要導覽" data-i18n-aria-label="navAria">
-          <a href="#pain" data-i18n="navPain">痛點</a>
+          <a href="#pain" data-i18n="navPain">卡關</a>
           <a href="#solution" data-i18n="navSolution">做法</a>
           <a href="#services" data-i18n="navServices">服務</a>
           <a href="#cases" data-i18n="navCases">案例</a>
@@ -1139,8 +1175,8 @@
       <div class="wrap hero-grid">
         <div class="reveal">
           <span class="eyebrow">ZHENGUOCool</span>
-          <h1><span data-i18n="heroTitleLineOne">海外 KOL/KOC</span><span data-i18n="heroTitleLineTwo">行銷執行團隊</span></h1>
-          <p data-i18n="heroBody">從創作者篩選、合作洽談、寄樣管理、腳本方向、內容審核到發布追蹤，協助品牌把海外網紅合作真正做完。</p>
+          <h1><span data-i18n="heroTitleLineOne">海內外 KOL/KOC</span><span data-i18n="heroTitleLineTwo">行銷執行團隊</span></h1>
+          <p data-i18n="heroBody">從創作者篩選、合作洽談、寄樣管理、腳本方向、內容審核到發布追蹤，協助品牌把海內外網紅合作真正做完。</p>
           <div class="hero-actions">
             <a class="button primary" href="mailto:weiting@zhenguocool.com" data-track-event="lead_initial_advice" data-i18n="heroCta">立即取得初步合作建議</a>
             <a class="button secondary" href="#cases" data-track-event="view_cases" data-i18n="heroSecondary">查看過往案例</a>
@@ -1160,10 +1196,10 @@
       </div>
     </section>
 
-    <section id="pain" class="trust-section" aria-label="品牌痛點" data-i18n-aria-label="painAria">
+    <section id="pain" class="trust-section" aria-label="品牌卡關" data-i18n-aria-label="painAria">
       <div class="wrap">
         <div class="section-head">
-          <h2 data-i18n="painTitle">品牌做海外網紅時，最容易卡住的地方</h2>
+          <h2 data-i18n="painTitle">品牌做海內外網紅時，最容易卡關的地方</h2>
           <p data-i18n="painBody">真正困難的不是找到幾個帳號，而是把人選、溝通、素材、時程與風險一起管住。</p>
         </div>
         <div class="trust-grid">
@@ -1234,6 +1270,14 @@
           <a href="services/youtube-influencer-marketing/" data-i18n="serviceLinkYoutube">YouTube 網紅行銷</a>
           <a href="services/instagram-influencer-marketing/" data-i18n="serviceLinkInstagram">Instagram 網紅行銷</a>
           <a href="services/overseas-influencer-marketing/" data-i18n="serviceLinkOverseas">海外網紅行銷</a>
+          <a href="services/tiktok-koc-marketing/" data-i18n="serviceLinkTiktokKoc">TikTok KOC 行銷</a>
+          <a href="services/youtube-influencer-review/" data-i18n="serviceLinkYoutubeReview">YouTube 網紅評測</a>
+          <a href="services/instagram-kol-collaboration/" data-i18n="serviceLinkInstagramKol">Instagram KOL 合作</a>
+          <a href="services/korea-influencer-marketing/" data-i18n="serviceLinkKorea">韓國網紅行銷</a>
+          <a href="services/japan-influencer-marketing/" data-i18n="serviceLinkJapan">日本網紅行銷</a>
+          <a href="services/gaming-influencer-marketing/" data-i18n="serviceLinkGaming">遊戲網紅行銷</a>
+          <a href="services/beauty-influencer-marketing/" data-i18n="serviceLinkBeauty">美妝網紅行銷</a>
+          <a href="services/food-influencer-marketing/" data-i18n="serviceLinkFood">食品網紅行銷</a>
         </div>
       </div>
     </section>
@@ -1594,8 +1638,8 @@
   <script>
     const translations = {
         "zh-Hant": {
-                "metaTitle": "榛菓行銷 | 海外 KOL/KOC 行銷執行團隊",
-                "metaDescription": "榛菓行銷協助品牌完成海外 KOL/KOC 合作，包含創作者篩選、合作洽談、寄樣、腳本方向、內容審核、發布追蹤與結案整理。",
+                "metaTitle": "榛菓行銷 | 海內外 KOL/KOC 行銷執行團隊",
+                "metaDescription": "榛菓行銷協助品牌完成海內外 KOL/KOC 合作，包含創作者篩選、合作洽談、寄樣、腳本方向、內容審核、發布追蹤與結案整理。",
                 "brandAria": "榛菓行銷首頁",
                 "navAria": "主要導覽",
                 "langAria": "語言切換",
@@ -1609,8 +1653,8 @@
                 "navCases": "案例",
                 "navPricing": "收費",
                 "navContact": "聯繫我們",
-                "heroTitle": "海外 KOL/KOC 行銷執行團隊",
-                "heroBody": "從創作者篩選、合作洽談、寄樣管理、腳本方向、內容審核到發布追蹤，協助品牌把海外網紅合作真正做完。",
+                "heroTitle": "海內外 KOL/KOC 行銷執行團隊",
+                "heroBody": "從創作者篩選、合作洽談、寄樣管理、腳本方向、內容審核到發布追蹤，協助品牌把海內外網紅合作真正做完。",
                 "heroCta": "立即取得初步合作建議",
                 "heroSecondary": "查看過往案例",
                 "metricOneUnit": "市場判斷",
@@ -1663,6 +1707,14 @@
                 "serviceLinkYoutube": "YouTube 網紅行銷",
                 "serviceLinkInstagram": "Instagram 網紅行銷",
                 "serviceLinkOverseas": "海外網紅行銷",
+                "serviceLinkTiktokKoc": "TikTok KOC 行銷",
+                "serviceLinkYoutubeReview": "YouTube 網紅評測",
+                "serviceLinkInstagramKol": "Instagram KOL 合作",
+                "serviceLinkKorea": "韓國網紅行銷",
+                "serviceLinkJapan": "日本網紅行銷",
+                "serviceLinkGaming": "遊戲網紅行銷",
+                "serviceLinkBeauty": "美妝網紅行銷",
+                "serviceLinkFood": "食品網紅行銷",
                 "answersTitle": "品牌常問的合作答案",
                 "answersBody": "把成交前最常被問到的問題直接講清楚，方便品牌快速判斷合作方式。",
                 "answerOneQuestion": "如果沒有海外 KOL 經驗，可以合作嗎？",
@@ -1836,10 +1888,10 @@
                 "officeTitle": "深圳辦事處",
                 "officeAddress": "深圳市榛果酷科技有限公司<br>廣東省深圳市南山區前海合作區自貿西街18號前海香繽大廈2009-B050",
                 "footer": "© 2026 榛菓行銷 / ZHENGUOCool. All Rights Reserved.",
-                "navPain": "痛點",
+                "navPain": "卡關",
                 "navSolution": "做法",
-                "painAria": "品牌痛點",
-                "painTitle": "品牌做海外網紅時，最容易卡住的地方",
+                "painAria": "品牌卡關",
+                "painTitle": "品牌做海內外網紅時，最容易卡關的地方",
                 "painBody": "真正困難的不是找到幾個帳號，而是把人選、溝通、素材、時程與風險一起管住。",
                 "painOneTitle": "名單看起來很多",
                 "painOneBody": "但不知道誰真的符合市場、受眾、內容調性與品牌安全。",
@@ -1888,12 +1940,12 @@
                 "priceTwoEx3": "廣告投放費用",
                 "finalCtaPrimary": "立即取得初步合作建議",
                 "finalCtaSecondary": "查看過往案例",
-                "heroTitleLineOne": "海外 KOL/KOC",
+                "heroTitleLineOne": "海內外 KOL/KOC",
                 "heroTitleLineTwo": "行銷執行團隊"
         },
         "zh-Hans": {
-                "metaTitle": "榛果营销 | 海外 KOL/KOC 营销执行团队",
-                "metaDescription": "榛果营销协助品牌完成海外 KOL/KOC 合作，包含创作者筛选、合作洽谈、寄样、脚本方向、内容审核、发布追踪与结案整理。",
+                "metaTitle": "榛果营销 | 海内外 KOL/KOC 营销执行团队",
+                "metaDescription": "榛果营销协助品牌完成海内外 KOL/KOC 合作，包含创作者筛选、合作洽谈、寄样、脚本方向、内容审核、发布追踪与结案整理。",
                 "brandAria": "榛果营销首页",
                 "navAria": "主要导航",
                 "langAria": "语言切换",
@@ -1907,8 +1959,8 @@
                 "navCases": "案例",
                 "navPricing": "收费",
                 "navContact": "联系我们",
-                "heroTitle": "海外 KOL/KOC 营销执行团队",
-                "heroBody": "从创作者筛选、合作洽谈、寄样管理、脚本方向、内容审核到发布追踪，协助品牌把海外网红合作真正做完。",
+                "heroTitle": "海内外 KOL/KOC 营销执行团队",
+                "heroBody": "从创作者筛选、合作洽谈、寄样管理、脚本方向、内容审核到发布追踪，协助品牌把海内外网红合作真正做完。",
                 "heroCta": "立即取得初步合作建议",
                 "heroSecondary": "查看过往案例",
                 "metricOneUnit": "市场判断",
@@ -1961,6 +2013,14 @@
                 "serviceLinkYoutube": "YouTube 网红营销",
                 "serviceLinkInstagram": "Instagram 网红营销",
                 "serviceLinkOverseas": "海外网红营销",
+                "serviceLinkTiktokKoc": "TikTok KOC 营销",
+                "serviceLinkYoutubeReview": "YouTube 网红评测",
+                "serviceLinkInstagramKol": "Instagram KOL 合作",
+                "serviceLinkKorea": "韩国网红营销",
+                "serviceLinkJapan": "日本网红营销",
+                "serviceLinkGaming": "游戏网红营销",
+                "serviceLinkBeauty": "美妆网红营销",
+                "serviceLinkFood": "食品网红营销",
                 "answersTitle": "品牌常问的合作答案",
                 "answersBody": "把成交前最常被问到的问题直接讲清楚，方便品牌快速判断合作方式。",
                 "answerOneQuestion": "如果没有海外 KOL 经验，可以合作吗？",
@@ -2186,7 +2246,7 @@
                 "priceTwoEx3": "广告投放费用",
                 "finalCtaPrimary": "立即取得初步合作建议",
                 "finalCtaSecondary": "查看过往案例",
-                "heroTitleLineOne": "海外 KOL/KOC",
+                "heroTitleLineOne": "海内外 KOL/KOC",
                 "heroTitleLineTwo": "营销执行团队"
         },
         "en": {
@@ -2205,7 +2265,7 @@
                 "navCases": "Cases",
                 "navPricing": "Pricing",
                 "navContact": "Contact",
-                "heroTitle": "Overseas KOL/KOC Campaign Execution Team",
+                "heroTitle": "Domestic and Overseas KOL/KOC Campaign Execution Team",
                 "heroBody": "From creator screening, negotiation, product seeding, script direction, and content review to publishing follow-up, we help brands complete overseas influencer collaborations.",
                 "heroCta": "Get Initial Campaign Advice",
                 "heroSecondary": "View Past Cases",
@@ -2259,6 +2319,14 @@
                 "serviceLinkYoutube": "YouTube Influencer Marketing",
                 "serviceLinkInstagram": "Instagram Influencer Marketing",
                 "serviceLinkOverseas": "Overseas Influencer Marketing",
+                "serviceLinkTiktokKoc": "TikTok KOC Marketing",
+                "serviceLinkYoutubeReview": "YouTube Influencer Reviews",
+                "serviceLinkInstagramKol": "Instagram KOL Collaboration",
+                "serviceLinkKorea": "Korea Influencer Marketing",
+                "serviceLinkJapan": "Japan Influencer Marketing",
+                "serviceLinkGaming": "Gaming Influencer Marketing",
+                "serviceLinkBeauty": "Beauty Influencer Marketing",
+                "serviceLinkFood": "Food Influencer Marketing",
                 "answersTitle": "Answers Brands Ask Before Working Together",
                 "answersBody": "The common pre-deal questions are answered directly so brand teams can judge the collaboration path quickly.",
                 "answerOneQuestion": "Can we work together without overseas KOL experience?",
@@ -2484,7 +2552,7 @@
                 "priceTwoEx3": "Paid media buying",
                 "finalCtaPrimary": "Get Initial Campaign Advice",
                 "finalCtaSecondary": "View Past Cases",
-                "heroTitleLineOne": "Overseas KOL/KOC",
+                "heroTitleLineOne": "Domestic and Overseas KOL/KOC",
                 "heroTitleLineTwo": "Campaign Execution Team"
         }
 };

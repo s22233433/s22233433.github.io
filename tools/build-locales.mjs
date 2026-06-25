@@ -154,6 +154,230 @@ const servicePages = [
       "zh-Hans": ["海外网红营销如何开始？", "先确认目标市场、平台、产品限制与预算范围，再进行创作者筛选、合作洽谈与内容规划。"],
       en: ["How should overseas influencer marketing start?", "Start by confirming the target market, platform, product constraints, and budget range, then move into creator screening, negotiation, and content planning."]
     }
+  },
+  {
+    slug: "tiktok-koc-marketing",
+    name: {
+      "zh-Hant": "TikTok KOC 行銷",
+      "zh-Hans": "TikTok KOC 营销",
+      en: "TikTok KOC Marketing"
+    },
+    title: {
+      "zh-Hant": "TikTok KOC 行銷服務 | 短影音口碑與素材測試",
+      "zh-Hans": "TikTok KOC 营销服务 | 短视频口碑与素材测试",
+      en: "TikTok KOC Marketing Service | Short-Video Word of Mouth"
+    },
+    description: {
+      "zh-Hant": "TikTok KOC 行銷適合品牌用多位短影音創作者測試內容角度、累積口碑素材，榛菓協助篩選、洽談、寄樣、審稿與上刊追蹤。",
+      "zh-Hans": "TikTok KOC 营销适合品牌用多位短视频创作者测试内容角度、累积口碑素材，榛果协助筛选、洽谈、寄样、审核与发布追踪。",
+      en: "TikTok KOC marketing helps brands test content angles and build word-of-mouth assets through multiple short-video creators, with screening, negotiation, seeding, review, and publishing follow-up."
+    },
+    intro: {
+      "zh-Hant": "TikTok KOC 適合需要快速測試內容語感、產品賣點與受眾反應的品牌。重點不是找最多帳號，而是讓每位創作者都能產出可判斷、可追蹤、可複用的內容。",
+      "zh-Hans": "TikTok KOC 适合需要快速测试内容语感、产品卖点与受众反应的品牌。重点不是找最多账号，而是让每位创作者都能产出可判断、可追踪、可复用的内容。",
+      en: "TikTok KOCs are useful for testing content tone, product angles, and audience response quickly. The goal is not the largest list, but content that can be judged, tracked, and reused."
+    },
+    faqOne: {
+      "zh-Hant": ["TikTok KOC 適合什麼品牌？", "適合有明確產品賣點、可寄樣、希望用短影音測試口碑或素材角度的品牌。"],
+      "zh-Hans": ["TikTok KOC 适合什么品牌？", "适合有明确产品卖点、可寄样、希望用短视频测试口碑或素材角度的品牌。"],
+      en: ["Which brands fit TikTok KOC marketing?", "It fits brands with clear product value, sample availability, and a need to test word-of-mouth or creative angles through short video."]
+    }
+  },
+  {
+    slug: "youtube-influencer-review",
+    name: {
+      "zh-Hant": "YouTube 網紅評測",
+      "zh-Hans": "YouTube 网红评测",
+      en: "YouTube Influencer Reviews"
+    },
+    title: {
+      "zh-Hant": "YouTube 網紅評測合作 | 產品開箱、教學與深度內容",
+      "zh-Hans": "YouTube 网红评测合作 | 产品开箱、教学与深度内容",
+      en: "YouTube Influencer Review Service | Product Reviews and Tutorials"
+    },
+    description: {
+      "zh-Hant": "YouTube 網紅評測適合需要完整說明產品價值、建立信任與長尾搜尋內容的品牌，包含創作者篩選、主題提案、腳本方向與發布追蹤。",
+      "zh-Hans": "YouTube 网红评测适合需要完整说明产品价值、建立信任与长尾搜索内容的品牌，包含创作者筛选、主题提案、脚本方向与发布追踪。",
+      en: "YouTube influencer reviews help brands explain product value, build trust, and create long-tail searchable content through creator screening, topic planning, script direction, and publishing follow-up."
+    },
+    intro: {
+      "zh-Hant": "YouTube 評測合作適合功能型、單價較高、需要展示使用情境的產品。榛菓協助品牌把產品重點轉成創作者能自然說明的內容方向。",
+      "zh-Hans": "YouTube 评测合作适合功能型、单价较高、需要展示使用情境的产品。榛果协助品牌把产品重点转成创作者能自然说明的内容方向。",
+      en: "YouTube review collaborations fit functional or higher-ticket products that need usage context. Zhenguo turns product points into creator-friendly content direction."
+    },
+    faqOne: {
+      "zh-Hant": ["YouTube 評測需要品牌準備什麼？", "建議準備產品賣點、使用情境、禁用說法、寄樣資訊、希望出現的重點與審稿規則。"],
+      "zh-Hans": ["YouTube 评测需要品牌准备什么？", "建议准备产品卖点、使用情境、禁用说法、寄样信息、希望出现的重点与审核规则。"],
+      en: ["What should brands prepare for a YouTube review?", "Prepare product value points, usage context, restricted claims, seeding details, key messages, and review rules."]
+    }
+  },
+  {
+    slug: "instagram-kol-collaboration",
+    name: {
+      "zh-Hant": "Instagram KOL 合作",
+      "zh-Hans": "Instagram KOL 合作",
+      en: "Instagram KOL Collaboration"
+    },
+    title: {
+      "zh-Hant": "Instagram KOL 合作服務 | Reels、貼文與限時動態",
+      "zh-Hans": "Instagram KOL 合作服务 | Reels、帖文与限时动态",
+      en: "Instagram KOL Collaboration Service | Reels, Posts, and Stories"
+    },
+    description: {
+      "zh-Hant": "Instagram KOL 合作服務協助品牌規劃 Reels、貼文、限時動態與素材授權，適合美妝、生活、餐飲、旅遊與品牌形象建立。",
+      "zh-Hans": "Instagram KOL 合作服务协助品牌规划 Reels、帖文、限时动态与素材授权，适合美妆、生活、餐饮、旅游与品牌形象建立。",
+      en: "Instagram KOL collaboration service for Reels, posts, Stories, and usage rights, suitable for beauty, lifestyle, food, travel, and brand image building."
+    },
+    intro: {
+      "zh-Hant": "Instagram KOL 合作的重點在畫面質感、生活情境與可轉發素材。榛菓協助品牌確認創作者風格、合作格式、審稿節奏與素材使用範圍。",
+      "zh-Hans": "Instagram KOL 合作的重点在画面质感、生活情境与可转发素材。榛果协助品牌确认创作者风格、合作格式、审核节奏与素材使用范围。",
+      en: "Instagram KOL work depends on visual quality, lifestyle context, and reusable assets. Zhenguo helps align creator style, format, review rhythm, and usage scope."
+    },
+    faqOne: {
+      "zh-Hant": ["Instagram KOL 合作適合什麼目標？", "適合品牌形象、生活情境、口碑素材、活動曝光與可二次使用的社群內容。"],
+      "zh-Hans": ["Instagram KOL 合作适合什么目标？", "适合品牌形象、生活情境、口碑素材、活动曝光与可二次使用的社群内容。"],
+      en: ["What goals fit Instagram KOL collaboration?", "It fits brand image, lifestyle context, word-of-mouth assets, campaign exposure, and reusable social content."]
+    }
+  },
+  {
+    slug: "korea-influencer-marketing",
+    name: {
+      "zh-Hant": "韓國網紅行銷",
+      "zh-Hans": "韩国网红营销",
+      en: "Korea Influencer Marketing"
+    },
+    title: {
+      "zh-Hant": "韓國網紅行銷服務 | 韓國 KOL/KOC 合作執行",
+      "zh-Hans": "韩国网红营销服务 | 韩国 KOL/KOC 合作执行",
+      en: "Korea Influencer Marketing Service | Korean KOL/KOC Campaigns"
+    },
+    description: {
+      "zh-Hant": "韓國網紅行銷服務協助品牌篩選韓國 KOL/KOC、規劃內容方向、管理洽談寄樣、審稿與發布追蹤，適合美妝、食品、遊戲與生活品牌。",
+      "zh-Hans": "韩国网红营销服务协助品牌筛选韩国 KOL/KOC、规划内容方向、管理洽谈寄样、审核与发布追踪，适合美妆、食品、游戏与生活品牌。",
+      en: "Korea influencer marketing service for Korean KOL/KOC screening, content direction, negotiation, seeding, review, and publishing follow-up across beauty, food, gaming, and lifestyle brands."
+    },
+    intro: {
+      "zh-Hant": "韓國市場重視內容語境、創作者調性與產品呈現方式。榛菓協助品牌把合作條件整理清楚，再篩選適合的韓國創作者。",
+      "zh-Hans": "韩国市场重视内容语境、创作者调性与产品呈现方式。榛果协助品牌把合作条件整理清楚，再筛选适合的韩国创作者。",
+      en: "The Korean market depends on content context, creator tone, and product presentation. Zhenguo clarifies collaboration conditions before screening suitable Korean creators."
+    },
+    faqOne: {
+      "zh-Hant": ["韓國網紅合作適合哪些品類？", "常見品類包含美妝、食品飲料、遊戲、生活用品、旅遊與零售通路活動。"],
+      "zh-Hans": ["韩国网红合作适合哪些品类？", "常见品类包含美妆、食品饮料、游戏、生活用品、旅游与零售通路活动。"],
+      en: ["Which categories fit Korean influencer campaigns?", "Common categories include beauty, food and beverage, gaming, lifestyle products, travel, and retail activations."]
+    }
+  },
+  {
+    slug: "japan-influencer-marketing",
+    name: {
+      "zh-Hant": "日本網紅行銷",
+      "zh-Hans": "日本网红营销",
+      en: "Japan Influencer Marketing"
+    },
+    title: {
+      "zh-Hant": "日本網紅行銷服務 | 日本 KOL/KOC 合作與內容審核",
+      "zh-Hans": "日本网红营销服务 | 日本 KOL/KOC 合作与内容审核",
+      en: "Japan Influencer Marketing Service | Japanese KOL/KOC Campaigns"
+    },
+    description: {
+      "zh-Hant": "日本網紅行銷服務協助品牌規劃日本 KOL/KOC 合作，包含創作者篩選、合作洽談、寄樣、內容方向、審稿與發布追蹤。",
+      "zh-Hans": "日本网红营销服务协助品牌规划日本 KOL/KOC 合作，包含创作者筛选、合作洽谈、寄样、内容方向、审核与发布追踪。",
+      en: "Japan influencer marketing service for Japanese KOL/KOC campaigns, including creator screening, negotiation, product seeding, content direction, review, and publishing follow-up."
+    },
+    intro: {
+      "zh-Hant": "日本網紅合作需要更細的溝通、審稿與時程管理。榛菓協助品牌把產品資訊、表述限制與合作條件整理成創作者容易理解的 brief。",
+      "zh-Hans": "日本网红合作需要更细的沟通、审核与时程管理。榛果协助品牌把产品信息、表述限制与合作条件整理成创作者容易理解的 brief。",
+      en: "Japanese influencer campaigns need careful communication, review, and timing. Zhenguo turns product details, claim restrictions, and collaboration terms into creator-friendly briefs."
+    },
+    faqOne: {
+      "zh-Hant": ["日本網紅合作最容易卡在哪裡？", "常見卡點是溝通細節、審稿節奏、授權範圍、寄樣時間與品牌表述限制。"],
+      "zh-Hans": ["日本网红合作最容易卡在哪里？", "常见卡点是沟通细节、审核节奏、授权范围、寄样时间与品牌表述限制。"],
+      en: ["Where do Japan influencer campaigns usually get stuck?", "Common blockers include communication details, review rhythm, usage rights, seeding timing, and claim restrictions."]
+    }
+  },
+  {
+    slug: "gaming-influencer-marketing",
+    name: {
+      "zh-Hant": "遊戲網紅行銷",
+      "zh-Hans": "游戏网红营销",
+      en: "Gaming Influencer Marketing"
+    },
+    title: {
+      "zh-Hant": "遊戲網紅行銷服務 | 實況主、短影音與社群活動",
+      "zh-Hans": "游戏网红营销服务 | 实况主、短视频与社群活动",
+      en: "Gaming Influencer Marketing Service | Streamers, Short Video, and Community Campaigns"
+    },
+    description: {
+      "zh-Hant": "遊戲網紅行銷服務協助遊戲品牌規劃實況主、YouTube、TikTok 與社群創作者合作，包含名單篩選、內容方向、活動節奏與發布追蹤。",
+      "zh-Hans": "游戏网红营销服务协助游戏品牌规划实况主、YouTube、TikTok 与社群创作者合作，包含名单筛选、内容方向、活动节奏与发布追踪。",
+      en: "Gaming influencer marketing service for streamer, YouTube, TikTok, and community creator campaigns, including shortlist screening, content direction, activation rhythm, and publishing follow-up."
+    },
+    intro: {
+      "zh-Hant": "遊戲合作不只要曝光，還要讓玩家理解玩法、角色、活動與參與理由。榛菓協助把遊戲賣點轉成創作者能執行的內容場景。",
+      "zh-Hans": "游戏合作不只要曝光，还要让玩家理解玩法、角色、活动与参与理由。榛果协助把游戏卖点转成创作者能执行的内容场景。",
+      en: "Gaming campaigns need more than exposure. Players must understand gameplay, characters, events, and reasons to join. Zhenguo turns game selling points into creator-ready content contexts."
+    },
+    faqOne: {
+      "zh-Hant": ["遊戲網紅行銷適合哪些合作形式？", "常見形式包含實況、短影音挑戰、遊戲評測、活動宣傳、角色主題內容與社群互動。"],
+      "zh-Hans": ["游戏网红营销适合哪些合作形式？", "常见形式包含实况、短视频挑战、游戏评测、活动宣传、角色主题内容与社群互动。"],
+      en: ["What formats fit gaming influencer marketing?", "Common formats include livestreaming, short-video challenges, game reviews, event promotion, character-themed content, and community interaction."]
+    }
+  },
+  {
+    slug: "beauty-influencer-marketing",
+    name: {
+      "zh-Hant": "美妝網紅行銷",
+      "zh-Hans": "美妆网红营销",
+      en: "Beauty Influencer Marketing"
+    },
+    title: {
+      "zh-Hant": "美妝網紅行銷服務 | 試用、妝容內容與口碑素材",
+      "zh-Hans": "美妆网红营销服务 | 试用、妆容内容与口碑素材",
+      en: "Beauty Influencer Marketing Service | Reviews, Looks, and Word-of-Mouth Assets"
+    },
+    description: {
+      "zh-Hant": "美妝網紅行銷服務協助品牌規劃試用、妝容示範、開箱、短影音與圖文合作，管理創作者篩選、寄樣、內容審核與發布追蹤。",
+      "zh-Hans": "美妆网红营销服务协助品牌规划试用、妆容示范、开箱、短视频与图文合作，管理创作者筛选、寄样、内容审核与发布追踪。",
+      en: "Beauty influencer marketing service for reviews, makeup looks, unboxing, short videos, and posts, managing creator screening, seeding, content review, and publishing follow-up."
+    },
+    intro: {
+      "zh-Hant": "美妝合作重視膚質、色號、使用感與畫面呈現。榛菓協助品牌篩選適合的創作者，並把審稿重點整理成可執行的內容方向。",
+      "zh-Hans": "美妆合作重视肤质、色号、使用感与画面呈现。榛果协助品牌筛选适合的创作者，并把审核重点整理成可执行的内容方向。",
+      en: "Beauty campaigns depend on skin type, shade, usage feel, and visual presentation. Zhenguo screens suitable creators and turns review priorities into executable content direction."
+    },
+    faqOne: {
+      "zh-Hant": ["美妝網紅合作需要注意什麼？", "需要注意膚質與色號匹配、功效表述限制、試用時間、素材授權與是否可二次投放。"],
+      "zh-Hans": ["美妆网红合作需要注意什么？", "需要注意肤质与色号匹配、功效表述限制、试用时间、素材授权与是否可二次投放。"],
+      en: ["What should beauty influencer campaigns watch for?", "Watch for skin and shade fit, claim restrictions, trial period, usage rights, and whether paid media reuse is allowed."]
+    }
+  },
+  {
+    slug: "food-influencer-marketing",
+    name: {
+      "zh-Hant": "食品網紅行銷",
+      "zh-Hans": "食品网红营销",
+      en: "Food Influencer Marketing"
+    },
+    title: {
+      "zh-Hant": "食品網紅行銷服務 | 試吃、門市體驗與口碑內容",
+      "zh-Hans": "食品网红营销服务 | 试吃、门店体验与口碑内容",
+      en: "Food Influencer Marketing Service | Tastings, Store Visits, and Word of Mouth"
+    },
+    description: {
+      "zh-Hant": "食品網紅行銷服務協助品牌規劃試吃、門市體驗、短影音、圖文與在地口碑合作，包含創作者篩選、寄樣安排、內容審核與上刊整理。",
+      "zh-Hans": "食品网红营销服务协助品牌规划试吃、门店体验、短视频、图文与在地口碑合作，包含创作者筛选、寄样安排、内容审核与发布整理。",
+      en: "Food influencer marketing service for tastings, store visits, short videos, posts, and local word-of-mouth campaigns, including creator screening, seeding, content review, and publishing records."
+    },
+    intro: {
+      "zh-Hant": "食品合作要把口味、場景、購買方式與到店理由說清楚。榛菓協助品牌依市場與通路，挑選能自然呈現體驗的創作者。",
+      "zh-Hans": "食品合作要把口味、场景、购买方式与到店理由说清楚。榛果协助品牌依市场与渠道，挑选能自然呈现体验的创作者。",
+      en: "Food campaigns need to explain taste, context, purchase path, and reasons to visit. Zhenguo selects creators who can present the experience naturally by market and channel."
+    },
+    faqOne: {
+      "zh-Hant": ["食品網紅行銷適合哪種品牌？", "適合食品飲料、餐飲門市、伴手禮、零售新品與需要試吃體驗或在地口碑的品牌。"],
+      "zh-Hans": ["食品网红营销适合哪种品牌？", "适合食品饮料、餐饮门店、伴手礼、零售新品与需要试吃体验或在地口碑的品牌。"],
+      en: ["Which brands fit food influencer marketing?", "It fits food and beverage, restaurants, gift products, retail launches, and brands needing tasting experiences or local word of mouth."]
+    }
   }
 ];
 
