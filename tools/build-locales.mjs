@@ -277,9 +277,7 @@ const faqItems = (copy) => [
   [copy.answerThreeQuestion, copy.answerThreeBody],
   [copy.answerFourQuestion, copy.answerFourBody],
   [copy.answerFiveQuestion, copy.answerFiveBody],
-  [copy.answerSixQuestion, copy.answerSixBody],
-  [copy.answerSevenQuestion, copy.answerSevenBody],
-  [copy.answerEightQuestion, copy.answerEightBody]
+  [copy.answerSixQuestion, copy.answerSixBody]
 ];
 
 const organizationSchema = (locale) => ({
