@@ -1,0 +1,687 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>AI 入門教學流程</title>
+  <style>
+    :root {
+      --ink: #1d1b16;
+      --muted: #6e675c;
+      --paper: #fbfaf5;
+      --line: #d9d0c2;
+      --green: #34785d;
+      --blue: #2f5f98;
+      --red: #a14332;
+      --yellow: #e2b33b;
+      --panel: #ffffff;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      color: var(--ink);
+      background:
+        linear-gradient(90deg, rgba(29, 27, 22, .04) 1px, transparent 1px),
+        linear-gradient(rgba(29, 27, 22, .04) 1px, transparent 1px),
+        var(--paper);
+      background-size: 28px 28px;
+      font-family: "PingFang TC", "Noto Sans TC", "Microsoft JhengHei", sans-serif;
+      line-height: 1.65;
+    }
+
+    main {
+      width: min(1120px, calc(100% - 32px));
+      margin: 0 auto;
+      padding: 36px 0 64px;
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: 1.1fr .9fr;
+      gap: 24px;
+      align-items: end;
+      padding: 30px 0 28px;
+      border-bottom: 3px solid var(--ink);
+    }
+
+    .kicker {
+      margin: 0 0 10px;
+      color: var(--red);
+      font-size: 15px;
+      font-weight: 800;
+      letter-spacing: .08em;
+    }
+
+    h1 {
+      margin: 0;
+      max-width: 780px;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(42px, 7vw, 92px);
+      line-height: .95;
+      letter-spacing: 0;
+    }
+
+    .hero p {
+      margin: 18px 0 0;
+      max-width: 620px;
+      font-size: 20px;
+      color: var(--muted);
+    }
+
+    .stamp {
+      justify-self: end;
+      width: min(100%, 320px);
+      padding: 22px;
+      background: var(--ink);
+      color: var(--paper);
+      transform: rotate(1.2deg);
+    }
+
+    .stamp strong {
+      display: block;
+      margin-bottom: 10px;
+      font-size: 30px;
+      line-height: 1.1;
+    }
+
+    .stamp span {
+      display: block;
+      color: #efe5d2;
+      font-size: 15px;
+    }
+
+    section {
+      padding: 30px 0;
+      border-bottom: 1px solid var(--line);
+    }
+
+    h2 {
+      margin: 0 0 16px;
+      font-size: 28px;
+      line-height: 1.2;
+      letter-spacing: 0;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+    }
+
+    .two {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .card {
+      min-height: 160px;
+      padding: 18px;
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      box-shadow: 0 8px 0 rgba(29, 27, 22, .06);
+    }
+
+    .card h3 {
+      margin: 0 0 8px;
+      font-size: 19px;
+      line-height: 1.25;
+    }
+
+    .card p,
+    .card li {
+      color: var(--muted);
+      font-size: 15px;
+    }
+
+    .card p { margin: 0; }
+
+    .card a {
+      color: var(--blue);
+      font-weight: 800;
+      text-decoration-thickness: 2px;
+      text-underline-offset: 3px;
+    }
+
+    ol,
+    ul {
+      margin: 10px 0 0;
+      padding-left: 22px;
+    }
+
+    .timeline {
+      display: grid;
+      gap: 12px;
+      counter-reset: step;
+    }
+
+    .step {
+      display: grid;
+      grid-template-columns: 92px 1fr;
+      gap: 16px;
+      align-items: stretch;
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      overflow: hidden;
+    }
+
+    .time {
+      display: grid;
+      place-items: center;
+      padding: 14px;
+      color: var(--paper);
+      background: var(--blue);
+      font-weight: 900;
+      text-align: center;
+    }
+
+    .step:nth-child(2n) .time { background: var(--green); }
+    .step:nth-child(3n) .time { background: var(--red); }
+
+    .step-body {
+      padding: 16px 18px 18px 0;
+    }
+
+    .step h3 {
+      margin: 0 0 6px;
+      font-size: 20px;
+      line-height: 1.3;
+    }
+
+    .step p {
+      margin: 0;
+      color: var(--muted);
+    }
+
+    .step-list {
+      display: grid;
+      gap: 6px;
+      margin: 10px 0 0;
+      padding-left: 20px;
+      color: var(--muted);
+      font-size: 15px;
+    }
+
+    .step-list strong {
+      color: var(--ink);
+    }
+
+    .prompt {
+      margin-top: 12px;
+      padding: 14px;
+      background: #f3efe5;
+      border-left: 5px solid var(--yellow);
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: 14px;
+      line-height: 1.55;
+      white-space: pre-wrap;
+    }
+
+    .checklist {
+      columns: 2;
+      column-gap: 26px;
+      padding-left: 0;
+      list-style: none;
+    }
+
+    .checklist li {
+      break-inside: avoid;
+      margin: 0 0 10px;
+      padding-left: 28px;
+      position: relative;
+    }
+
+    .checklist li::before {
+      content: "□";
+      position: absolute;
+      left: 0;
+      top: 0;
+      font-weight: 900;
+    }
+
+    .callout {
+      padding: 20px;
+      color: var(--paper);
+      background: var(--green);
+      border-radius: 8px;
+    }
+
+    .callout h2,
+    .callout p {
+      margin: 0;
+    }
+
+    .callout p {
+      margin-top: 8px;
+      color: #eef8ef;
+    }
+
+    footer {
+      padding-top: 24px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    @media (max-width: 760px) {
+      main { width: min(100% - 22px, 1120px); padding-top: 18px; }
+      .hero,
+      .grid,
+      .two,
+      .step { grid-template-columns: 1fr; }
+      .stamp { justify-self: start; transform: none; }
+      .step-body { padding: 16px; }
+      .time { place-items: start; }
+      .checklist { columns: 1; }
+    }
+
+    @media print {
+      body { background: white; }
+      main { width: 100%; padding: 0; }
+      .card,
+      .step,
+      .callout { box-shadow: none; break-inside: avoid; }
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header class="hero">
+      <div>
+        <p class="kicker">給第一次學 AI 的朋友</p>
+        <h1>不要先教工具，先教她完成一件事。</h1>
+        <p>安裝 Codex 或 ChatGPT 只是開門。真正的教學目標，是讓她知道怎麼把需求說清楚、怎麼檢查結果、怎麼把同一件事變成可重複流程。</p>
+      </div>
+      <aside class="stamp">
+        <strong>90 分鐘版</strong>
+        <span>一對一教學流程：不講模型史、不塞工具清單，當場產出一個可用成果。</span>
+      </aside>
+    </header>
+
+    <section>
+      <h2>你的教學原則</h2>
+      <div class="grid">
+        <article class="card">
+          <h3>1. 從她的真實任務開始</h3>
+          <p>請她帶一件最近真的想完成的事：履歷、報告、旅遊規劃、整理資料、回信、貼文。沒有真任務，教學很快變成看功能表演。</p>
+        </article>
+        <article class="card">
+          <h3>2. 只教一條工作流</h3>
+          <p>輸入背景、要求格式、請 AI 先問問題、產出初稿、逐段修改、最後檢查。先把這條路走順，比介紹十個工具有用。</p>
+        </article>
+        <article class="card">
+          <h3>3. 把懷疑變成檢查</h3>
+          <p>AI 不是答案機，是助理。教她每次都檢查事實、語氣、缺漏、引用來源，以及哪些地方不能直接相信。</p>
+        </article>
+      </div>
+    </section>
+
+    <section>
+      <h2>課前 10 分鐘準備</h2>
+      <div class="grid two">
+        <article class="card">
+          <h3>請她先選一個任務</h3>
+          <ul>
+            <li>一封要回但拖很久的信</li>
+            <li>一份要整理的筆記或資料</li>
+            <li>一篇要改寫的貼文或履歷</li>
+            <li>一個她每週重複做的小工作</li>
+          </ul>
+        </article>
+        <article class="card">
+          <h3>你先準備三個範例</h3>
+          <ul>
+            <li>差的 prompt：只說「幫我寫」</li>
+            <li>好的 prompt：有背景、對象、格式、限制</li>
+            <li>檢查 prompt：請 AI 找漏洞、列風險、問缺資料</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <section>
+      <h2>工具選擇：先選她今天用得到的</h2>
+      <div class="grid">
+        <article class="card">
+          <h3>ChatGPT：文字任務先用它</h3>
+          <p>如果她只是要寫信、改履歷、整理想法、做貼文，先不要裝一堆東西。登入後直接用，阻力最低。</p>
+        </article>
+        <article class="card">
+          <h3>Codex Desktop：有檔案再教</h3>
+          <p>如果她要整理資料夾、改 HTML、批次處理文件、做小工具，就用桌面版。它比命令列更適合大多數非工程背景的人。</p>
+        </article>
+        <article class="card">
+          <h3>CLI：先不要碰</h3>
+          <p>命令列適合重度開發者。第一次教學讓她碰 CLI，通常只會把注意力從任務拉到環境問題。</p>
+        </article>
+      </div>
+    </section>
+
+    <section>
+      <h2>Windows 電腦小白：你先幫她裝底座</h2>
+      <div class="grid">
+        <article class="card">
+          <h3>必裝：Codex Desktop</h3>
+          <p>這是她以後真正會打開的入口。先讓她會新增專案、丟任務、看結果，不要讓她碰命令列。</p>
+        </article>
+        <article class="card">
+          <h3>可預裝：Git、Node.js、Python</h3>
+          <p>這三個是 Codex 做檔案、網頁、小工具、資料整理時常用的底座。你幫她裝好，她未來就少卡一次。</p>
+        </article>
+        <article class="card">
+          <h3>不要預裝：一包常用庫</h3>
+          <p>不要全域塞 pandas、playwright、各種 PDF/Excel 套件。缺什麼讓 Codex 在專案資料夾按任務裝，壞了也只影響那個專案。</p>
+        </article>
+      </div>
+      <div class="prompt">之後她遇到檔案或資料任務時，可以直接對 Codex 說：
+請先檢查這個專案需要哪些工具。
+如果缺 Python 套件，請在專案資料夾建立獨立環境並安裝。
+不要改我的全域環境，安裝前先說明會裝什麼、為什麼需要。</div>
+    </section>
+
+    <section>
+      <h2>飛書延伸閱讀：先放這 3 個就夠</h2>
+      <div class="grid">
+        <article class="card">
+          <h3><a href="https://v11enp9ok1h.feishu.cn/wiki/MkGiwBWFpiRkTtkSYsWc5G0cn0b#doxcn91MTGuJJ8Rt6286XI5LFBg" target="_blank" rel="noopener">下載與安裝</a></h3>
+          <p>放在課前準備用。你幫她裝時照這段確認平台和入口，不要把第一堂變成到處找下載點。</p>
+        </article>
+        <article class="card">
+          <h3><a href="https://v11enp9ok1h.feishu.cn/wiki/MkGiwBWFpiRkTtkSYsWc5G0cn0b#doxcnZsHKyAh06n2KqLVlySWExe" target="_blank" rel="noopener">三種運行模式</a></h3>
+          <p>放在第二堂前看。它適合幫你解釋什麼時候用桌面、CLI 或其他模式，但第一堂不要展開講。</p>
+        </article>
+        <article class="card">
+          <h3><a href="https://v11enp9ok1h.feishu.cn/wiki/MkGiwBWFpiRkTtkSYsWc5G0cn0b#doxcnluVUvBMNCJtDQnGdRrdHlb" target="_blank" rel="noopener">本地環境配置</a></h3>
+          <p>放在 Windows/Python 底座那一段旁邊。未來要讓 Codex 跑檔案、資料或小工具任務時再用。</p>
+        </article>
+      </div>
+    </section>
+
+    <section>
+      <h2>90 分鐘教學流程</h2>
+      <div class="timeline">
+        <article class="step">
+          <div class="time">0-10<br>min</div>
+          <div class="step-body">
+            <h3>先改觀念：AI 是實習生，不是神</h3>
+            <p>目標是先拆掉兩個錯誤期待：AI 不是一次給完美答案，也不是只會聊天的玩具。</p>
+            <ul class="step-list">
+              <li><strong>你說：</strong>「你不用學會所有 AI 工具，今天只學一件事：怎麼讓 AI 幫你完成工作。」</li>
+              <li><strong>你示範：</strong>同一個需求，用「幫我寫」和「有背景、有對象、有格式」各問一次，讓她看差異。</li>
+              <li><strong>她產出：</strong>說出今天要完成的一個真實任務，不接受「我想學 AI」這種模糊目標。</li>
+            </ul>
+          </div>
+        </article>
+        <article class="step">
+          <div class="time">10-20<br>min</div>
+          <div class="step-body">
+            <h3>安裝或登入工具</h3>
+            <p>只處理今天會用到的入口，不把時間花在工具巡禮。</p>
+            <ul class="step-list">
+              <li><strong>文字任務：</strong>登入 ChatGPT，確認她能開新對話、複製回覆、重新追問。</li>
+              <li><strong>檔案任務：</strong>打開 Codex Desktop，建立練習資料夾，先放一份不敏感的測試檔。</li>
+              <li><strong>現場規則：</strong>安裝或登入卡住超過 10 分鐘，先切回 ChatGPT 完成文字任務。</li>
+            </ul>
+          </div>
+        </article>
+        <article class="step">
+          <div class="time">20-40<br>min</div>
+          <div class="step-body">
+            <h3>用她的真實任務做第一版</h3>
+            <p>這一段你少講，她多操作。你的工作是逼她把任務說清楚。</p>
+            <ul class="step-list">
+              <li><strong>你問：</strong>誰會看？要達成什麼？不能出現什麼？最後要長什麼樣子？</li>
+              <li><strong>她做：</strong>把任務、背景、對象、限制填進 prompt，再親手送出。</li>
+              <li><strong>檢查點：</strong>如果 AI 直接開始寫但資訊不夠，就讓她練習叫 AI 先問問題。</li>
+            </ul>
+            <div class="prompt">你是我的工作助理。我要完成：[任務]。
+背景：[補充背景]
+對象：[誰會看]
+限制：[語氣、長度、不能做什麼]
+請先問我 3 個必要問題，再開始產出。</div>
+          </div>
+        </article>
+        <article class="step">
+          <div class="time">40-60<br>min</div>
+          <div class="step-body">
+            <h3>教她修改，不是重來</h3>
+            <p>新手常以為第一版不好就要重問。這段要教她「追問比重開更重要」。</p>
+            <ul class="step-list">
+              <li><strong>第一輪：</strong>改語氣，讓內容更像她本人會說的話。</li>
+              <li><strong>第二輪：</strong>改結構，把一大段變成表格、條列、清單或信件格式。</li>
+              <li><strong>第三輪：</strong>刪空話，要求 AI 標出哪些句子沒有資訊量。</li>
+            </ul>
+            <div class="prompt">請保留原本重點，但改成：
+1. 更口語
+2. 更適合 [對象]
+3. 刪掉空話
+4. 用條列整理最後版本</div>
+          </div>
+        </article>
+        <article class="step">
+          <div class="time">60-75<br>min</div>
+          <div class="step-body">
+            <h3>教她檢查結果</h3>
+            <p>這段不是挑錯而已，是建立她以後能自己安全使用 AI 的習慣。</p>
+            <ul class="step-list">
+              <li><strong>事實檢查：</strong>凡是日期、價格、法規、醫療、金融、公司資訊，都要另行查證。</li>
+              <li><strong>語氣檢查：</strong>確認是否太油、太硬、太像 AI、太不像她。</li>
+              <li><strong>隱私檢查：</strong>回看剛剛是否貼了不該貼的個資、客戶資料或公司內部資料。</li>
+            </ul>
+            <div class="prompt">請用審稿人角度檢查上面的內容：
+- 哪些地方可能不準？
+- 哪些句子太空泛？
+- 還缺什麼資訊？
+- 如果我是收件人，哪裡會不清楚？</div>
+          </div>
+        </article>
+        <article class="step">
+          <div class="time">75-90<br>min</div>
+          <div class="step-body">
+            <h3>把它變成下次可重複的模板</h3>
+            <p>收尾不要再教新功能。把今天做過的事整理成她下次能照抄的流程。</p>
+            <ul class="step-list">
+              <li><strong>留下 1 份模板：</strong>把今天最有效的 prompt 改成可替換欄位。</li>
+              <li><strong>留下 1 份自訂指令：</strong>選前面短版，不要現場寫長篇規則。</li>
+              <li><strong>留下 1 個作業：</strong>24 小時內用同一模板完成另一件小事，回傳結果給你看。</li>
+            </ul>
+            <div class="prompt">下次我可以直接複製這段：
+我要完成：[任務]
+背景是：[背景]
+對象是：[對象]
+請先問我最多 3 個必要問題。
+完成後請幫我檢查：不準、空泛、不像我、缺資料的地方。</div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section>
+      <h2>一張好 prompt 的公式</h2>
+      <div class="grid">
+        <article class="card">
+          <h3>角色</h3>
+          <p>你要 AI 扮演誰：助理、編輯、面試官、資料整理員、行銷企劃。</p>
+        </article>
+        <article class="card">
+          <h3>背景</h3>
+          <p>它不知道你腦中的情境。補上目的、對象、限制、已知資料。</p>
+        </article>
+        <article class="card">
+          <h3>輸出格式</h3>
+          <p>指定表格、條列、信件、腳本、清單、HTML，結果會穩很多。</p>
+        </article>
+      </div>
+      <div class="prompt">你是 [角色]。
+我要 [任務]，目標是 [目的]。
+背景資料是 [資料]。
+請用 [格式] 輸出，語氣要 [語氣]。
+限制：不要 [限制]。
+如果資訊不足，先問我問題。</div>
+    </section>
+
+    <section>
+      <h2>新手自訂指令：只給短版安全帶</h2>
+      <div class="grid two">
+        <article class="card">
+          <h3>ChatGPT 極簡版</h3>
+          <p>適合只做文字、企劃、整理想法的人。</p>
+          <div class="prompt">請用繁體中文回答。
+我不熟 AI，請先給結論，再給步驟。
+如果我的需求不清楚，先問我最多 3 個問題。
+不要一次給太多選項，先推薦一個最適合我的做法。
+必要時用白話解釋專業術語。</div>
+        </article>
+        <article class="card">
+          <h3>電腦小白版</h3>
+          <p>適合怕安裝、怕檔案、怕看不懂錯誤訊息的人。</p>
+          <div class="prompt">我不熟電腦，請一步一步帶我做。
+每一步只給我現在需要做的動作。
+如果會影響我的檔案、帳號、付款或隱私，請先提醒我。
+遇到錯誤時，請先告訴我截圖或複製哪一段訊息給你。
+不要假設我知道命令列、資料夾路徑或副檔名是什麼。</div>
+        </article>
+        <article class="card">
+          <h3>Codex 檔案工作版</h3>
+          <p>適合要用 Codex 整理檔案、改 HTML、做小工具。</p>
+          <div class="prompt">請用繁體中文和我溝通。
+修改檔案前，先用一句話說明你要改什麼。
+不要改全域環境；需要 Python 套件時，優先建立專案自己的環境。
+安裝工具或套件前，先說明會裝什麼、為什麼需要。
+完成後告訴我改了哪些檔案、檔案在哪裡、我下一步要做什麼。</div>
+        </article>
+        <article class="card">
+          <h3>學習陪跑版</h3>
+          <p>適合她真的想學，而不是只想叫 AI 代做。</p>
+          <div class="prompt">請像教練一樣協助我。
+先幫我完成任務，再用 3 句話解釋我剛剛學到什麼。
+不要直接丟一大篇教學。
+每次結尾請給我一個 10 分鐘內能完成的小練習。
+如果我依賴你代做太多，請提醒我自己操作一次。</div>
+        </article>
+      </div>
+    </section>
+
+    <section>
+      <h2>自訂指令不要這樣寫</h2>
+      <div class="grid">
+        <article class="card">
+          <h3>不要追求全能</h3>
+          <p>「永遠用最完整、最專業、最高級的方法」會讓回答變長，初學者更難開始。</p>
+        </article>
+        <article class="card">
+          <h3>不要塞人格設定</h3>
+          <p>「你是世界第一 AI 專家」沒有實際幫助。新手更需要步驟、限制、檢查點。</p>
+        </article>
+        <article class="card">
+          <h3>不要一次放太多規則</h3>
+          <p>第一版控制在 5 到 7 條。她開始重複遇到問題，再把問題寫進指令。</p>
+        </article>
+      </div>
+    </section>
+
+    <section>
+      <h2>不要一開始教這些</h2>
+      <div class="grid">
+        <article class="card">
+          <h3>不要先講模型排名</h3>
+          <p>初學者不需要知道每個模型的 benchmark。她需要知道何時該給背景、何時該檢查。</p>
+        </article>
+        <article class="card">
+          <h3>不要塞 20 個工具</h3>
+          <p>工具越多越焦慮。先用一個工具完成一件事，第二次再擴充。</p>
+        </article>
+        <article class="card">
+          <h3>不要代做到底</h3>
+          <p>你可以示範，但最後 20 分鐘要讓她自己操作。她卡住時，你只提示下一步。</p>
+        </article>
+      </div>
+    </section>
+
+    <section>
+      <h2>第二堂再教 Codex 進階功能</h2>
+      <div class="grid">
+        <article class="card">
+          <h3>Review 模式</h3>
+          <p>等她已經會產出東西，再教她用審查視角看差異、找問題、決定接受或修改。</p>
+        </article>
+        <article class="card">
+          <h3>Automations</h3>
+          <p>等她有一件重複 3 次以上的事，再教自動化。沒有穩定流程就先不要自動化。</p>
+        </article>
+        <article class="card">
+          <h3>Worktrees 與 Handoff</h3>
+          <p>這是多任務、多版本、多協作時才需要的管理方式。第一次學 AI 不需要背這些名詞。</p>
+        </article>
+      </div>
+    </section>
+
+    <section>
+      <h2>備課容易漏掉的 6 件事</h2>
+      <div class="grid">
+        <article class="card">
+          <h3>1. 先定義下課成果</h3>
+          <p>不要把目標寫成「學會 AI」。改成「完成一封信、一份整理表、一個 HTML、一個可重複 prompt」。</p>
+        </article>
+        <article class="card">
+          <h3>2. 先處理帳號問題</h3>
+          <p>請她帶手機、信箱、密碼管理工具、付款方式。現場卡在驗證碼，比不會 prompt 更浪費時間。</p>
+        </article>
+        <article class="card">
+          <h3>3. 先講隱私邊界</h3>
+          <p>不要貼身分證、密碼、完整客戶資料、公司機密。真的要用敏感資料，先遮掉名字、電話、地址。</p>
+        </article>
+        <article class="card">
+          <h3>4. 先建練習資料夾</h3>
+          <p>如果會用 Codex，先建立一個專門練習資料夾。所有測試檔案放裡面，不碰桌面上亂放的重要檔。</p>
+        </article>
+        <article class="card">
+          <h3>5. 準備失敗備案</h3>
+          <p>如果安裝、登入、網路、權限卡住超過 10 分鐘，立刻改用 ChatGPT 做文字任務。第一堂不要變成修電腦。</p>
+        </article>
+        <article class="card">
+          <h3>6. 留一個 24 小時作業</h3>
+          <p>讓她隔天自己完成一個小任務，再把結果貼給你看。沒有課後使用，第一堂很快就忘。</p>
+        </article>
+      </div>
+    </section>
+
+    <section>
+      <h2>你可以提前問她這 5 題</h2>
+      <ul class="checklist">
+        <li>你最想省時間的是哪一件重複工作？</li>
+        <li>你平常主要用手機、Windows，還是 Mac？</li>
+        <li>你有沒有一份可以拿來練習的真實檔案？</li>
+        <li>這次你希望最後拿到什麼成品？</li>
+        <li>哪些資料不能上傳或不能給 AI 看？</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>下課前檢查清單</h2>
+      <ul class="checklist">
+        <li>她完成了一個自己的真實任務</li>
+        <li>她知道差 prompt 和好 prompt 的差別</li>
+        <li>她會要求 AI 先問問題</li>
+        <li>她會指定格式、語氣、限制</li>
+        <li>她知道 AI 可能會編造或漏掉重點</li>
+        <li>她有一份自己的短版自訂指令</li>
+        <li>她留下了一個可重複使用的模板</li>
+        <li>她知道哪些資料不能貼給 AI</li>
+        <li>她知道下次遇到卡關時要怎麼追問</li>
+        <li>她有一個 24 小時內要自己完成的小作業</li>
+      </ul>
+    </section>
+
+    <section class="callout">
+      <h2>你的答案可以這樣說</h2>
+      <p>「我不會只幫你裝 AI。我們用 90 分鐘，拿你現在真的需要做的一件事，從輸入、修改、檢查到變成模板跑一遍。你學完不是多一個 App，是多一個工作方法。」</p>
+    </section>
+
+    <footer>
+      建議第一次只教 90 分鐘。她第二次主動拿任務來問，再教 Codex Desktop、檔案整理、自動化和進階工作流。
+    </footer>
+  </main>
+</body>
+</html>
