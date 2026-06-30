@@ -4,308 +4,19 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>AI 入門教學流程</title>
-  <style>
-    :root {
-      --ink: #1d1b16;
-      --muted: #6e675c;
-      --paper: #fbfaf5;
-      --line: #d9d0c2;
-      --green: #34785d;
-      --blue: #2f5f98;
-      --red: #a14332;
-      --yellow: #e2b33b;
-      --panel: #ffffff;
-    }
-
-    * { box-sizing: border-box; }
-
-    body {
-      margin: 0;
-      color: var(--ink);
-      background:
-        linear-gradient(90deg, rgba(29, 27, 22, .04) 1px, transparent 1px),
-        linear-gradient(rgba(29, 27, 22, .04) 1px, transparent 1px),
-        var(--paper);
-      background-size: 28px 28px;
-      font-family: "PingFang TC", "Noto Sans TC", "Microsoft JhengHei", sans-serif;
-      line-height: 1.65;
-    }
-
-    main {
-      width: min(1120px, calc(100% - 32px));
-      margin: 0 auto;
-      padding: 36px 0 64px;
-    }
-
-    .hero {
-      display: grid;
-      grid-template-columns: 1.1fr .9fr;
-      gap: 24px;
-      align-items: end;
-      padding: 30px 0 28px;
-      border-bottom: 3px solid var(--ink);
-    }
-
-    .kicker {
-      margin: 0 0 10px;
-      color: var(--red);
-      font-size: 15px;
-      font-weight: 800;
-      letter-spacing: .08em;
-    }
-
-    h1 {
-      margin: 0;
-      max-width: 780px;
-      font-family: Georgia, "Times New Roman", serif;
-      font-size: clamp(42px, 7vw, 92px);
-      line-height: .95;
-      letter-spacing: 0;
-    }
-
-    .hero p {
-      margin: 18px 0 0;
-      max-width: 620px;
-      font-size: 20px;
-      color: var(--muted);
-    }
-
-    .stamp {
-      justify-self: end;
-      width: min(100%, 320px);
-      padding: 22px;
-      background: var(--ink);
-      color: var(--paper);
-      transform: rotate(1.2deg);
-    }
-
-    .stamp strong {
-      display: block;
-      margin-bottom: 10px;
-      font-size: 30px;
-      line-height: 1.1;
-    }
-
-    .stamp span {
-      display: block;
-      color: #efe5d2;
-      font-size: 15px;
-    }
-
-    section {
-      padding: 30px 0;
-      border-bottom: 1px solid var(--line);
-    }
-
-    h2 {
-      margin: 0 0 16px;
-      font-size: 28px;
-      line-height: 1.2;
-      letter-spacing: 0;
-    }
-
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 14px;
-    }
-
-    .two {
-      grid-template-columns: repeat(2, 1fr);
-    }
-
-    .card {
-      min-height: 160px;
-      padding: 18px;
-      background: var(--panel);
-      border: 1px solid var(--line);
-      border-radius: 8px;
-      box-shadow: 0 8px 0 rgba(29, 27, 22, .06);
-    }
-
-    .card h3 {
-      margin: 0 0 8px;
-      font-size: 19px;
-      line-height: 1.25;
-    }
-
-    .card p,
-    .card li {
-      color: var(--muted);
-      font-size: 15px;
-    }
-
-    .card p { margin: 0; }
-
-    .card a {
-      color: var(--blue);
-      font-weight: 800;
-      text-decoration-thickness: 2px;
-      text-underline-offset: 3px;
-    }
-
-    ol,
-    ul {
-      margin: 10px 0 0;
-      padding-left: 22px;
-    }
-
-    .timeline {
-      display: grid;
-      gap: 12px;
-      counter-reset: step;
-    }
-
-    .step {
-      display: grid;
-      grid-template-columns: 92px 1fr;
-      gap: 16px;
-      align-items: stretch;
-      background: var(--panel);
-      border: 1px solid var(--line);
-      border-radius: 8px;
-      overflow: hidden;
-    }
-
-    .time {
-      display: grid;
-      place-items: center;
-      padding: 14px;
-      color: var(--paper);
-      background: var(--blue);
-      font-weight: 900;
-      text-align: center;
-    }
-
-    .step:nth-child(2n) .time { background: var(--green); }
-    .step:nth-child(3n) .time { background: var(--red); }
-
-    .step-body {
-      padding: 16px 18px 18px 0;
-    }
-
-    .step h3 {
-      margin: 0 0 6px;
-      font-size: 20px;
-      line-height: 1.3;
-    }
-
-    .step p {
-      margin: 0;
-      color: var(--muted);
-    }
-
-    .step-list {
-      display: grid;
-      gap: 6px;
-      margin: 10px 0 0;
-      padding-left: 20px;
-      color: var(--muted);
-      font-size: 15px;
-    }
-
-    .step-list strong {
-      color: var(--ink);
-    }
-
-    .prompt {
-      margin-top: 12px;
-      padding: 14px;
-      background: #f3efe5;
-      border-left: 5px solid var(--yellow);
-      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-      font-size: 14px;
-      line-height: 1.55;
-      white-space: pre-wrap;
-    }
-
-    .checklist {
-      columns: 2;
-      column-gap: 26px;
-      padding-left: 0;
-      list-style: none;
-    }
-
-    .checklist li {
-      break-inside: avoid;
-      margin: 0 0 10px;
-      padding-left: 28px;
-      position: relative;
-    }
-
-    .checklist li::before {
-      content: "□";
-      position: absolute;
-      left: 0;
-      top: 0;
-      font-weight: 900;
-    }
-
-    .callout {
-      padding: 20px;
-      color: var(--paper);
-      background: var(--green);
-      border-radius: 8px;
-    }
-
-    .callout h2,
-    .callout p {
-      margin: 0;
-    }
-
-    .callout p {
-      margin-top: 8px;
-      color: #eef8ef;
-    }
-
-    .lesson-nav {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 12px;
-    }
-
-    .lesson-nav a {
-      display: block;
-      padding: 16px;
-      color: var(--ink);
-      background: var(--panel);
-      border: 1px solid var(--line);
-      border-radius: 8px;
-      text-decoration: none;
-      font-weight: 800;
-    }
-
-    .lesson-nav a:hover { border-color: var(--blue); }
-
-    footer {
-      padding-top: 24px;
-      color: var(--muted);
-      font-size: 14px;
-    }
-
-    @media (max-width: 760px) {
-      main { width: min(100% - 22px, 1120px); padding-top: 18px; }
-      .hero,
-      .grid,
-      .two,
-      .step,
-      .lesson-nav { grid-template-columns: 1fr; }
-      .stamp { justify-self: start; transform: none; }
-      .step-body { padding: 16px; }
-      .time { place-items: start; }
-      .checklist { columns: 1; }
-    }
-
-    @media print {
-      body { background: white; }
-      main { width: 100%; padding: 0; }
-      .card,
-      .step,
-      .callout { box-shadow: none; break-inside: avoid; }
-    }
-  </style>
+  <meta name="description" content="AI 入門第一課用 90 分鐘帶第一次學 AI 的朋友完成真實任務，學會提問、修改、檢查與留下模板。">
+  <link rel="canonical" href="https://zhenguocool.com/mytools/ai-teaching-flow/">
+  <meta property="og:title" content="AI 入門第一課：AI 教學流程">
+  <meta property="og:description" content="AI 入門第一課用 90 分鐘帶第一次學 AI 的朋友完成真實任務，學會提問、修改、檢查與留下模板。">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://zhenguocool.com/mytools/ai-teaching-flow/">
+  <meta property="og:image" content="https://zhenguocool.com/web-assets/ai-course/ai-learning-map.svg">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="stylesheet" href="/mytools/ai-course.css">
+  <script src="/mytools/ai-course.js" defer></script>
 </head>
-<body>
+<body class="course-page">
+  <div class="course-progress" aria-hidden="true"><span></span></div>
   <main>
     <header class="hero">
       <div>
@@ -318,6 +29,36 @@
         <span>一對一教學流程：不講模型史、不塞工具清單，當場產出一個可用成果。</span>
       </aside>
     </header>
+    <section class="course-overview" aria-label="課程摘要">
+      <article><strong>閱讀時間</strong><span>12 分鐘</span></article>
+      <article><strong>學習目標</strong><span>完成一次真實任務、留下可重複 prompt、知道何時要檢查 AI。</span></article>
+      <article><strong>本章重點</strong><span>先完成一件事，再補工具知識。</span></article>
+    </section>
+    <section class="visual-section">
+      <h2>視覺速記</h2>
+      <div class="visual-grid">
+        <figure class="image-card">
+          <img src="/web-assets/ai-course/ai-thinking-flow.svg" width="1200" height="675" loading="lazy" decoding="async" alt="AI 思考流程資訊圖" title="AI 思考流程">
+          <figcaption>先讓學員理解 AI 不是找答案機，而是把問題拆開、補資料、整理成輸出的工作流。</figcaption>
+        </figure>
+        <figure class="image-card">
+          <img src="/web-assets/ai-course/ai-vs-search.svg" width="1200" height="675" loading="lazy" decoding="async" alt="AI vs 搜尋引擎資訊圖" title="AI vs 搜尋引擎">
+          <figcaption>Google 偏向找資料，AI 偏向理解、推理與整理。兩者不是互相取代。</figcaption>
+        </figure>
+        <figure class="image-card">
+          <img src="/web-assets/ai-course/ai-workflow.svg" width="1200" height="675" loading="lazy" decoding="async" alt="AI 工作流程資訊圖" title="AI 工作流程">
+          <figcaption>從想法到 prompt，再透過修正把第一次答案變成可用成果。</figcaption>
+        </figure>
+        <figure class="image-card">
+          <img src="/web-assets/ai-course/human-ai-collab.svg" width="1200" height="675" loading="lazy" decoding="async" alt="人與 AI 合作資訊圖" title="人與 AI 合作">
+          <figcaption>人負責決策與確認，AI 負責執行與整理。這是新手最安全的分工。</figcaption>
+        </figure>
+        <figure class="image-card">
+          <img src="/web-assets/ai-course/ai-learning-map.svg" width="1200" height="675" loading="lazy" decoding="async" alt="AI 學習地圖資訊圖" title="AI 學習地圖">
+          <figcaption>第一課完成任務，第二課練 prompt，第三課拆流程，第四課再談自動化落地。</figcaption>
+        </figure>
+      </div>
+    </section>
 
     <section>
       <h2>你的教學原則</h2>
@@ -368,7 +109,7 @@
           <p>如果她只是要寫信、改履歷、整理想法、做貼文，先不要裝一堆東西。登入後直接用，阻力最低。</p>
         </article>
         <article class="card">
-          <h3>Codex Desktop：有檔案再教</h3>
+          <h3><span data-tip="適合讓 AI 操作本機檔案與專案的桌面入口。">Codex Desktop</span>：有檔案再教</h3>
           <p>如果她要整理資料夾、改 HTML、批次處理文件、做小工具，就用桌面版。它比命令列更適合大多數非工程背景的人。</p>
         </article>
         <article class="card">
@@ -699,6 +440,46 @@
       <p>「我不會只幫你裝 AI。我們用 90 分鐘，拿你現在真的需要做的一件事，從輸入、修改、檢查到變成模板跑一遍。你學完不是多一個 App，是多一個工作方法。」</p>
     </section>
 
+
+    <section>
+      <h2>小測驗</h2>
+      <div class="quiz-grid">
+        <article class="quiz-card">
+          <h3>第一課最好的教學目標是什麼？</h3>
+          <div class="quiz-options">
+            <label><input type="radio" name="quiz-0" data-correct="false"> 先講完所有 AI 工具</label>
+            <label><input type="radio" name="quiz-0" data-correct="true"> 讓她完成一件真實任務</label>
+            <label><input type="radio" name="quiz-0" data-correct="false"> 先比較模型排名</label>
+          </div>
+          <button type="button">檢查答案</button>
+          <p class="quiz-result" aria-live="polite"></p>
+        </article>
+        <article class="quiz-card">
+          <h3>第一次教 Codex 時，哪個做法比較安全？</h3>
+          <div class="quiz-options">
+            <label><input type="radio" name="quiz-1" data-correct="true"> 先用練習資料夾與不敏感檔案</label>
+            <label><input type="radio" name="quiz-1" data-correct="false"> 直接整理桌面所有檔案</label>
+            <label><input type="radio" name="quiz-1" data-correct="false"> 先裝滿所有 Python 套件</label>
+          </div>
+          <button type="button">檢查答案</button>
+          <p class="quiz-result" aria-live="polite"></p>
+        </article>
+      </div>
+    </section>
+    <section>
+      <h2>Cheat Sheet</h2>
+      <div class="cheat-grid">
+        <article class="summary-card"><h3>第一句</h3><p>今天只完成一件真實任務。</p></article>
+        <article class="summary-card"><h3>固定流程</h3><p>說清楚背景、對象、格式、限制，再讓 AI 先問問題。</p></article>
+        <article class="summary-card"><h3>安全線</h3><p>涉及日期、價格、法規、醫療、金融、隱私，都要人工查證。</p></article>
+      </div>
+    </section>
+    <section>
+      <h2>FAQ</h2>
+      <details><summary>朋友很怕電腦怎麼辦？</summary><p>先用 ChatGPT 完成文字任務。Codex 放在有檔案需求時再開，並且只碰練習資料夾。</p></details>
+      <details><summary>要不要先教很多工具？</summary><p>不要。第一堂工具越多，焦慮越高。先讓她得到一個可用成果。</p></details>
+      <details><summary>課後怎麼避免忘記？</summary><p>留下同一份 prompt 模板，要求 24 小時內用它完成另一件小事。</p></details>
+    </section>
     <section>
       <h2>課程導覽</h2>
       <nav class="lesson-nav" aria-label="課程導覽">
