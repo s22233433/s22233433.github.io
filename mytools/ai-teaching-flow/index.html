@@ -258,6 +258,25 @@
       color: #eef8ef;
     }
 
+    .lesson-nav {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+    }
+
+    .lesson-nav a {
+      display: block;
+      padding: 16px;
+      color: var(--ink);
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 800;
+    }
+
+    .lesson-nav a:hover { border-color: var(--blue); }
+
     footer {
       padding-top: 24px;
       color: var(--muted);
@@ -269,7 +288,8 @@
       .hero,
       .grid,
       .two,
-      .step { grid-template-columns: 1fr; }
+      .step,
+      .lesson-nav { grid-template-columns: 1fr; }
       .stamp { justify-self: start; transform: none; }
       .step-body { padding: 16px; }
       .time { place-items: start; }
@@ -677,6 +697,15 @@
     <section class="callout">
       <h2>你的答案可以這樣說</h2>
       <p>「我不會只幫你裝 AI。我們用 90 分鐘，拿你現在真的需要做的一件事，從輸入、修改、檢查到變成模板跑一遍。你學完不是多一個 App，是多一個工作方法。」</p>
+    </section>
+
+    <section>
+      <h2>課程導覽</h2>
+      <nav class="lesson-nav" aria-label="課程導覽">
+        <a href="/mytools/">回工具目錄</a>
+        <a href="/mytools/ai-prompt-engineering/">下一課：Prompt Engineering</a>
+        <a href="/mytools/ai-agent-intro/">第三課：AI Agent 入門</a>
+      </nav>
     </section>
 
     <footer>
