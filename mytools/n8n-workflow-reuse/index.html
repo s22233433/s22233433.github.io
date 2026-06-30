@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>AI 入門第六課：從 4000+ n8n 工作流學會 AI 自動化複用</title>
+  <meta name="description" content="AI 入門第六課教新手從 4000+ n8n 工作流案例中學會篩選、拆解、改造與安全複用，並用 AI 讀懂 workflow JSON。">
+  <meta name="slug" content="n8n-workflow-reuse">
+  <link rel="canonical" href="https://zhenguocool.com/mytools/n8n-workflow-reuse/">
+  <meta property="og:title" content="AI 入門第六課：n8n 工作流複用">
+  <meta property="og:description" content="不要每次都從零開始，先學會拆解別人的自動化流程，再改成自己的工作流。">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://zhenguocool.com/mytools/n8n-workflow-reuse/">
+  <meta property="og:image" content="https://zhenguocool.com/web-assets/ai-course/n8n-reuse-library.webp">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="stylesheet" href="/mytools/ai-course.css">
+  <script src="/mytools/ai-course.js" defer></script>
+</head>
+<body class="course-page">
+  <div class="course-progress" aria-hidden="true"><span></span></div>
+  <main>
+    <header class="hero"><div><p class="kicker">AI 入門第六課</p><h1>n8n 工作流複用。</h1><p>不要每次都從零開始。先學會看懂、篩選、拆解別人的自動化流程，再改成自己的工作流。</p></div><aside class="stamp"><strong>複用思維</strong><span>找相似案例、看懂流程、檢查風險，最後才改造成自己的版本。</span></aside></header>
+    <section class="course-overview" aria-label="課程摘要"><article><strong>閱讀時間</strong><span>11 分鐘</span></article><article><strong>學習目標</strong><span>用現成 workflow 學會拆解、改造與安全檢查。</span></article><article><strong>重點整理</strong><span>不要直接導入陌生流程，先用 AI 讀懂 JSON。</span></article></section>
+    <nav class="course-map" aria-label="課程進度"><a href="/mytools/ai-teaching-flow/">第 1 課</a><a href="/mytools/ai-prompt-engineering/">第 2 課</a><a href="/mytools/ai-agent-intro/">第 3 課</a><a href="/mytools/codex-first-project/">第 4 課</a><a href="/mytools/ai-automation-intro/">第 5 課</a><span class="is-current">第 6 / 6 課</span></nav>
+
+    <section class="visual-section"><h2>視覺速記</h2><div class="visual-grid"><figure class="image-card"><img src="/web-assets/ai-course/n8n-reuse-library.webp" width="1672" height="941" loading="lazy" decoding="async" alt="不要從零開始，先找相似工作流"><figcaption>大型 workflow 庫的價值不是全部導入，而是看別人怎麼設計流程。</figcaption></figure><figure class="image-card"><img src="/web-assets/ai-course/n8n-five-stage-workflow.webp" width="1672" height="941" loading="lazy" decoding="async" alt="n8n 工作流五段式"><figcaption>Trigger、Input、Process、AI、Output，是新手讀 workflow 的基本骨架。</figcaption></figure><figure class="image-card"><img src="/web-assets/ai-course/n8n-safety-check.webp" width="1672" height="941" loading="lazy" decoding="async" alt="導入前先安全檢查"><figcaption>導入前先檢查 Credential、Webhook、HTTP Request 和 Code 節點。</figcaption></figure></div></section>
+
+    <section><h2>AI 搜尋摘要</h2><p>本課教你把 <a href="https://github.com/Zie619/n8n-workflows">Zie619/n8n-workflows</a> 這類大型開源 workflow 庫當成案例庫：先找相似流程，再看觸發器、處理節點、AI 節點和輸出，最後用測試資料改成自己的安全版本。</p></section>
+
+    <section><h2>為什麼不要從 0 開始</h2><p>很多人學 n8n 卡住，不是因為不會拖節點，而是不知道流程該怎麼設計。4000+ workflow 的價值不是讓你全部導入，而是讓你看到別人的自動化思路。</p></section>
+
+    <section><h2>n8n 工作流的基本結構</h2><div class="grid"><article class="card"><h3>Trigger</h3><p>什麼時候開始？例如表單提交、定時、Webhook、新資料列。</p></article><article class="card"><h3>Input</h3><p>資料從哪裡來？例如 Gmail、Google Sheets、RSS、資料庫。</p></article><article class="card"><h3>Process</h3><p>中間怎麼整理？例如篩選、合併、轉格式、補欄位。</p></article><article class="card"><h3>AI Node</h3><p>AI 負責分類、判斷、生成、摘要，還是只做文字整理？</p></article><article class="card"><h3>Output</h3><p>結果送到哪裡？例如 Telegram、Slack、Notion、CRM、表格。</p></article><article class="card"><h3>Error Handling</h3><p>失敗時怎麼提醒？不要讓流程默默失敗。</p></article></div></section>
+
+    <section><h2>如何篩選值得參考的 workflow</h2><table class="assessment-table"><tbody><tr><th>問題</th><th>可以參考</th><th>先跳過</th></tr><tr><td>業務場景</td><td>和我的表單、名單、內容、通知流程相似。</td><td>看起來炫，但和我的工作無關。</td></tr><tr><td>工具</td><td>用到的工具我已有帳號或可替代。</td><td>全是我不用的 SaaS 或私有服務。</td></tr><tr><td>權限</td><td>只需要低風險讀取或測試權限。</td><td>一開始就要求主帳號、刪除、付款或管理員權限。</td></tr><tr><td>節點數量</td><td>能看出輸入、處理、輸出。</td><td>節點太多，連目的都看不懂。</td></tr><tr><td>測試方式</td><td>能先用假資料跑一次。</td><td>必須直接接真客戶或正式資料。</td></tr></tbody></table></section>
+
+    <section><h2>AI 幫你讀懂 workflow JSON</h2><p>把 n8n workflow JSON 貼給 AI，讓它先翻譯成白話流程。不要先問「幫我改」，先問「它到底做什麼、有哪些風險」。</p><div class="prompt">請幫我分析這個 n8n workflow JSON：
+
+1. 用白話說明它的用途
+2. 畫出流程順序：觸發器 → 處理 → 輸出
+3. 標出所有需要 API key 或帳號權限的節點
+4. 找出可能的安全風險
+5. 建議我如何改成適合 [我的業務場景] 的版本
+6. 給我一個簡化版流程</div></section>
+
+    <section><h2>三個適合新手改造的案例</h2><div class="grid"><article class="tip-card"><h3>表單線索自動整理</h3><p>Webhook / 表單提交 → AI 判斷需求類型 → 寫入 Google Sheets → 通知 Telegram / Slack。</p></article><article class="tip-card"><h3>網紅名單初篩</h3><p>Google Sheets 新增名單 → AI 判斷領域、語言、合作可能性 → 標記優先級 → 輸出待聯絡名單。</p></article><article class="tip-card"><h3>內容靈感自動收集</h3><p>RSS / 網頁資料 → AI 摘要 → 分類 → 存入 Notion / Google Sheets。</p></article></div></section>
+
+    <section><h2>安全提醒：不要直接複製陌生 workflow</h2><div class="warning-card"><h3>導入前先看 5 件事</h3><ul class="checklist"><li>Credential：有沒有要求主帳號或過高權限？</li><li>HTTP Request：資料會不會送到未知服務？</li><li>Code 節點：有沒有讀取、傳送、刪除敏感資料？</li><li>Webhook：網址是否公開？來源是否可信？</li><li>測試環境：能不能用假資料、測試帳號、沙盒先跑？</li></ul></div></section>
+
+    <section><h2>80 分鐘教學流程</h2><div class="timeline"><article class="step"><div class="time">0-15<br>min</div><div class="step-body"><h3>找相似案例</h3><p>用關鍵字找表單、Sheets、RSS、Slack、OpenAI 這類常見流程。</p></div></article><article class="step"><div class="time">15-35<br>min</div><div class="step-body"><h3>拆五段結構</h3><p>標出 Trigger、Input、Process、AI、Output。</p></div></article><article class="step"><div class="time">35-55<br>min</div><div class="step-body"><h3>用 AI 讀 JSON</h3><p>要求 AI 白話解釋流程、標權限、找風險。</p></div></article><article class="step"><div class="time">55-70<br>min</div><div class="step-body"><h3>改成自己的場景</h3><p>替換工具、欄位、通知位置，先保留人工確認。</p></div></article><article class="step"><div class="time">70-80<br>min</div><div class="step-body"><h3>安全檢查</h3><p>用測試帳號和假資料跑，不接正式帳號。</p></div></article></div></section>
+
+    <section><h2>本課練習</h2><p>從一個 n8n workflow 模板出發，把它改造成自己的每日自動化小助手。</p><div class="prompt">我的每日自動化小助手：
+- 觸發條件：[每天幾點 / 新表單 / 新資料列]
+- 輸入資料：[資料來源]
+- AI 要做的判斷：[分類 / 摘要 / 優先級 / 草稿]
+- 輸出位置：[Google Sheets / Notion / Telegram / Slack]
+- 失敗提醒：[通知誰、用什麼方式]
+- 安全檢查：[Credential、HTTP Request、Code、Webhook、測試資料]</div></section>
+
+    <section><h2>Cheat Sheet</h2><div class="cheat-grid"><article class="summary-card"><h3>複用順序</h3><p>找相似、看觸發、看處理、看輸出、改場景。</p></article><article class="summary-card"><h3>先問 AI</h3><p>它做什麼、要哪些權限、風險在哪、如何簡化。</p></article><article class="summary-card"><h3>安全底線</h3><p>陌生 workflow 先用測試帳號、假資料、沙盒環境。</p></article></div></section>
+
+    <section><h2>FAQ</h2><details><summary>n8n workflow 可以直接複製使用嗎？</summary><p>不建議。可以拿來學結構和改造，但要先檢查 Credential、HTTP Request、Code、Webhook 和資料流向。</p></details><details><summary>新手適合從哪種 n8n workflow 開始？</summary><p>從低風險流程開始：表單整理、資料分類、通知、摘要、待辦產生。先避開付款、刪除、正式客戶資料。</p></details><details><summary>為什麼要用 AI 幫我分析 workflow JSON？</summary><p>JSON 對新手不直覺。AI 可以先把節點翻成白話流程，指出需要權限的地方和可能風險。</p></details><details><summary>使用開源 n8n workflow 有什麼安全風險？</summary><p>最大風險是把資料或帳號權限交給你沒看懂的流程。尤其要檢查 API key、公開 Webhook、外部 HTTP Request 和 Code 節點。</p></details><details><summary>n8n 和 Zapier、Make 有什麼不同？</summary><p>Zapier 上手最快，Make 視覺化清楚，n8n 彈性高、可自架，也更需要你理解流程和權限。</p></details></section>
+    <section><h2>課程導覽</h2><nav class="lesson-nav" aria-label="課程導覽"><a href="/mytools/ai-teaching-flow/">第 1 課：80 分鐘完成第一個 AI 任務</a><a href="/mytools/ai-prompt-engineering/">第 2 課：不是 AI 不聰明，是你沒說清楚</a><a href="/mytools/ai-agent-intro/">第 3 課：讓 AI 不只回答，而是完成工作</a><a href="/mytools/codex-first-project/">第 4 課：用 Codex 做出第一個 AI 小工具</a><a href="/mytools/ai-automation-intro/">第 5 課：AI 自動化入門</a><a href="/mytools/n8n-workflow-reuse/">目前：第 6 課：n8n 工作流複用</a></nav></section>
+    <footer>AI 入門系列第 6 / 6 課。目標是 80 分鐘內學會複用、拆解、改造與安全檢查。</footer>
+  </main>
+</body>
+</html>
