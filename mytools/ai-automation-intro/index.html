@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>AI 入門第五課：AI 自動化入門</title>
+  <meta name="description" content="AI 入門第五課用白話理解 AI 自動化，從低風險、重複性高的工作開始，學會 Trigger、AI、人工確認與輸出。">
+  <meta name="slug" content="ai-automation-intro">
+  <link rel="canonical" href="https://zhenguocool.com/mytools/ai-automation-intro/">
+  <meta property="og:title" content="AI 入門第五課：AI 自動化入門">
+  <meta property="og:description" content="AI 入門第五課用白話理解 AI 自動化，從低風險、重複性高的工作開始，學會 Trigger、AI、人工確認與輸出。">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://zhenguocool.com/mytools/ai-automation-intro/">
+  <meta property="og:image" content="https://zhenguocool.com/web-assets/ai-course/ai-learning-map.webp">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="stylesheet" href="/mytools/ai-course.css">
+  <script src="/mytools/ai-course.js" defer></script>
+</head>
+<body class="course-page">
+  <div class="course-progress" aria-hidden="true"><span></span></div>
+  <main>
+    <header class="hero"><div><p class="kicker">AI 入門第五課</p><h1>AI 自動化入門。</h1><p>AI 自動化的重點不是炫技，而是把低風險、重複性高的工作，變成能觸發、能檢查、能輸出的流程。</p></div><aside class="stamp"><strong>自動化入門</strong><span>先做低風險半自動，再慢慢提高自動化程度。</span></aside></header>
+    <section class="course-overview" aria-label="課程摘要"><article><strong>閱讀時間</strong><span>10 分鐘</span></article><article><strong>學習目標</strong><span>理解自動化流程，選出第一個低風險任務。</span></article><article><strong>重點整理</strong><span>先有人確認，再談完全自動。</span></article></section>
+    <nav class="course-map" aria-label="課程進度"><a href="/mytools/ai-teaching-flow/">第 1 課</a><a href="/mytools/ai-prompt-engineering/">第 2 課</a><a href="/mytools/ai-agent-intro/">第 3 課</a><a href="/mytools/codex-first-project/">第 4 課</a><span class="is-current">第 5 / 5 課</span></nav>
+    <section class="visual-section"><h2>視覺速記</h2><div class="visual-grid"><figure class="image-card"><img src="/web-assets/ai-course/agent-tool-map.webp" width="1672" height="941" loading="lazy" decoding="async" alt="工具地圖資訊圖" title="工具地圖"><figcaption>ChatGPT、Codex、n8n、Make、Zapier、MCP 的差異，用任務情境判斷就好。</figcaption></figure><figure class="image-card"><img src="/web-assets/ai-course/input-process-check-output.webp" width="1672" height="941" loading="lazy" decoding="async" alt="自動化流程資訊圖" title="自動化流程"><figcaption>Trigger、AI、處理、人工確認、輸出，是第一版最安全的流程。</figcaption></figure><figure class="image-card"><img src="/web-assets/ai-course/good-ai-tasks.webp" width="1672" height="941" loading="lazy" decoding="async" alt="值得自動化的工作資訊圖" title="值得自動化的工作"><figcaption>重複、低風險、格式固定、容易檢查的工作最適合先做。</figcaption></figure></div></section>
+
+    <section><h2>什麼是 AI 自動化</h2><p>AI 自動化就是把固定流程接起來：某件事發生後，AI 幫你整理、分類或產生草稿，但第一版仍保留人工確認。</p></section>
+
+    <section><h2>AI Agent 與自動化的差別</h2><div class="grid two"><article class="card"><h3>AI Agent</h3><p>偏向讓 AI 依照目標和流程幫你完成任務。</p></article><article class="card"><h3>AI 自動化</h3><p>偏向把固定流程接起來，讓某個事件觸發後自動跑。</p></article></div></section>
+
+    <section><h2>第一版流程</h2><div class="grid"><article class="card"><h3>Trigger</h3><p>什麼事情發生後開始？例如新表單、新信件、新檔案。</p></article><article class="card"><h3>AI</h3><p>AI 負責摘要、分類、改寫或產生草稿。</p></article><article class="card"><h3>處理</h3><p>把結果放到表格、信件、文件或待辦。</p></article><article class="card"><h3>人工確認</h3><p>先讓人看過，再決定是否送出或保存。</p></article><article class="card"><h3>輸出</h3><p>最後產生回覆、報告、通知或整理好的資料。</p></article></div></section>
+
+    <section><h2>哪些工作值得自動化</h2><p>先選重複、低風險、格式固定、容易人工檢查的任務。做錯會付款、刪資料、寄給客戶的流程，先不要全自動。</p></section>
+
+    <section><h2>工具簡介，不深入</h2><div class="grid"><article class="card"><h3>n8n</h3><p>彈性高，適合想控制流程的人。</p></article><article class="card"><h3>Make</h3><p>視覺化流程清楚，適合表單、信件、表格串接。</p></article><article class="card"><h3>Zapier</h3><p>上手快，適合常見 SaaS 的簡單流程。</p></article></div></section>
+
+    <section><h2>生活案例</h2><div class="grid"><article class="tip-card"><h3>每週行程整理</h3><p>Trigger：週日晚上。AI 整理下週待辦，人確認後輸出清單。</p></article><article class="tip-card"><h3>購物比價摘要</h3><p>輸入商品連結，AI 整理價格、規格和注意事項，人確認後保存。</p></article><article class="tip-card"><h3>旅行資料整理</h3><p>把景點、交通、飯店資料整理成表格，先不自動下訂。</p></article></div></section>
+
+    <section><h2>工作案例</h2><div class="grid"><article class="summary-card"><h3>表單回覆草稿</h3><p>新表單進來，AI 產生回覆草稿，人確認後寄出。</p></article><article class="summary-card"><h3>會議紀錄摘要</h3><p>上傳逐字稿，AI 產生重點和待辦，人確認後貼到文件。</p></article><article class="summary-card"><h3>每週資料彙整</h3><p>固定抓表格資料，AI 摘要變化，人確認後寄給團隊。</p></article></div></section>
+
+    <section><h2>80 分鐘教學流程</h2><div class="timeline"><article class="step"><div class="time">0-15<br>min</div><div class="step-body"><h3>選低風險任務</h3><p>先避開金流、合約、個資、不可復原操作。</p></div></article><article class="step"><div class="time">15-35<br>min</div><div class="step-body"><h3>先手動跑一次</h3><p>把目前做法寫成 Trigger、AI、處理、人工確認、輸出。</p></div></article><article class="step"><div class="time">35-60<br>min</div><div class="step-body"><h3>做第一版半自動</h3><p>讓 AI 先產生草稿或整理結果，不直接寄出、刪除或付款。</p></div></article><article class="step"><div class="time">60-80<br>min</div><div class="step-body"><h3>設定檢查點</h3><p>列出人要確認的地方，以及出錯時怎麼停止流程。</p></div></article></div></section>
+
+    <section><h2>實作案例</h2><p>把「新表單資料整理成回覆草稿」做成第一個流程：新資料進來，AI 產生草稿，人確認後才寄出。</p></section>
+
+    <section><h2>課後作業</h2><p>列出 3 件重複工作，挑一件低風險任務，寫出 Trigger、AI 要做什麼、人工確認點、最後輸出。</p></section>
+    <section><h2>Cheat Sheet</h2><div class="cheat-grid"><article class="summary-card"><h3>值得自動化</h3><p>重複、低風險、格式固定、容易人工檢查。</p></article><article class="summary-card"><h3>第一版流程</h3><p>Trigger、AI、處理、人工確認、輸出。</p></article><article class="summary-card"><h3>不要一開始全自動</h3><p>先讓人確認，再逐步移除低風險的人工作業。</p></article></div></section>
+    <section><h2>FAQ</h2><details><summary>n8n、Make、Zapier 要先學哪個？</summary><p>不用急著選。先把流程寫清楚，再看你常用的服務支援哪個工具。</p></details><details><summary>什麼事情不要自動化？</summary><p>金流、刪資料、合約、醫療金融判斷、含個資且沒有保護流程的任務。</p></details><details><summary>可以用 Codex 做自動化嗎？</summary><p>可以用 Codex 做檔案或小工具流程，但跨雲端服務通常會用 n8n、Make 或 Zapier。</p></details></section>
+    <section><h2>課程導覽</h2><nav class="lesson-nav" aria-label="課程導覽"><a href="/mytools/ai-teaching-flow/">第 1 課：80 分鐘完成第一個 AI 任務</a><a href="/mytools/ai-prompt-engineering/">第 2 課：不是 AI 不聰明，是你沒說清楚</a><a href="/mytools/ai-agent-intro/">第 3 課：讓 AI 不只回答，而是完成工作</a><a href="/mytools/codex-first-project/">第 4 課：用 Codex 做出第一個 AI 小工具</a><a href="/mytools/ai-automation-intro/">目前：第 5 課：AI 自動化入門</a></nav></section>
+    <footer>AI 入門系列第 5 / 5 課。目標是 80 分鐘內完成一次可驗收的學習成果。</footer>
+  </main>
+</body>
+</html>

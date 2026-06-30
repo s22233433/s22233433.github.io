@@ -4,11 +4,11 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>AI 入門第二課：不是 AI 不聰明，是你沒說清楚</title>
-  <meta name="description" content="AI 入門第二課教你寫出可重複使用的 prompt，掌握角色、任務、背景、限制、輸出格式，讓 AI 先問問題並逐步修改。">
+  <meta name="description" content="AI 入門第二課教新手把模糊需求改成清楚、可重複使用的 prompt，掌握角色、任務、背景、限制與輸出格式。">
   <meta name="slug" content="ai-prompt-engineering">
   <link rel="canonical" href="https://zhenguocool.com/mytools/ai-prompt-engineering/">
   <meta property="og:title" content="AI 入門第二課：Prompt Engineering">
-  <meta property="og:description" content="AI 入門第二課教第一次學 AI 的人寫出清楚、可重複使用的 prompt，掌握角色、任務、背景、限制與輸出格式。">
+  <meta property="og:description" content="AI 入門第二課教新手把模糊需求改成清楚、可重複使用的 prompt，掌握角色、任務、背景、限制與輸出格式。">
   <meta property="og:type" content="article">
   <meta property="og:url" content="https://zhenguocool.com/mytools/ai-prompt-engineering/">
   <meta property="og:image" content="https://zhenguocool.com/web-assets/ai-course/ai-learning-map.webp">
@@ -19,267 +19,30 @@
 <body class="course-page">
   <div class="course-progress" aria-hidden="true"><span></span></div>
   <main>
-    <header class="hero">
-      <div>
-        <p class="kicker">AI 入門第二課</p>
-        <h1>不是 AI 不聰明，是你沒說清楚。</h1>
-        <p>新手常以為回答不好是工具不夠強。多數時候，問題其實是需求不清楚、背景不足、格式不明、沒有檢查標準。</p>
-      </div>
-      <aside class="stamp">
-        <strong>Prompt Engineering</strong>
-        <span>這堂課只教一件事：把模糊需求變成可重複使用的 <span data-tip="給 AI 的工作規格，不是咒語。越清楚，越容易得到可用結果。">prompt</span>。</span>
-      </aside>
-    </header>
-    <section class="course-overview" aria-label="課程摘要">
-      <article><strong>閱讀時間</strong><span>10 分鐘</span></article>
-      <article><strong>學習目標</strong><span>把模糊需求變成可重複使用的 prompt，並學會追問修改。</span></article>
-      <article><strong>本章重點</strong><span>不是背技巧，而是把需求說清楚。</span></article>
-    </section>
-    <section class="visual-section">
-      <h2>視覺速記</h2>
-      <div class="visual-grid">
-        <figure class="image-card">
-          <img src="/web-assets/ai-course/bad-good-prompt.webp" width="1672" height="941" loading="lazy" decoding="async" alt="Bad Prompt vs Good Prompt資訊圖" title="Bad Prompt vs Good Prompt">
-          <figcaption>壞 prompt 讓 AI 亂猜，好 prompt 讓 AI 照規格完成。</figcaption>
-        </figure>
-        <figure class="image-card">
-          <img src="/web-assets/ai-course/prompt-five-elements.webp" width="1672" height="941" loading="lazy" decoding="async" alt="Prompt 五元素資訊圖" title="Prompt 五元素">
-          <figcaption>角色、任務、背景、限制、輸出格式，是新手最容易複用的 prompt 骨架。</figcaption>
-        </figure>
-        <figure class="image-card">
-          <img src="/web-assets/ai-course/ai-ask-first.webp" width="1672" height="941" loading="lazy" decoding="async" alt="AI 先問問題資訊圖" title="AI 先問問題">
-          <figcaption>資訊不足時，先讓 AI 問最多 3 個必要問題，不要急著產出。</figcaption>
-        </figure>
-        <figure class="image-card">
-          <img src="/web-assets/ai-course/prompt-iteration.webp" width="1672" height="941" loading="lazy" decoding="async" alt="Prompt Iteration資訊圖" title="Prompt Iteration">
-          <figcaption>好的結果通常來自追問、補資料與重寫，不是第一次就完美。</figcaption>
-        </figure>
-      </div>
-    </section>
+    <header class="hero"><div><p class="kicker">AI 入門第二課</p><h1>不是 AI 不聰明，是你沒說清楚。</h1><p>這堂課不是背咒語，而是把需求寫成規格：角色、任務、背景、限制、輸出格式。</p></div><aside class="stamp"><strong>Prompt Engineering</strong><span>把模糊需求變成可重複使用的工作模板。</span></aside></header>
+    <section class="course-overview" aria-label="課程摘要"><article><strong>閱讀時間</strong><span>9 分鐘</span></article><article><strong>學習目標</strong><span>把「幫我寫」改成一段可以重複使用的完整 prompt。</span></article><article><strong>重點整理</strong><span>好的 prompt 是規格，不是神奇句子。</span></article></section>
+    <nav class="course-map" aria-label="課程進度"><a href="/mytools/ai-teaching-flow/">第 1 課</a><span class="is-current">第 2 / 5 課</span><a href="/mytools/ai-agent-intro/">第 3 課</a><a href="/mytools/codex-first-project/">第 4 課</a><a href="/mytools/ai-automation-intro/">第 5 課</a></nav>
+    <section class="visual-section"><h2>視覺速記</h2><div class="visual-grid"><figure class="image-card"><img src="/web-assets/ai-course/bad-good-prompt.webp" width="1672" height="941" loading="lazy" decoding="async" alt="Bad Prompt vs Good Prompt資訊圖" title="Bad Prompt vs Good Prompt"><figcaption>壞 prompt 讓 AI 亂猜，好 prompt 讓 AI 照規格完成。</figcaption></figure><figure class="image-card"><img src="/web-assets/ai-course/prompt-five-elements.webp" width="1672" height="941" loading="lazy" decoding="async" alt="Prompt 五元素資訊圖" title="Prompt 五元素"><figcaption>角色、任務、背景、限制、輸出格式，是新手最容易複用的骨架。</figcaption></figure><figure class="image-card"><img src="/web-assets/ai-course/prompt-iteration.webp" width="1672" height="941" loading="lazy" decoding="async" alt="Prompt Iteration資訊圖" title="Prompt Iteration"><figcaption>好的結果通常來自追問、補資料與重寫。</figcaption></figure></div></section>
 
-    <section>
-      <h2>這堂課要解決什麼問題</h2>
-      <div class="grid">
-        <article class="card">
-          <h3>從「幫我寫」變成「請照規格完成」</h3>
-          <p>AI 不知道你的對象、目的、語氣、限制。你不說，它就只能猜。</p>
-        </article>
-        <article class="card">
-          <h3>讓結果可以重複</h3>
-          <p>好的 prompt 不是靈感句子，而是一個下次可套用的模板。</p>
-        </article>
-        <article class="card">
-          <h3>建立修改習慣</h3>
-          <p>第一版不是終點。會追問、會改語氣、會要求刪空話，才是真的會用。</p>
-        </article>
-      </div>
-    </section>
+    <section><h2>好 prompt 的 5 個元素</h2><div class="grid"><article class="card"><h3>角色</h3><p>讓 AI 知道用哪種角度工作，例如編輯、助理、面試官。</p></article><article class="card"><h3>任務</h3><p>說清楚要完成什麼，不只說「幫我處理」。</p></article><article class="card"><h3>背景</h3><p>補上目的、情境、既有資料，讓 AI 不用亂猜。</p></article><article class="card"><h3>限制</h3><p>說明語氣、長度、不能出現什麼。</p></article><article class="card"><h3>輸出格式</h3><p>指定表格、條列、信件、HTML、清單或腳本。</p></article></div></section>
 
-    <section>
-      <h2>課前準備</h2>
-      <div class="grid two">
-        <article class="card">
-          <h3>請學員帶一個模糊需求</h3>
-          <ul>
-            <li>幫我寫文案</li>
-            <li>幫我回信</li>
-            <li>幫我整理筆記</li>
-            <li>幫我做企劃</li>
-          </ul>
-        </article>
-        <article class="card">
-          <h3>你準備一個對照示範</h3>
-          <p>同一個任務，先用壞 prompt 問一次，再用完整 prompt 問一次。讓她看到差異，不用講太多理論。</p>
-        </article>
-      </div>
-    </section>
+    <section><h2>80 分鐘教學流程</h2><div class="timeline"><article class="step"><div class="time">0-10<br>min</div><div class="step-body"><h3>看壞 prompt 的問題</h3><p>用「幫我寫文案」示範一次，讓她看到 AI 會亂猜對象、語氣和格式。</p></div></article><article class="step"><div class="time">10-30<br>min</div><div class="step-body"><h3>填入 5 個元素</h3><p>拿她的真實任務，逐格填角色、任務、背景、限制、輸出格式。</p></div></article><article class="step"><div class="time">30-50<br>min</div><div class="step-body"><h3>讓 AI 先問問題</h3><p>資訊不足時，不要讓 AI 硬寫。先要求它問最多 3 個必要問題。</p><div class="prompt">如果資訊不足，請先問我最多 3 個必要問題，不要直接開始寫。</div></div></article><article class="step"><div class="time">50-70<br>min</div><div class="step-body"><h3>追問與修改</h3><p>練四種追問：改語氣、改結構、刪空話、補資訊。</p></div></article><article class="step"><div class="time">70-80<br>min</div><div class="step-body"><h3>整理成模板</h3><p>把今天有效的 prompt 改成可替換欄位。</p></div></article></div></section>
 
-    <section>
-      <h2>壞 prompt 為什麼壞</h2>
-      <div class="grid">
-        <article class="card">
-          <h3>沒有對象</h3>
-          <p>寫給老闆、客戶、朋友、粉絲，語氣和重點完全不同。</p>
-        </article>
-        <article class="card">
-          <h3>沒有格式</h3>
-          <p>你要表格、條列、信件、腳本，還是短文？不指定就很容易重做。</p>
-        </article>
-        <article class="card">
-          <h3>沒有成功標準</h3>
-          <p>你沒有說什麼叫好，它就不知道該短、該穩、該有說服力，還是該像真人。</p>
-        </article>
-      </div>
-    </section>
+    <section><h2>實作案例</h2><div class="grid two"><article class="warning-card"><h3>原始需求</h3><p>幫我寫文案。</p></article><article class="tip-card"><h3>改寫方向</h3><p>補上商品、受眾、平台、語氣、長度、CTA、不能誇大承諾，並要求 AI 先問缺資料。</p></article></div></section>
 
-    <section>
-      <h2>一張好 prompt 的 5 個元素</h2>
-      <div class="grid">
-        <article class="card"><h3>角色</h3><p>讓 AI 知道要用哪種角度工作：編輯、助理、面試官、行銷企劃。</p></article>
-        <article class="card"><h3>任務</h3><p>說清楚要完成什麼，不只說「幫我處理」。</p></article>
-        <article class="card"><h3>背景</h3><p>補上目的、情境、既有資料，讓 AI 不用亂猜。</p></article>
-        <article class="card"><h3>限制</h3><p>說明語氣、長度、不能出現什麼、哪些資料不能編。</p></article>
-        <article class="card"><h3>輸出格式</h3><p>指定表格、條列、信件、HTML、清單或腳本。</p></article>
-        <article class="card"><h3>檢查標準</h3><p>最後加一句：如果資訊不足，先問問題，不要直接開始寫。</p></article>
-      </div>
-    </section>
-
-    <section>
-      <h2>90 分鐘教學流程</h2>
-      <div class="timeline">
-        <article class="step">
-          <div class="time">0-10<br>min</div>
-          <div class="step-body">
-            <h3>先看壞 prompt 的問題</h3>
-            <p>用「幫我寫文案」示範一次，讓她看 AI 怎麼亂猜。</p>
-            <ul class="step-list">
-              <li><strong>你問：</strong>這篇文案是賣誰？在哪裡用？長度多少？要什麼語氣？</li>
-              <li><strong>她學到：</strong>回答不好不是 AI 不行，是輸入太空。</li>
-            </ul>
-          </div>
-        </article>
-        <article class="step">
-          <div class="time">10-25<br>min</div>
-          <div class="step-body">
-            <h3>拆出 5 個元素</h3>
-            <p>拿她的真實任務，逐格填角色、任務、背景、限制、格式。</p>
-            <ul class="step-list">
-              <li><strong>她做：</strong>把模糊需求改寫成完整 prompt。</li>
-              <li><strong>你提醒：</strong>不要一次塞三個任務，一次只完成一件事。</li>
-            </ul>
-          </div>
-        </article>
-        <article class="step">
-          <div class="time">25-45<br>min</div>
-          <div class="step-body">
-            <h3>讓 AI 先問問題</h3>
-            <p>資訊不足時，不要讓 AI 硬寫。先要求它問最多 3 個必要問題。</p>
-            <div class="prompt">如果資訊不足，請先問我最多 3 個必要問題，不要直接開始寫。</div>
-          </div>
-        </article>
-        <article class="step">
-          <div class="time">45-65<br>min</div>
-          <div class="step-body">
-            <h3>練習追問與修改</h3>
-            <p>用同一份結果練四種追問：語氣、結構、刪空話、補資訊。</p>
-            <ul class="step-list">
-              <li><strong>語氣：</strong>更口語、更專業、更像我。</li>
-              <li><strong>結構：</strong>改成表格、條列、信件或腳本。</li>
-              <li><strong>刪空話：</strong>標出沒有資訊量的句子並重寫。</li>
-            </ul>
-          </div>
-        </article>
-        <article class="step">
-          <div class="time">65-80<br>min</div>
-          <div class="step-body">
-            <h3>整理成自己的模板</h3>
-            <p>把今天有效的 prompt 變成可替換欄位，下一次不用從零想。</p>
-          </div>
-        </article>
-        <article class="step">
-          <div class="time">80-90<br>min</div>
-          <div class="step-body">
-            <h3>安排課後作業</h3>
-            <p>用同一個模板完成另一個真實任務，回傳結果和她追問過的版本。</p>
-          </div>
-        </article>
-      </div>
-    </section>
-
-    <section>
-      <h2>可複製模板</h2>
-      <div class="prompt">你是 [角色]。
+    <section><h2>可複製模板</h2><div class="prompt">你是 [角色]。
 我要完成：[任務]。
 背景是：[背景資料]。
 對象是：[誰會看/誰會用]。
 限制是：[語氣、長度、不能出現什麼]。
 請用 [格式] 輸出。
-如果資訊不足，請先問我最多 3 個必要問題，不要直接開始寫。</div>
-    </section>
+如果資訊不足，請先問我最多 3 個必要問題，不要直接開始寫。</div></section>
 
-    <section>
-      <h2>實作練習：把「幫我寫文案」改完整</h2>
-      <div class="grid two">
-        <article class="card">
-          <h3>原始需求</h3>
-          <p>幫我寫文案。</p>
-        </article>
-        <article class="card">
-          <h3>改寫方向</h3>
-          <p>補上商品、受眾、平台、語氣、長度、CTA、不能誇大承諾，並要求 AI 先問缺資料。</p>
-        </article>
-      </div>
-    </section>
-
-    <section>
-      <h2>常見錯誤</h2>
-      <ul class="checklist">
-        <li>一次問太多件事</li>
-        <li>沒有說清楚誰會看</li>
-        <li>沒有指定輸出格式</li>
-        <li>沒有成功標準</li>
-        <li>第一版不好就重開新對話</li>
-        <li>沒有要求 AI 說明缺什麼資訊</li>
-      </ul>
-    </section>
-
-    <section>
-      <h2>課後作業</h2>
-      <p>用同一個模板完成另一個真實任務。交作業時請附上：原始需求、完整 prompt、AI 第一版、你追問後的最後版本。</p>
-    </section>
-
-
-    <section>
-      <h2>小測驗</h2>
-      <div class="quiz-grid">
-        <article class="quiz-card">
-          <h3>「幫我寫文案」最大的問題是什麼？</h3>
-          <div class="quiz-options">
-            <label><input type="radio" name="quiz-0" data-correct="true"> 沒有給對象、背景與格式</label>
-            <label><input type="radio" name="quiz-0" data-correct="false"> 字太少所以 AI 看不懂中文</label>
-            <label><input type="radio" name="quiz-0" data-correct="false"> 一定要換更強模型</label>
-          </div>
-          <button type="button">檢查答案</button>
-          <p class="quiz-result" aria-live="polite"></p>
-        </article>
-        <article class="quiz-card">
-          <h3>資訊不足時，prompt 應該加哪一句？</h3>
-          <div class="quiz-options">
-            <label><input type="radio" name="quiz-1" data-correct="false"> 直接開始寫完整版本</label>
-            <label><input type="radio" name="quiz-1" data-correct="true"> 先問我最多 3 個必要問題</label>
-            <label><input type="radio" name="quiz-1" data-correct="false"> 請自由發揮</label>
-          </div>
-          <button type="button">檢查答案</button>
-          <p class="quiz-result" aria-live="polite"></p>
-        </article>
-      </div>
-    </section>
-    <section>
-      <h2>Cheat Sheet</h2>
-      <div class="cheat-grid">
-        <article class="summary-card"><h3>五元素</h3><p>角色、任務、背景、限制、輸出格式。</p></article>
-        <article class="summary-card"><h3>追問順序</h3><p>先改語氣，再改結構，最後刪空話與補資訊。</p></article>
-        <article class="summary-card"><h3>成功標準</h3><p>讓 AI 知道什麼叫好，並要求它指出缺資料。</p></article>
-      </div>
-    </section>
-    <section>
-      <h2>FAQ</h2>
-      <details><summary>新手要背很多 prompt 嗎？</summary><p>不用。先背一個模板，並學會把欄位換成自己的任務。</p></details>
-      <details><summary>第一版不好是不是要重開？</summary><p>通常不用。先追問，要求它保留重點、改語氣、改格式或刪空話。</p></details>
-      <details><summary>Prompt Engineering 會不會太技術？</summary><p>這堂課只講工作規格。新手不需要知道模型細節，也能明顯改善結果。</p></details>
-    </section>
-    <section>
-      <h2>課程導覽</h2>
-      <nav class="lesson-nav" aria-label="課程導覽">
-        <a href="/mytools/ai-teaching-flow/">上一課：AI 入門教學流程</a>
-        <a href="/mytools/">回工具目錄</a>
-        <a href="/mytools/ai-agent-intro/">下一課：AI Agent 入門</a>
-      </nav>
-    </section>
-
-    <footer>
-      第二課重點：不是背 prompt 技巧，而是把需求說清楚、把修改變成流程。
-    </footer>
+    <section><h2>課後作業</h2><p>用同一個模板完成另一個真實任務。交作業時附上：原始需求、完整 prompt、AI 第一版、追問後版本。</p></section>
+    <section><h2>Cheat Sheet</h2><div class="cheat-grid"><article class="summary-card"><h3>五元素</h3><p>角色、任務、背景、限制、輸出格式。</p></article><article class="summary-card"><h3>追問順序</h3><p>先改語氣，再改結構，最後刪空話與補資訊。</p></article><article class="summary-card"><h3>成功標準</h3><p>讓 AI 知道什麼叫好，並要求它指出缺資料。</p></article></div></section>
+    <section><h2>FAQ</h2><details><summary>要背很多 prompt 嗎？</summary><p>不用。先背一個模板，學會替換欄位。</p></details><details><summary>第一版不好要重開嗎？</summary><p>通常不用。先追問，要求保留重點、改語氣、改格式或刪空話。</p></details><details><summary>Prompt Engineering 會不會太技術？</summary><p>這裡只講工作規格。新手不需要知道模型細節，也能明顯改善結果。</p></details></section>
+    <section><h2>課程導覽</h2><nav class="lesson-nav" aria-label="課程導覽"><a href="/mytools/ai-teaching-flow/">第 1 課：80 分鐘完成第一個 AI 任務</a><a href="/mytools/ai-prompt-engineering/">目前：第 2 課：不是 AI 不聰明，是你沒說清楚</a><a href="/mytools/ai-agent-intro/">第 3 課：讓 AI 不只回答，而是完成工作</a><a href="/mytools/codex-first-project/">第 4 課：用 Codex 做出第一個 AI 小工具</a><a href="/mytools/ai-automation-intro/">第 5 課：AI 自動化入門</a></nav></section>
+    <footer>AI 入門系列第 2 / 5 課。目標是 80 分鐘內完成一次可驗收的學習成果。</footer>
   </main>
 </body>
 </html>

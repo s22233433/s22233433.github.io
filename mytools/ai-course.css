@@ -290,6 +290,33 @@ ul {
   color: var(--muted);
 }
 
+.course-map {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 10px;
+  padding: 18px 0 4px;
+}
+
+.course-map span,
+.course-map a {
+  display: block;
+  padding: 12px;
+  color: var(--muted);
+  background: rgba(255, 255, 255, .76);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  font-size: 14px;
+  font-weight: 850;
+  text-align: center;
+  text-decoration: none;
+}
+
+.course-map .is-current {
+  color: #ffffff;
+  background: var(--blue);
+  border-color: var(--blue);
+}
+
 .timeline {
   display: grid;
   gap: 14px;
@@ -430,6 +457,33 @@ summary:focus-visible {
 .warning-card { background: #fff8e6; border-color: #f4d179; }
 .summary-card { background: linear-gradient(135deg, #eef6ff, #f3f0ff); }
 
+.assessment-table {
+  width: 100%;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  border-spacing: 0;
+  background: rgba(255, 255, 255, .94);
+  box-shadow: 0 10px 30px rgba(37, 99, 235, .08);
+}
+
+.assessment-table th,
+.assessment-table td {
+  padding: 14px;
+  border-bottom: 1px solid var(--line);
+  color: var(--muted);
+  text-align: left;
+  vertical-align: top;
+}
+
+.assessment-table th {
+  color: var(--ink);
+  background: #eef6ff;
+}
+
+.assessment-table tr:last-child th,
+.assessment-table tr:last-child td { border-bottom: 0; }
+
 .quiz-card { grid-column: span 6; }
 
 .quiz-card p { color: var(--muted); }
@@ -566,7 +620,7 @@ footer {
   .hero,
   .step { grid-template-columns: 1fr; padding: 22px; }
   h1 {
-    font-size: clamp(30px, 9vw, 38px);
+    font-size: clamp(28px, 8vw, 34px);
     line-height: 1.14;
     word-break: break-all;
   }
@@ -585,6 +639,7 @@ footer {
   .lesson-nav,
   .visual-grid,
   .course-overview,
+  .course-map,
   .cheat-grid,
   .quiz-grid {
     display: block;
@@ -593,11 +648,16 @@ footer {
   .lesson-nav > *,
   .visual-grid > *,
   .course-overview > *,
+  .course-map > *,
   .cheat-grid > *,
   .quiz-grid > * {
     margin-bottom: 16px;
   }
   .stamp { justify-self: stretch; }
+  .course-overview span {
+    font-size: 15px;
+    line-height: 1.55;
+  }
   .step-body { padding: 18px; }
   .time { place-items: start; }
   .grid > *,

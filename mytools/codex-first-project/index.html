@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>AI 入門第四課：用 Codex 做出第一個 AI 小工具</title>
+  <meta name="description" content="AI 入門第四課帶完全沒有程式基礎的新手，用 Codex 做出第一個可使用的 HTML 小工具，學會描述需求、看修改結果與修 Bug。">
+  <meta name="slug" content="codex-first-project">
+  <link rel="canonical" href="https://zhenguocool.com/mytools/codex-first-project/">
+  <meta property="og:title" content="AI 入門第四課：Codex 第一個小工具">
+  <meta property="og:description" content="AI 入門第四課帶完全沒有程式基礎的新手，用 Codex 做出第一個可使用的 HTML 小工具，學會描述需求、看修改結果與修 Bug。">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://zhenguocool.com/mytools/codex-first-project/">
+  <meta property="og:image" content="https://zhenguocool.com/web-assets/ai-course/ai-learning-map.webp">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="stylesheet" href="/mytools/ai-course.css">
+  <script src="/mytools/ai-course.js" defer></script>
+</head>
+<body class="course-page">
+  <div class="course-progress" aria-hidden="true"><span></span></div>
+  <main>
+    <header class="hero"><div><p class="kicker">AI 入門第四課</p><h1>用 Codex 做出第一個 AI 小工具。</h1><p>這堂課不教寫程式語法。目標是讓新手學會描述需求、讓 Codex 修改檔案、看懂結果、修一個小 Bug。</p></div><aside class="stamp"><strong>第一個作品</strong><span>完成一個可以打開使用的 HTML 小工具，例如待辦清單或文字轉換器。</span></aside></header>
+    <section class="course-overview" aria-label="課程摘要"><article><strong>閱讀時間</strong><span>11 分鐘</span></article><article><strong>學習目標</strong><span>用 Codex 完成第一個可使用的小作品。</span></article><article><strong>重點整理</strong><span>你負責描述與檢查，Codex 負責修改檔案。</span></article></section>
+    <nav class="course-map" aria-label="課程進度"><a href="/mytools/ai-teaching-flow/">第 1 課</a><a href="/mytools/ai-prompt-engineering/">第 2 課</a><a href="/mytools/ai-agent-intro/">第 3 課</a><span class="is-current">第 4 / 5 課</span><a href="/mytools/ai-automation-intro/">第 5 課</a></nav>
+    <section class="visual-section"><h2>視覺速記</h2><div class="visual-grid"><figure class="image-card"><img src="/web-assets/ai-course/ai-workflow.webp" width="1672" height="941" loading="lazy" decoding="async" alt="用 Codex 做小工具資訊圖" title="用 Codex 做小工具"><figcaption>從需求到檔案修改，再透過檢查與修正完成第一個作品。</figcaption></figure><figure class="image-card"><img src="/web-assets/ai-course/input-process-check-output.webp" width="1672" height="941" loading="lazy" decoding="async" alt="檔案工作流程資訊圖" title="檔案工作流程"><figcaption>把需求拆成輸入、處理、檢查、輸出，Codex 才知道要改什麼。</figcaption></figure><figure class="image-card"><img src="/web-assets/ai-course/human-ai-collab.webp" width="1672" height="941" loading="lazy" decoding="async" alt="人與 Codex 合作資訊圖" title="人與 Codex 合作"><figcaption>人決定目標和驗收，Codex 執行修改與整理。</figcaption></figure></div></section>
+
+    <section><h2>Codex 是什麼</h2><div class="grid"><article class="card"><h3>ChatGPT 像聊天助理</h3><p>適合討論、寫文案、整理想法。</p></article><article class="card"><h3>Codex 像檔案工作助理</h3><p>適合改 HTML、整理資料夾、修 Bug、做小工具。</p></article><article class="card"><h3>你不用先會寫程式</h3><p>你要會描述需求、檢查結果、指出哪裡不對。</p></article></div></section>
+
+    <section><h2>怎麼描述需求</h2><div class="prompt">請幫我做一個簡單 HTML 小工具。
+用途：[誰會用、要解決什麼]。
+功能：[列 3 個最重要功能]。
+畫面：[想要的欄位、按鈕、結果區]。
+限制：只用 HTML、CSS、JavaScript，先做單一檔案。
+完成後請告訴我檔案位置、怎麼打開、我該檢查什麼。</div></section>
+
+    <section><h2>實作案例：80 分鐘做一個文字轉換器</h2><div class="timeline"><article class="step"><div class="time">0-10<br>min</div><div class="step-body"><h3>建立練習資料夾</h3><p>只放這堂課的檔案，不碰桌面或重要資料。</p></div></article><article class="step"><div class="time">10-30<br>min</div><div class="step-body"><h3>請 Codex 建立第一版</h3><p>功能：輸入文字，一鍵轉大寫、一鍵轉小寫、一鍵清空。</p></div></article><article class="step"><div class="time">30-50<br>min</div><div class="step-body"><h3>打開檔案檢查</h3><p>看按鈕是否能點、結果是否正確、手機上是否能讀。</p></div></article><article class="step"><div class="time">50-65<br>min</div><div class="step-body"><h3>要求 Codex 修改網站</h3><p>例如改顏色、加說明、讓按鈕更大、讓結果區更清楚。</p></div></article><article class="step"><div class="time">65-80<br>min</div><div class="step-body"><h3>讓 Codex 修一個 Bug</h3><p>描述你看到的錯誤，不要只說「壞了」。說明點了什麼、期待什麼、實際發生什麼。</p></div></article></div></section>
+
+    <section><h2>如何閱讀修改結果</h2><div class="grid"><article class="card"><h3>看改了哪些檔案</h3><p>先確認 Codex 沒有動到不相關檔案。</p></article><article class="card"><h3>看使用方式</h3><p>要求 Codex 說明怎麼打開、怎麼測試。</p></article><article class="card"><h3>自己點一次</h3><p>不要只看 Codex 說完成。你要親手打開小工具試一次。</p></article></div></section>
+
+    <section><h2>常見錯誤</h2><ul class="checklist"><li>需求一次塞太多功能</li><li>沒有說清楚畫面要長什麼樣子</li><li>看到錯誤只說「不能用」</li><li>沒有自己打開檔案檢查</li><li>讓 Codex 修改不相關資料夾</li></ul></section>
+
+    <section><h2>課後作業</h2><p>把文字轉換器改成另一個小工具：待辦清單、BMI 計算機、倒數計時器三選一。只做 3 個核心功能。</p></section>
+    <section><h2>Cheat Sheet</h2><div class="cheat-grid"><article class="summary-card"><h3>描述需求</h3><p>用途、功能、畫面、限制、驗收方式。</p></article><article class="summary-card"><h3>修 Bug 句型</h3><p>我做了什麼、期待什麼、實際發生什麼。</p></article><article class="summary-card"><h3>驗收</h3><p>打開檔案、點按鈕、看手機、確認沒改錯檔。</p></article></div></section>
+    <section><h2>FAQ</h2><details><summary>完全不會寫程式可以嗎？</summary><p>可以。這堂課不要求你寫語法，但你要能描述需求和檢查結果。</p></details><details><summary>第一個小工具要做多大？</summary><p>越小越好。單一 HTML 檔案、3 個核心功能就夠。</p></details><details><summary>Codex 改壞了怎麼辦？</summary><p>先請它說明改了哪些檔案，再要求回到上一版或只修指定問題。</p></details></section>
+    <section><h2>課程導覽</h2><nav class="lesson-nav" aria-label="課程導覽"><a href="/mytools/ai-teaching-flow/">第 1 課：80 分鐘完成第一個 AI 任務</a><a href="/mytools/ai-prompt-engineering/">第 2 課：不是 AI 不聰明，是你沒說清楚</a><a href="/mytools/ai-agent-intro/">第 3 課：讓 AI 不只回答，而是完成工作</a><a href="/mytools/codex-first-project/">目前：第 4 課：用 Codex 做出第一個 AI 小工具</a><a href="/mytools/ai-automation-intro/">第 5 課：AI 自動化入門</a></nav></section>
+    <footer>AI 入門系列第 4 / 5 課。目標是 80 分鐘內完成一次可驗收的學習成果。</footer>
+  </main>
+</body>
+</html>

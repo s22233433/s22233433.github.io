@@ -4,11 +4,11 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>AI 入門第三課：讓 AI 不只回答，而是完成工作</title>
-  <meta name="description" content="AI 入門第三課用白話理解 AI Agent、自動化、Codex、n8n、Make、Zapier 與 MCP，學會把重複工作拆成流程。">
+  <meta name="description" content="AI 入門第三課用白話理解 AI Agent，學會判斷哪些重複工作適合 AI，並拆成輸入、處理、檢查與輸出。">
   <meta name="slug" content="ai-agent-intro">
   <link rel="canonical" href="https://zhenguocool.com/mytools/ai-agent-intro/">
   <meta property="og:title" content="AI 入門第三課：AI Agent 入門">
-  <meta property="og:description" content="AI 入門第三課用白話理解 AI Agent 與自動化，學會把重複工作拆成輸入、處理、檢查與輸出。">
+  <meta property="og:description" content="AI 入門第三課用白話理解 AI Agent，學會判斷哪些重複工作適合 AI，並拆成輸入、處理、檢查與輸出。">
   <meta property="og:type" content="article">
   <meta property="og:url" content="https://zhenguocool.com/mytools/ai-agent-intro/">
   <meta property="og:image" content="https://zhenguocool.com/web-assets/ai-course/ai-learning-map.webp">
@@ -19,269 +19,38 @@
 <body class="course-page">
   <div class="course-progress" aria-hidden="true"><span></span></div>
   <main>
-    <header class="hero">
-      <div>
-        <p class="kicker">AI 入門第三課</p>
-        <h1>讓 AI 不只回答，而是完成工作。</h1>
-        <p>ChatGPT 是聊天介面。真正有價值的是把重複工作拆成流程，讓 AI 一步一步協助你完成。</p>
-      </div>
-      <aside class="stamp">
-        <strong><span data-tip="能按照目標與流程分步處理任務的 AI 工作方式，重點是流程與檢查。">AI Agent</span> 入門</strong>
-        <span>少講名詞，多拆流程：輸入、處理、檢查、輸出。</span>
-      </aside>
-    </header>
-    <section class="course-overview" aria-label="課程摘要">
-      <article><strong>閱讀時間</strong><span>11 分鐘</span></article>
-      <article><strong>學習目標</strong><span>判斷哪些重複工作適合 AI，並拆出第一版最小可行流程。</span></article>
-      <article><strong>本章重點</strong><span>先拆流程，再選工具。</span></article>
-    </section>
-    <section class="visual-section">
-      <h2>視覺速記</h2>
-      <div class="visual-grid">
-        <figure class="image-card">
-          <img src="/web-assets/ai-course/assistant-vs-agent.webp" width="1672" height="941" loading="lazy" decoding="async" alt="AI 助理 vs AI Agent資訊圖" title="AI 助理 vs AI Agent">
-          <figcaption>AI 助理回應單次問題，AI Agent 更像能照流程推進的工作夥伴。</figcaption>
-        </figure>
-        <figure class="image-card">
-          <img src="/web-assets/ai-course/good-ai-tasks.webp" width="1672" height="941" loading="lazy" decoding="async" alt="哪些工作適合 AI資訊圖" title="哪些工作適合 AI">
-          <figcaption>適合先交給 AI 的任務通常重複、固定、輸入輸出清楚，而且能檢查。</figcaption>
-        </figure>
-        <figure class="image-card">
-          <img src="/web-assets/ai-course/input-process-check-output.webp" width="1672" height="941" loading="lazy" decoding="async" alt="Input Process Check Output資訊圖" title="Input Process Check Output">
-          <figcaption>把工作拆成輸入、處理、檢查、輸出，才知道哪一步能交給 AI。</figcaption>
-        </figure>
-        <figure class="image-card">
-          <img src="/web-assets/ai-course/agent-tool-map.webp" width="1672" height="941" loading="lazy" decoding="async" alt="工具地圖資訊圖" title="工具地圖">
-          <figcaption>ChatGPT、Codex、n8n、Make、Zapier、MCP 的差異，用任務情境判斷就好。</figcaption>
-        </figure>
-      </div>
-    </section>
+    <header class="hero"><div><p class="kicker">AI 入門第三課</p><h1>讓 AI 不只回答，而是完成工作。</h1><p>真正有價值的不是多問幾句，而是把重複工作拆成流程，讓 AI 協助完成其中一段。</p></div><aside class="stamp"><strong>AI Agent 入門</strong><span>少講名詞，多練判斷：什麼能交給 AI，什麼要人確認。</span></aside></header>
+    <section class="course-overview" aria-label="課程摘要"><article><strong>閱讀時間</strong><span>10 分鐘</span></article><article><strong>學習目標</strong><span>判斷一件工作是否適合交給 AI，並拆成第一版流程。</span></article><article><strong>重點整理</strong><span>先半自動，再談全自動。</span></article></section>
+    <nav class="course-map" aria-label="課程進度"><a href="/mytools/ai-teaching-flow/">第 1 課</a><a href="/mytools/ai-prompt-engineering/">第 2 課</a><span class="is-current">第 3 / 5 課</span><a href="/mytools/codex-first-project/">第 4 課</a><a href="/mytools/ai-automation-intro/">第 5 課</a></nav>
+    <section class="visual-section"><h2>視覺速記</h2><div class="visual-grid"><figure class="image-card"><img src="/web-assets/ai-course/assistant-vs-agent.webp" width="1672" height="941" loading="lazy" decoding="async" alt="AI 助理 vs AI Agent資訊圖" title="AI 助理 vs AI Agent"><figcaption>AI 助理回應單次問題，AI Agent 更像能照流程推進的工作夥伴。</figcaption></figure><figure class="image-card"><img src="/web-assets/ai-course/good-ai-tasks.webp" width="1672" height="941" loading="lazy" decoding="async" alt="哪些工作適合 AI資訊圖" title="哪些工作適合 AI"><figcaption>適合先交給 AI 的任務通常重複、固定、輸入輸出清楚，而且能檢查。</figcaption></figure><figure class="image-card"><img src="/web-assets/ai-course/input-process-check-output.webp" width="1672" height="941" loading="lazy" decoding="async" alt="Input Process Check Output資訊圖" title="Input Process Check Output"><figcaption>把工作拆成輸入、處理、檢查、輸出，才知道哪一步能交給 AI。</figcaption></figure></div></section>
 
-    <section>
-      <h2>這堂課要解決什麼問題</h2>
-      <div class="grid">
-        <article class="card">
-          <h3>從聊天變成流程</h3>
-          <p>不是問一句拿答案，而是把一件重複工作拆成可以交辦、檢查、重跑的步驟。</p>
-        </article>
-        <article class="card">
-          <h3>知道什麼能自動化</h3>
-          <p>重複性高、格式固定、風險可檢查的任務，才適合先交給 AI。</p>
-        </article>
-        <article class="card">
-          <h3>避免一開始做太大</h3>
-          <p>第一個 Agent 不要追求全自動。先做最小可行流程，再慢慢加。</p>
-        </article>
-      </div>
-    </section>
+    <section><h2>這件工作適不適合交給 AI？</h2><table class="assessment-table"><tbody><tr><th>評估項目</th><th>適合</th><th>先不要</th></tr><tr><td>重複性</td><td>一週做 3 次以上，步驟差不多。</td><td>很少發生，每次情境都不同。</td></tr><tr><td>流程固定</td><td>能寫出第一步、第二步、第三步。</td><td>連人工怎麼做都說不清楚。</td></tr><tr><td>風險</td><td>做錯可重跑，不牽涉金流、隱私、合約。</td><td>做錯會付款、刪資料、影響客戶或法規。</td></tr><tr><td>人工檢查</td><td>AI 做完後，人能快速看出是否合理。</td><td>結果好壞很主觀，或需要專業責任背書。</td></tr></tbody></table></section>
 
-    <section>
-      <h2>課前準備</h2>
-      <div class="grid two">
-        <article class="card">
-          <h3>請她列 3 件重複工作</h3>
-          <p>例如整理新聞、整理資料夾、回覆表單、每週報告、固定格式的訊息。</p>
-        </article>
-        <article class="card">
-          <h3>選一件低風險任務</h3>
-          <p>不要第一堂就碰金流、合約、醫療、公司機密或需要真人判斷的高風險流程。</p>
-        </article>
-      </div>
-    </section>
+    <section><h2>把工作拆成流程</h2><div class="grid"><article class="card"><h3>輸入</h3><p>AI 需要哪些資料？檔案、表單、網址、文字、資料夾。</p></article><article class="card"><h3>處理</h3><p>要分類、摘要、改寫、比對，還是產生回覆？</p></article><article class="card"><h3>檢查</h3><p>哪些地方必須人工確認？哪些錯誤最危險？</p></article><article class="card"><h3>輸出</h3><p>最後要得到什麼？表格、信件、報告、檔案、待辦清單。</p></article></div></section>
 
-    <section>
-      <h2>AI 助理與 AI Agent 的差別</h2>
-      <div class="grid two">
-        <article class="card">
-          <h3>AI 助理</h3>
-          <p>你問一句，它回一句。適合寫作、整理想法、改語氣、做第一版草稿。</p>
-        </article>
-        <article class="card">
-          <h3>AI Agent</h3>
-          <p>你給目標和流程，它可以分步驟處理資料、使用工具、產出結果，再讓你檢查。</p>
-        </article>
-      </div>
-    </section>
+    <section><h2>80 分鐘教學流程</h2><div class="timeline"><article class="step"><div class="time">0-15<br>min</div><div class="step-body"><h3>列出 3 件重複工作</h3><p>先從生活或工作中重複 3 次以上的任務開始。</p></div></article><article class="step"><div class="time">15-35<br>min</div><div class="step-body"><h3>用評估表篩選</h3><p>選低風險、流程固定、容易人工檢查的任務。</p></div></article><article class="step"><div class="time">35-60<br>min</div><div class="step-body"><h3>拆成四段流程</h3><p>寫出輸入、處理、檢查、輸出。</p></div></article><article class="step"><div class="time">60-80<br>min</div><div class="step-body"><h3>做第一版 Agent 規劃</h3><p>先設計半自動流程，不急著做全自動。</p></div></article></div></section>
 
-    <section>
-      <h2>什麼任務適合交給 AI</h2>
-      <div class="grid">
-        <article class="card"><h3>重複性高</h3><p>一週做三次以上，或每次步驟都差不多。</p></article>
-        <article class="card"><h3>流程固定</h3><p>可以寫出第一步、第二步、第三步。</p></article>
-        <article class="card"><h3>輸入輸出清楚</h3><p>知道要給什麼資料，也知道最後要得到什麼。</p></article>
-        <article class="card"><h3>風險可檢查</h3><p>AI 做完後，人可以快速檢查是否合理。</p></article>
-        <article class="card"><h3>格式可重複</h3><p>例如表格、摘要、信件、分類、檔名規則。</p></article>
-        <article class="card"><h3>失敗成本低</h3><p>做錯了可以重跑，不會造成付款、刪檔或重大誤判。</p></article>
-      </div>
-    </section>
+    <section><h2>實作案例</h2><div class="grid two"><article class="tip-card"><h3>每天整理 AI 新聞摘要</h3><p>輸入新聞清單，AI 整理 5 點摘要，人確認來源與重點，再輸出給自己看。</p></article><article class="summary-card"><h3>表單資料整理成回覆信</h3><p>輸入表單列，AI 產生草稿，人確認語氣與個資，再寄出。</p></article></div></section>
 
-    <section>
-      <h2>什麼任務不要一開始自動化</h2>
-      <ul class="checklist">
-        <li>高風險決策</li>
-        <li>資料來源不穩</li>
-        <li>判斷標準很模糊</li>
-        <li>牽涉金流或隱私</li>
-        <li>做錯無法復原</li>
-        <li>還沒有人工流程可參考</li>
-      </ul>
-    </section>
-
-    <section>
-      <h2>把工作拆成流程</h2>
-      <div class="grid">
-        <article class="card"><h3>輸入</h3><p>AI 需要哪些資料？檔案、表單、網址、文字、資料夾。</p></article>
-        <article class="card"><h3>處理</h3><p>要分類、摘要、改寫、比對、整理，還是產生回覆？</p></article>
-        <article class="card"><h3>檢查</h3><p>哪些地方必須人工確認？哪些錯誤最危險？</p></article>
-        <article class="card"><h3>輸出</h3><p>最後要得到什麼？表格、信件、報告、檔案、待辦清單。</p></article>
-        <article class="card"><h3>例外</h3><p>如果資料缺漏、格式錯、AI 不確定，要怎麼停下來問人？</p></article>
-        <article class="card"><h3>第一版</h3><p>先做半自動流程，人確認後再進入下一步。</p></article>
-      </div>
-    </section>
-
-    <section>
-      <h2>90 分鐘教學流程</h2>
-      <div class="timeline">
-        <article class="step">
-          <div class="time">0-10<br>min</div>
-          <div class="step-body">
-            <h3>先講清楚 Agent 不是魔法</h3>
-            <p>它不是自己知道你要什麼，而是照你拆好的流程一步一步做。</p>
-          </div>
-        </article>
-        <article class="step">
-          <div class="time">10-25<br>min</div>
-          <div class="step-body">
-            <h3>挑一個重複任務</h3>
-            <p>從她列出的任務中選一個低風險、格式固定、容易檢查的任務。</p>
-          </div>
-        </article>
-        <article class="step">
-          <div class="time">25-45<br>min</div>
-          <div class="step-body">
-            <h3>拆成輸入、處理、檢查、輸出</h3>
-            <p>不要急著選工具。先把人工流程寫清楚。</p>
-          </div>
-        </article>
-        <article class="step">
-          <div class="time">45-60<br>min</div>
-          <div class="step-body">
-            <h3>看 3 個範例</h3>
-            <ul class="step-list">
-              <li><strong>每天整理 AI 新聞摘要：</strong>輸入網址或新聞清單，輸出 5 點摘要和風險提醒。</li>
-              <li><strong>整理資料夾中的檔案：</strong>輸入資料夾，輸出分類建議和改名規則。</li>
-              <li><strong>表單資料整理成回覆信：</strong>輸入表單列，輸出可審核的草稿信。</li>
-            </ul>
-          </div>
-        </article>
-        <article class="step">
-          <div class="time">60-75<br>min</div>
-          <div class="step-body">
-            <h3>選工具，不做工具大全</h3>
-            <p>用任務選工具：文字用 ChatGPT，檔案和程式用 Codex Desktop，跨服務流程再看 n8n、Make、Zapier。</p>
-          </div>
-        </article>
-        <article class="step">
-          <div class="time">75-90<br>min</div>
-          <div class="step-body">
-            <h3>產出第一版 Agent 規劃</h3>
-            <p>最後得到一份流程設計，不急著做全自動。</p>
-          </div>
-        </article>
-      </div>
-    </section>
-
-    <section>
-      <h2>工具地圖</h2>
-      <div class="grid">
-        <article class="card"><h3>ChatGPT</h3><p>文字、想法、摘要、改寫。適合先把流程想清楚。</p></article>
-        <article class="card"><h3>Codex Desktop</h3><p>本機檔案、HTML、小工具、資料整理。適合有檔案要處理時。</p></article>
-        <article class="card"><h3>n8n</h3><p>偏進階，可自架或雲端，把不同服務串成流程。</p></article>
-        <article class="card"><h3>Make</h3><p>視覺化流程工具，適合把表單、信件、表格接起來。</p></article>
-        <article class="card"><h3>Zapier</h3><p>上手快，適合常見 SaaS 之間的簡單自動化。</p></article>
-        <article class="card"><h3>MCP</h3><p>讓 AI 連到工具或資料來源。新手先知道概念，不急著配置。</p></article>
-      </div>
-    </section>
-
-    <section>
-      <h2>可複製 Agent 規劃模板</h2>
-      <div class="prompt">我想把這件重複工作交給 AI 協助：[工作名稱]。
+    <section><h2>可複製 Agent 規劃模板</h2><div class="prompt">我想把這件重複工作交給 AI 協助：[工作名稱]。
 目前流程是：
 1. [第一步]
 2. [第二步]
 3. [第三步]
 
-請你幫我判斷：
+請幫我判斷：
 - 哪些步驟適合 AI 做
 - 哪些步驟需要人工確認
 - 需要哪些輸入資料
 - 最後應該輸出什麼結果
 - 這個流程有哪些風險
-- 如果要做成 Codex / n8n / Make 自動化，第一版最小可行流程是什麼</div>
-    </section>
+- 第一版最小可行流程是什麼</div></section>
 
-    <section>
-      <h2>第一個 Agent 練習</h2>
-      <p>讓 AI 幫你設計一個每週重複任務流程。重點不是馬上自動跑，而是先把流程、輸入、輸出、人工確認點寫清楚。</p>
-    </section>
-
-    <section>
-      <h2>課後作業</h2>
-      <p>列出自己生活或工作中重複 3 次以上的任務，挑一個低風險任務，用模板拆成第一版 AI 流程。</p>
-    </section>
-
-
-    <section>
-      <h2>小測驗</h2>
-      <div class="quiz-grid">
-        <article class="quiz-card">
-          <h3>第一個 Agent 任務應該選哪一種？</h3>
-          <div class="quiz-options">
-            <label><input type="radio" name="quiz-0" data-correct="true"> 低風險、流程固定、可以人工檢查</label>
-            <label><input type="radio" name="quiz-0" data-correct="false"> 牽涉付款且無法復原</label>
-            <label><input type="radio" name="quiz-0" data-correct="false"> 判斷標準完全模糊</label>
-          </div>
-          <button type="button">檢查答案</button>
-          <p class="quiz-result" aria-live="polite"></p>
-        </article>
-        <article class="quiz-card">
-          <h3>做自動化前最重要的是什麼？</h3>
-          <div class="quiz-options">
-            <label><input type="radio" name="quiz-1" data-correct="true"> 先拆輸入、處理、檢查、輸出</label>
-            <label><input type="radio" name="quiz-1" data-correct="false"> 先買最貴的工具</label>
-            <label><input type="radio" name="quiz-1" data-correct="false"> 先追求全自動</label>
-          </div>
-          <button type="button">檢查答案</button>
-          <p class="quiz-result" aria-live="polite"></p>
-        </article>
-      </div>
-    </section>
-    <section>
-      <h2>Cheat Sheet</h2>
-      <div class="cheat-grid">
-        <article class="summary-card"><h3>適合 AI</h3><p>重複性高、流程固定、輸入輸出清楚、風險可檢查。</p></article>
-        <article class="summary-card"><h3>先不要自動化</h3><p>金流、隱私、不可復原、標準模糊、資料不穩。</p></article>
-        <article class="summary-card"><h3>第一版</h3><p>先半自動，人確認後再進下一步。</p></article>
-      </div>
-    </section>
-    <section>
-      <h2>FAQ</h2>
-      <details><summary>Agent 是不是一定要寫程式？</summary><p>不是。第一步是流程設計。ChatGPT 也可以先幫你把流程拆清楚。</p></details>
-      <details><summary>什麼時候用 Codex？</summary><p>當任務牽涉本機檔案、HTML、小工具或資料整理時，Codex 比純聊天更合適。</p></details>
-      <details><summary>什麼時候用 n8n、Make、Zapier？</summary><p>當流程需要串表單、信件、表格或多個雲端服務時，再考慮這些自動化工具。</p></details>
-    </section>
-    <section>
-      <h2>課程導覽</h2>
-      <nav class="lesson-nav" aria-label="課程導覽">
-        <a href="/mytools/ai-prompt-engineering/">上一課：Prompt Engineering</a>
-        <a href="/mytools/">回工具目錄</a>
-        <a href="/mytools/ai-teaching-flow/">回第一課</a>
-      </nav>
-    </section>
-
-    <footer>
-      第三課重點：先拆流程，再選工具；先半自動，再談全自動。
-    </footer>
+    <section><h2>課後作業</h2><p>列出自己生活或工作中重複 3 次以上的任務，挑一個低風險任務，用模板拆成第一版 AI 流程。</p></section>
+    <section><h2>Cheat Sheet</h2><div class="cheat-grid"><article class="summary-card"><h3>適合 AI</h3><p>重複性高、流程固定、輸入輸出清楚、風險可檢查。</p></article><article class="summary-card"><h3>先不要自動化</h3><p>金流、隱私、不可復原、標準模糊、資料不穩。</p></article><article class="summary-card"><h3>第一版</h3><p>先半自動，人確認後再進下一步。</p></article></div></section>
+    <section><h2>FAQ</h2><details><summary>Agent 一定要寫程式嗎？</summary><p>不是。第一步是流程設計。ChatGPT 也可以先幫你拆流程。</p></details><details><summary>什麼時候用 Codex？</summary><p>當任務牽涉本機檔案、HTML、小工具或資料整理時，再用 Codex。</p></details><details><summary>n8n、Make、Zapier 現在要學嗎？</summary><p>先不用深入。等你有穩定重複流程，再選工具。</p></details></section>
+    <section><h2>課程導覽</h2><nav class="lesson-nav" aria-label="課程導覽"><a href="/mytools/ai-teaching-flow/">第 1 課：80 分鐘完成第一個 AI 任務</a><a href="/mytools/ai-prompt-engineering/">第 2 課：不是 AI 不聰明，是你沒說清楚</a><a href="/mytools/ai-agent-intro/">目前：第 3 課：讓 AI 不只回答，而是完成工作</a><a href="/mytools/codex-first-project/">第 4 課：用 Codex 做出第一個 AI 小工具</a><a href="/mytools/ai-automation-intro/">第 5 課：AI 自動化入門</a></nav></section>
+    <footer>AI 入門系列第 3 / 5 課。目標是 80 分鐘內完成一次可驗收的學習成果。</footer>
   </main>
 </body>
 </html>
