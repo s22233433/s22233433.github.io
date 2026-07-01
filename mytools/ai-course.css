@@ -449,9 +449,6 @@ summary:focus-visible {
   font-size: 14px;
 }
 
-.visual-grid .image-card:first-child { grid-column: span 6; }
-.visual-grid .image-card:nth-child(2) { grid-column: span 6; }
-
 .info-card { background: #eef6ff; }
 .tip-card { background: #f3f0ff; }
 .warning-card { background: #fff8e6; border-color: #f4d179; }
@@ -663,8 +660,6 @@ footer {
   .grid > *,
   .grid.two > *,
   .visual-grid > *,
-  .visual-grid .image-card:first-child,
-  .visual-grid .image-card:nth-child(2),
   .course-overview > *,
   .cheat-grid > *,
   .quiz-card,
