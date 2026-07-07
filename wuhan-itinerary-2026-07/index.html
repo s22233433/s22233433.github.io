@@ -1,0 +1,979 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>武汉 7/7-7/11 行程重排</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --ink: #17212b;
+      --muted: #64707d;
+      --paper: #f7f4ee;
+      --panel: rgba(255, 255, 255, .88);
+      --river: #1f6f8b;
+      --teal: #0d8a7a;
+      --gold: #c98b2c;
+      --red: #c94b3b;
+      --line: rgba(23, 33, 43, .14);
+      --shadow: 0 22px 70px rgba(22, 32, 43, .16);
+      --radius: 8px;
+    }
+
+    * { box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background:
+        linear-gradient(90deg, rgba(23,33,43,.05) 1px, transparent 1px) 0 0 / 44px 44px,
+        linear-gradient(0deg, rgba(23,33,43,.045) 1px, transparent 1px) 0 0 / 44px 44px,
+        var(--paper);
+      color: var(--ink);
+      font-family: "Songti SC", "Noto Serif SC", "STSong", serif;
+    }
+
+    button, input, select {
+      font: inherit;
+    }
+
+    .hero {
+      position: relative;
+      min-height: 92vh;
+      display: grid;
+      align-items: end;
+      overflow: hidden;
+      background:
+        linear-gradient(180deg, rgba(8,18,28,.08), rgba(8,18,28,.78)),
+        url("https://pitravel.pitravelcdn.com/slytherin/6a7e0bbc19ac49b89d765e62ad8c33b6.png?sly_wh=375,500") center / cover;
+      color: white;
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(circle at 20% 15%, rgba(255,255,255,.22), transparent 24%),
+        linear-gradient(100deg, rgba(10, 26, 37, .72), transparent 62%);
+      pointer-events: none;
+    }
+
+    .hero-inner {
+      position: relative;
+      z-index: 1;
+      width: min(1180px, calc(100% - 32px));
+      margin: 0 auto;
+      padding: 72px 0 42px;
+      display: grid;
+      grid-template-columns: minmax(0, 1.2fr) 380px;
+      gap: 28px;
+      align-items: end;
+    }
+
+    .stamp {
+      display: inline-grid;
+      place-items: center;
+      width: fit-content;
+      min-height: 34px;
+      padding: 6px 12px;
+      border: 1px solid rgba(255,255,255,.55);
+      background: rgba(255,255,255,.1);
+      backdrop-filter: blur(10px);
+      font-family: "PingFang SC", "Microsoft YaHei", sans-serif;
+      font-size: 13px;
+      border-radius: 999px;
+    }
+
+    h1 {
+      margin: 18px 0 14px;
+      max-width: 760px;
+      font-size: clamp(42px, 7.4vw, 96px);
+      line-height: .98;
+      letter-spacing: 0;
+      text-wrap: balance;
+    }
+
+    .lead {
+      max-width: 720px;
+      margin: 0;
+      color: rgba(255,255,255,.86);
+      font-family: "PingFang SC", "Microsoft YaHei", sans-serif;
+      font-size: 17px;
+      line-height: 1.8;
+    }
+
+    .arrival-card {
+      border: 1px solid rgba(255,255,255,.28);
+      background: rgba(255, 255, 255, .13);
+      backdrop-filter: blur(18px);
+      border-radius: var(--radius);
+      padding: 20px;
+      box-shadow: 0 20px 80px rgba(0,0,0,.22);
+    }
+
+    .arrival-card h2,
+    .section h2,
+    .panel h3 {
+      margin: 0;
+      letter-spacing: 0;
+    }
+
+    .arrival-card h2 {
+      font-size: 24px;
+    }
+
+    .arrival-card ol {
+      margin: 18px 0 0;
+      padding: 0;
+      list-style: none;
+      display: grid;
+      gap: 12px;
+      font-family: "PingFang SC", "Microsoft YaHei", sans-serif;
+    }
+
+    .arrival-card li {
+      display: grid;
+      grid-template-columns: 70px 1fr;
+      gap: 12px;
+      align-items: baseline;
+      padding-top: 12px;
+      border-top: 1px solid rgba(255,255,255,.18);
+    }
+
+    .time {
+      color: #f8d48a;
+      font-weight: 700;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .wrap {
+      width: min(1180px, calc(100% - 32px));
+      margin: 0 auto;
+      padding: 34px 0 70px;
+    }
+
+    .toolbar {
+      position: sticky;
+      top: 0;
+      z-index: 5;
+      margin: -1px auto 28px;
+      padding: 10px;
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      justify-content: space-between;
+      border: 1px solid var(--line);
+      background: rgba(247, 244, 238, .86);
+      backdrop-filter: blur(14px);
+      border-radius: 0 0 var(--radius) var(--radius);
+    }
+
+    .tabs {
+      display: flex;
+      gap: 8px;
+      overflow-x: auto;
+      scrollbar-width: thin;
+      padding-bottom: 2px;
+    }
+
+    .tab,
+    .mode button,
+    .copy,
+    .toggle-detail {
+      min-height: 40px;
+      border: 1px solid var(--line);
+      background: white;
+      color: var(--ink);
+      border-radius: var(--radius);
+      padding: 9px 12px;
+      cursor: pointer;
+      white-space: nowrap;
+      font-family: "PingFang SC", "Microsoft YaHei", sans-serif;
+      transition: transform .18s ease, background .18s ease, border-color .18s ease;
+    }
+
+    .tab:hover,
+    .mode button:hover,
+    .copy:hover,
+    .toggle-detail:hover {
+      transform: translateY(-1px);
+      border-color: rgba(31, 111, 139, .55);
+    }
+
+    .tab.active,
+    .mode button.active {
+      background: var(--ink);
+      color: white;
+      border-color: var(--ink);
+    }
+
+    .mode {
+      display: flex;
+      gap: 8px;
+      flex: none;
+    }
+
+    .day {
+      display: none;
+      animation: lift .35s ease both;
+    }
+
+    .day.active { display: block; }
+
+    @keyframes lift {
+      from { opacity: 0; transform: translateY(14px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .section-head {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 18px;
+      align-items: start;
+      margin-bottom: 18px;
+    }
+
+    .section h2 {
+      font-size: clamp(30px, 4vw, 54px);
+      line-height: 1.05;
+    }
+
+    .section p {
+      margin: 10px 0 0;
+      max-width: 760px;
+      color: var(--muted);
+      font-family: "PingFang SC", "Microsoft YaHei", sans-serif;
+      line-height: 1.8;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr 330px;
+      gap: 22px;
+      align-items: start;
+    }
+
+    .timeline {
+      display: grid;
+      gap: 12px;
+    }
+
+    .stop {
+      position: relative;
+      display: grid;
+      grid-template-columns: 110px minmax(0, 1fr);
+      gap: 16px;
+      padding: 14px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--panel);
+      box-shadow: 0 12px 36px rgba(23,33,43,.07);
+    }
+
+    .stop.optional.full-only { display: grid; }
+    body.compact .stop.optional { display: none; }
+
+    .stop-time {
+      font-family: "PingFang SC", "Microsoft YaHei", sans-serif;
+      color: var(--river);
+      font-weight: 800;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .stop-title {
+      margin: 0;
+      font-size: 22px;
+      line-height: 1.25;
+    }
+
+    .stop-meta {
+      margin-top: 7px;
+      color: var(--muted);
+      font-family: "PingFang SC", "Microsoft YaHei", sans-serif;
+      font-size: 14px;
+      line-height: 1.7;
+    }
+
+    .chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 12px;
+    }
+
+    .chip {
+      min-height: 28px;
+      display: inline-flex;
+      align-items: center;
+      border-radius: 999px;
+      padding: 4px 9px;
+      background: rgba(13, 138, 122, .12);
+      color: #075e56;
+      font-family: "PingFang SC", "Microsoft YaHei", sans-serif;
+      font-size: 13px;
+    }
+
+    .detail {
+      display: none;
+      margin-top: 12px;
+      padding: 12px;
+      border-left: 3px solid var(--gold);
+      background: rgba(201, 139, 44, .1);
+      color: #503713;
+      font-family: "PingFang SC", "Microsoft YaHei", sans-serif;
+      line-height: 1.75;
+    }
+
+    .stop.open .detail { display: block; }
+
+    .toggle-detail {
+      margin-top: 12px;
+      min-height: 34px;
+      padding: 6px 10px;
+      font-size: 13px;
+    }
+
+    .panel {
+      position: sticky;
+      top: 82px;
+      display: grid;
+      gap: 14px;
+    }
+
+    .note-card,
+    .image-card,
+    .check-card {
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,.82);
+      border-radius: var(--radius);
+      box-shadow: 0 14px 40px rgba(23,33,43,.08);
+      overflow: hidden;
+    }
+
+    .note-card {
+      padding: 16px;
+      font-family: "PingFang SC", "Microsoft YaHei", sans-serif;
+      line-height: 1.75;
+    }
+
+    .note-card strong { color: var(--red); }
+
+    .image-card img {
+      display: block;
+      width: 100%;
+      height: 220px;
+      object-fit: cover;
+      background: #dfe7e8;
+    }
+
+    .image-card figcaption {
+      padding: 10px 12px;
+      color: var(--muted);
+      font-family: "PingFang SC", "Microsoft YaHei", sans-serif;
+      font-size: 13px;
+    }
+
+    .check-card {
+      padding: 16px;
+    }
+
+    .check-card h3 {
+      font-size: 20px;
+      margin-bottom: 10px;
+    }
+
+    .checks {
+      display: grid;
+      gap: 10px;
+      font-family: "PingFang SC", "Microsoft YaHei", sans-serif;
+    }
+
+    label.check {
+      display: grid;
+      grid-template-columns: 20px 1fr;
+      gap: 10px;
+      align-items: start;
+      color: var(--muted);
+      line-height: 1.55;
+    }
+
+    .flight-box {
+      margin-top: 26px;
+      padding: 18px;
+      border: 1px solid var(--line);
+      background: #fff;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+    }
+
+    .flight-box h3 {
+      margin: 0 0 12px;
+      font-size: 24px;
+    }
+
+    .flight-controls {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-bottom: 12px;
+      font-family: "PingFang SC", "Microsoft YaHei", sans-serif;
+    }
+
+    .flight-controls input,
+    .flight-controls select {
+      width: 100%;
+      min-height: 42px;
+      padding: 8px 10px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: #fafafa;
+    }
+
+    .result {
+      padding: 14px;
+      background: rgba(31, 111, 139, .1);
+      border-left: 4px solid var(--river);
+      font-family: "PingFang SC", "Microsoft YaHei", sans-serif;
+      line-height: 1.75;
+    }
+
+    .guide {
+      margin-top: 34px;
+      padding: 22px;
+      background: #152331;
+      color: white;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+    }
+
+    .guide h2 {
+      margin: 0 0 14px;
+      font-size: 30px;
+    }
+
+    .guide ul {
+      margin: 0;
+      padding-left: 20px;
+      font-family: "PingFang SC", "Microsoft YaHei", sans-serif;
+      line-height: 1.9;
+      color: rgba(255,255,255,.86);
+    }
+
+    .sources {
+      margin-top: 28px;
+      color: var(--muted);
+      font-family: "PingFang SC", "Microsoft YaHei", sans-serif;
+      font-size: 13px;
+      line-height: 1.8;
+    }
+
+    .sources a { color: var(--river); }
+
+    @media (max-width: 860px) {
+      .hero { min-height: auto; }
+      .hero-inner,
+      .grid {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-inner {
+        padding-top: 54px;
+      }
+
+      .toolbar {
+        align-items: stretch;
+        flex-direction: column;
+      }
+
+      .mode { overflow-x: auto; }
+      .panel { position: static; }
+
+      .section-head {
+        grid-template-columns: 1fr;
+      }
+
+      .stop {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body class="compact">
+  <header class="hero">
+    <div class="hero-inner">
+      <div>
+        <span class="stamp">2026.07.07 航班延误版</span>
+        <h1>武汉五日，不赶路</h1>
+        <p class="lead">按你第一天约 23:00 到酒店重排：今晚不再冲夜景，只做补给和休息；江汉路、江滩放到后面汉口线补回。热的时候少暴走，周六留出随时撤退去机场的余地。</p>
+      </div>
+      <aside class="arrival-card" aria-label="第一晚安排">
+        <h2>今晚 23:00 后这样走</h2>
+        <ol>
+          <li><span class="time">23:00</span><span>到酒店，放行李，先确认明早出发时间。</span></li>
+          <li><span class="time">23:15</span><span>洗漱换衣，充电，整理随身包。</span></li>
+          <li><span class="time">23:35</span><span>酒店附近便利店/小吃，简单补给。</span></li>
+          <li><span class="time">00:10</span><span>回房睡觉。今晚不硬逛，明天才是正片。</span></li>
+        </ol>
+      </aside>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <nav class="toolbar" aria-label="行程日期切换">
+      <div class="tabs">
+        <button class="tab active" data-day="d1">7/7 今晚</button>
+        <button class="tab" data-day="d2">7/8 东湖</button>
+        <button class="tab" data-day="d3">7/9 武昌</button>
+        <button class="tab" data-day="d4">7/10 汉口</button>
+        <button class="tab" data-day="d5">7/11 飞机</button>
+      </div>
+      <div class="mode" aria-label="行程密度">
+        <button class="active" data-mode="compact">精简稳妥</button>
+        <button data-mode="full">完整加点</button>
+      </div>
+    </nav>
+
+    <section class="day active section" id="d1">
+      <div class="section-head">
+        <div>
+          <h2>7/7 周二｜延误抵达，先休息</h2>
+          <p>23:00 到酒店后，今晚只做收尾。身体先到达武汉，比第一晚硬逛更值。</p>
+        </div>
+        <button class="copy" data-copy="7/7：23:00 到酒店，23:15 洗漱充电整理，23:35 酒店附近便利店/小吃补给，00:10 回房睡觉。">复制今晚安排</button>
+      </div>
+      <div class="grid">
+        <div class="timeline">
+          <article class="stop">
+            <div class="stop-time">23:00</div>
+            <div>
+              <h3 class="stop-title">酒店放行李</h3>
+              <div class="stop-meta">先确认明早出发时间、酒店早餐/退改政策。今晚不背大包出门。</div>
+              <div class="chips"><span class="chip">低体力</span><span class="chip">必要</span></div>
+            </div>
+          </article>
+          <article class="stop">
+            <div class="stop-time">23:15</div>
+            <div>
+              <h3 class="stop-title">洗漱充电，整理明天随身包</h3>
+              <div class="stop-meta">身份证/证件、充电宝、防晒、伞、水杯放一起，明早省掉找东西的时间。</div>
+              <button class="toggle-detail">展开细节</button>
+              <div class="detail">明天是省博 + 东湖，建议手机、充电宝都满电。省博如果预约了早场，今晚不要再做任何远距离移动。</div>
+            </div>
+          </article>
+          <article class="stop">
+            <div class="stop-time">23:35</div>
+            <div>
+              <h3 class="stop-title">酒店附近补给</h3>
+              <div class="stop-meta">便利店、楼下小吃、外卖三选一。吃一点即可，别为了名店再打车。</div>
+              <div class="chips"><span class="chip">补给</span><span class="chip">不排队</span></div>
+              <button class="toggle-detail">展开细节</button>
+              <div class="detail">优先买水、早餐垫肚子的东西、纸巾。真想吃武汉味道，点一份热干面/豆皮即可，不要夜里吃太撑影响第二天。</div>
+            </div>
+          </article>
+          <article class="stop optional">
+            <div class="stop-time">00:00</div>
+            <div>
+              <h3 class="stop-title">可选：楼下 10 分钟透气</h3>
+              <div class="stop-meta">只在酒店门口附近走一小圈。不要去江滩，不要去夜市。</div>
+              <button class="toggle-detail">展开细节</button>
+              <div class="detail">如果还在等外卖或精神太紧，可以在酒店楼下走 10 分钟。超过 00:10 就直接睡。</div>
+            </div>
+          </article>
+        </div>
+        <aside class="panel">
+          <figure class="image-card">
+            <img src="https://pitravel.pitravelcdn.com/slytherin/63af8ffc24814ce98e91719e65b325fa.png?sly_wh=0,0" alt="江汉路步行街">
+            <figcaption>江汉路改到后面补。第一晚只负责安全落地。</figcaption>
+          </figure>
+          <div class="note-card"><strong>决策：</strong>23:00 到酒店后不再安排景点。江汉路、江滩和夜市都能在周四/周五补回，今晚最值钱的是睡眠。</div>
+        </aside>
+      </div>
+    </section>
+
+    <section class="day section" id="d2">
+      <div class="section-head">
+        <div>
+          <h2>7/8 周三｜省博与东湖</h2>
+          <p>把室内重头戏放上午，下午转东湖。武汉 7 月热，绿道只骑一段，不做体能挑战。</p>
+        </div>
+        <button class="copy" data-copy="7/8：09:00 湖北省博物馆，12:00 午餐，14:30 东湖听涛/绿道，18:00 楚河汉街晚餐散步。">复制当天安排</button>
+      </div>
+      <div class="grid">
+        <div class="timeline">
+          <article class="stop">
+            <div class="stop-time">09:00</div>
+            <div>
+              <h3 class="stop-title">湖北省博物馆</h3>
+              <div class="stop-meta">免费但需预约。优先看越王勾践剑、曾侯乙编钟，2.5-3 小时刚好。</div>
+              <div class="chips"><span class="chip">需预约</span><span class="chip">室内避暑</span></div>
+            </div>
+          </article>
+          <article class="stop">
+            <div class="stop-time">12:15</div>
+            <div>
+              <h3 class="stop-title">午餐 + 休息</h3>
+              <div class="stop-meta">不急着进东湖，先把最热的时段吃过去。</div>
+            </div>
+          </article>
+          <article class="stop">
+            <div class="stop-time">14:30</div>
+            <div>
+              <h3 class="stop-title">东湖听涛 / 绿道短骑</h3>
+              <div class="stop-meta">听涛景区全天开放；磨山等收费/管理景点有具体开放时间。建议只做 1 段湖边线。</div>
+              <button class="toggle-detail">展开细节</button>
+              <div class="detail">懒人走法：省博附近入东湖，沿湖散步或骑 40-60 分钟，拍湖面和树荫。天气太晒就缩短，直接去汉街。</div>
+            </div>
+          </article>
+          <article class="stop optional">
+            <div class="stop-time">16:30</div>
+            <div>
+              <h3 class="stop-title">可选：东湖生态旅游风景区继续走</h3>
+              <div class="stop-meta">体力好再加。否则不要为了“来都来了”硬走。</div>
+            </div>
+          </article>
+          <article class="stop">
+            <div class="stop-time">18:00</div>
+            <div>
+              <h3 class="stop-title">楚河汉街</h3>
+              <div class="stop-meta">晚餐、补水、轻松散步。适合把一天收住。</div>
+            </div>
+          </article>
+        </div>
+        <aside class="panel">
+          <figure class="image-card">
+            <img src="https://pitravel.pitravelcdn.com/slytherin/6a7e0bbc19ac49b89d765e62ad8c33b6.png?sly_wh=375,500" alt="东湖">
+            <figcaption>东湖放下午后半段，体验比正午硬晒好。</figcaption>
+          </figure>
+          <div class="check-card">
+            <h3>今天要确认</h3>
+            <div class="checks">
+              <label class="check"><input type="checkbox"> 省博预约成功，带证件原件</label>
+              <label class="check"><input type="checkbox"> 防晒、伞、补水</label>
+              <label class="check"><input type="checkbox"> 只骑一段东湖绿道</label>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <section class="day section" id="d3">
+      <div class="section-head">
+        <div>
+          <h2>7/9 周四｜武昌老城与轮渡</h2>
+          <p>这天是武汉经典线：过早、昙华林、黄鹤楼、长江大桥、轮渡。重点是傍晚过江，不要错过江面光线。</p>
+        </div>
+        <button class="copy" data-copy="7/9：07:40 粮道街过早，09:30 昙华林，12:30 黄鹤楼，16:40 长江大桥，17:40 中华路码头轮渡到武汉关。">复制当天安排</button>
+      </div>
+      <div class="grid">
+        <div class="timeline">
+          <article class="stop">
+            <div class="stop-time">07:40</div>
+            <div>
+              <h3 class="stop-title">粮道街过早</h3>
+              <div class="stop-meta">赵师傅油饼包烧麦可试，排太久就换同街其他早餐。</div>
+            </div>
+          </article>
+          <article class="stop">
+            <div class="stop-time">09:30</div>
+            <div>
+              <h3 class="stop-title">昙华林历史文化街区</h3>
+              <div class="stop-meta">老街、红墙、小店。上午走更舒服。</div>
+            </div>
+          </article>
+          <article class="stop">
+            <div class="stop-time">12:30</div>
+            <div>
+              <h3 class="stop-title">黄鹤楼</h3>
+              <div class="stop-meta">日场可购票入园，原行程给 2 小时；热天控制节奏，登楼后就收。</div>
+              <div class="chips"><span class="chip">门票</span><span class="chip">地标</span></div>
+            </div>
+          </article>
+          <article class="stop optional">
+            <div class="stop-time">14:40</div>
+            <div>
+              <h3 class="stop-title">户部巷路过</h3>
+              <div class="stop-meta">只当路过小吃街，不建议当主餐。</div>
+            </div>
+          </article>
+          <article class="stop">
+            <div class="stop-time">16:40</div>
+            <div>
+              <h3 class="stop-title">武汉长江大桥</h3>
+              <div class="stop-meta">拍黄鹤楼、龟山、江面。别在桥上暴晒太久。</div>
+            </div>
+          </article>
+          <article class="stop">
+            <div class="stop-time">17:40</div>
+            <div>
+              <h3 class="stop-title">中华路码头 → 武汉关</h3>
+              <div class="stop-meta">坐轮渡过江，傍晚体验最好。班次以码头当天公示为准。</div>
+              <button class="toggle-detail">展开细节</button>
+              <div class="detail">如果轮渡排队或天气不好，直接地铁过江，不要把晚餐时间耗在码头。到汉口后可接江汉关、江滩夜景。</div>
+            </div>
+          </article>
+        </div>
+        <aside class="panel">
+          <figure class="image-card">
+            <img src="https://pitravel.pitravelcdn.com/slytherin/dfdc26dc868c4fa5966594a405e95b16.png" alt="武汉城市图">
+            <figcaption>武昌到汉口，用轮渡把城市关系串起来。</figcaption>
+          </figure>
+          <div class="note-card"><strong>省力版：</strong>黄鹤楼结束后找咖啡/商场休息，等 16:30 后再去江边，不要正午一路走到底。</div>
+        </aside>
+      </div>
+    </section>
+
+    <section class="day section" id="d4">
+      <div class="section-head">
+        <div>
+          <h2>7/10 周五｜汉口 Citywalk</h2>
+          <p>把原行程“待计划”的汉口线完整放到周五：山海关路过早、古德寺、黎黄陂路、平和打包厂、江汉关、万松园小龙虾。</p>
+        </div>
+        <button class="copy" data-copy="7/10：08:00 山海关路过早，09:30 古德寺，11:30 黎黄陂路，13:30 平和打包厂，15:30 江汉关，18:00 万松园吃虾。">复制当天安排</button>
+      </div>
+      <div class="grid">
+        <div class="timeline">
+          <article class="stop">
+            <div class="stop-time">08:00</div>
+            <div>
+              <h3 class="stop-title">山海关路小吃街</h3>
+              <div class="stop-meta">鸡冠饺、汽水包、糊汤粉，少量多样。</div>
+            </div>
+          </article>
+          <article class="stop">
+            <div class="stop-time">09:30</div>
+            <div>
+              <h3 class="stop-title">古德寺</h3>
+              <div class="stop-meta">建筑很特别，上午光线好。注意穿着得体、保持安静。</div>
+            </div>
+          </article>
+          <article class="stop">
+            <div class="stop-time">11:30</div>
+            <div>
+              <h3 class="stop-title">黎黄陂路街头博物馆</h3>
+              <div class="stop-meta">老建筑、咖啡馆、小店。适合边走边休息。</div>
+            </div>
+          </article>
+          <article class="stop optional">
+            <div class="stop-time">13:30</div>
+            <div>
+              <h3 class="stop-title">平和打包厂旧址</h3>
+              <div class="stop-meta">工业风文创园，适合拍照，不必久留。</div>
+            </div>
+          </article>
+          <article class="stop">
+            <div class="stop-time">15:30</div>
+            <div>
+                <h3 class="stop-title">江汉关博物馆 / 江汉路补逛</h3>
+                <div class="stop-meta">补回第一晚没逛的汉口夜色。能进馆就进，不能进就当江边建筑线。</div>
+            </div>
+          </article>
+          <article class="stop">
+            <div class="stop-time">18:00</div>
+            <div>
+              <h3 class="stop-title">万松园：靓靓蒸虾</h3>
+              <div class="stop-meta">提前线上取号。排队太长就换附近店，不要牺牲一整晚。</div>
+              <div class="chips"><span class="chip">晚餐</span><span class="chip">提前取号</span></div>
+            </div>
+          </article>
+        </div>
+        <aside class="panel">
+          <figure class="image-card">
+            <img src="https://pitravel.pitravelcdn.com/slytherin/1095325117144226a68acad9c5f63d40.png?sly_wh=405,500" alt="靓靓蒸虾">
+            <figcaption>周五晚上给小龙虾，不和周六航班抢时间。</figcaption>
+          </figure>
+          <div class="check-card">
+            <h3>今天要确认</h3>
+            <div class="checks">
+              <label class="check"><input type="checkbox"> 古德寺开放/购票状态</label>
+              <label class="check"><input type="checkbox"> 靓靓蒸虾提前取号</label>
+              <label class="check"><input type="checkbox"> 午后安排咖啡休息点</label>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <section class="day section" id="d5">
+      <div class="section-head">
+        <div>
+          <h2>7/11 周六｜轻量收尾与机场缓冲</h2>
+          <p>周六不排远线。上午轻松补一个点，下午回酒店取行李，按航班时间倒推离开市区。</p>
+        </div>
+        <button class="copy" data-copy="7/11：上午晴川阁/龟山或商圈补逛，中午稳妥正餐，下午取行李，按航班前3小时离开市区去天河机场。">复制当天安排</button>
+      </div>
+      <div class="grid">
+        <div>
+          <div class="timeline">
+            <article class="stop">
+              <div class="stop-time">09:30</div>
+              <div>
+                <h3 class="stop-title">晴川阁 / 龟山一带</h3>
+                <div class="stop-meta">天气好就去，能看江景和大桥；天气热或下雨就改商圈休息。</div>
+              </div>
+            </article>
+            <article class="stop">
+              <div class="stop-time">12:00</div>
+              <div>
+                <h3 class="stop-title">稳妥午餐</h3>
+                <div class="stop-meta">选不排长队的店。今天不是美食冲刺日，是航班安全日。</div>
+              </div>
+            </article>
+            <article class="stop">
+              <div class="stop-time">14:00</div>
+              <div>
+                <h3 class="stop-title">取行李 + 商场/咖啡馆等待</h3>
+                <div class="stop-meta">推荐在地铁方便的位置等，不再去交通复杂的新景点。</div>
+              </div>
+            </article>
+          </div>
+
+          <div class="flight-box">
+            <h3>周六离城时间计算</h3>
+            <div class="flight-controls">
+              <label>航班起飞时间
+                <input id="flightTime" type="time" value="21:30">
+              </label>
+              <label>航班类型
+                <select id="flightType">
+                  <option value="180">国内航班</option>
+                  <option value="240">国际/港澳台</option>
+                </select>
+              </label>
+            </div>
+            <div class="result" id="flightResult" aria-live="polite"></div>
+          </div>
+        </div>
+        <aside class="panel">
+          <div class="note-card"><strong>周六原则：</strong>任何需要排队、远距离换乘、不可控天气的点，都自动降级为可选。宁可早到机场，也别在最后一天和交通赌。</div>
+          <div class="check-card">
+            <h3>离开前检查</h3>
+            <div class="checks">
+              <label class="check"><input type="checkbox"> 酒店退房/寄存确认</label>
+              <label class="check"><input type="checkbox"> 机场交通路线确认</label>
+              <label class="check"><input type="checkbox"> 充电宝、证件、伴手礼</label>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <section class="guide">
+      <h2>交互细节说明</h2>
+      <ul>
+        <li>顶部日期按钮可切换每天行程；切换后只显示当天内容。</li>
+        <li>“精简稳妥 / 完整加点”会隐藏或显示可选点，赶时间时用精简模式。</li>
+        <li>每个“展开细节”按钮会打开执行建议，再点一次收起。</li>
+        <li>每天右上角可复制当天摘要，方便发到微信或备忘录。</li>
+        <li>周六输入真实航班时间，页面会自动倒推出建议离开市区时间。</li>
+        <li>预约清单的勾选状态会保存在当前浏览器，下次打开仍保留。</li>
+      </ul>
+    </section>
+
+    <footer class="sources">
+      信息依据：原圆周旅迹行程链接、你补充的航班延误后约 23:00 到酒店；天气参考中国天气网武汉预报；省博、东湖、黄鹤楼等开放信息以官方/景区当天公示为准。图片来自原行程页面加载的地点素材。
+    </footer>
+  </main>
+
+  <script>
+    const tabs = document.querySelectorAll(".tab");
+    const days = document.querySelectorAll(".day");
+    const modeButtons = document.querySelectorAll("[data-mode]");
+    const storageKey = "wuhan-itinerary-checks-v1";
+
+    tabs.forEach((tab) => {
+      tab.addEventListener("click", () => {
+        tabs.forEach((item) => item.classList.toggle("active", item === tab));
+        let activeDay;
+        days.forEach((day) => {
+          const active = day.id === tab.dataset.day;
+          day.classList.toggle("active", active);
+          if (active) activeDay = day;
+        });
+        const toolbarHeight = document.querySelector(".toolbar").offsetHeight + 20;
+        window.scrollTo({ top: Math.max(activeDay.offsetTop - toolbarHeight, 0), behavior: "smooth" });
+      });
+    });
+
+    modeButtons.forEach((button) => {
+      button.addEventListener("click", () => {
+        modeButtons.forEach((item) => item.classList.toggle("active", item === button));
+        document.body.classList.toggle("compact", button.dataset.mode === "compact");
+      });
+    });
+
+    document.querySelectorAll(".toggle-detail").forEach((button) => {
+      button.addEventListener("click", () => {
+        const stop = button.closest(".stop");
+        stop.classList.toggle("open");
+        button.textContent = stop.classList.contains("open") ? "收起细节" : "展开细节";
+      });
+    });
+
+    async function copyText(text) {
+      if (navigator.clipboard) {
+        try {
+          await navigator.clipboard.writeText(text);
+          return;
+        } catch {}
+      }
+      const box = document.createElement("textarea");
+      box.value = text;
+      box.setAttribute("readonly", "");
+      box.style.position = "fixed";
+      box.style.opacity = "0";
+      document.body.appendChild(box);
+      box.select();
+      const ok = document.execCommand("copy");
+      box.remove();
+      if (!ok) throw new Error("copy failed");
+    }
+
+    document.querySelectorAll(".copy").forEach((button) => {
+      button.addEventListener("click", async () => {
+        const original = button.textContent;
+        try {
+          await copyText(button.dataset.copy);
+          button.textContent = "已复制";
+        } catch {
+          button.textContent = "复制失败";
+        }
+        setTimeout(() => { button.textContent = original; }, 1400);
+      });
+    });
+
+    function pad(value) {
+      return String(value).padStart(2, "0");
+    }
+
+    function calculateFlight() {
+      const time = document.getElementById("flightTime").value || "21:30";
+      const buffer = Number(document.getElementById("flightType").value);
+      const [hour, minute] = time.split(":").map(Number);
+      const depart = new Date(2026, 6, 11, hour, minute);
+      depart.setMinutes(depart.getMinutes() - buffer);
+      const cityLeave = `${pad(depart.getHours())}:${pad(depart.getMinutes())}`;
+      const airportArrive = new Date(depart);
+      airportArrive.setMinutes(airportArrive.getMinutes() + 70);
+      const airportTime = `${pad(airportArrive.getHours())}:${pad(airportArrive.getMinutes())}`;
+      document.getElementById("flightResult").innerHTML =
+        `建议 <strong>${cityLeave}</strong> 前离开市区；按 60-70 分钟路程估算，约 <strong>${airportTime}</strong> 到天河机场。若下雨或行李多，再提前 30 分钟。`;
+    }
+
+    document.getElementById("flightTime").addEventListener("input", calculateFlight);
+    document.getElementById("flightType").addEventListener("change", calculateFlight);
+    calculateFlight();
+
+    const checks = [...document.querySelectorAll(".checks input")];
+    const saved = JSON.parse(localStorage.getItem(storageKey) || "[]");
+    checks.forEach((check, index) => {
+      check.checked = saved[index] || false;
+      check.addEventListener("change", () => {
+        localStorage.setItem(storageKey, JSON.stringify(checks.map((item) => item.checked)));
+      });
+    });
+  </script>
+</body>
+</html>
