@@ -745,6 +745,15 @@
     .case-copy h3 { margin: 8px 0 8px; font-size: 21px; }
     .case-copy .case-meta { color: var(--teal); }
     .case-copy p { color: var(--muted); margin: 0; font-size: 15px; }
+    .case-link {
+      display: inline-flex;
+      margin-top: 18px;
+      color: var(--coral);
+      font-size: 14px;
+      font-weight: 900;
+    }
+    .case-link::after { content: "→"; margin-left: 8px; transition: transform .2s ease; }
+    .case-link:hover::after { transform: translateX(3px); }
     .case-card,
     .featured-case {
       transition: transform .25s ease, box-shadow .25s ease, opacity .2s ease;
@@ -893,6 +902,20 @@
       display: grid;
       gap: 18px;
     }
+    .lead-form { display: grid; gap: 14px; }
+    .lead-form h3 { margin: 0; font-size: 22px; }
+    .form-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+    .lead-form label { display: grid; gap: 6px; color: #fff5ef; font-size: 13px; font-weight: 900; }
+    .lead-form input, .lead-form select, .lead-form textarea {
+      width: 100%; border: 1px solid rgba(255,255,255,.36); border-radius: 6px; background: rgba(255,255,255,.96);
+      color: var(--ink); font: inherit; font-size: 15px; line-height: 1.4; padding: 11px 12px;
+    }
+    .lead-form textarea { min-height: 92px; resize: vertical; }
+    .lead-form input:focus, .lead-form select:focus, .lead-form textarea:focus { outline: 3px solid rgba(255,255,255,.36); outline-offset: 1px; }
+    .lead-form .button { width: 100%; cursor: pointer; }
+    .lead-form .button[disabled] { cursor: wait; opacity: .72; }
+    .form-note, .form-error { margin: 0; color: #ffe7df; font-size: 13px; line-height: 1.5; }
+    .form-error { color: #fff; font-weight: 900; }
     .contact-actions {
       display: flex;
       flex-wrap: wrap;
@@ -1136,6 +1159,7 @@
       }
       .case-study { padding: 18px; }
       .contact { padding: 56px 0; }
+      .form-grid { grid-template-columns: 1fr; }
       .contact-card a { font-size: 19px; }
       .price-card { padding: 24px; }
       .price-card .price-formula { font-size: clamp(20px, 5.3vw, 23px); }
@@ -1147,7 +1171,7 @@
     <div class="wrap nav">
       <a class="brand" href="#top" aria-label="榛菓行銷首頁" data-i18n-aria-label="brandAria">
         <span data-i18n="brand">榛菓行銷</span>
-        <small data-i18n="brandSmall">Overseas Influencer Agency</small>
+        <small data-i18n="brandSmall">海內外創作者行銷專案團隊</small>
       </a>
       <div class="nav-tools">
         <nav aria-label="主要導覽" data-i18n-aria-label="navAria">
@@ -1178,7 +1202,7 @@
           <h1><span data-i18n="heroTitleLineOne">海內外 KOL/KOC</span><span data-i18n="heroTitleLineTwo">行銷執行團隊</span></h1>
           <p data-i18n="heroBody">從創作者篩選、合作洽談、寄樣管理、腳本方向、內容審核到發布追蹤，協助品牌把海內外網紅合作真正做完。</p>
           <div class="hero-actions">
-            <a class="button primary" href="mailto:weiting@zhenguocool.com" data-track-event="lead_initial_advice" data-i18n="heroCta">立即取得初步合作建議</a>
+            <a class="button primary" href="#contact-form" data-track-event="lead_initial_advice" data-i18n="heroCta">立即取得初步合作建議</a>
             <a class="button secondary" href="#cases" data-track-event="view_cases" data-i18n="heroSecondary">查看過往案例</a>
           </div>
         </div>
@@ -1312,6 +1336,7 @@
                 <div><dt data-i18n="caseLabelExecution">執行方式</dt><dd data-i18n="caseExecutionDefault">創作者溝通、內容方向確認、素材檢查與發布追蹤。</dd></div>
                 <div><dt data-i18n="caseLabelDelivery">交付內容</dt><dd data-i18n="caseDeliveryDefault">合作素材、上刊連結與結案整理。</dd></div>
               </dl>
+              <a class="case-link" href="../cases/liming-weiquan-cheer/" data-i18n="caseReadMore">閱讀完整案例</a>
             </div>
           </article>
           <article class="featured-case reveal" style="--delay:90ms" data-case-tags="game">
@@ -1500,6 +1525,7 @@
                 <div><dt data-i18n="caseLabelExecution">執行方式</dt><dd data-i18n="caseExecutionDefault">創作者溝通、內容方向確認、素材檢查與發布追蹤。</dd></div>
                 <div><dt data-i18n="caseLabelDelivery">交付內容</dt><dd data-i18n="caseDeliveryDefault">合作素材、上刊連結與結案整理。</dd></div>
               </dl>
+              <a class="case-link" href="../cases/korea-kol-goodme/" data-i18n="caseReadMore">閱讀完整案例</a>
             </div>
             </article>
 
@@ -1530,6 +1556,7 @@
                 <div><dt data-i18n="caseLabelExecution">執行方式</dt><dd data-i18n="caseExecutionDefault">創作者溝通、內容方向確認、素材檢查與發布追蹤。</dd></div>
                 <div><dt data-i18n="caseLabelDelivery">交付內容</dt><dd data-i18n="caseDeliveryDefault">合作素材、上刊連結與結案整理。</dd></div>
               </dl>
+              <a class="case-link" href="../cases/camay-curling-iron/" data-i18n="caseReadMore">閱讀完整案例</a>
             </div>
             </article>
             
@@ -1619,14 +1646,35 @@
         <div>
           <h2 data-i18n="contactTitle">想先確認你的品牌適合怎麼做？</h2>
           <p data-i18n="contactBody">把品牌目標、預算區間、目標市場與希望合作的平台寄給我們，我們會整理第一版合作建議。</p>
-          <div class="final-actions"><a class="button primary" href="mailto:weiting@zhenguocool.com" data-track-event="lead_final_email" data-i18n="finalCtaPrimary">立即取得初步合作建議</a><a class="button secondary on-dark" href="#cases" data-track-event="view_cases_final" data-i18n="finalCtaSecondary">查看過往案例</a></div>
+          <div class="final-actions"><a class="button primary" href="#contact-form" data-track-event="lead_final_form" data-i18n="finalCtaPrimary">立即取得初步合作建議</a><a class="button secondary on-dark" href="#cases" data-track-event="view_cases_final" data-i18n="finalCtaSecondary">查看過往案例</a></div>
         </div>
         <div class="contact-card">
-          <div class="contact-actions" aria-label="聯絡方式" data-i18n-aria-label="contactActionsAria">
-            <details class="contact-reveal"><summary aria-label="顯示 Email" data-i18n-aria-label="emailRevealAria"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"></rect><path d="m3 7 9 6 9-6"></path></svg></summary><a class="contact-email" href="mailto:weiting@zhenguocool.com">weiting@zhenguocool.com</a></details>
-            <a class="icon-link" href="https://www.instagram.com/kolmasters_tw" target="_blank" rel="noopener" aria-label="Instagram" data-i18n-aria-label="instagramAria"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="4" width="16" height="16" rx="5"></rect><circle cx="12" cy="12" r="3.5"></circle><path d="M17.5 6.5h.01"></path></svg></a>
-          </div>
-          <div class="office-list"><p><strong data-i18n="taiwanOfficeTitle">台灣辦事處</strong><span data-i18n-html="taiwanOfficeAddress">榛菓行銷有限公司<br>臺北市大安區和安里復興南路一段３５２號２樓之３</span></p><p><strong data-i18n="officeTitle">深圳辦事處</strong><span data-i18n-html="officeAddress">深圳市榛果酷科技有限公司<br>廣東省深圳市南山區前海合作區自貿西街18號前海香繽大廈2009-B050</span></p></div>
+          <form id="lead-form" class="lead-form" action="https://formsubmit.co/ajax/weiting@zhenguocool.com" method="POST">
+            <input type="hidden" name="_subject" value="榛菓行銷｜新的合作需求">
+            <input type="hidden" name="_template" value="table">
+            <input type="hidden" name="_captcha" value="false">
+            <input type="hidden" name="_next" value="https://zhenguocool.com/thanks/">
+            <input type="hidden" name="utm_source" value="">
+            <input type="hidden" name="utm_medium" value="">
+            <input type="hidden" name="utm_campaign" value="">
+            <input type="hidden" name="utm_content" value="">
+            <input type="hidden" name="landing_page" value="">
+            <h3 data-i18n="formTitle">提交合作需求</h3>
+            <div class="form-grid">
+              <label><span data-i18n="formBrand">品牌名稱</span><input name="brand_name" autocomplete="organization" required></label>
+              <label><span data-i18n="formContact">聯絡人</span><input name="contact_name" autocomplete="name" required></label>
+              <label><span data-i18n="formEmail">工作 Email</span><input type="email" name="email" autocomplete="email" required></label>
+              <label><span data-i18n="formCategory">產品品類</span><input name="product_category" required></label>
+              <label><span data-i18n="formMarket">目標市場</span><select name="target_market" required><option value="" data-i18n="formSelect">請選擇</option><option>台灣</option><option>日本</option><option>韓國</option><option>美國</option><option>東南亞</option><option data-i18n="formMarketOther">其他 / 多市場</option></select></label>
+              <label><span data-i18n="formBudget">預計預算</span><select name="budget_range" required><option value="" data-i18n="formSelect">請選擇</option><option>NT$50,000 以下</option><option>NT$50,000–150,000</option><option>NT$150,000–300,000</option><option>NT$300,000 以上</option><option data-i18n="formBudgetDiscuss">希望先討論</option></select></label>
+              <label><span data-i18n="formTimeline">預計上線時間</span><select name="launch_timing" required><option value="" data-i18n="formSelect">請選擇</option><option data-i18n="formTimelineSoon">1 個月內</option><option data-i18n="formTimelineQuarter">1–3 個月</option><option data-i18n="formTimelineLater">3 個月以上</option><option data-i18n="formTimelineOpen">尚未確定</option></select></label>
+              <label><span data-i18n="formGoal">合作目標</span><select name="cooperation_goal" required><option value="" data-i18n="formSelect">請選擇</option><option data-i18n="formGoalAwareness">曝光 / 新品上市</option><option data-i18n="formGoalAssets">內容素材</option><option data-i18n="formGoalSales">銷售 / 導流</option><option data-i18n="formGoalTrust">口碑 / 品牌信任</option></select></label>
+            </div>
+            <label><span data-i18n="formMessage">補充需求（選填）</span><textarea name="message"></textarea></label>
+            <button class="button primary" type="submit" data-i18n="formSubmit">送出合作需求</button>
+            <p class="form-note" data-i18n="formNote">送出後會收到確認頁；我們會依市場、預算與時程整理第一版建議。</p>
+            <p class="form-error" data-form-error hidden></p>
+          </form>
         </div>
       </div>
     </section>
@@ -1644,7 +1692,7 @@
                 "navAria": "主要導覽",
                 "langAria": "語言切換",
                 "brand": "榛菓行銷",
-                "brandSmall": "Overseas Influencer Agency",
+                "brandSmall": "海內外創作者行銷專案團隊",
                 "navServices": "服務",
                 "navWhy": "優勢",
                 "navPlanning": "規劃",
@@ -1657,6 +1705,7 @@
                 "heroBody": "從創作者篩選、合作洽談、寄樣管理、腳本方向、內容審核到發布追蹤，協助品牌把海內外網紅合作真正做完。",
                 "heroCta": "立即取得初步合作建議",
                 "heroSecondary": "查看過往案例",
+                "caseReadMore": "閱讀完整案例",
                 "metricOneUnit": "市場判斷",
                 "metricOne": "台灣、美國、日本、韓國、東南亞依品牌目標切入。",
                 "metricTwoUnit": "內容落地",
@@ -1880,6 +1929,30 @@
                 "priceTwoLi3": "適合大量創作者的進度管理",
                 "contactTitle": "想先確認你的品牌適合怎麼做？",
                 "contactBody": "把品牌目標、預算區間、目標市場與希望合作的平台寄給我們，我們會整理第一版合作建議。",
+                "formTitle": "提交合作需求",
+                "formBrand": "品牌名稱",
+                "formContact": "聯絡人",
+                "formEmail": "工作 Email",
+                "formCategory": "產品品類",
+                "formMarket": "目標市場",
+                "formBudget": "預計預算",
+                "formTimeline": "預計上線時間",
+                "formGoal": "合作目標",
+                "formMessage": "補充需求（選填）",
+                "formSelect": "請選擇",
+                "formMarketOther": "其他 / 多市場",
+                "formBudgetDiscuss": "希望先討論",
+                "formTimelineSoon": "1 個月內",
+                "formTimelineQuarter": "1–3 個月",
+                "formTimelineLater": "3 個月以上",
+                "formTimelineOpen": "尚未確定",
+                "formGoalAwareness": "曝光 / 新品上市",
+                "formGoalAssets": "內容素材",
+                "formGoalSales": "銷售 / 導流",
+                "formGoalTrust": "口碑 / 品牌信任",
+                "formSubmit": "送出合作需求",
+                "formNote": "送出後會收到確認頁；我們會依市場、預算與時程整理第一版建議。",
+                "formError": "送出暫時失敗，請直接寄信至 weiting@zhenguocool.com。",
                 "contactActionsAria": "聯絡方式",
                 "emailRevealAria": "顯示 Email",
                 "instagramAria": "Instagram",
@@ -1950,7 +2023,7 @@
                 "navAria": "主要导航",
                 "langAria": "语言切换",
                 "brand": "榛果营销",
-                "brandSmall": "Overseas Influencer Agency",
+                "brandSmall": "海内外创作者营销项目团队",
                 "navServices": "服务",
                 "navWhy": "优势",
                 "navPlanning": "规划",
@@ -1963,6 +2036,7 @@
                 "heroBody": "从创作者筛选、合作洽谈、寄样管理、脚本方向、内容审核到发布追踪，协助品牌把海内外网红合作真正做完。",
                 "heroCta": "立即取得初步合作建议",
                 "heroSecondary": "查看过往案例",
+                "caseReadMore": "阅读完整案例",
                 "metricOneUnit": "市场判断",
                 "metricOne": "台湾、美国、日本、韩国、东南亚依品牌目标切入。",
                 "metricTwoUnit": "内容落地",
@@ -2186,6 +2260,30 @@
                 "priceTwoLi3": "适合大量创作者的进度管理",
                 "contactTitle": "想先确认你的品牌适合怎么做？",
                 "contactBody": "把品牌目标、预算区间、目标市场与希望合作的平台寄给我们，我们会整理第一版合作建议。",
+                "formTitle": "提交合作需求",
+                "formBrand": "品牌名称",
+                "formContact": "联系人",
+                "formEmail": "工作 Email",
+                "formCategory": "产品品类",
+                "formMarket": "目标市场",
+                "formBudget": "预计预算",
+                "formTimeline": "预计上线时间",
+                "formGoal": "合作目标",
+                "formMessage": "补充需求（选填）",
+                "formSelect": "请选择",
+                "formMarketOther": "其他 / 多市场",
+                "formBudgetDiscuss": "希望先讨论",
+                "formTimelineSoon": "1 个月内",
+                "formTimelineQuarter": "1–3 个月",
+                "formTimelineLater": "3 个月以上",
+                "formTimelineOpen": "尚未确定",
+                "formGoalAwareness": "曝光 / 新品上市",
+                "formGoalAssets": "内容素材",
+                "formGoalSales": "销售 / 导流",
+                "formGoalTrust": "口碑 / 品牌信任",
+                "formSubmit": "提交合作需求",
+                "formNote": "提交后会显示确认页；我们会依市场、预算与时程整理第一版建议。",
+                "formError": "提交暂时失败，请直接发送邮件至 weiting@zhenguocool.com。",
                 "contactActionsAria": "联系方式",
                 "emailRevealAria": "显示 Email",
                 "instagramAria": "Instagram",
@@ -2256,7 +2354,7 @@
                 "navAria": "Main navigation",
                 "langAria": "Language switcher",
                 "brand": "Zhenguo Marketing",
-                "brandSmall": "Overseas Influencer Agency",
+                "brandSmall": "Domestic & Overseas Creator Marketing Project Team",
                 "navServices": "Services",
                 "navWhy": "Why Us",
                 "navPlanning": "Planning",
@@ -2269,6 +2367,7 @@
                 "heroBody": "From creator screening, negotiation, product seeding, script direction, and content review to publishing follow-up, we help brands complete overseas influencer collaborations.",
                 "heroCta": "Get Initial Campaign Advice",
                 "heroSecondary": "View Past Cases",
+                "caseReadMore": "Read the full case",
                 "metricOneUnit": "Market Direction",
                 "metricOne": "Taiwan, the US, Japan, Korea, and Southeast Asia selected by brand objective.",
                 "metricTwoUnit": "Content Delivery",
@@ -2492,6 +2591,30 @@
                 "priceTwoLi3": "Progress management for larger creator groups",
                 "contactTitle": "Want to confirm what fits your brand?",
                 "contactBody": "Send us your brand goal, budget range, target market, and preferred platforms. We will organize the first campaign direction.",
+                "formTitle": "Share your project brief",
+                "formBrand": "Brand name",
+                "formContact": "Contact name",
+                "formEmail": "Work email",
+                "formCategory": "Product category",
+                "formMarket": "Target market",
+                "formBudget": "Estimated budget",
+                "formTimeline": "Launch timing",
+                "formGoal": "Campaign goal",
+                "formMessage": "Additional context (optional)",
+                "formSelect": "Select one",
+                "formMarketOther": "Other / multiple markets",
+                "formBudgetDiscuss": "Need to discuss",
+                "formTimelineSoon": "Within 1 month",
+                "formTimelineQuarter": "1–3 months",
+                "formTimelineLater": "More than 3 months",
+                "formTimelineOpen": "Not decided yet",
+                "formGoalAwareness": "Awareness / launch",
+                "formGoalAssets": "Content assets",
+                "formGoalSales": "Sales / traffic",
+                "formGoalTrust": "Trust / word of mouth",
+                "formSubmit": "Submit project brief",
+                "formNote": "You will see a confirmation page after submission. We will use the market, budget, and timing to prepare an initial direction.",
+                "formError": "Submission is temporarily unavailable. Please email weiting@zhenguocool.com directly.",
                 "contactActionsAria": "Contact channels",
                 "emailRevealAria": "Show Email",
                 "instagramAria": "Instagram",
@@ -2663,6 +2786,60 @@
     if (planner) {
       planner.addEventListener("change", updatePlanner);
       updatePlanner();
+    }
+
+    const trackEvent = (event, details = {}) => {
+      window.dataLayer = window.dataLayer || [];
+      window.dataLayer.push({ event, ...details });
+    };
+
+    document.querySelectorAll("[data-track-event]").forEach((element) => {
+      element.addEventListener("click", () => trackEvent(element.dataset.trackEvent));
+    });
+
+    document.querySelectorAll("[data-lang-link]").forEach((element) => {
+      element.addEventListener("click", () => trackEvent("language_switch", { language: element.dataset.langLink }));
+    });
+
+    const leadForm = document.querySelector("#lead-form");
+    if (leadForm) {
+      const params = new URLSearchParams(window.location.search);
+      ["utm_source", "utm_medium", "utm_campaign", "utm_content"].forEach((key) => {
+        const field = leadForm.elements.namedItem(key);
+        if (field) field.value = params.get(key) || "";
+      });
+      const landingPage = leadForm.elements.namedItem("landing_page");
+      if (landingPage) landingPage.value = window.location.href;
+
+      leadForm.addEventListener("submit", async (event) => {
+        event.preventDefault();
+        if (!leadForm.reportValidity()) return;
+        const submitButton = leadForm.querySelector('button[type="submit"]');
+        const error = leadForm.querySelector("[data-form-error]");
+        if (error) error.hidden = true;
+        if (submitButton) submitButton.disabled = true;
+        trackEvent("lead_form_submit", { market: leadForm.elements.target_market.value, budget: leadForm.elements.budget_range.value });
+
+        try {
+          const response = await fetch(leadForm.action, {
+            method: "POST",
+            body: new FormData(leadForm),
+            headers: { Accept: "application/json" }
+          });
+          if (!response.ok) throw new Error("Form delivery failed");
+          trackEvent("lead_form_success");
+          const localeMatch = window.location.pathname.match(/^\/(zh-tw|zh-cn|en)\//);
+          const thanksPath = localeMatch ? `/${localeMatch[1]}/thanks/` : "/thanks/";
+          window.location.assign(thanksPath);
+        } catch (_error) {
+          if (submitButton) submitButton.disabled = false;
+          if (error) {
+            error.textContent = pageCopy.formError;
+            error.hidden = false;
+          }
+          trackEvent("lead_form_error");
+        }
+      });
     }
   </script>
 </body>

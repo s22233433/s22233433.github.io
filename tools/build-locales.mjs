@@ -381,18 +381,101 @@ const servicePages = [
   }
 ];
 
+const caseStudies = [
+  {
+    slug: "liming-weiquan-cheer",
+    image: "web-assets/game-liming-cheer.webp",
+    relatedServices: ["kol-marketing", "gaming-influencer-marketing", "tiktok-influencer-marketing", "tiktok-koc-marketing"],
+    title: {
+      "zh-Hant": "黎明再現 x 味全龍啦啦隊",
+      "zh-Hans": "黎明再现 x 味全龙啦啦队",
+      en: "Liming Reappearance x Wei Chuan Dragons Cheerleaders"
+    },
+    summary: {
+      "zh-Hant": "以啦啦隊與遊戲題材建立話題連結，讓活動素材能自然進入社群討論。",
+      "zh-Hans": "以啦啦队与游戏题材建立话题连接，让活动素材能自然进入社交讨论。",
+      en: "A cheerleading and game collaboration designed to bring campaign assets into natural social conversation."
+    },
+    content: {
+      "zh-Hant": ["《黎明再現》需要以具娛樂性與辨識度的合作素材，為遊戲活動建立社群聲量。", "讓遊戲活動資訊不只被看見，也能透過粉絲熟悉的角色與互動情境被討論。", "遊戲訊息需要在不犧牲活動感的前提下，進入受眾熟悉的內容語境。", "以啦啦隊合作為切點，兼顧社群辨識度、現場感與受眾可參與性。", "以人物互動、活動氛圍與遊戲主題為主軸，避免把內容做成單向廣告。", "協調合作條件、內容方向、素材確認與發布節奏，讓各方在同一專案節點推進。", "交付合作素材、上刊連結與執行整理；復盤重點放在可延伸的話題角度與後續素材使用。"],
+      "zh-Hans": ["《黎明再现》需要以具娱乐性与辨识度的合作素材，为游戏活动建立社交声量。", "让游戏活动资讯不只被看见，也能透过粉丝熟悉的角色与互动情境被讨论。", "游戏讯息需要在不牺牲活动感的前提下，进入受众熟悉的内容语境。", "以啦啦队合作为切点，兼顾社交辨识度、现场感与受众可参与性。", "以人物互动、活动氛围与游戏主题为主轴，避免把内容做成单向广告。", "协调合作条件、内容方向、素材确认与发布时间，让各方在同一项目节点推进。", "交付合作素材、发布链接与执行整理；复盘重点放在可延伸的话题角度与后续素材使用。"],
+      en: ["Liming Reappearance needed recognizable, entertainment-led collaboration assets to create momentum for a game campaign.", "Make the campaign information visible and discussable through a familiar fan-facing context.", "The game message needed to enter a native content context without losing campaign energy.", "Cheerleaders were selected for strong social recognition, live-event energy, and audience participation potential.", "The content focused on character interaction, campaign atmosphere, and the game theme instead of a one-way advertisement.", "Zhenguo coordinated collaboration terms, content direction, asset checks, and publishing timing around shared project milestones.", "Deliverables included campaign assets, publishing links, and an execution summary. The review focused on reusable conversation angles and future asset use."]
+    }
+  },
+  {
+    slug: "korea-kol-goodme",
+    image: "web-assets/case-goodme-korean-kol.webp",
+    relatedServices: ["kol-marketing", "overseas-influencer-marketing", "korea-influencer-marketing", "food-influencer-marketing", "instagram-kol-collaboration"],
+    title: {
+      "zh-Hant": "韓國 KOL x 古茗飲料",
+      "zh-Hans": "韩国 KOL x 古茗饮料",
+      en: "Korean KOL x Goodme Tea"
+    },
+    summary: {
+      "zh-Hant": "以韓國創作者實訪門市，把旅遊動線、飲品體驗與社群內容串成可理解的品牌故事。",
+      "zh-Hans": "以韩国创作者实访门店，把旅行路线、饮品体验与社交内容串成可理解的品牌故事。",
+      en: "A Korean creator store visit that connected travel context, drink experience, and social storytelling into a clear brand narrative."
+    },
+    content: {
+      "zh-Hant": ["古茗希望讓海外受眾更容易理解中國茶飲品牌的門市與產品體驗。", "以韓國市場的創作者內容，建立可感知的門市體驗與品牌認知。", "餐飲內容若只描述產品，很難讓陌生市場理解到店的理由與消費情境。", "選擇能把旅遊、城市探索與日常飲品體驗自然串連的韓國創作者。", "以實訪、飲品選擇、門市情境與個人感受為內容線索，保留創作者自身敘事。", "管理溝通、到店安排、重點確認與上刊追蹤，讓素材與合作節奏可被品牌端掌握。", "交付上刊內容與連結整理；復盤重點是海外創作者如何替在地門市補足品牌情境。"],
+      "zh-Hans": ["古茗希望让海外受众更容易理解中国茶饮品牌的门店与产品体验。", "以韩国市场的创作者内容，建立可感知的门店体验与品牌认知。", "餐饮内容若只描述产品，很难让陌生市场理解到店的理由与消费情境。", "选择能把旅行、城市探索与日常饮品体验自然串连的韩国创作者。", "以实访、饮品选择、门店情境与个人感受为内容线索，保留创作者自身叙事。", "管理沟通、到店安排、重点确认与发布追踪，让素材与合作节奏可被品牌端掌握。", "交付发布内容与链接整理；复盘重点是海外创作者如何替在地门店补足品牌情境。"],
+      en: ["Goodme Tea wanted overseas audiences to better understand the store and product experience of a Chinese tea brand.", "Use Korean creator content to create a tangible store experience and brand understanding in the Korean market.", "Food content that only describes a product rarely explains why a new audience would visit a store.", "A Korean creator who could naturally connect travel, city exploration, and everyday drink experiences was selected.", "The content used the visit, drink selection, store context, and personal response as its narrative thread while keeping the creator's own voice.", "Zhenguo managed communication, visit arrangements, key-message checks, and publishing follow-up so the brand could follow the campaign rhythm.", "Deliverables included published content and a link summary. The review focused on how overseas creators can add local context for physical stores."]
+    }
+  },
+  {
+    slug: "camay-curling-iron",
+    image: "web-assets/case-camay-curling-iron.webp",
+    relatedServices: ["kol-marketing", "tiktok-influencer-marketing", "tiktok-koc-marketing", "instagram-influencer-marketing", "beauty-influencer-marketing"],
+    title: {
+      "zh-Hant": "凱夢捲髮棒",
+      "zh-Hans": "凯梦卷发棒",
+      en: "Camay Hair Curler"
+    },
+    summary: {
+      "zh-Hant": "以男性造型需求切入，透過創作者實測與功能拆解，讓產品賣點被看懂。",
+      "zh-Hans": "以男性造型需求切入，透过创作者实测与功能拆解，让产品卖点被看懂。",
+      en: "Creator testing and feature breakdowns framed the product around men's styling needs, making the product benefits easier to understand."
+    },
+    content: {
+      "zh-Hant": ["凱夢需要以更具體的使用情境，說明捲髮棒在男性日常造型中的價值。", "讓受眾理解髮根、瀏海與快速加熱等功能，並降低嘗試造型工具的門檻。", "美髮工具的規格本身不容易被感知，內容需要把功能轉為使用前後的具體差異。", "選擇能自然示範男性造型過程、並以實測方式說明產品的創作者。", "用日常整理、步驟拆解與重點功能呈現，讓內容既保有個人感，也有可理解的產品資訊。", "協助確認內容重點、產品資訊、素材檢查與發布節點，降低功能表述與使用示範的落差。", "交付短影音與社群素材整理；復盤重點是哪些實測畫面最能承接後續廣告與社群再利用。"],
+      "zh-Hans": ["凯梦需要以更具体的使用情境，说明卷发棒在男性日常造型中的价值。", "让受众理解发根、刘海与快速加热等功能，并降低尝试造型工具的门槛。", "美发工具的规格本身不容易被感知，内容需要把功能转为使用前后的具体差异。", "选择能自然示范男性造型过程、并以实测方式说明产品的创作者。", "用日常整理、步骤拆解与重点功能呈现，让内容既保有个人感，也有可理解的产品资讯。", "协助确认内容重点、产品资讯、素材检查与发布节点，降低功能表述与使用示范的落差。", "交付短视频与社交素材整理；复盘重点是哪些实测画面最能承接后续广告与社交再利用。"],
+      en: ["Camay needed a more tangible use case to explain the value of its curling iron in men's everyday styling.", "Help audiences understand root volume, bangs, and fast-heating benefits while reducing the barrier to trying a styling tool.", "Tool specifications are not inherently easy to feel, so the content needed to turn features into visible before-and-after differences.", "A creator able to naturally demonstrate men's styling and explain the product through real testing was selected.", "Everyday grooming, step-by-step use, and key features were combined so the content kept a personal voice while explaining the product clearly.", "Zhenguo aligned key messages, product information, asset checks, and publishing milestones to reduce the gap between technical claims and demonstrations.", "Deliverables included short-form and social assets. The review focused on which testing scenes could support later advertising and social reuse."]
+    }
+  }
+];
+
+const caseUi = {
+  "zh-Hant": {
+    home: "首頁", cases: "案例", readCase: "閱讀完整案例", relatedServices: "相關服務頁",
+    labels: ["專案背景", "品牌目標", "市場難點", "創作者選擇邏輯", "內容策略", "執行過程", "交付與復盤"],
+    ctaTitle: "有相似的合作需求？", ctaBody: "提交市場、預算與時程，我們會整理第一版合作方向。", cta: "立即取得初步合作建議"
+  },
+  "zh-Hans": {
+    home: "首页", cases: "案例", readCase: "阅读完整案例", relatedServices: "相关服务页",
+    labels: ["项目背景", "品牌目标", "市场难点", "创作者选择逻辑", "内容策略", "执行过程", "交付与复盘"],
+    ctaTitle: "有相似的合作需求？", ctaBody: "提交市场、预算与时程，我们会整理第一版合作方向。", cta: "立即获取初步合作建议"
+  },
+  en: {
+    home: "Home", cases: "Case Studies", readCase: "Read the full case", relatedServices: "Related Service Pages",
+    labels: ["Project Background", "Brand Objective", "Market Challenge", "Creator Selection Logic", "Content Strategy", "Execution", "Deliverables and Review"],
+    ctaTitle: "Have a similar campaign need?", ctaBody: "Share your market, budget, and timing and we will organize an initial direction.", cta: "Get Initial Campaign Advice"
+  }
+};
+
 const serviceUi = {
   "zh-Hant": {
     home: "首頁",
     services: "服務",
-    eyebrow: "Overseas Influencer Marketing",
+    brandSmall: "海內外創作者行銷專案團隊",
+    eyebrow: "Creator Marketing Project Management",
     overviewTitle: "服務介紹",
     processTitle: "合作流程",
     faqTitle: "常見問題",
-    ctaTitle: "想確認你的品牌適合哪個市場？",
-    ctaBody: "把品牌目標、預算區間、目標市場與希望合作的平台寄給我們，我們會協助整理第一版方向。",
-    ctaPrimary: "預約免費諮詢",
-    ctaSecondary: "聯絡我們",
+    caseStudiesTitle: "相關案例",
+    ctaTitle: "想先確認這個服務是否適合你的品牌？",
+    ctaBody: "提交市場、預算與時程，我們會依專案條件整理第一版合作方向。",
+    ctaPrimary: "立即取得初步合作建議",
+    ctaSecondary: "查看相關案例",
     steps: ["需求與市場確認", "創作者篩選", "合作洽談與寄樣", "內容審核與發布", "成效追蹤與下一步"],
     stepBody: "每一步都以品牌端可判斷、可追蹤、可交接為原則，降低跨境溝通成本。",
     faqTwo: ["如何挑選適合品牌的網紅？", "需要同時評估受眾市場、內容風格、互動品質、品牌契合度、平台特性與合作可行性。"],
@@ -402,14 +485,16 @@ const serviceUi = {
   "zh-Hans": {
     home: "首页",
     services: "服务",
-    eyebrow: "Overseas Influencer Marketing",
+    brandSmall: "海内外创作者营销项目团队",
+    eyebrow: "Creator Marketing Project Management",
     overviewTitle: "服务介绍",
     processTitle: "合作流程",
     faqTitle: "常见问题",
-    ctaTitle: "想确认你的品牌适合哪个市场？",
-    ctaBody: "把品牌目标、预算区间、目标市场与希望合作的平台寄给我们，我们会协助整理第一版方向。",
-    ctaPrimary: "预约免费咨询",
-    ctaSecondary: "联系我们",
+    caseStudiesTitle: "相关案例",
+    ctaTitle: "想先确认这项服务是否适合你的品牌？",
+    ctaBody: "提交市场、预算与时程，我们会依项目条件整理第一版合作方向。",
+    ctaPrimary: "立即获取初步合作建议",
+    ctaSecondary: "查看相关案例",
     steps: ["需求与市场确认", "创作者筛选", "合作洽谈与寄样", "内容审核与发布", "成效追踪与下一步"],
     stepBody: "每一步都以品牌端可判断、可追踪、可交接为原则，降低跨境沟通成本。",
     faqTwo: ["如何挑选适合品牌的网红？", "需要同时评估受众市场、内容风格、互动品质、品牌契合度、平台特性与合作可行性。"],
@@ -419,14 +504,16 @@ const serviceUi = {
   en: {
     home: "Home",
     services: "Services",
-    eyebrow: "Overseas Influencer Marketing",
+    brandSmall: "Domestic & Overseas Creator Marketing Project Team",
+    eyebrow: "Creator Marketing Project Management",
     overviewTitle: "Service Overview",
     processTitle: "Collaboration Workflow",
     faqTitle: "Frequently Asked Questions",
-    ctaTitle: "Want to know which market fits your brand?",
-    ctaBody: "Send us your brand goal, budget range, target market, and preferred platforms. We will help organize the first direction.",
-    ctaPrimary: "Book a Free Consultation",
-    ctaSecondary: "Contact Us",
+    caseStudiesTitle: "Related Case Studies",
+    ctaTitle: "Want to check whether this service fits your brand?",
+    ctaBody: "Share your market, budget, and timing. We will organize an initial direction based on the project conditions.",
+    ctaPrimary: "Get Initial Campaign Advice",
+    ctaSecondary: "View Related Cases",
     steps: ["Brief and market alignment", "Creator screening", "Negotiation and product seeding", "Content review and publishing", "Tracking and next steps"],
     stepBody: "Each step is designed to be easy for brand teams to judge, track, and hand off, reducing cross-border coordination cost.",
     faqTwo: ["How do brands choose suitable influencers?", "Review audience market, content style, engagement quality, brand fit, platform context, and execution feasibility together."],
@@ -600,7 +687,11 @@ const renderHomePage = (locale, isRoot = false) => {
   html = html.replace(/<script type="application\/ld\+json" id="structured-data">[\s\S]*?<\/script>/, `<script type="application/ld+json" id="structured-data">\n${JSON.stringify(buildHomeSchema(copy, locale), null, 2)}\n  </script>`);
   html = localizeElements(html, copy);
   html = setLanguageLinks(html, locale, isRoot);
-  if (!isRoot) html = html.replace(/(src|href)="web-assets\//g, '$1="../web-assets/');
+  if (!isRoot) {
+    html = html
+      .replace(/(src|href)="web-assets\//g, '$1="../web-assets/')
+      .replace(/href="cases\//g, 'href="../cases/');
+  }
   return html;
 };
 
@@ -608,7 +699,20 @@ const serviceUrl = (page, locale) => locale.isRoot
   ? `${baseUrl}services/${page.slug}/`
   : `${locale.url}services/${page.slug}/`;
 
+const caseStudyUrl = (study, locale) => locale.isRoot
+  ? `${baseUrl}cases/${study.slug}/`
+  : `${locale.url}cases/${study.slug}/`;
+
 const serviceRelativePrefix = () => "../../";
+
+const caseStudyAlternates = (study) => [
+  `<link rel="alternate" hreflang="zh-Hant" href="${caseStudyUrl(study, locales[0])}">`,
+  `<link rel="alternate" hreflang="zh-Hans" href="${caseStudyUrl(study, locales[1])}">`,
+  `<link rel="alternate" hreflang="en" href="${caseStudyUrl(study, locales[2])}">`,
+  `<link rel="alternate" hreflang="x-default" href="${caseStudyUrl(study, rootLocale)}">`
+].join("\n  ");
+
+const relatedCaseStudies = (page) => caseStudies.filter((study) => study.relatedServices.includes(page.slug));
 
 const serviceAlternates = (page) => [
   `<link rel="alternate" hreflang="zh-Hant" href="${serviceUrl(page, locales[0])}">`,
@@ -695,7 +799,7 @@ const serviceCss = `
     .cta { color:#fff; background:var(--forest); }
     .cta p { color:#e9f3ee; }
     footer { padding:28px 0; border-top:1px solid var(--line); color:var(--muted); font-size:14px; }
-    @media (max-width: 760px) { .nav { align-items:flex-start; flex-direction:column; padding:14px 0; } .nav-links { flex-wrap:wrap; } .grid { grid-template-columns:1fr; } section { padding:54px 0; } }
+    @media (max-width: 760px) { .nav { align-items:flex-start; flex-direction:column; padding:14px 0; } .nav-links { flex-wrap:wrap; } .grid { grid-template-columns:1fr; } section { padding:54px 0; } h1 { font-size:clamp(38px, 10vw, 46px); line-height:1.08; overflow-wrap:anywhere; } }
 `;
 
 const renderServicePage = (page, locale) => {
@@ -703,8 +807,11 @@ const renderServicePage = (page, locale) => {
   const url = serviceUrl(page, locale);
   const prefix = serviceRelativePrefix(locale);
   const faqs = serviceFaq(page, locale);
+  const relatedStudies = relatedCaseStudies(page);
+  const secondaryHref = relatedStudies.length ? "#case-studies" : `${prefix}#cases`;
   const steps = ui.steps.map((step) => `<article class="card"><h3>${escapeHtml(step)}</h3><p>${escapeHtml(ui.stepBody)}</p></article>`).join("\n          ");
   const faqCards = faqs.map(([question, answer]) => `<article class="card"><h3>${escapeHtml(question)}</h3><p>${escapeHtml(answer)}</p></article>`).join("\n          ");
+  const caseCards = relatedStudies.map((study) => `<article class="card"><h3>${escapeHtml(study.title[locale.key])}</h3><p>${escapeHtml(study.summary[locale.key])}</p><p style="margin-top:16px"><a class="button" href="${prefix}cases/${study.slug}/">${escapeHtml(caseUi[locale.key].readCase)}</a></p></article>`).join("\n          ");
   return `<!DOCTYPE html>
 <html lang="${locale.htmlLang}">
 <head>
@@ -733,11 +840,11 @@ ${JSON.stringify(buildServiceSchema(page, locale), null, 2)}
 <body>
   <header>
     <div class="wrap nav">
-      <a class="brand" href="${prefix}"><span>${escapeHtml(locale.label)}</span><small>Overseas Influencer Agency</small></a>
+      <a class="brand" href="${prefix}"><span>${escapeHtml(locale.label)}</span><small>${escapeHtml(ui.brandSmall)}</small></a>
       <nav class="nav-links" aria-label="${escapeAttr(ui.services)}">
         <a href="${prefix}#services">${escapeHtml(ui.services)}</a>
         <a href="${prefix}#answers">FAQ</a>
-        <a class="nav-cta" href="#contact">${escapeHtml(ui.ctaPrimary)}</a>
+        <a class="nav-cta" href="${prefix}#contact-form">${escapeHtml(ui.ctaPrimary)}</a>
       </nav>
     </div>
   </header>
@@ -748,8 +855,8 @@ ${JSON.stringify(buildServiceSchema(page, locale), null, 2)}
         <h1>${escapeHtml(page.title[locale.key])}</h1>
         <p>${escapeHtml(page.intro[locale.key])}</p>
         <div class="actions">
-          <a class="button primary" href="#contact">${escapeHtml(ui.ctaPrimary)}</a>
-          <a class="button" href="mailto:weiting@zhenguocool.com">${escapeHtml(ui.ctaSecondary)}</a>
+          <a class="button primary" href="${prefix}#contact-form">${escapeHtml(ui.ctaPrimary)}</a>
+          <a class="button" href="${secondaryHref}">${escapeHtml(ui.ctaSecondary)}</a>
         </div>
       </div>
     </section>
@@ -778,18 +885,168 @@ ${JSON.stringify(buildServiceSchema(page, locale), null, 2)}
         </div>
       </div>
     </section>
+${relatedStudies.length ? `<section id="case-studies">
+      <div class="wrap">
+        <h2>${escapeHtml(ui.caseStudiesTitle)}</h2>
+        <div class="grid">
+          ${caseCards}
+        </div>
+      </div>
+    </section>` : ""}
     <section id="contact" class="cta">
       <div class="wrap">
         <h2>${escapeHtml(ui.ctaTitle)}</h2>
         <p>${escapeHtml(ui.ctaBody)}</p>
         <div class="actions">
-          <a class="button primary" href="mailto:weiting@zhenguocool.com">${escapeHtml(ui.ctaPrimary)}</a>
-          <a class="button" href="${prefix}#contact">${escapeHtml(ui.ctaSecondary)}</a>
+          <a class="button primary" href="${prefix}#contact-form">${escapeHtml(ui.ctaPrimary)}</a>
+          <a class="button" href="${secondaryHref}">${escapeHtml(ui.ctaSecondary)}</a>
         </div>
       </div>
     </section>
   </main>
   <footer><div class="wrap">© 2026 ${escapeHtml(locale.label)} / ZHENGUOCool. All Rights Reserved.</div></footer>
+</body>
+</html>
+`;
+};
+
+const buildCaseSchema = (study, locale) => {
+  const url = caseStudyUrl(study, locale);
+  const ui = caseUi[locale.key];
+  return {
+    "@context": "https://schema.org",
+    "@graph": [
+      organizationSchema(locale),
+      {
+        "@type": "CreativeWork",
+        "@id": `${url}#case-study`,
+        name: study.title[locale.key],
+        description: study.summary[locale.key],
+        image: `${baseUrl}${study.image}`,
+        url,
+        inLanguage: locale.htmlLang,
+        creator: { "@id": `${baseUrl}#organization` }
+      },
+      {
+        "@type": "BreadcrumbList",
+        "@id": `${url}#breadcrumb`,
+        itemListElement: [
+          { "@type": "ListItem", position: 1, name: ui.home, item: locale.url },
+          { "@type": "ListItem", position: 2, name: ui.cases, item: `${locale.url}#cases` },
+          { "@type": "ListItem", position: 3, name: study.title[locale.key], item: url }
+        ]
+      }
+    ]
+  };
+};
+
+const renderCasePage = (study, locale) => {
+  const ui = caseUi[locale.key];
+  const serviceCopy = serviceUi[locale.key];
+  const url = caseStudyUrl(study, locale);
+  const prefix = "../../";
+  const assetPrefix = locale.isRoot ? "../../" : "../../../";
+  const sections = study.content[locale.key].map((body, index) => `<article class="card"><h3>${escapeHtml(ui.labels[index])}</h3><p>${escapeHtml(body)}</p></article>`).join("\n          ");
+  const serviceLinks = study.relatedServices.map((slug) => servicePages.find((page) => page.slug === slug)).filter(Boolean)
+    .map((page) => `<a class="button" href="${prefix}services/${page.slug}/">${escapeHtml(page.name[locale.key])}</a>`).join("\n          ");
+  return `<!DOCTYPE html>
+<html lang="${locale.htmlLang}">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="${escapeAttr(study.summary[locale.key])}">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="${url}">
+  ${caseStudyAlternates(study)}
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="${escapeAttr(locale.label)}">
+  <meta property="og:title" content="${escapeAttr(study.title[locale.key])}">
+  <meta property="og:description" content="${escapeAttr(study.summary[locale.key])}">
+  <meta property="og:url" content="${url}">
+  <meta property="og:image" content="${baseUrl}${study.image}">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="${escapeAttr(study.title[locale.key])}">
+  <meta name="twitter:description" content="${escapeAttr(study.summary[locale.key])}">
+  <title>${escapeHtml(study.title[locale.key])} | ${escapeHtml(locale.label)}</title>
+  <script type="application/ld+json">
+${JSON.stringify(buildCaseSchema(study, locale), null, 2)}
+  </script>
+  <style>${serviceCss}
+    .case-image { width:100%; max-width:760px; margin-top:32px; border:1px solid var(--line); border-radius:8px; background:#fff; }
+    .case-summary { max-width:780px; color:#40516c; font-size:clamp(18px,2vw,22px); }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="wrap nav">
+      <a class="brand" href="${prefix}"><span>${escapeHtml(locale.label)}</span><small>${escapeHtml(serviceCopy.brandSmall)}</small></a>
+      <nav class="nav-links" aria-label="${escapeAttr(ui.cases)}">
+        <a href="${prefix}#cases">${escapeHtml(ui.cases)}</a>
+        <a class="nav-cta" href="${prefix}#contact-form">${escapeHtml(ui.cta)}</a>
+      </nav>
+    </div>
+  </header>
+  <main>
+    <section class="hero">
+      <div class="wrap">
+        <span class="eyebrow">CASE STUDY</span>
+        <h1>${escapeHtml(study.title[locale.key])}</h1>
+        <p class="case-summary">${escapeHtml(study.summary[locale.key])}</p>
+        <img class="case-image" src="${assetPrefix}${study.image}" alt="${escapeAttr(study.title[locale.key])}">
+      </div>
+    </section>
+    <section>
+      <div class="wrap">
+        <div class="grid">
+          ${sections}
+        </div>
+      </div>
+    </section>
+    <section>
+      <div class="wrap">
+        <h2>${escapeHtml(ui.relatedServices)}</h2>
+        <div class="actions">
+          ${serviceLinks}
+        </div>
+      </div>
+    </section>
+    <section class="cta">
+      <div class="wrap">
+        <h2>${escapeHtml(ui.ctaTitle)}</h2>
+        <p>${escapeHtml(ui.ctaBody)}</p>
+        <div class="actions"><a class="button primary" href="${prefix}#contact-form">${escapeHtml(ui.cta)}</a></div>
+      </div>
+    </section>
+  </main>
+  <footer><div class="wrap">© 2026 ${escapeHtml(locale.label)} / ZHENGUOCool. All Rights Reserved.</div></footer>
+</body>
+</html>
+`;
+};
+
+const thanksUi = {
+  "zh-Hant": { title: "已收到合作需求", body: "謝謝你提供專案資訊。我們會依目標市場、預算與時程整理第一版合作方向，再與你聯繫。", cta: "回到首頁" },
+  "zh-Hans": { title: "已收到合作需求", body: "谢谢你提供项目信息。我们会依目标市场、预算与时程整理第一版合作方向，再与你联系。", cta: "回到首页" },
+  en: { title: "Your project brief is received", body: "Thank you for sharing your project details. We will review the market, budget, and timing, then follow up with an initial direction.", cta: "Back to home" }
+};
+
+const thankYouUrl = (locale) => locale.isRoot ? `${baseUrl}thanks/` : `${locale.url}thanks/`;
+
+const renderThankYouPage = (locale) => {
+  const copy = thanksUi[locale.key];
+  const prefix = "../";
+  return `<!DOCTYPE html>
+<html lang="${locale.htmlLang}">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, follow">
+  <link rel="canonical" href="${thankYouUrl(locale)}">
+  <title>${escapeHtml(copy.title)} | ${escapeHtml(locale.label)}</title>
+  <style>${serviceCss}</style>
+</head>
+<body>
+  <main><section class="hero"><div class="wrap"><span class="eyebrow">ZHENGUOCOOL</span><h1>${escapeHtml(copy.title)}</h1><p>${escapeHtml(copy.body)}</p><div class="actions"><a class="button primary" href="${prefix}">${escapeHtml(copy.cta)}</a></div></div></section></main>
 </body>
 </html>
 `;
@@ -812,6 +1069,26 @@ for (const page of servicePages) {
     fs.mkdirSync(dir, { recursive: true });
     fs.writeFileSync(path.join(dir, "index.html"), renderServicePage(page, locale));
   }
+}
+
+for (const study of caseStudies) {
+  const rootDir = path.join(root, "cases", study.slug);
+  fs.mkdirSync(rootDir, { recursive: true });
+  fs.writeFileSync(path.join(rootDir, "index.html"), renderCasePage(study, rootLocale));
+  for (const locale of locales) {
+    const dir = path.join(root, locale.dir, "cases", study.slug);
+    fs.mkdirSync(dir, { recursive: true });
+    fs.writeFileSync(path.join(dir, "index.html"), renderCasePage(study, locale));
+  }
+}
+
+const rootThanksDir = path.join(root, "thanks");
+fs.mkdirSync(rootThanksDir, { recursive: true });
+fs.writeFileSync(path.join(rootThanksDir, "index.html"), renderThankYouPage(rootLocale));
+for (const locale of locales) {
+  const dir = path.join(root, locale.dir, "thanks");
+  fs.mkdirSync(dir, { recursive: true });
+  fs.writeFileSync(path.join(dir, "index.html"), renderThankYouPage(locale));
 }
 
 const sitemapItems = [];
@@ -843,6 +1120,27 @@ for (const page of servicePages) {
     sitemapItems.push({ loc: serviceUrl(page, locale), priority: "0.82", alternates });
   }
 }
+for (const study of caseStudies) {
+  const alternates = [
+    ...locales.map((locale) => [locale.htmlLang, caseStudyUrl(study, locale)]),
+    ["x-default", caseStudyUrl(study, rootLocale)]
+  ];
+  sitemapItems.push({ loc: caseStudyUrl(study, rootLocale), priority: "0.78", alternates });
+  for (const locale of locales) {
+    sitemapItems.push({ loc: caseStudyUrl(study, locale), priority: "0.74", alternates });
+  }
+}
+for (const extraPath of [
+  "mytools/",
+  "mytools/ai-teaching-flow/",
+  "mytools/ai-prompt-engineering/",
+  "mytools/ai-agent-intro/",
+  "mytools/codex-first-project/",
+  "mytools/ai-automation-intro/",
+  "mytools/n8n-workflow-reuse/"
+]) {
+  sitemapItems.push({ loc: `${baseUrl}${extraPath}`, priority: "0.6", alternates: [] });
+}
 
 const sitemap = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">\n${sitemapItems.map((item) => `  <url>\n    <loc>${item.loc}</loc>\n    <changefreq>monthly</changefreq>\n    <priority>${item.priority}</priority>\n${item.alternates.map(([hreflang, href]) => `    <xhtml:link rel="alternate" hreflang="${hreflang}" href="${href}" />`).join("\n")}\n  </url>`).join("\n")}\n</urlset>\n`;
 fs.writeFileSync(path.join(root, "sitemap.xml"), sitemap);
@@ -850,4 +1148,4 @@ fs.writeFileSync(path.join(root, "sitemap.xml"), sitemap);
 const robots = `User-agent: *\nAllow: /\n\nSitemap: ${baseUrl}sitemap.xml\n`;
 fs.writeFileSync(path.join(root, "robots.txt"), robots);
 
-console.log(`Built ${locales.length} locale pages, ${servicePages.length * allLocales.length} service pages, sitemap.xml, and robots.txt`);
+console.log(`Built ${locales.length} locale pages, ${servicePages.length * allLocales.length} service pages, ${caseStudies.length * allLocales.length} case pages, thank-you pages, sitemap.xml, and robots.txt`);
