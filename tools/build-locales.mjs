@@ -378,6 +378,174 @@ const servicePages = [
       "zh-Hans": ["食品网红营销适合哪种品牌？", "适合食品饮料、餐饮门店、伴手礼、零售新品与需要试吃体验或在地口碑的品牌。"],
       en: ["Which brands fit food influencer marketing?", "It fits food and beverage, restaurants, gift products, retail launches, and brands needing tasting experiences or local word of mouth."]
     }
+  },
+  {
+    slug: "ugc-content-creation",
+    name: {
+      "zh-Hant": "UGC 素材製作",
+      "zh-Hans": "UGC 素材制作",
+      en: "UGC Content Creation"
+    },
+    title: {
+      "zh-Hant": "UGC 素材製作服務 | 可投放的創作者短影音內容",
+      "zh-Hans": "UGC 素材制作服务 | 可投放的创作者短视频内容",
+      en: "UGC Content Creation Service | Creator Videos for Paid Media"
+    },
+    description: {
+      "zh-Hant": "UGC 素材製作服務協助品牌以創作者視角產出短影音、開箱、實測與使用情境素材，並事先確認授權、內容重點與後續投放需求。",
+      "zh-Hans": "UGC 素材制作服务协助品牌以创作者视角产出短视频、开箱、实测与使用情境素材，并事先确认授权、内容重点与后续投放需求。",
+      en: "UGC content creation service for creator-led short videos, unboxing, product testing, and usage scenarios, with usage rights and paid-media needs aligned upfront."
+    },
+    intro: {
+      "zh-Hant": "UGC 的價值不只是自然口碑，而是讓品牌取得更接近真實使用者語氣的素材。榛菓會先確認素材用途、授權範圍與內容重點，再挑選適合出鏡與執行的創作者。",
+      "zh-Hans": "UGC 的价值不只是自然口碑，而是让品牌取得更接近真实使用者语气的素材。榛果会先确认素材用途、授权范围与内容重点，再挑选适合出镜与执行的创作者。",
+      en: "UGC is more than organic word of mouth. It gives brands assets that sound closer to real users. Zhenguo aligns usage, rights, and key messages before selecting creators who can appear on camera and deliver."
+    },
+    faqOne: {
+      "zh-Hant": ["UGC 素材可以用於廣告投放嗎？", "可以，但需要在合作前確認素材使用期間、投放渠道、剪輯方式與肖像授權範圍。"],
+      "zh-Hans": ["UGC 素材可以用于广告投放吗？", "可以，但需要在合作前确认素材使用期间、投放渠道、剪辑方式与肖像授权范围。"],
+      en: ["Can UGC assets be used in paid ads?", "Yes, but usage period, media channels, editing permissions, and likeness rights should be agreed before the collaboration."]
+    }
+  },
+  {
+    slug: "ecommerce-influencer-marketing",
+    name: {
+      "zh-Hant": "電商網紅行銷",
+      "zh-Hans": "电商网红营销",
+      en: "Ecommerce Influencer Marketing"
+    },
+    title: {
+      "zh-Hant": "電商網紅行銷服務 | 導購內容、素材與轉換節奏",
+      "zh-Hans": "电商网红营销服务 | 导购内容、素材与转化节奏",
+      en: "Ecommerce Influencer Marketing Service | Content, Assets, and Conversion Flow"
+    },
+    description: {
+      "zh-Hant": "電商網紅行銷服務協助品牌安排導購內容、檔期溝通、折扣資訊、素材授權與上刊追蹤，讓創作者合作能接到商品頁與促銷節奏。",
+      "zh-Hans": "电商网红营销服务协助品牌安排导购内容、档期沟通、折扣信息、素材授权与发布追踪，让创作者合作能接到商品页与促销节奏。",
+      en: "Ecommerce influencer marketing service for shoppable content, launch timing, promotion details, usage rights, and publishing follow-up that connects creator work to product pages."
+    },
+    intro: {
+      "zh-Hant": "電商合作不能只看曝光。產品頁、庫存、優惠碼、投放素材與客服承接都會影響轉換。榛菓協助把創作者內容放進品牌可執行的導購流程。",
+      "zh-Hans": "电商合作不能只看曝光。产品页、库存、优惠码、投放素材与客服承接都会影响转化。榛果协助把创作者内容放进品牌可执行的导购流程。",
+      en: "Ecommerce collaborations are not only about reach. Product pages, inventory, promo codes, paid assets, and customer support all affect conversion. Zhenguo fits creator content into an executable commerce flow."
+    },
+    faqOne: {
+      "zh-Hant": ["電商網紅合作可以保證銷售嗎？", "不能保證銷售，但可以在合作前先確認商品頁、優惠資訊、內容授權與投放承接，降低轉換斷點。"],
+      "zh-Hans": ["电商网红合作可以保证销售吗？", "不能保证销售，但可以在合作前先确认商品页、优惠信息、内容授权与投放承接，降低转化断点。"],
+      en: ["Can ecommerce creator collaborations guarantee sales?", "No, but product pages, promotions, usage rights, and paid-media handoff can be aligned beforehand to reduce conversion gaps."]
+    }
+  },
+  {
+    slug: "consumer-electronics-influencer-marketing",
+    name: {
+      "zh-Hant": "3C／家電網紅行銷",
+      "zh-Hans": "3C／家电网红营销",
+      en: "Consumer Electronics Influencer Marketing"
+    },
+    title: {
+      "zh-Hant": "3C／家電網紅行銷服務 | 開箱、實測與功能說明",
+      "zh-Hans": "3C／家电网红营销服务 | 开箱、实测与功能说明",
+      en: "Consumer Electronics Influencer Marketing | Unboxing, Testing, and Product Education"
+    },
+    description: {
+      "zh-Hant": "3C／家電網紅行銷服務協助品牌以開箱、實測、使用教學與生活情境解釋產品功能，管理創作者篩選、借測或寄樣、審稿與素材授權。",
+      "zh-Hans": "3C／家电网红营销服务协助品牌以开箱、实测、使用教学与生活情境解释产品功能，管理创作者筛选、借测或寄样、审核与素材授权。",
+      en: "Consumer electronics influencer marketing service for unboxing, hands-on testing, tutorials, and lifestyle use cases, including creator screening, loaner or sample handling, review, and usage rights."
+    },
+    intro: {
+      "zh-Hant": "3C 與家電的合作重點是把規格轉成使用者聽得懂的差異。榛菓會依產品複雜度、目標受眾與內容深度，安排適合做實測或教學的創作者。",
+      "zh-Hans": "3C 与家电的合作重点是把规格转成使用者听得懂的差异。榛果会依产品复杂度、目标受众与内容深度，安排适合做实测或教学的创作者。",
+      en: "For electronics and appliances, the job is to turn specifications into differences users can understand. Zhenguo selects creators suited to testing or education by product complexity, audience, and required depth."
+    },
+    faqOne: {
+      "zh-Hant": ["3C／家電適合短影音還是 YouTube 評測？", "取決於產品是否需要深度解釋。功能單純可用短影音建立記憶點；需要比較、安裝或長期實測時，較適合長影音或多階段內容。"],
+      "zh-Hans": ["3C／家电适合短视频还是 YouTube 评测？", "取决于产品是否需要深度解释。功能单纯可用短视频建立记忆点；需要比较、安装或长期实测时，较适合长视频或多阶段内容。"],
+      en: ["Should electronics use short video or YouTube reviews?", "It depends on explanation depth. Simple features can use short video for recall; products needing comparison, installation, or longer testing fit long-form or staged content better."]
+    }
+  },
+  {
+    slug: "health-supplement-influencer-marketing",
+    name: {
+      "zh-Hant": "保健食品網紅行銷",
+      "zh-Hans": "保健食品网红营销",
+      en: "Health Supplement Influencer Marketing"
+    },
+    title: {
+      "zh-Hant": "保健食品網紅行銷服務 | 日常情境、口碑內容與合規溝通",
+      "zh-Hans": "保健食品网红营销服务 | 日常情境、口碑内容与合规沟通",
+      en: "Health Supplement Influencer Marketing | Everyday Context and Compliant Creator Content"
+    },
+    description: {
+      "zh-Hant": "保健食品網紅行銷服務協助品牌把成分、食用方式與日常情境轉成創作者內容，並在合作前整理禁用表述、審稿重點與素材授權。",
+      "zh-Hans": "保健食品网红营销服务协助品牌把成分、食用方式与日常情境转成创作者内容，并在合作前整理禁用表述、审核重点与素材授权。",
+      en: "Health supplement influencer marketing service that turns ingredients, usage, and everyday context into creator content while aligning prohibited claims, review priorities, and usage rights upfront."
+    },
+    intro: {
+      "zh-Hant": "保健食品合作要同時兼顧信任感與表述界線。榛菓會先整理產品可說與不可說的重點，再依受眾與內容風格安排適合的創作者與審稿節奏。",
+      "zh-Hans": "保健食品合作要同时兼顾信任感与表述边界。榛果会先整理产品可说与不可说的重点，再依受众与内容风格安排适合的创作者与审核节奏。",
+      en: "Supplement campaigns need both trust and clear claim boundaries. Zhenguo first aligns what can and cannot be said, then matches suitable creators and review timing to the audience and content style."
+    },
+    faqOne: {
+      "zh-Hant": ["保健食品合作如何避免內容誇大？", "合作前應提供成分、可用表述、禁用詞與審稿流程；內容可聚焦日常使用感與產品資訊，不把創作者內容寫成醫療承諾。"],
+      "zh-Hans": ["保健食品合作如何避免内容夸大？", "合作前应提供成分、可用表述、禁用词与审核流程；内容可聚焦日常使用感与产品信息，不把创作者内容写成医疗承诺。"],
+      en: ["How can supplement creator content avoid exaggerated claims?", "Provide ingredients, approved wording, prohibited terms, and a review process before work begins. Content can focus on everyday experience and product information, not medical promises."]
+    }
+  },
+  {
+    slug: "japan-koc-marketing",
+    name: {
+      "zh-Hant": "日本 KOC 行銷",
+      "zh-Hans": "日本 KOC 营销",
+      en: "Japan KOC Marketing"
+    },
+    title: {
+      "zh-Hant": "日本 KOC 行銷服務 | 在地口碑與短影音素材測試",
+      "zh-Hans": "日本 KOC 营销服务 | 在地口碑与短视频素材测试",
+      en: "Japan KOC Marketing Service | Local Word of Mouth and Short-Video Testing"
+    },
+    description: {
+      "zh-Hant": "日本 KOC 行銷服務協助品牌依品類、平台與內容語境篩選日本微型創作者，安排寄樣、洽談、內容審核與上刊整理。",
+      "zh-Hans": "日本 KOC 营销服务协助品牌依品类、平台与内容语境筛选日本微型创作者，安排寄样、洽谈、内容审核与发布整理。",
+      en: "Japan KOC marketing service for screening Japanese micro creators by category, platform, and content context, with seeding, negotiation, review, and publishing records."
+    },
+    intro: {
+      "zh-Hant": "日本 KOC 合作重點在於內容的在地語氣、寄樣節奏與溝通細節。榛菓協助品牌先確認商品資訊與審稿規則，再安排可執行的人選與內容方向。",
+      "zh-Hans": "日本 KOC 合作重点在于内容的在地语气、寄样节奏与沟通细节。榛果协助品牌先确认商品信息与审核规则，再安排可执行的人选与内容方向。",
+      en: "Japan KOC work depends on local content tone, seeding rhythm, and communication detail. Zhenguo aligns product information and review rules before arranging practical creator options and content direction."
+    },
+    faqOne: {
+      "zh-Hant": ["日本 KOC 合作前品牌要準備什麼？", "建議先準備日文或可翻譯的產品資訊、寄樣方式、活動檔期、預算區間與可接受的內容表述。"],
+      "zh-Hans": ["日本 KOC 合作前品牌要准备什么？", "建议先准备日文或可翻译的产品信息、寄样方式、活动档期、预算区间与可接受的内容表述。"],
+      en: ["What should a brand prepare before Japan KOC work?", "Prepare Japanese or translatable product information, seeding method, campaign timing, budget range, and acceptable content wording."]
+    }
+  },
+  {
+    slug: "korea-koc-marketing",
+    name: {
+      "zh-Hant": "韓國 KOC 行銷",
+      "zh-Hans": "韩国 KOC 营销",
+      en: "Korea KOC Marketing"
+    },
+    title: {
+      "zh-Hant": "韓國 KOC 行銷服務 | 內容口碑與在地創作者合作",
+      "zh-Hans": "韩国 KOC 营销服务 | 内容口碑与在地创作者合作",
+      en: "Korea KOC Marketing Service | Local Creator Content and Word of Mouth"
+    },
+    description: {
+      "zh-Hant": "韓國 KOC 行銷服務協助品牌依內容風格、受眾與合作可行性篩選韓國微型創作者，管理洽談、寄樣、審稿與發布追蹤。",
+      "zh-Hans": "韩国 KOC 营销服务协助品牌依内容风格、受众与合作可行性筛选韩国微型创作者，管理洽谈、寄样、审核与发布追踪。",
+      en: "Korea KOC marketing service for selecting Korean micro creators by content style, audience, and execution fit, with negotiation, seeding, review, and publishing follow-up."
+    },
+    intro: {
+      "zh-Hant": "韓國 KOC 合作適合先以多個內容角度測試品牌在地語境。榛菓會將產品賣點、寄樣條件、內容重點與審稿節奏整理成創作者可理解的合作方向。",
+      "zh-Hans": "韩国 KOC 合作适合先以多个内容角度测试品牌在地语境。榛果会将产品卖点、寄样条件、内容重点与审核节奏整理成创作者可理解的合作方向。",
+      en: "Korea KOC work can test multiple content angles before a brand scales. Zhenguo turns product value, seeding conditions, key messages, and review timing into a brief creators can execute."
+    },
+    faqOne: {
+      "zh-Hant": ["韓國 KOC 與韓國 KOL 的合作差異是什麼？", "KOC 通常更適合累積多元使用情境與口碑素材；KOL 則較適合需要較強個人影響力、特定內容定位或大型合作檔期的專案。"],
+      "zh-Hans": ["韩国 KOC 与韩国 KOL 的合作差异是什么？", "KOC 通常更适合累积多元使用情境与口碑素材；KOL 则较适合需要较强个人影响力、特定内容定位或大型合作档期的项目。"],
+      en: ["How do Korea KOC and Korea KOL collaborations differ?", "KOCs are often better for varied usage contexts and word-of-mouth assets. KOLs fit projects needing stronger individual reach, specific content positioning, or larger campaign timing."]
+    }
   }
 ];
 
@@ -405,7 +573,7 @@ const caseStudies = [
   {
     slug: "korea-kol-goodme",
     image: "web-assets/case-goodme-korean-kol.webp",
-    relatedServices: ["kol-marketing", "overseas-influencer-marketing", "korea-influencer-marketing", "food-influencer-marketing", "instagram-kol-collaboration"],
+    relatedServices: ["kol-marketing", "overseas-influencer-marketing", "korea-influencer-marketing", "korea-koc-marketing", "food-influencer-marketing", "instagram-kol-collaboration"],
     title: {
       "zh-Hant": "韓國 KOL x 古茗飲料",
       "zh-Hans": "韩国 KOL x 古茗饮料",
@@ -425,7 +593,7 @@ const caseStudies = [
   {
     slug: "camay-curling-iron",
     image: "web-assets/case-camay-curling-iron.webp",
-    relatedServices: ["kol-marketing", "tiktok-influencer-marketing", "tiktok-koc-marketing", "instagram-influencer-marketing", "beauty-influencer-marketing"],
+    relatedServices: ["kol-marketing", "ugc-content-creation", "tiktok-influencer-marketing", "tiktok-koc-marketing", "instagram-influencer-marketing", "beauty-influencer-marketing"],
     title: {
       "zh-Hant": "凱夢捲髮棒",
       "zh-Hans": "凯梦卷发棒",

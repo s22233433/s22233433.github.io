@@ -37,4 +37,22 @@ assert.match(service, /cases\//, "Service pages need relevant case-study links."
 const homepage = read("index.html");
 assert.match(homepage, /cases\/liming-weiquan-cheer\//, "Homepage needs a case-study link.");
 
+const seoSlugs = [
+  "ugc-content-creation",
+  "ecommerce-influencer-marketing",
+  "consumer-electronics-influencer-marketing",
+  "health-supplement-influencer-marketing",
+  "japan-koc-marketing",
+  "korea-koc-marketing"
+];
+for (const slug of seoSlugs) {
+  assert.match(builder, new RegExp(`slug: "${slug}"`), `Missing service definition: ${slug}`);
+  for (const prefix of ["", "zh-tw/", "zh-cn/", "en/"]) {
+    const page = path.join(root, prefix, "services", slug, "index.html");
+    assert.ok(fs.existsSync(page), `Missing generated SEO page: ${page}`);
+    assert.match(fs.readFileSync(page, "utf8"), /FAQPage/, `SEO page needs FAQ schema: ${page}`);
+  }
+  assert.match(read("sitemap.xml"), new RegExp(`/services/${slug}/`), `SEO page must be in sitemap: ${slug}`);
+}
+
 console.log("site conversion contract: pass");
