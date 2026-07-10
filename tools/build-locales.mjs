@@ -637,6 +637,15 @@ const serviceUi = {
     brandSmall: "海內外創作者行銷專案團隊",
     eyebrow: "Creator Marketing Project Management",
     overviewTitle: "服務介紹",
+    decisionTitle: "合作判斷與交付",
+    decisionFitTitle: "這個服務適合什麼情況？",
+    decisionDeliverablesTitle: "你會收到什麼？",
+    decisionPrepareTitle: "開始前先確認什麼？",
+    deliverablesBody: "依專案範圍，常見交付包含創作者候選方向、推薦理由、合作條件與報價整理、內容重點、審稿記錄、上刊連結與素材／授權狀態。",
+    preparationBody: "先準備產品資訊、目標市場、預算區間、預計上線時間、可寄樣方式，以及可接受的內容與審稿規則；這些條件會直接影響人選與時程。",
+    faqFitSuffix: "適合什麼情況？",
+    faqDeliverablesSuffix: "通常會交付什麼？",
+    faqPrepareSuffix: "開始前要先確認什麼？",
     processTitle: "合作流程",
     faqTitle: "常見問題",
     caseStudiesTitle: "相關案例",
@@ -645,10 +654,7 @@ const serviceUi = {
     ctaPrimary: "立即取得初步合作建議",
     ctaSecondary: "查看相關案例",
     steps: ["需求與市場確認", "創作者篩選", "合作洽談與寄樣", "內容審核與發布", "成效追蹤與下一步"],
-    stepBody: "每一步都以品牌端可判斷、可追蹤、可交接為原則，降低跨境溝通成本。",
-    faqTwo: ["如何挑選適合品牌的網紅？", "需要同時評估受眾市場、內容風格、互動品質、品牌契合度、平台特性與合作可行性。"],
-    faqThree: ["合作流程包含哪些步驟？", "流程包含需求確認、創作者篩選、合作洽談、寄樣管理、內容審核、發布追蹤與結案整理。"],
-    faqFour: ["費用如何估算？", "費用會依創作者報價、合作人數、內容格式、授權範圍與執行深度而不同，正式報價會拆列項目。"]
+    stepBody: "每一步都以品牌端可判斷、可追蹤、可交接為原則，降低跨境溝通成本。"
   },
   "zh-Hans": {
     home: "首页",
@@ -656,6 +662,15 @@ const serviceUi = {
     brandSmall: "海内外创作者营销项目团队",
     eyebrow: "Creator Marketing Project Management",
     overviewTitle: "服务介绍",
+    decisionTitle: "合作判断与交付",
+    decisionFitTitle: "这项服务适合什么情况？",
+    decisionDeliverablesTitle: "你会收到什么？",
+    decisionPrepareTitle: "开始前先确认什么？",
+    deliverablesBody: "依项目范围，常见交付包含创作者候选方向、推荐理由、合作条件与报价整理、内容重点、审核记录、发布链接与素材／授权状态。",
+    preparationBody: "先准备产品信息、目标市场、预算区间、预计上线时间、可寄样方式，以及可接受的内容与审核规则；这些条件会直接影响人选与时程。",
+    faqFitSuffix: "适合什么情况？",
+    faqDeliverablesSuffix: "通常会交付什么？",
+    faqPrepareSuffix: "开始前要先确认什么？",
     processTitle: "合作流程",
     faqTitle: "常见问题",
     caseStudiesTitle: "相关案例",
@@ -664,10 +679,7 @@ const serviceUi = {
     ctaPrimary: "立即获取初步合作建议",
     ctaSecondary: "查看相关案例",
     steps: ["需求与市场确认", "创作者筛选", "合作洽谈与寄样", "内容审核与发布", "成效追踪与下一步"],
-    stepBody: "每一步都以品牌端可判断、可追踪、可交接为原则，降低跨境沟通成本。",
-    faqTwo: ["如何挑选适合品牌的网红？", "需要同时评估受众市场、内容风格、互动品质、品牌契合度、平台特性与合作可行性。"],
-    faqThree: ["合作流程包含哪些步骤？", "流程包含需求确认、创作者筛选、合作洽谈、寄样管理、内容审核、发布追踪与结案整理。"],
-    faqFour: ["费用如何估算？", "费用会依创作者报价、合作人数、内容格式、授权范围与执行深度而不同，正式报价会拆列项目。"]
+    stepBody: "每一步都以品牌端可判断、可追踪、可交接为原则，降低跨境沟通成本。"
   },
   en: {
     home: "Home",
@@ -675,6 +687,15 @@ const serviceUi = {
     brandSmall: "Domestic & Overseas Creator Marketing Project Team",
     eyebrow: "Creator Marketing Project Management",
     overviewTitle: "Service Overview",
+    decisionTitle: "Decision Guide and Deliverables",
+    decisionFitTitle: "When does this service fit?",
+    decisionDeliverablesTitle: "What will you receive?",
+    decisionPrepareTitle: "What should be confirmed first?",
+    deliverablesBody: "Depending on scope, common deliverables include creator directions, recommendation rationale, collaboration terms and quote tracking, content priorities, review records, publishing links, and asset or usage-rights status.",
+    preparationBody: "Prepare product information, target market, budget range, launch timing, sample availability, and acceptable content and review rules. These conditions directly affect creator options and timing.",
+    faqFitSuffix: "When does it fit?",
+    faqDeliverablesSuffix: "What does it usually deliver?",
+    faqPrepareSuffix: "What should be confirmed before starting?",
     processTitle: "Collaboration Workflow",
     faqTitle: "Frequently Asked Questions",
     caseStudiesTitle: "Related Case Studies",
@@ -683,10 +704,7 @@ const serviceUi = {
     ctaPrimary: "Get Initial Campaign Advice",
     ctaSecondary: "View Related Cases",
     steps: ["Brief and market alignment", "Creator screening", "Negotiation and product seeding", "Content review and publishing", "Tracking and next steps"],
-    stepBody: "Each step is designed to be easy for brand teams to judge, track, and hand off, reducing cross-border coordination cost.",
-    faqTwo: ["How do brands choose suitable influencers?", "Review audience market, content style, engagement quality, brand fit, platform context, and execution feasibility together."],
-    faqThree: ["What steps are included in the workflow?", "The workflow includes brief alignment, creator screening, negotiation, product seeding, content review, publishing follow-up, and final reporting."],
-    faqFour: ["How are fees estimated?", "Fees vary by creator quote, creator count, content format, usage rights, and execution depth. Formal proposals list the line items clearly."]
+    stepBody: "Each step is designed to be easy for brand teams to judge, track, and hand off, reducing cross-border coordination cost."
   }
 };
 
@@ -882,6 +900,52 @@ const caseStudyAlternates = (study) => [
 
 const relatedCaseStudies = (page) => caseStudies.filter((study) => study.relatedServices.includes(page.slug));
 
+const serviceRelation = {
+  "tiktok-influencer-marketing": { slug: "tiktok-koc-marketing", profile: "influencer" },
+  "tiktok-koc-marketing": { slug: "tiktok-influencer-marketing", profile: "koc" },
+  "youtube-influencer-marketing": { slug: "youtube-influencer-review", profile: "sponsorship" },
+  "youtube-influencer-review": { slug: "youtube-influencer-marketing", profile: "review" },
+  "instagram-influencer-marketing": { slug: "instagram-kol-collaboration", profile: "strategy" },
+  "instagram-kol-collaboration": { slug: "instagram-influencer-marketing", profile: "execution" },
+  "japan-influencer-marketing": { slug: "japan-koc-marketing", profile: "marketPlan" },
+  "japan-koc-marketing": { slug: "japan-influencer-marketing", profile: "marketKoc" },
+  "korea-influencer-marketing": { slug: "korea-koc-marketing", profile: "marketPlan" },
+  "korea-koc-marketing": { slug: "korea-influencer-marketing", profile: "marketKoc" }
+};
+
+const relationCopy = {
+  "zh-Hant": {
+    influencer: (name) => ["需要單一影響力合作，還是多角度測試？", `若目標是少數創作者的影響力、主題內容或較高溝通密度，這頁較適合；若要用多位短影音創作者測試內容角度與口碑素材，請比較 ${name}。`],
+    koc: (name) => ["KOC 測試和單一創作者合作怎麼選？", `若希望快速累積多個內容角度與可複用素材，這頁較適合；若需要較強的個人影響力、深度說明或單一主題合作，請比較 ${name}。`],
+    sponsorship: (name) => ["YouTube 業配與評測內容怎麼選？", `若品牌需要較明確的合作訊息、主題整合或長期內容合作，這頁較適合；若核心是產品開箱、實測與使用教學，請比較 ${name}。`],
+    review: (name) => ["評測合作和一般 YouTube 業配有何不同？", `這頁適合需要開箱、比較、實測或教學節奏的產品；若品牌更重視主題整合、形象合作或長期內容規劃，請比較 ${name}。`],
+    strategy: (name) => ["Instagram 策略與單次 KOL 合作怎麼選？", `這頁適合需要把 Reels、貼文、限動與素材授權排成內容組合的品牌；若已明確鎖定創作者與單次合作形式，請比較 ${name}。`],
+    execution: (name) => ["單次 KOL 合作與 Instagram 內容策略怎麼選？", `這頁適合已經知道希望合作的 Reels、貼文或限動形式；若需要先規劃平台內容組合、創作者配置與素材授權，請比較 ${name}。`],
+    marketPlan: (name) => ["何時該選 KOC，而不是整體市場合作？", `這頁適合需要同時判斷市場、平台、KOL／KOC 配置與完整執行流程的品牌；若已確定要以多位微型創作者測試在地口碑，請比較 ${name}。`],
+    marketKoc: (name) => ["何時該從 KOC 測試擴大為市場專案？", `這頁適合先用多位創作者測試內容角度與在地反應；若需要更完整的市場規劃、KOL／KOC 組合或跨平台執行，請比較 ${name}。`]
+  },
+  "zh-Hans": {
+    influencer: (name) => ["需要单一影响力合作，还是多角度测试？", `若目标是少数创作者的影响力、主题内容或较高沟通密度，这页较适合；若要用多位短视频创作者测试内容角度与口碑素材，请比较 ${name}。`],
+    koc: (name) => ["KOC 测试和单一创作者合作怎么选？", `若希望快速累积多个内容角度与可复用素材，这页较适合；若需要较强的个人影响力、深度说明或单一主题合作，请比较 ${name}。`],
+    sponsorship: (name) => ["YouTube 业配与评测内容怎么选？", `若品牌需要较明确的合作信息、主题整合或长期内容合作，这页较适合；若核心是产品开箱、实测与使用教学，请比较 ${name}。`],
+    review: (name) => ["评测合作和一般 YouTube 业配有何不同？", `这页适合需要开箱、比较、实测或教学节奏的产品；若品牌更重视主题整合、形象合作或长期内容规划，请比较 ${name}。`],
+    strategy: (name) => ["Instagram 策略与单次 KOL 合作怎么选？", `这页适合需要把 Reels、帖文、限动与素材授权排成内容组合的品牌；若已明确锁定创作者与单次合作形式，请比较 ${name}。`],
+    execution: (name) => ["单次 KOL 合作与 Instagram 内容策略怎么选？", `这页适合已经知道希望合作的 Reels、帖文或限动形式；若需要先规划平台内容组合、创作者配置与素材授权，请比较 ${name}。`],
+    marketPlan: (name) => ["何时该选 KOC，而不是整体市场合作？", `这页适合需要同时判断市场、平台、KOL／KOC 配置与完整执行流程的品牌；若已确定要以多位微型创作者测试在地口碑，请比较 ${name}。`],
+    marketKoc: (name) => ["何时该从 KOC 测试扩大为市场项目？", `这页适合先用多位创作者测试内容角度与在地反应；若需要更完整的市场规划、KOL／KOC 组合或跨平台执行，请比较 ${name}。`]
+  },
+  en: {
+    influencer: (name) => ["Should you choose focused influence or multi-angle testing?", `This page fits campaigns needing a few higher-impact creators, themed content, or closer coordination. For testing content angles and word-of-mouth assets with many short-video creators, compare ${name}.`],
+    koc: (name) => ["How does KOC testing differ from focused creator work?", `This page fits campaigns that need many content angles and reusable assets quickly. For stronger individual influence, deeper explanation, or a focused theme, compare ${name}.`],
+    sponsorship: (name) => ["How do YouTube sponsorships differ from review content?", `This page fits clearer campaign messaging, theme integration, or longer-term content partnerships. For unboxing, testing, and tutorials, compare ${name}.`],
+    review: (name) => ["How does a review differ from a standard YouTube sponsorship?", `This page fits products that need unboxing, comparison, hands-on testing, or tutorials. For themed partnerships, brand positioning, or a longer content plan, compare ${name}.`],
+    strategy: (name) => ["How does an Instagram strategy differ from a single KOL collaboration?", `This page fits brands planning Reels, posts, Stories, and usage rights as a content mix. If the creator and one-off collaboration format are already clear, compare ${name}.`],
+    execution: (name) => ["How does a single KOL collaboration differ from Instagram strategy?", `This page fits brands that already know the desired Reels, post, or Story format. For planning a platform mix, creator allocation, and usage rights first, compare ${name}.`],
+    marketPlan: (name) => ["When should you choose KOCs instead of a broader market project?", `This page fits brands that need market, platform, KOL/KOC mix, and full execution planning together. If you have already decided to test local word of mouth with multiple micro creators, compare ${name}.`],
+    marketKoc: (name) => ["When should KOC testing expand into a broader market project?", `This page fits brands testing content angles and local response through multiple creators first. For broader market planning, KOL/KOC mix, or cross-platform execution, compare ${name}.`]
+  }
+};
+
 const serviceAlternates = (page) => [
   `<link rel="alternate" hreflang="zh-Hant" href="${serviceUrl(page, locales[0])}">`,
   `<link rel="alternate" hreflang="zh-Hans" href="${serviceUrl(page, locales[1])}">`,
@@ -889,9 +953,42 @@ const serviceAlternates = (page) => [
   `<link rel="alternate" hreflang="x-default" href="${serviceUrl(page, rootLocale)}">`
 ].join("\n  ");
 
+const serviceDecisionGuide = (page, locale) => {
+  const ui = serviceUi[locale.key];
+  return [
+    [ui.decisionFitTitle, page.intro[locale.key]],
+    [ui.decisionDeliverablesTitle, ui.deliverablesBody],
+    [ui.decisionPrepareTitle, ui.preparationBody]
+  ];
+};
+
+const serviceFaqQuestions = (page, locale) => {
+  const name = page.name[locale.key];
+  const ui = serviceUi[locale.key];
+  if (locale.key === "en") {
+    return [`When does ${name} fit?`, `What does ${name} usually deliver?`, `What should be confirmed before ${name} starts?`];
+  }
+  return [`${name}${ui.faqFitSuffix}`, `${name}${ui.faqDeliverablesSuffix}`, `${name}${ui.faqPrepareSuffix}`];
+};
+
 const serviceFaq = (page, locale) => {
   const ui = serviceUi[locale.key];
-  return [page.faqOne[locale.key], ui.faqTwo, ui.faqThree, ui.faqFour];
+  const [fitQuestion, deliverablesQuestion, prepareQuestion] = serviceFaqQuestions(page, locale);
+  return [
+    page.faqOne[locale.key],
+    [fitQuestion, page.intro[locale.key]],
+    [deliverablesQuestion, page.description[locale.key]],
+    [prepareQuestion, ui.preparationBody]
+  ];
+};
+
+const serviceComparison = (page, locale) => {
+  const relation = serviceRelation[page.slug];
+  if (!relation) return null;
+  const relatedPage = servicePages.find((candidate) => candidate.slug === relation.slug);
+  if (!relatedPage) return null;
+  const [title, body] = relationCopy[locale.key][relation.profile](relatedPage.name[locale.key]);
+  return { page: relatedPage, title, body };
 };
 
 const buildServiceSchema = (page, locale) => {
@@ -975,10 +1072,13 @@ const renderServicePage = (page, locale) => {
   const url = serviceUrl(page, locale);
   const prefix = serviceRelativePrefix(locale);
   const faqs = serviceFaq(page, locale);
+  const decisionGuide = serviceDecisionGuide(page, locale);
+  const comparison = serviceComparison(page, locale);
   const relatedStudies = relatedCaseStudies(page);
   const secondaryHref = relatedStudies.length ? "#case-studies" : `${prefix}#cases`;
   const steps = ui.steps.map((step) => `<article class="card"><h3>${escapeHtml(step)}</h3><p>${escapeHtml(ui.stepBody)}</p></article>`).join("\n          ");
   const faqCards = faqs.map(([question, answer]) => `<article class="card"><h3>${escapeHtml(question)}</h3><p>${escapeHtml(answer)}</p></article>`).join("\n          ");
+  const guideCards = decisionGuide.map(([title, body]) => `<article class="card"><h3>${escapeHtml(title)}</h3><p>${escapeHtml(body)}</p></article>`).join("\n          ");
   const caseCards = relatedStudies.map((study) => `<article class="card"><h3>${escapeHtml(study.title[locale.key])}</h3><p>${escapeHtml(study.summary[locale.key])}</p><p style="margin-top:16px"><a class="button" href="${prefix}cases/${study.slug}/">${escapeHtml(caseUi[locale.key].readCase)}</a></p></article>`).join("\n          ");
   return `<!DOCTYPE html>
 <html lang="${locale.htmlLang}">
@@ -1037,6 +1137,23 @@ ${JSON.stringify(buildServiceSchema(page, locale), null, 2)}
         </div>
       </div>
     </section>
+    <section id="decision-guide">
+      <div class="wrap">
+        <h2>${escapeHtml(ui.decisionTitle)}</h2>
+        <div class="grid">
+          ${guideCards}
+        </div>
+      </div>
+    </section>
+${comparison ? `<section class="service-comparison">
+      <div class="wrap">
+        <div class="card">
+          <h2>${escapeHtml(comparison.title)}</h2>
+          <p>${escapeHtml(comparison.body)}</p>
+          <p style="margin-top:18px"><a class="button" href="${prefix}services/${comparison.page.slug}/">${escapeHtml(comparison.page.name[locale.key])}</a></p>
+        </div>
+      </div>
+    </section>` : ""}
     <section>
       <div class="wrap">
         <h2>${escapeHtml(ui.processTitle)}</h2>

@@ -55,4 +55,18 @@ for (const slug of seoSlugs) {
   assert.match(read("sitemap.xml"), new RegExp(`/services/${slug}/`), `SEO page must be in sitemap: ${slug}`);
 }
 
+assert.match(builder, /const serviceRelation = \{/, "Builder needs relation data for overlapping service intent.");
+assert.match(builder, /const serviceDecisionGuide =/, "Builder needs a service decision-guide renderer.");
+assert.doesNotMatch(builder, /ui\.faqTwo/, "Builder must not reuse the generic FAQ set across every service.");
+
+const tiktokService = read("services/tiktok-influencer-marketing/index.html");
+assert.match(tiktokService, /合作判斷與交付/, "Service pages need a decision and deliverables section.");
+assert.match(tiktokService, /tiktok-koc-marketing/, "TikTok service pages need an intent-comparison link.");
+assert.doesNotMatch(tiktokService, /如何挑選適合品牌的網紅？/, "Service pages must not retain the old generic FAQ.");
+
+for (const slug of ["youtube-influencer-marketing", "instagram-influencer-marketing", "japan-influencer-marketing", "korea-influencer-marketing"]) {
+  const html = read(`services/${slug}/index.html`);
+  assert.match(html, /service-comparison/, `Missing comparison section: ${slug}`);
+}
+
 console.log("site conversion contract: pass");
