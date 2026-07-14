@@ -46,3 +46,6 @@ console.log('company contact inputs are present');
 
 assert.ok(page.indexOf('<h2>輸出</h2>') < page.indexOf('<h2>草稿</h2>'));
 console.log('draft controls follow the PDF output');
+
+assert.match(page, /structuredClone\(defaultDraftData\)/);
+console.log('new drafts start from blank defaults');
