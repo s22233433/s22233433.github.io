@@ -1,9 +1,9 @@
 export const STORAGE_KEY = 'zhenguocool_quote_generator_drafts';
 export const STORAGE_VERSION = 1;
 
-export function calculateQuote({ items, serviceRate, payments }) {
+export function calculateQuote({ items, serviceRate, serviceMode = 'percent', payments }) {
   const itemSubtotal = items.reduce((sum, item) => sum + item.unitPrice * item.quantity, 0);
-  const serviceFee = Math.round(itemSubtotal * serviceRate);
+  const serviceFee = Math.round(serviceMode === 'fixed' ? serviceRate : itemSubtotal * serviceRate);
   const pretaxTotal = itemSubtotal + serviceFee;
   const tax = Math.round(pretaxTotal * 0.05);
   return { itemSubtotal, serviceFee, pretaxTotal, tax, total: pretaxTotal + tax, paymentRate: payments.reduce((sum, rate) => sum + rate, 0) };

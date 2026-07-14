@@ -9,6 +9,7 @@ const legacyDraft = createDraft({ fields: { clientName: '舊客戶' }, items: []
 assert.equal(readStore(JSON.stringify({ activeDraftId: legacyDraft.id, drafts: [legacyDraft] })).activeDraftId, legacyDraft.id);
 assert.equal(readStore(JSON.stringify({ version: 1, activeDraftId: 'missing', drafts: [legacyDraft] })).activeDraftId, null);
 assert.equal(calculateQuote({ items: [{ unitPrice: 100, quantity: 1 }], serviceRate: 0, payments: [1] }).total, 105);
+assert.equal(calculateQuote({ items: [{ unitPrice: 100, quantity: 1 }], serviceRate: 50, serviceMode: 'fixed', payments: [1] }).serviceFee, 50);
 console.log('quote V1 draft data helpers pass');
 
 const page = await readFile(new URL('./index.html', import.meta.url), 'utf8');
@@ -16,4 +17,7 @@ assert.match(page, /id="save-draft"/);
 assert.match(page, /id="draft-list"/);
 assert.match(page, /beforeunload/);
 assert.match(page, /瀏覽器無法讀取本機草稿/);
+assert.match(page, /name="serviceMode"/);
+assert.ok(page.indexOf('<h2>費用</h2>') < page.indexOf('<h2>付款安排</h2>'));
+assert.match(page, /class="item-pricing"/);
 console.log('quote V1 draft UI is present');
