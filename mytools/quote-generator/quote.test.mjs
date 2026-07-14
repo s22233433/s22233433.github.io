@@ -25,10 +25,15 @@ console.log('payment visibility defaults to hidden');
 
 assert.match(page, /戶名：榛菓行銷有限公司/);
 assert.match(page, /台北富邦銀行012 和平分行 82120000080572/);
-assert.match(page, /聯絡人：Sandy/);
-console.log('payment owner and company contact are present');
+assert.match(page, /id="preview-our-contact">Sandy/);
+console.log('payment owner and default company contact are present');
 
 assert.match(page, /<h2>費用<\/h2>/);
 assert.match(page, /class="payment-divider"/);
 assert.match(page, /<h2>付款安排<\/h2>/);
 console.log('fees and payments are visually separated');
+
+assert.match(page, /name="ourContact"[^>]*value="Sandy"/);
+assert.match(page, /name="ourContactMethod"/);
+assert.match(page, /id="preview-our-contact-method"/);
+console.log('company contact inputs are present');
