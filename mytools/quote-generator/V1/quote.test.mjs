@@ -20,4 +20,6 @@ assert.match(page, /瀏覽器無法讀取本機草稿/);
 assert.match(page, /name="serviceMode"/);
 assert.ok(page.indexOf('<h2>費用</h2>') < page.indexOf('<h2>付款安排</h2>'));
 assert.match(page, /class="item-pricing"/);
+assert.match(page, /class="toggle"><input name="showPayments" type="checkbox">在 PDF 顯示付款安排/);
+assert.match(page, /\.toggle\{display:flex;align-items:center/);
 console.log('quote V1 draft UI is present');
