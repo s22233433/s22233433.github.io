@@ -49,3 +49,7 @@ console.log('draft controls follow the PDF output');
 
 assert.match(page, /structuredClone\(defaultDraftData\)/);
 console.log('new drafts start from blank defaults');
+
+assert.match(page, /id="load-draft"/);
+assert.match(page, /function uniqueDraftName/);
+console.log('draft loading and duplicate-name guards are present');
