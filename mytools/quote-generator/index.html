@@ -44,6 +44,7 @@
     .error { color:var(--brand); }
     .toggle { display:flex; align-items:center; gap:8px; margin-top:14px; color:var(--ink); cursor:pointer; }
     .toggle input { width:auto; }
+    .payment-divider { margin:22px 0 20px; border-top:1px solid var(--line); }
     .preview-wrap { position:sticky; top:16px; }
     .preview-label { display:flex; justify-content:space-between; align-items:center; margin:0 0 10px; color:var(--muted); font-size:12px; letter-spacing:.08em; }
     .paper { width:min(100%,794px); min-height:1123px; margin:auto; padding:56px 54px; background:var(--paper); box-shadow:0 20px 52px rgba(74,54,33,.18); }
@@ -95,8 +96,9 @@
           <label>報價有效至<input name="expiryDate" type="date"></label><label>客戶聯絡人<input name="clientContact" placeholder="姓名／職稱"></label>
         </div></section>
         <section class="section"><h2>合作明細</h2><div id="item-editors"></div><button class="outline" type="button" id="add-item">＋ 新增一筆項目</button></section>
-        <section class="section"><h2>費用與付款</h2><div class="field-grid">
+        <section class="section"><h2>費用</h2><div class="field-grid">
           <label>服務費（%）<input name="serviceRate" type="number" min="0" step="0.01" value="15"></label><label>營業稅（固定）<input value="5%" disabled></label>
+        </div><div class="payment-divider"></div><h2>付款安排</h2><div class="field-grid">
           <label>付款一：合作款（%）<input name="paymentOne" type="number" min="0" step="0.01" value="10"></label><label>付款二：訂金（%）<input name="paymentTwo" type="number" min="0" step="0.01" value="48"></label>
           <label>付款三：尾款（%）<input name="paymentThree" type="number" min="0" step="0.01" value="42"></label>
         </div><label class="toggle"><input name="showPayments" type="checkbox">在 PDF 顯示付款安排</label><p class="hint" id="payment-hint"></p></section>
