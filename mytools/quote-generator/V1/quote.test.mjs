@@ -14,6 +14,10 @@ console.log('quote V1 draft data helpers pass');
 
 const page = await readFile(new URL('./index.html', import.meta.url), 'utf8');
 assert.match(page, /id="save-draft"/);
+assert.match(page, /id="quick-save-draft" aria-label="儲存草稿"/);
+assert.match(page, /id="quick-new-draft" aria-label="新增空白草稿"/);
+assert.match(page, /#quick-save-draft'\)\.addEventListener\('click',\(\)=>save\(\)\)/);
+assert.match(page, /#quick-new-draft'\)\.addEventListener\('click',newDraft\)/);
 assert.match(page, /id="draft-list"/);
 assert.match(page, /beforeunload/);
 assert.match(page, /瀏覽器無法讀取本機草稿/);
