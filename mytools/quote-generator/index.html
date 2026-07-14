@@ -90,9 +90,6 @@
     <section class="intro screen-only"><div><h1>把報價，變成<br>一份可直接確認的文件。</h1></div><p>填好客戶與合作內容後，使用「輸出 PDF」開啟系統列印視窗，選擇「儲存為 PDF」即可交付。資料只留在目前瀏覽器，不會上傳。</p></section>
     <div class="layout">
       <form class="editor screen-only" id="quote-form" novalidate>
-        <section class="section"><h2>草稿</h2><div class="field-grid">
-          <label>目前草稿<select id="draft-select"></select></label><label>草稿名稱<input id="draft-name" value="未命名報價"></label>
-        </div><div class="actions"><button class="outline" type="button" id="new-draft">＋ 新增草稿</button><button class="outline" type="button" id="delete-draft">刪除目前草稿</button></div><p class="hint" id="draft-hint"></p></section>
         <section class="section"><h2>客戶與專案</h2><div class="field-grid">
           <label>客戶名稱<input name="clientName" placeholder="例：OOO 品牌"></label><label>公司抬頭<input name="clientCompany" placeholder="例：OOO 股份有限公司"></label>
           <label>專案名稱<input name="projectName" placeholder="例：新品上市合作"></label><label>報價日期<input name="quoteDate" type="date"></label>
@@ -109,6 +106,9 @@
           <label>我方聯絡人<input name="ourContact" value="Sandy"></label><label>聯繫方式<input name="ourContactMethod" placeholder="例：電話、Email、LINE"></label>
         </div></section>
         <section class="section"><h2>輸出</h2><button class="primary" type="button" id="print-quote">輸出 PDF</button><p class="hint" id="print-hint"></p></section>
+        <section class="section"><h2>草稿</h2><div class="field-grid">
+          <label>目前草稿<select id="draft-select"></select></label><label>草稿名稱<input id="draft-name" value="未命名報價"></label>
+        </div><div class="actions"><button class="outline" type="button" id="new-draft">＋ 新增草稿</button><button class="outline" type="button" id="delete-draft">刪除目前草稿</button></div><p class="hint" id="draft-hint"></p></section>
       </form>
       <section class="preview-wrap"><div class="preview-label screen-only"><span>即時預覽</span><span>A4 · 直式</span></div>
         <article class="paper" id="quote-preview">

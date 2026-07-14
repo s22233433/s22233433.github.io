@@ -43,3 +43,6 @@ assert.match(page, /name="ourContact"[^>]*value="Sandy"/);
 assert.match(page, /name="ourContactMethod"/);
 assert.match(page, /id="preview-our-contact-method"/);
 console.log('company contact inputs are present');
+
+assert.ok(page.indexOf('<h2>輸出</h2>') < page.indexOf('<h2>草稿</h2>'));
+console.log('draft controls follow the PDF output');
