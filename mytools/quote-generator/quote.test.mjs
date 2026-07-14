@@ -1,39 +1,41 @@
 import assert from 'node:assert/strict';
 import { readFile } from 'node:fs/promises';
-import { calculateQuote } from './quote.mjs';
+import { calculateQuote, createDraft, createStore, draftName, readStore } from './quote.mjs';
 
-const quote = calculateQuote({
-  items: [{ unitPrice: 30000, quantity: 1 }, { unitPrice: 4000, quantity: 4 }],
-  serviceRate: 0.15,
-  payments: [0.1, 0.48, 0.42],
-});
-
-assert.deepEqual(quote, {
-  itemSubtotal: 46000,
-  serviceFee: 6900,
-  pretaxTotal: 52900,
-  tax: 2645,
-  total: 55545,
-  paymentRate: 1,
-});
-console.log('quote calculations pass');
+assert.equal(createStore().version, 1);
+assert.equal(createDraft({ clientName: '客戶 A' }).name, '客戶 A - 報價草稿');
+assert.equal(draftName({ fields: { projectName: '新品上市', clientName: '客戶 A' } }), '新品上市 - 報價草稿');
+assert.deepEqual(readStore('{bad json}').drafts, []);
+const legacyDraft = createDraft({ fields: { clientName: '舊客戶' }, items: [] });
+assert.equal(readStore(JSON.stringify({ activeDraftId: legacyDraft.id, drafts: [legacyDraft] })).activeDraftId, legacyDraft.id);
+assert.equal(readStore(JSON.stringify({ version: 1, activeDraftId: 'missing', drafts: [legacyDraft] })).activeDraftId, null);
+assert.equal(calculateQuote({ items: [{ unitPrice: 100, quantity: 1 }], serviceRate: 0, payments: [1] }).total, 105);
+assert.equal(calculateQuote({ items: [{ unitPrice: 100, quantity: 1 }], serviceRate: 50, serviceMode: 'fixed', payments: [1] }).serviceFee, 50);
+console.log('quote V1 draft data helpers pass');
 
 const page = await readFile(new URL('./index.html', import.meta.url), 'utf8');
-assert.match(page, /name="showPayments"[^>]*>/);
-assert.match(page, /id="preview-payments-section" hidden/);
-console.log('payment visibility defaults to hidden');
-
-assert.match(page, /戶名：榛菓行銷有限公司/);
-assert.match(page, /台北富邦銀行012 和平分行 82120000080572/);
-assert.match(page, /id="preview-our-contact">Sandy/);
-console.log('payment owner and default company contact are present');
-
-assert.match(page, /<h2>費用<\/h2>/);
-assert.match(page, /class="payment-divider"/);
-assert.match(page, /<h2>付款安排<\/h2>/);
-console.log('fees and payments are visually separated');
-
-assert.match(page, /name="ourContact"[^>]*value="Sandy"/);
-assert.match(page, /name="ourContactMethod"/);
-assert.match(page, /id="preview-our-contact-method"/);
-console.log('company contact inputs are present');
+assert.match(page, /id="save-draft"/);
+assert.match(page, /id="quick-save-draft" aria-label="儲存草稿"/);
+assert.match(page, /id="quick-new-draft" aria-label="新增空白草稿"/);
+assert.match(page, /title="儲存目前草稿"/);
+assert.match(page, /title="建立新的空白草稿"/);
+assert.match(page, /id="draft-hint" aria-live="polite"/);
+assert.match(page, /function flash\(button,success\)/);
+assert.match(page, /else\{active\.data=data;active\.updatedAt=new Date\(\)\.toISOString\(\)\}/);
+assert.match(page, /#quick-save-draft'\)\.addEventListener\('click',event=>flash\(event\.currentTarget,save\(\)\)\)/);
+assert.match(page, /#quick-new-draft'\)\.addEventListener\('click',event=>\{if\(newDraft\(\)\)flash\(event\.currentTarget,true\)\}\)/);
+assert.match(page, /id="draft-list"/);
+assert.match(page, /beforeunload/);
+assert.match(page, /瀏覽器無法讀取本機草稿/);
+assert.match(page, /name="serviceMode"/);
+assert.ok(page.indexOf('<h2>費用</h2>') < page.indexOf('<h2>付款安排</h2>'));
+assert.match(page, /class="item-pricing"/);
+assert.match(page, /class="toggle"><input name="showPayments" type="checkbox">在 PDF 顯示付款安排/);
+assert.match(page, /\.toggle\{display:flex;align-items:center/);
+assert.match(page, /<section class="section"><h2>費用<\/h2><div class="field-grid three-columns">/);
+assert.match(page, /<section class="section"><h2>付款安排<\/h2><div class="field-grid three-columns">/);
+assert.match(page, /\.three-columns\{grid-template-columns:repeat\(3,minmax\(0,1fr\)\)\}/);
+assert.match(page, /form\.elements\.quoteDate\.value=new Date\(\)\.toISOString\(\)\.slice\(0,10\)/);
+assert.match(page, /expiry\.setDate\(expiry\.getDate\(\)\+14\)/);
+assert.match(page, /@media print\{\.paper\{min-height:0\}\}/);
+console.log('quote V1 draft UI is present');
