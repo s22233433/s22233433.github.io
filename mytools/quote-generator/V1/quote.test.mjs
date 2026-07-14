@@ -37,4 +37,5 @@ assert.match(page, /<section class="section"><h2>付款安排<\/h2><div class="f
 assert.match(page, /\.three-columns\{grid-template-columns:repeat\(3,minmax\(0,1fr\)\)\}/);
 assert.match(page, /form\.elements\.quoteDate\.value=new Date\(\)\.toISOString\(\)\.slice\(0,10\)/);
 assert.match(page, /expiry\.setDate\(expiry\.getDate\(\)\+14\)/);
+assert.match(page, /@media print\{\.paper\{min-height:0\}\}/);
 console.log('quote V1 draft UI is present');
