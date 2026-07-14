@@ -22,3 +22,7 @@ const page = await readFile(new URL('./index.html', import.meta.url), 'utf8');
 assert.match(page, /name="showPayments"[^>]*>/);
 assert.match(page, /id="preview-payments-section" hidden/);
 console.log('payment visibility defaults to hidden');
+
+assert.match(page, /name="ourContact"[^>]*value="Sandy"/);
+assert.match(page, /台北富邦銀行012 和平分行 82120000080572/);
+console.log('payment contact defaults are present');
