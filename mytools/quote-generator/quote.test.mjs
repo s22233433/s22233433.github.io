@@ -23,6 +23,7 @@ assert.match(page, /name="showPayments"[^>]*>/);
 assert.match(page, /id="preview-payments-section" hidden/);
 console.log('payment visibility defaults to hidden');
 
-assert.match(page, /name="ourContact"[^>]*value="Sandy"/);
+assert.match(page, /戶名：榛菓行銷有限公司/);
 assert.match(page, /台北富邦銀行012 和平分行 82120000080572/);
-console.log('payment contact defaults are present');
+assert.match(page, /聯絡人：Sandy/);
+console.log('payment owner and company contact are present');
