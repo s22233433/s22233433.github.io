@@ -12,8 +12,9 @@ export function calculateQuote({ items, serviceRate, serviceMode = 'percent', pa
 export function createStore() { return { version: STORAGE_VERSION, activeDraftId: null, drafts: [] }; }
 
 export function draftName(data, fallback = '未命名草稿') {
+  const project = String(data?.fields?.projectName || data?.projectName || '').trim();
   const client = String(data?.fields?.clientName || data?.clientName || '').trim();
-  return client ? `${client} - 報價草稿` : fallback;
+  return project ? `${project} - 報價草稿` : client ? `${client} - 報價草稿` : fallback;
 }
 
 export function createDraft(data, name = draftName(data), now = new Date().toISOString()) {

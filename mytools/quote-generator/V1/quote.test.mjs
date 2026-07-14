@@ -1,9 +1,10 @@
 import assert from 'node:assert/strict';
 import { readFile } from 'node:fs/promises';
-import { calculateQuote, createDraft, createStore, readStore } from './quote.mjs';
+import { calculateQuote, createDraft, createStore, draftName, readStore } from './quote.mjs';
 
 assert.equal(createStore().version, 1);
 assert.equal(createDraft({ clientName: '客戶 A' }).name, '客戶 A - 報價草稿');
+assert.equal(draftName({ fields: { projectName: '新品上市', clientName: '客戶 A' } }), '新品上市 - 報價草稿');
 assert.deepEqual(readStore('{bad json}').drafts, []);
 const legacyDraft = createDraft({ fields: { clientName: '舊客戶' }, items: [] });
 assert.equal(readStore(JSON.stringify({ activeDraftId: legacyDraft.id, drafts: [legacyDraft] })).activeDraftId, legacyDraft.id);
@@ -16,8 +17,13 @@ const page = await readFile(new URL('./index.html', import.meta.url), 'utf8');
 assert.match(page, /id="save-draft"/);
 assert.match(page, /id="quick-save-draft" aria-label="儲存草稿"/);
 assert.match(page, /id="quick-new-draft" aria-label="新增空白草稿"/);
-assert.match(page, /#quick-save-draft'\)\.addEventListener\('click',\(\)=>save\(\)\)/);
-assert.match(page, /#quick-new-draft'\)\.addEventListener\('click',newDraft\)/);
+assert.match(page, /title="儲存目前草稿"/);
+assert.match(page, /title="建立新的空白草稿"/);
+assert.match(page, /id="draft-hint" aria-live="polite"/);
+assert.match(page, /function flash\(button,success\)/);
+assert.match(page, /else\{active\.data=data;active\.updatedAt=new Date\(\)\.toISOString\(\)\}/);
+assert.match(page, /#quick-save-draft'\)\.addEventListener\('click',event=>flash\(event\.currentTarget,save\(\)\)\)/);
+assert.match(page, /#quick-new-draft'\)\.addEventListener\('click',event=>\{if\(newDraft\(\)\)flash\(event\.currentTarget,true\)\}\)/);
 assert.match(page, /id="draft-list"/);
 assert.match(page, /beforeunload/);
 assert.match(page, /瀏覽器無法讀取本機草稿/);
