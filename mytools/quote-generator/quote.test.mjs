@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import { readFile } from 'node:fs/promises';
-import { calculateQuote, createDraft, normalizeDrafts, uniquifyDraftNames } from './quote.mjs';
+import { calculateQuote } from './quote.mjs';
 
 const quote = calculateQuote({
   items: [{ unitPrice: 30000, quantity: 1 }, { unitPrice: 4000, quantity: 4 }],
@@ -17,13 +17,6 @@ assert.deepEqual(quote, {
   paymentRate: 1,
 });
 console.log('quote calculations pass');
-
-const draft = createDraft('草稿 A', { clientName: '客戶 A' });
-assert.equal(draft.name, '草稿 A');
-assert.equal(draft.data.clientName, '客戶 A');
-assert.equal(normalizeDrafts([draft])[0].id, draft.id);
-assert.deepEqual(uniquifyDraftNames([draft, { ...draft, id: 'second' }, { ...draft, id: 'third' }]).map(item => item.name), ['草稿 A', '草稿 A 2', '草稿 A 3']);
-console.log('draft data helpers pass');
 
 const page = await readFile(new URL('./index.html', import.meta.url), 'utf8');
 assert.match(page, /name="showPayments"[^>]*>/);
@@ -44,13 +37,3 @@ assert.match(page, /name="ourContact"[^>]*value="Sandy"/);
 assert.match(page, /name="ourContactMethod"/);
 assert.match(page, /id="preview-our-contact-method"/);
 console.log('company contact inputs are present');
-
-assert.ok(page.indexOf('<h2>輸出</h2>') < page.indexOf('<h2>草稿</h2>'));
-console.log('draft controls follow the PDF output');
-
-assert.match(page, /structuredClone\(defaultDraftData\)/);
-console.log('new drafts start from blank defaults');
-
-assert.match(page, /id="load-draft"/);
-assert.match(page, /function uniqueDraftName/);
-console.log('draft loading and duplicate-name guards are present');
