@@ -42,6 +42,8 @@
     .actions { display:flex; gap:10px; margin-top:16px; }
     .hint { min-height:20px; margin:12px 0 0; color:#9b681d; font-size:12px; line-height:1.5; }
     .error { color:var(--brand); }
+    .toggle { display:flex; align-items:center; gap:8px; margin-top:14px; color:var(--ink); cursor:pointer; }
+    .toggle input { width:auto; }
     .preview-wrap { position:sticky; top:16px; }
     .preview-label { display:flex; justify-content:space-between; align-items:center; margin:0 0 10px; color:var(--muted); font-size:12px; letter-spacing:.08em; }
     .paper { width:min(100%,794px); min-height:1123px; margin:auto; padding:56px 54px; background:var(--paper); box-shadow:0 20px 52px rgba(74,54,33,.18); }
@@ -94,7 +96,7 @@
           <label>服務費（%）<input name="serviceRate" type="number" min="0" step="0.01" value="15"></label><label>營業稅（固定）<input value="5%" disabled></label>
           <label>付款一：合作款（%）<input name="paymentOne" type="number" min="0" step="0.01" value="10"></label><label>付款二：訂金（%）<input name="paymentTwo" type="number" min="0" step="0.01" value="48"></label>
           <label>付款三：尾款（%）<input name="paymentThree" type="number" min="0" step="0.01" value="42"></label>
-        </div><p class="hint" id="payment-hint"></p></section>
+        </div><label class="toggle"><input name="showPayments" type="checkbox">在 PDF 顯示付款安排</label><p class="hint" id="payment-hint"></p></section>
         <section class="section"><h2>輸出</h2><button class="primary" type="button" id="print-quote">輸出 PDF</button><p class="hint" id="print-hint"></p></section>
       </form>
       <section class="preview-wrap"><div class="preview-label screen-only"><span>即時預覽</span><span>A4 · 直式</span></div>
@@ -103,10 +105,10 @@
           <section class="meta"><div><b>客戶名稱</b><span id="preview-client-name">—</span></div><div><b>公司抬頭</b><span id="preview-client-company">—</span></div><div><b>專案名稱</b><span id="preview-project-name">—</span></div><div><b>有效期限</b><span id="preview-expiry-date">—</span></div><div><b>聯絡人</b><span id="preview-client-contact">—</span></div></section>
           <div class="table-title">合作內容與交付規格</div><table><thead><tr><th>合作項目</th><th>交付規格</th><th class="amount">單價</th><th class="amount">數量</th><th class="amount">小計</th></tr></thead><tbody id="preview-items"></tbody></table>
           <section class="totals"><div><span>明細小計</span><b id="preview-subtotal">NT$0</b></div><div><span>服務費</span><b id="preview-service">NT$0</b></div><div><span>未稅金額</span><b id="preview-pretax">NT$0</b></div><div><span>營業稅 5%</span><b id="preview-tax">NT$0</b></div><div class="grand"><span>含稅總計</span><b id="preview-total">NT$0</b></div></section>
-          <section class="payments"><div class="table-title">付款安排</div><div class="payments-grid" id="preview-payments"></div></section>
+          <section class="payments" id="preview-payments-section" hidden><div class="table-title">付款安排</div><div class="payments-grid" id="preview-payments"></div></section>
           <section class="terms"><b>約定事項</b><br>1. 本報價自報價日起至有效期限內有效，逾期請重新確認合作條件。<br>2. 交付內容包含本報價所列規格；超出範圍之修改、追加內容或排程變動，將另行確認費用與時程。<br>3. 素材之二次投放、改作、跨平台使用與使用期間，須另以書面確認授權範圍。</section>
           <section class="signature"><div>客戶確認／簽章</div><div>榛菓行銷有限公司</div></section>
-          <footer class="footer">榛菓行銷有限公司｜統編 90071716｜臺北市大安區復興南路一段352號2樓之3<br>本報價單由 ZhenguoCool MyTools 產生</footer>
+          <footer class="footer">榛菓行銷有限公司｜統編 90071716｜臺北市大安區復興南路一段352號2樓之3</footer>
         </article>
       </section>
     </div>
@@ -130,7 +132,7 @@
       document.querySelector('#preview-items').replaceChildren(...currentItems.filter(item => item.name || item.spec || item.unitPrice).map(item => { const row = document.createElement('tr'); const name = document.createElement('td'); name.textContent = item.name || '—'; const note = document.createElement('div'); note.className = 'spec'; note.textContent = item.note; name.append(note); const spec = document.createElement('td'); spec.textContent = item.spec || '—'; const price = document.createElement('td'); price.className = 'amount'; price.textContent = money(item.unitPrice); const quantity = document.createElement('td'); quantity.className = 'amount'; quantity.textContent = item.quantity; const subtotal = document.createElement('td'); subtotal.className = 'amount'; subtotal.textContent = money(item.unitPrice * item.quantity); row.append(name, spec, price, quantity, subtotal); return row; }));
       if (!document.querySelector('#preview-items').children.length) document.querySelector('#preview-items').innerHTML = '<tr><td colspan="5" class="spec">尚未填寫合作內容</td></tr>';
       [['#preview-subtotal',quote.itemSubtotal],['#preview-service',quote.serviceFee],['#preview-pretax',quote.pretaxTotal],['#preview-tax',quote.tax],['#preview-total',quote.total]].forEach(([id,total]) => setText(id,money(total)));
-      const labels = ['合作款','訂金','尾款']; document.querySelector('#preview-payments').replaceChildren(...payments.map((rate,index) => { const box=document.createElement('div'); box.className='payment'; box.innerHTML=`<b>${labels[index]}｜${(rate * 100).toFixed(rate * 100 % 1 ? 2 : 0)}%</b><span>${money(quote.total * rate)}</span>`; return box; }));
+      const labels = ['合作款','訂金','尾款']; document.querySelector('#preview-payments').replaceChildren(...payments.map((rate,index) => { const box=document.createElement('div'); box.className='payment'; box.innerHTML=`<b>${labels[index]}｜${(rate * 100).toFixed(rate * 100 % 1 ? 2 : 0)}%</b><span>${money(quote.total * rate)}</span>`; return box; })); document.querySelector('#preview-payments-section').hidden = !form.elements.showPayments.checked;
       const difference = Math.round((quote.paymentRate - 1) * 10000) / 100; const hint = document.querySelector('#payment-hint'); hint.textContent = difference ? `付款比例目前為 ${(quote.paymentRate * 100).toFixed(2)}%，與 100% 相差 ${Math.abs(difference)}%。` : '付款比例合計為 100%。'; hint.classList.toggle('error', !difference);
     }
     function ready() { return value('clientName') && value('projectName') && items().some(item => item.unitPrice > 0 && item.quantity > 0); }

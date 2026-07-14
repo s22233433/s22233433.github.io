@@ -1,4 +1,5 @@
 import assert from 'node:assert/strict';
+import { readFile } from 'node:fs/promises';
 import { calculateQuote } from './quote.mjs';
 
 const quote = calculateQuote({
@@ -16,3 +17,8 @@ assert.deepEqual(quote, {
   paymentRate: 1,
 });
 console.log('quote calculations pass');
+
+const page = await readFile(new URL('./index.html', import.meta.url), 'utf8');
+assert.match(page, /name="showPayments"[^>]*>/);
+assert.match(page, /id="preview-payments-section" hidden/);
+console.log('payment visibility defaults to hidden');
