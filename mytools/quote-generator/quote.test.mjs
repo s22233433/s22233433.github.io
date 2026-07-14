@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import { readFile } from 'node:fs/promises';
-import { calculateQuote } from './quote.mjs';
+import { calculateQuote, createDraft, normalizeDrafts } from './quote.mjs';
 
 const quote = calculateQuote({
   items: [{ unitPrice: 30000, quantity: 1 }, { unitPrice: 4000, quantity: 4 }],
@@ -17,6 +17,12 @@ assert.deepEqual(quote, {
   paymentRate: 1,
 });
 console.log('quote calculations pass');
+
+const draft = createDraft('草稿 A', { clientName: '客戶 A' });
+assert.equal(draft.name, '草稿 A');
+assert.equal(draft.data.clientName, '客戶 A');
+assert.equal(normalizeDrafts([draft])[0].id, draft.id);
+console.log('draft data helpers pass');
 
 const page = await readFile(new URL('./index.html', import.meta.url), 'utf8');
 assert.match(page, /name="showPayments"[^>]*>/);

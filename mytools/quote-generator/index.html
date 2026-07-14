@@ -90,6 +90,9 @@
     <section class="intro screen-only"><div><h1>把報價，變成<br>一份可直接確認的文件。</h1></div><p>填好客戶與合作內容後，使用「輸出 PDF」開啟系統列印視窗，選擇「儲存為 PDF」即可交付。資料只留在目前瀏覽器，不會上傳。</p></section>
     <div class="layout">
       <form class="editor screen-only" id="quote-form" novalidate>
+        <section class="section"><h2>草稿</h2><div class="field-grid">
+          <label>目前草稿<select id="draft-select"></select></label><label>草稿名稱<input id="draft-name" value="未命名報價"></label>
+        </div><div class="actions"><button class="outline" type="button" id="new-draft">＋ 新增草稿</button><button class="outline" type="button" id="delete-draft">刪除目前草稿</button></div><p class="hint" id="draft-hint"></p></section>
         <section class="section"><h2>客戶與專案</h2><div class="field-grid">
           <label>客戶名稱<input name="clientName" placeholder="例：OOO 品牌"></label><label>公司抬頭<input name="clientCompany" placeholder="例：OOO 股份有限公司"></label>
           <label>專案名稱<input name="projectName" placeholder="例：新品上市合作"></label><label>報價日期<input name="quoteDate" type="date"></label>
@@ -124,16 +127,27 @@
   </main>
   <template id="item-template"><div class="item-editor"><div class="field-grid"><label>合作項目<input data-field="name" placeholder="例：Creator A"></label><label class="wide">交付規格<input data-field="spec" placeholder="例：IG Reels 1 支＋限動 3 則"></label><label>單價<input data-field="unitPrice" type="number" min="0" step="1" value="0"></label><label>數量<input data-field="quantity" type="number" min="0" step="1" value="1"></label></div><label>備註<input data-field="note" placeholder="例：發布前提供一次確認"></label><button class="remove" type="button">移除此項目</button></div></template>
   <script type="module">
-    import { calculateQuote } from './quote.mjs';
+    import { calculateQuote, createDraft, normalizeDrafts } from './quote.mjs';
     const form = document.querySelector('#quote-form');
     const editorList = document.querySelector('#item-editors');
     const template = document.querySelector('#item-template');
+    const draftSelect = document.querySelector('#draft-select');
+    const draftName = document.querySelector('#draft-name');
+    const draftHint = document.querySelector('#draft-hint');
+    const storageKey = 'zhenguocool.quote-drafts.v1';
+    let drafts = []; let currentDraftId = '';
     const money = value => `NT$${Math.round(value).toLocaleString('zh-TW')}`;
     const date = value => value ? new Intl.DateTimeFormat('zh-TW', { year:'numeric', month:'long', day:'numeric' }).format(new Date(`${value}T00:00:00`)) : '—';
     const value = name => form.elements[name].value.trim();
     const number = name => Math.max(0, Number(form.elements[name].value) || 0);
-    function addItem(item = {}) { const node = template.content.firstElementChild.cloneNode(true); Object.entries(item).forEach(([key, itemValue]) => { const input = node.querySelector(`[data-field="${key}"]`); if (input) input.value = itemValue; }); node.querySelector('.remove').addEventListener('click', () => { node.remove(); render(); }); editorList.append(node); }
+    function addItem(item = {}) { const node = template.content.firstElementChild.cloneNode(true); Object.entries(item).forEach(([key, itemValue]) => { const input = node.querySelector(`[data-field="${key}"]`); if (input) input.value = itemValue; }); node.querySelector('.remove').addEventListener('click', () => { node.remove(); render(); saveDraft(); }); editorList.append(node); }
     function items() { return [...editorList.children].map(node => ({ name:node.querySelector('[data-field="name"]').value.trim(), spec:node.querySelector('[data-field="spec"]').value.trim(), unitPrice:Math.max(0, Number(node.querySelector('[data-field="unitPrice"]').value) || 0), quantity:Math.max(0, Number(node.querySelector('[data-field="quantity"]').value) || 0), note:node.querySelector('[data-field="note"]').value.trim() })); }
+    function draftData() { return { fields:Object.fromEntries([...form.querySelectorAll('input[name]')].map(input => [input.name, input.type === 'checkbox' ? input.checked : input.value])), items:items() }; }
+    function persist() { try { localStorage.setItem(storageKey, JSON.stringify({ drafts, currentDraftId })); draftHint.textContent = '已儲存於此瀏覽器。'; draftHint.className = 'hint'; } catch { draftHint.textContent = '瀏覽器無法儲存草稿。'; draftHint.className = 'hint error'; } }
+    function refreshDraftControls() { draftSelect.replaceChildren(...drafts.map(draft => { const option = document.createElement('option'); option.value = draft.id; option.textContent = draft.name; return option; })); draftSelect.value = currentDraftId; const current = drafts.find(draft => draft.id === currentDraftId); draftName.value = current?.name || '未命名報價'; }
+    function saveDraft() { const current = drafts.find(draft => draft.id === currentDraftId); if (!current) return; current.name = draftName.value.trim() || '未命名報價'; current.data = draftData(); current.updatedAt = Date.now(); refreshDraftControls(); persist(); }
+    function loadDraft(id) { const current = drafts.find(draft => draft.id === id); if (!current) return; currentDraftId = current.id; [...form.querySelectorAll('input[name]')].forEach(input => { const saved = current.data.fields?.[input.name]; if (input.type === 'checkbox') input.checked = Boolean(saved); else if (saved !== undefined) input.value = saved; }); editorList.replaceChildren(); (current.data.items || []).forEach(addItem); refreshDraftControls(); render(); }
+    function readDrafts() { try { const saved = JSON.parse(localStorage.getItem(storageKey) || '{}'); drafts = normalizeDrafts(saved.drafts); currentDraftId = drafts.some(draft => draft.id === saved.currentDraftId) ? saved.currentDraftId : drafts[0]?.id || ''; } catch { drafts = []; currentDraftId = ''; } }
     function setText(id, text) { document.querySelector(id).textContent = text || '—'; }
     function render() {
       const currentItems = items(); const payments = [number('paymentOne') / 100, number('paymentTwo') / 100, number('paymentThree') / 100]; const quote = calculateQuote({ items:currentItems, serviceRate:number('serviceRate') / 100, payments });
@@ -145,8 +159,8 @@
       const difference = Math.round((quote.paymentRate - 1) * 10000) / 100; const hint = document.querySelector('#payment-hint'); hint.textContent = difference ? `付款比例目前為 ${(quote.paymentRate * 100).toFixed(2)}%，與 100% 相差 ${Math.abs(difference)}%。` : '付款比例合計為 100%。'; hint.classList.toggle('error', !difference);
     }
     function ready() { return value('clientName') && value('projectName') && items().some(item => item.unitPrice > 0 && item.quantity > 0); }
-    document.querySelector('#add-item').addEventListener('click', () => { addItem(); render(); }); form.addEventListener('input', render); document.querySelector('#print-quote').addEventListener('click', () => { const hint = document.querySelector('#print-hint'); if (!ready()) { hint.textContent='請先填寫客戶名稱、專案名稱，以及至少一筆有金額的合作項目。'; hint.className='hint error'; return; } hint.textContent='列印視窗已開啟；請選擇「儲存為 PDF」。'; hint.className='hint'; window.print(); });
-    form.elements.quoteDate.value = new Date().toISOString().slice(0,10); const expiry = new Date(); expiry.setDate(expiry.getDate() + 7); form.elements.expiryDate.value = expiry.toISOString().slice(0,10); addItem({ name:'Creator A', spec:'IG Reels 1 支＋限動 3 則', unitPrice:30000, quantity:1, note:'發布前提供一次確認' }); render();
+    document.querySelector('#add-item').addEventListener('click', () => { addItem(); render(); saveDraft(); }); form.addEventListener('input', () => { render(); saveDraft(); }); draftName.addEventListener('change', saveDraft); draftSelect.addEventListener('change', () => loadDraft(draftSelect.value)); document.querySelector('#new-draft').addEventListener('click', () => { saveDraft(); const draft = createDraft('未命名報價', draftData()); drafts.unshift(draft); currentDraftId = draft.id; refreshDraftControls(); persist(); }); document.querySelector('#delete-draft').addEventListener('click', () => { if (drafts.length === 1) { draftHint.textContent = '至少保留一份草稿。'; return; } drafts = drafts.filter(draft => draft.id !== currentDraftId); currentDraftId = drafts[0].id; loadDraft(currentDraftId); persist(); }); document.querySelector('#print-quote').addEventListener('click', () => { const hint = document.querySelector('#print-hint'); if (!ready()) { hint.textContent='請先填寫客戶名稱、專案名稱，以及至少一筆有金額的合作項目。'; hint.className='hint error'; return; } hint.textContent='列印視窗已開啟；請選擇「儲存為 PDF」。'; hint.className='hint'; window.print(); });
+    form.elements.quoteDate.value = new Date().toISOString().slice(0,10); const expiry = new Date(); expiry.setDate(expiry.getDate() + 7); form.elements.expiryDate.value = expiry.toISOString().slice(0,10); addItem({ name:'Creator A', spec:'IG Reels 1 支＋限動 3 則', unitPrice:30000, quantity:1, note:'發布前提供一次確認' }); readDrafts(); if (currentDraftId) loadDraft(currentDraftId); else { const draft = createDraft('未命名報價', draftData()); drafts = [draft]; currentDraftId = draft.id; refreshDraftControls(); persist(); render(); }
   </script>
 </body>
 </html>
