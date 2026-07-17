@@ -14,6 +14,7 @@ assert.match(home, /name="budget_range"/, "Lead form needs a budget field.");
 assert.match(home, /name="utm_source"/, "Lead form needs UTM capture.");
 assert.match(home, /formsubmit\.co\/ajax/, "Lead form needs a delivery endpoint.");
 assert.match(home, /thanks\//, "Lead form needs a thank-you destination.");
+assert.match(home, /web-assets\/og-zhenguocool-project-board\.webp/, "Homepage needs a copyright-safe share image.");
 
 assert.match(builder, /const caseStudies = \[/, "Builder needs a reusable case-study source.");
 assert.match(builder, /renderCasePage/, "Builder needs a case-page renderer.");
@@ -60,6 +61,7 @@ assert.match(builder, /const serviceDecisionGuide =/, "Builder needs a service d
 assert.doesNotMatch(builder, /ui\.faqTwo/, "Builder must not reuse the generic FAQ set across every service.");
 
 const tiktokService = read("services/tiktok-influencer-marketing/index.html");
+assert.match(tiktokService, /web-assets\/og-zhenguocool-project-board\.webp/, "Service pages need the copyright-safe share image.");
 assert.match(tiktokService, /合作判斷與交付/, "Service pages need a decision and deliverables section.");
 assert.match(tiktokService, /tiktok-koc-marketing/, "TikTok service pages need an intent-comparison link.");
 assert.doesNotMatch(tiktokService, /如何挑選適合品牌的網紅？/, "Service pages must not retain the old generic FAQ.");

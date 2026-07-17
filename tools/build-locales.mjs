@@ -4,6 +4,7 @@ import path from "node:path";
 const root = path.resolve(import.meta.dirname, "..");
 const sourcePath = path.join(root, "index.html");
 const baseUrl = "https://zhenguocool.com/";
+const socialShareImage = "web-assets/og-zhenguocool-project-board.webp";
 const source = fs.readFileSync(sourcePath, "utf8");
 
 const rootLocale = { key: "zh-Hant", dir: "", htmlLang: "zh-Hant", url: baseUrl, label: "榛菓行銷", isRoot: true };
@@ -1094,7 +1095,7 @@ const renderServicePage = (page, locale) => {
   <meta property="og:title" content="${escapeAttr(page.title[locale.key])}">
   <meta property="og:description" content="${escapeAttr(page.description[locale.key])}">
   <meta property="og:url" content="${url}">
-  <meta property="og:image" content="${baseUrl}web-assets/game-liming-cheer.webp">
+  <meta property="og:image" content="${baseUrl}${socialShareImage}">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="${escapeAttr(page.title[locale.key])}">
   <meta name="twitter:description" content="${escapeAttr(page.description[locale.key])}">
@@ -1248,7 +1249,7 @@ const renderCasePage = (study, locale) => {
   <meta property="og:title" content="${escapeAttr(study.title[locale.key])}">
   <meta property="og:description" content="${escapeAttr(study.summary[locale.key])}">
   <meta property="og:url" content="${url}">
-  <meta property="og:image" content="${baseUrl}${study.image}">
+  <meta property="og:image" content="${baseUrl}${socialShareImage}">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="${escapeAttr(study.title[locale.key])}">
   <meta name="twitter:description" content="${escapeAttr(study.summary[locale.key])}">
