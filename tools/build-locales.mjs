@@ -4,7 +4,7 @@ import path from "node:path";
 const root = path.resolve(import.meta.dirname, "..");
 const sourcePath = path.join(root, "index.html");
 const baseUrl = "https://zhenguocool.com/";
-const socialShareImage = "web-assets/og-zhenguocool-project-board.webp";
+const socialShareImage = "web-assets/og-zhenguocool-campaign-plan.webp";
 const source = fs.readFileSync(sourcePath, "utf8");
 
 const rootLocale = { key: "zh-Hant", dir: "", htmlLang: "zh-Hant", url: baseUrl, label: "榛菓行銷", isRoot: true };
