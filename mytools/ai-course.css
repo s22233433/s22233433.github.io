@@ -61,6 +61,12 @@ main {
 
 .tools-index .grid { margin-top: 30px; }
 
+.tool-section { margin-top: 42px; }
+.tool-section > div:first-child { max-width: 720px; }
+.tool-section h2 { margin: 0; font-size: clamp(28px, 4vw, 42px); line-height: 1.15; }
+.tool-section > div:first-child > p:last-child { margin: 12px 0 0; color: var(--muted); }
+.course-section { margin-top: 60px; padding-top: 58px; border-top: 1px solid var(--line); }
+
 .course-progress {
   position: fixed;
   top: 0;
