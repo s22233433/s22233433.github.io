@@ -5,7 +5,20 @@ const root = path.resolve(import.meta.dirname, "..");
 const sourcePath = path.join(root, "index.html");
 const baseUrl = "https://zhenguocool.com/";
 const socialShareImage = "web-assets/og-zhenguocool-campaign-plan.webp";
+const gaMeasurementId = "G-3G60NBREE3";
+const gaSnippet = `  <!-- Google tag (gtag.js) -->\n  <script async src="https://www.googletagmanager.com/gtag/js?id=${gaMeasurementId}"></script>\n  <script>window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments)} gtag("js", new Date()); gtag("config", "${gaMeasurementId}");</script>`;
 const source = fs.readFileSync(sourcePath, "utf8");
+
+const injectGoogleAnalytics = (dir) => fs.readdirSync(dir, { withFileTypes: true }).reduce((count, entry) => {
+  const file = path.join(dir, entry.name);
+  if (entry.isDirectory()) return count + (entry.name === ".git" ? 0 : injectGoogleAnalytics(file));
+  if (!entry.isFile() || !entry.name.endsWith(".html")) return count;
+  const html = fs.readFileSync(file, "utf8");
+  if (html.includes(gaMeasurementId)) return count + 1;
+  if (!html.includes("</head>")) throw new Error(`Missing </head> in ${file}`);
+  fs.writeFileSync(file, html.replace("</head>", `${gaSnippet}\n</head>`));
+  return count + 1;
+}, 0);
 
 const rootLocale = { key: "zh-Hant", dir: "", htmlLang: "zh-Hant", url: baseUrl, label: "榛菓行銷", isRoot: true };
 const locales = [
@@ -1427,11 +1440,15 @@ for (const extraPath of [
 ]) {
   sitemapItems.push({ loc: `${baseUrl}${extraPath}`, priority: "0.6", alternates: [] });
 }
+for (const toolPath of ["tools/youtube-channel-metrics/", "tools/instagram-insights-passive/"]) {
+  sitemapItems.push({ loc: `${baseUrl}${toolPath}`, priority: "0.7", alternates: [], noAlternatePadding: true });
+}
 
-const sitemap = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">\n${sitemapItems.map((item) => `  <url>\n    <loc>${item.loc}</loc>\n    <changefreq>monthly</changefreq>\n    <priority>${item.priority}</priority>\n${item.alternates.map(([hreflang, href]) => `    <xhtml:link rel="alternate" hreflang="${hreflang}" href="${href}" />`).join("\n")}\n  </url>`).join("\n")}\n</urlset>\n`;
+const sitemap = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">\n${sitemapItems.map((item) => `  <url>\n    <loc>${item.loc}</loc>\n    <changefreq>monthly</changefreq>\n    <priority>${item.priority}</priority>\n${item.alternates.map(([hreflang, href]) => `    <xhtml:link rel="alternate" hreflang="${hreflang}" href="${href}" />`).join("\n")}${item.noAlternatePadding ? "" : "\n"}  </url>`).join("\n")}\n</urlset>\n`;
 fs.writeFileSync(path.join(root, "sitemap.xml"), sitemap);
 
 const robots = `User-agent: *\nAllow: /\n\nSitemap: ${baseUrl}sitemap.xml\n`;
 fs.writeFileSync(path.join(root, "robots.txt"), robots);
 
-console.log(`Built ${locales.length} locale pages, ${servicePages.length * allLocales.length} service pages, ${caseStudies.length * allLocales.length} case pages, thank-you pages, sitemap.xml, and robots.txt`);
+const trackedPageCount = injectGoogleAnalytics(root);
+console.log(`Built ${locales.length} locale pages, ${servicePages.length * allLocales.length} service pages, ${caseStudies.length * allLocales.length} case pages, thank-you pages, sitemap.xml, robots.txt, and GA on ${trackedPageCount} pages`);

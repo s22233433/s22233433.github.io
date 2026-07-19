@@ -8,6 +8,11 @@ const read = (file) => fs.readFileSync(path.join(root, file), "utf8");
 const home = read("index.html");
 const builder = read("tools/build-locales.mjs");
 
+assert.match(builder, /const gaMeasurementId = "G-3G60NBREE3"/, "Builder needs the ZhenguoCool GA4 measurement ID.");
+for (const file of fs.readdirSync(root, { recursive: true }).filter((file) => file.endsWith(".html"))) {
+  assert.match(fs.readFileSync(path.join(root, file), "utf8"), /googletagmanager\.com\/gtag\/js\?id=G-3G60NBREE3/, `Missing GA4 tag: ${file}`);
+}
+
 assert.match(home, /<form[^>]+id="lead-form"/, "Homepage needs a qualifying lead form.");
 assert.match(home, /name="brand_name"/, "Lead form needs a brand field.");
 assert.match(home, /name="budget_range"/, "Lead form needs a budget field.");
