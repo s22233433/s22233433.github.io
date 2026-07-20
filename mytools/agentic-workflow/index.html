@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>AI 入門第九課：讓 AI 先規劃、再動手、最後檢查</title>
+  <meta name="description" content="AI 入門第九課用白話設計可靠的 Agentic Workflow，學會規劃、工具使用、反思、評估與何時不該使用多 Agent。">
+  <meta name="slug" content="agentic-workflow">
+  <link rel="canonical" href="https://zhenguocool.com/mytools/agentic-workflow/">
+  <meta property="og:title" content="AI 入門第九課：讓 AI 先規劃、再動手、最後檢查">
+  <meta property="og:description" content="不把 Agent 當成一次性回答：先規劃、使用工具、檢查結果，再交給人確認。">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://zhenguocool.com/mytools/agentic-workflow/">
+  <meta property="og:image" content="https://zhenguocool.com/web-assets/ai-course/agentic-plan.webp">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="AI 入門第九課：讓 AI 先規劃、再動手、最後檢查">
+  <meta name="twitter:description" content="先規劃、使用工具、檢查結果，再交給人確認。">
+  <meta name="twitter:image" content="https://zhenguocool.com/web-assets/ai-course/agentic-plan.webp">
+    <script type="application/ld+json" class="course-structured-data">{"@context":"https://schema.org","@graph":[{"@type":"Course","name":"AI 入門第9課：讓 AI 先規劃、再動手、最後檢查。","description":"AI 入門第九課用白話設計可靠的 Agentic Workflow，學會規劃、工具使用、反思、評估與何時不該使用多 Agent。","url":"https://zhenguocool.com/mytools/agentic-workflow/","image":"https://zhenguocool.com/web-assets/ai-course/agentic-plan.webp","inLanguage":"zh-Hant","timeRequired":"PT80M","isPartOf":{"@type":"CollectionPage","name":"ZhenguoCool AI 入門課程","url":"https://zhenguocool.com/mytools/"},"provider":{"@type":"Organization","name":"ZhenguoCool","url":"https://zhenguocool.com"}},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"首頁","item":"https://zhenguocool.com/"},{"@type":"ListItem","position":2,"name":"My Tools","item":"https://zhenguocool.com/mytools/"},{"@type":"ListItem","position":3,"name":"讓 AI 先規劃、再動手、最後檢查。","item":"https://zhenguocool.com/mytools/agentic-workflow/"}]},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Agent 一定要會上網或呼叫很多工具嗎？","acceptedAnswer":{"@type":"Answer","text":"不一定。第一版可以只讀一份文件、產生草稿、跑檢查表；工具越少，越容易測試與除錯。"}},{"@type":"Question","name":"反思 Agent 能保證答案正確嗎？","acceptedAnswer":{"@type":"Answer","text":"不能。它只能按照檢查規則找問題。規則、資料來源與人工覆核仍然重要。"}},{"@type":"Question","name":"什麼時候需要多 Agent？","acceptedAnswer":{"@type":"Answer","text":"當角色真的有不同資料、工具、權限或驗收責任時才需要。多數新手任務先用一個 Agent 分階段完成更穩。"}}]}]}</script>
+  <link rel="stylesheet" href="/mytools/ai-course.css">
+  <script src="/mytools/ai-course.js" defer></script>
+</head>
+<body class="course-page">
+  <div class="course-progress" aria-hidden="true"><span></span></div>
+  <main>
+    <header class="hero"><div><p class="kicker">AI 入門第九課</p><h1>讓 AI 先規劃、再動手、最後檢查。</h1><p>任務變複雜時，不要期待一次回答剛好正確。把規劃、工具、檢查與人工確認排成流程，才會穩。</p></div><aside class="stamp"><strong>可靠 Agent</strong><span>完成後，你能設計一個有停損、有測試、可人工覆核的 Agent 工作流。</span></aside></header>
+    <section class="course-overview" aria-label="課程摘要"><article><strong>閱讀時間</strong><span>12 分鐘</span></article><article><strong>學習目標</strong><span>把複雜任務拆成規劃、工具、反思、評估與人工確認。</span></article><article><strong>重點整理</strong><span>流程越有風險，越需要明確停下來檢查。</span></article></section>
+    <nav class="course-map" aria-label="課程進度"><a href="/mytools/ai-teaching-flow/">第 1 課</a><a href="/mytools/ai-prompt-engineering/">第 2 課</a><a href="/mytools/ai-agent-intro/">第 3 課</a><a href="/mytools/codex-first-project/">第 4 課</a><a href="/mytools/ai-automation-intro/">第 5 課</a><a href="/mytools/n8n-workflow-reuse/">第 6 課</a><a href="/mytools/ai-rag-intro/">第 7 課</a><a href="/mytools/ai-methods/">第 8 課</a><span class="is-current">第 9 / 9 課</span></nav>
+    <section class="visual-section"><h2>視覺速記</h2><div class="visual-grid"><figure class="image-card"><img src="/web-assets/ai-course/agentic-plan.webp" width="1672" height="941" loading="lazy" decoding="async" alt="AI 先規劃後使用工具完成任務"><figcaption>先排計畫、再使用工具，結果比一次直出更可控。</figcaption></figure><figure class="image-card"><img src="/web-assets/ai-course/agentic-reflection.webp" width="1672" height="941" loading="lazy" decoding="async" alt="AI 產出後由評審流程檢查並回饋"><figcaption>反思不是自我稱讚，而是用明確檢查表找出可修正的錯誤。</figcaption></figure><figure class="image-card"><img src="/web-assets/ai-course/multi-agent-fit.webp" width="1672" height="941" loading="lazy" decoding="async" alt="比較單一 AI Agent 與多 Agent 的適用情境"><figcaption>小任務用一個 Agent 加人工確認就好；真的複雜才拆角色。</figcaption></figure></div></section>
+    <section><h2>什麼是 Agentic Workflow？</h2><p>不是叫 AI「多想一下」，而是把任務安排成可檢查的步驟：先做計畫、需要時調用工具、依規則檢查結果、最後交給人決定是否採用。它解決的是流程穩定度，不是替你免責。</p></section>
+    <section><h2>四個核心元件</h2><div class="grid"><article class="card"><h3>規劃</h3><p>先列出目標、步驟、要用的資料與完成標準；不直接開始產出。</p></article><article class="card"><h3>工具使用</h3><p>需要查資料、算數、讀檔時，交給可靠工具或資料來源，不要叫模型猜。</p></article><article class="card"><h3>反思</h3><p>用固定檢查表看有沒有漏資料、違反限制、沒有依據或格式錯誤。</p></article><article class="card"><h3>評估</h3><p>用一小組固定題目比較版本，確認改動真的變好，而非只換了說法。</p></article></div></section>
+    <section><h2>不要把內部思考當驗收</h2><div class="warning-card"><h3>看得到的計畫與檢查表才可驗收</h3><p>不要要求 AI 揭露冗長的內部思考過程。請它輸出可執行的計畫、資料來源、工具選擇、完成標準與檢查清單；這些才是你和團隊能共同驗證的工作產物。</p></div></section>
+    <section><h2>一個 Agent 還是多 Agent？</h2><table class="assessment-table"><tbody><tr><th>情況</th><th>建議</th><th>原因</th></tr><tr><td>任務很小、資料來源單一</td><td>一個 Agent + 人工確認</td><td>角色越多，交接與錯誤點越多。</td></tr><tr><td>需要查資料、整理、寫草稿</td><td>一個 Agent 分階段做</td><td>先用同一個流程與檢查表，最容易除錯。</td></tr><tr><td>專業角色和責任真的不同</td><td>才考慮多 Agent</td><td>例如研究、法規檢查、發佈審核需要不同資料與權限。</td></tr><tr><td>高風險決策</td><td>人保留最後決策權</td><td>多 Agent 不是安全保證，仍可能一起犯同一種錯。</td></tr></tbody></table></section>
+    <section><h2>80 分鐘教學流程</h2><div class="timeline"><article class="step"><div class="time">0-15<br>min</div><div class="step-body"><h3>選一個多步驟任務</h3><p>例如每週整理競品動態、回覆表單線索、整理會議後待辦；先避開金流與不可逆操作。</p></div></article><article class="step"><div class="time">15-30<br>min</div><div class="step-body"><h3>寫可驗收計畫</h3><p>列目標、資料來源、每一步輸出、工具、停止條件與人工確認點。</p></div></article><article class="step"><div class="time">30-50<br>min</div><div class="step-body"><h3>設計工具邊界</h3><p>哪些資料可讀、哪些動作不可自動執行、找不到資料時如何停止。</p></div></article><article class="step"><div class="time">50-65<br>min</div><div class="step-body"><h3>加入反思與測試</h3><p>建立 5 個固定測試案例，要求每次輸出前跑相同檢查表。</p></div></article><article class="step"><div class="time">65-80<br>min</div><div class="step-body"><h3>人工驗收</h3><p>比對來源、檢查草稿、記錄錯誤；只有安全且穩定的步驟才考慮自動化。</p></div></article></div></section>
+    <section><h2>實作案例：每週內容選題小助手</h2><div class="grid two"><article class="tip-card"><h3>流程</h3><p>讀取核准來源 → 列選題計畫 → 摘要與分類 → 用檢查表找重複、缺來源或不適合受眾的內容 → 人選出最後題目。</p></article><article class="summary-card"><h3>人工保留</h3><p>品牌立場、優先順序、是否發布仍由人決定。Agent 只提供有依據、好比較的草稿。</p></article></div></section>
+    <section><h2>可複製模板</h2><div class="prompt">我要設計一個可人工驗收的 AI 工作流。
+任務：[任務]
+可用資料與工具：[來源、檔案、可查詢工具]
+不能做的事：[禁止自動寄出／付款／刪除／使用敏感資料]
+完成標準：[什麼結果才算可用]
+
+請依序輸出：
+1. 可驗收的工作計畫
+2. 每一步需要的資料或工具
+3. 每一步的輸出與停止條件
+4. 一份產出前檢查表
+5. 五個固定測試案例
+6. 哪些地方必須由人確認
+
+先給計畫，不要執行任何外部動作。</div></section>
+    <section><h2>課後作業</h2><p>把你第 3、5 或第 6 課挑過的一個流程，加上計畫、工具邊界、檢查表、5 個測試案例與人工確認點。先用一個 Agent 做完，不要急著拆多 Agent。</p></section>
+    <section><h2>Cheat Sheet</h2><div class="cheat-grid"><article class="summary-card"><h3>先規劃</h3><p>把步驟、資料、工具與完成標準寫出來。</p></article><article class="summary-card"><h3>再檢查</h3><p>用固定檢查表與固定題目，不靠感覺判斷。</p></article><article class="summary-card"><h3>最後才拆角色</h3><p>多 Agent 是處理真實分工，不是讓流程看起來厲害。</p></article></div></section>
+    <section><h2>FAQ</h2><details><summary>Agent 一定要會上網或呼叫很多工具嗎？</summary><p>不一定。第一版可以只讀一份文件、產生草稿、跑檢查表；工具越少，越容易測試與除錯。</p></details><details><summary>反思 Agent 能保證答案正確嗎？</summary><p>不能。它只能按照檢查規則找問題。規則、資料來源與人工覆核仍然重要。</p></details><details><summary>什麼時候需要多 Agent？</summary><p>當角色真的有不同資料、工具、權限或驗收責任時才需要。多數新手任務先用一個 Agent 分階段完成更穩。</p></details></section>
+    <section><h2>課程導覽</h2><nav class="lesson-nav" aria-label="課程導覽"><a href="/mytools/ai-teaching-flow/">第 1 課：80 分鐘完成第一個 AI 任務</a><a href="/mytools/ai-prompt-engineering/">第 2 課：不是 AI 不聰明，是你沒說清楚</a><a href="/mytools/ai-agent-intro/">第 3 課：AI Agent 入門</a><a href="/mytools/codex-first-project/">第 4 課：Codex 第一個小工具</a><a href="/mytools/ai-automation-intro/">第 5 課：AI 自動化入門</a><a href="/mytools/n8n-workflow-reuse/">第 6 課：n8n 工作流複用</a><a href="/mytools/ai-rag-intro/">第 7 課：RAG 入門</a><a href="/mytools/ai-methods/">第 8 課：AI 方法怎麼選</a><a href="/mytools/agentic-workflow/">目前：第 9 課：可靠 Agent 工作流</a><a href="/mytools/">回課程目錄</a></nav></section>
+    <footer>AI 入門系列第 9 / 9 課。可靠不是多做幾個 Agent，而是讓每一步都能被檢查。</footer>
+  </main>
+</body>
+</html>

@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>AI 入門第八課：Prompt、RAG、微調，該用哪一個？</title>
+  <meta name="description" content="AI 入門第八課用白話比較 Prompt、RAG 與 Fine-Tuning，學會從問題根源選方法，不把所有技術疊在一起。">
+  <meta name="slug" content="ai-methods">
+  <link rel="canonical" href="https://zhenguocool.com/mytools/ai-methods/">
+  <meta property="og:title" content="AI 入門第八課：Prompt、RAG、微調，該用哪一個？">
+  <meta property="og:description" content="先診斷問題，再選 Prompt、RAG 或微調；不要一開始把所有技術疊上去。">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://zhenguocool.com/mytools/ai-methods/">
+  <meta property="og:image" content="https://zhenguocool.com/web-assets/ai-course/ai-method-map.webp">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="AI 入門第八課：Prompt、RAG、微調，該用哪一個？">
+  <meta name="twitter:description" content="先診斷問題，再選 Prompt、RAG 或微調。">
+  <meta name="twitter:image" content="https://zhenguocool.com/web-assets/ai-course/ai-method-map.webp">
+    <script type="application/ld+json" class="course-structured-data">{"@context":"https://schema.org","@graph":[{"@type":"Course","name":"AI 入門第8課：Prompt、RAG、微調，該用哪一個？","description":"AI 入門第八課用白話比較 Prompt、RAG 與 Fine-Tuning，學會從問題根源選方法，不把所有技術疊在一起。","url":"https://zhenguocool.com/mytools/ai-methods/","image":"https://zhenguocool.com/web-assets/ai-course/ai-method-map.webp","inLanguage":"zh-Hant","timeRequired":"PT80M","isPartOf":{"@type":"CollectionPage","name":"ZhenguoCool AI 入門課程","url":"https://zhenguocool.com/mytools/"},"provider":{"@type":"Organization","name":"ZhenguoCool","url":"https://zhenguocool.com"}},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"首頁","item":"https://zhenguocool.com/"},{"@type":"ListItem","position":2,"name":"My Tools","item":"https://zhenguocool.com/mytools/"},{"@type":"ListItem","position":3,"name":"Prompt、RAG、微調，該用哪一個？","item":"https://zhenguocool.com/mytools/ai-methods/"}]},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"什麼時候才值得微調？","acceptedAnswer":{"@type":"Answer","text":"當任務已穩定、prompt 測過仍不夠一致，而且你有大量已審核的高品質輸入輸出範例時。"}},{"@type":"Question","name":"RAG 和微調可以一起用嗎？","acceptedAnswer":{"@type":"Answer","text":"可以，但先分別證明各自需要。RAG 處理知識，微調處理行為；不要為了看起來完整而同時上。"}},{"@type":"Question","name":"選了錯的方法怎麼辦？","acceptedAnswer":{"@type":"Answer","text":"先回到同一組測試問題，確認問題根源。方法選錯通常不是失敗，而是讓你更清楚缺的是什麼。"}}]}]}</script>
+  <link rel="stylesheet" href="/mytools/ai-course.css">
+  <script src="/mytools/ai-course.js" defer></script>
+</head>
+<body class="course-page">
+  <div class="course-progress" aria-hidden="true"><span></span></div>
+  <main>
+    <header class="hero"><div><p class="kicker">AI 入門第八課</p><h1>Prompt、RAG、微調，該用哪一個？</h1><p>AI 結果不好，不代表要換更大模型。先找出是指令、資料，還是固定行為出了問題。</p></div><aside class="stamp"><strong>方法選型</strong><span>完成後，你能用問題根源選最小可行方法，而不是把三種技術全堆上去。</span></aside></header>
+    <section class="course-overview" aria-label="課程摘要"><article><strong>閱讀時間</strong><span>11 分鐘</span></article><article><strong>學習目標</strong><span>分清 Prompt、RAG、Fine-Tuning 各自解決的問題。</span></article><article><strong>重點整理</strong><span>缺指令用 Prompt；缺資料用 RAG；缺穩定行為才考慮微調。</span></article></section>
+    <nav class="course-map" aria-label="課程進度"><a href="/mytools/ai-teaching-flow/">第 1 課</a><a href="/mytools/ai-prompt-engineering/">第 2 課</a><a href="/mytools/ai-agent-intro/">第 3 課</a><a href="/mytools/codex-first-project/">第 4 課</a><a href="/mytools/ai-automation-intro/">第 5 課</a><a href="/mytools/n8n-workflow-reuse/">第 6 課</a><a href="/mytools/ai-rag-intro/">第 7 課</a><span class="is-current">第 8 / 9 課</span><a href="/mytools/agentic-workflow/">第 9 課</a></nav>
+    <section class="visual-section"><h2>視覺速記</h2><div class="visual-grid"><figure class="image-card"><img src="/web-assets/ai-course/ai-method-map.webp" width="1672" height="941" loading="lazy" decoding="async" alt="AI 改善方法的三種路徑"><figcaption>Prompt、RAG、微調各有位置，先選對問題再動手。</figcaption></figure><figure class="image-card"><img src="/web-assets/ai-course/ai-method-routing.webp" width="1672" height="941" loading="lazy" decoding="async" alt="依問題根源選擇 AI 方法"><figcaption>指令模糊、資料缺失、輸出不穩，對應的解法不同。</figcaption></figure><figure class="image-card"><img src="/web-assets/ai-course/fine-tuning-prep.webp" width="1672" height="941" loading="lazy" decoding="async" alt="準備高品質範例資料進行微調"><figcaption>微調靠大量一致的好範例，不是把新文件硬灌進模型。</figcaption></figure></div></section>
+    <section><h2>先診斷，不要先加技術</h2><p>同樣是「AI 回得不好」，原因可能完全不同。拿新產品資料問它卻答錯，是資料問題；叫它寫客服回覆卻漏格式，是指令或行為問題。先看根源，才不會花大錢做錯方向。</p></section>
+    <section><h2>三種方法，各解決什麼？</h2><div class="grid"><article class="card"><h3>Prompt</h3><p>解決任務、角色、限制與格式不清楚。最快、最便宜，永遠先試。</p></article><article class="card"><h3>RAG</h3><p>解決最新、私有或需要引用的資料不足。讓 AI 先讀可靠來源再回答。</p></article><article class="card"><h3>Fine-Tuning</h3><p>解決穩定語氣、固定格式或重複行為。需要大量一致的高品質範例。</p></article></div></section>
+    <section><h2>一張選擇表</h2><table class="assessment-table"><tbody><tr><th>你看到的問題</th><th>先試什麼</th><th>為什麼</th></tr><tr><td>回答方向不對、格式漏掉</td><td>Prompt</td><td>通常是要求、對象、限制或成功標準沒有說清楚。</td></tr><tr><td>不知道新規則、內部文件或產品資料</td><td>RAG</td><td>缺的是可用知識，不是說話方式。</td></tr><tr><td>每次都要特定口吻或嚴格結構</td><td>先 Prompt，再評估 Fine-Tuning</td><td>先證明 prompt 不夠穩，再投入資料整理與訓練成本。</td></tr><tr><td>任務需要多步驟與外部工具</td><td>第 9 課的 Agentic Workflow</td><td>問題是流程設計，不是單一模型回答。</td></tr></tbody></table></section>
+    <section><h2>微調不是知識庫</h2><div class="warning-card"><h3>新手最常誤用的地方</h3><p>不要為了讓 AI 記住公司文件而急著微調。文件會更新、可能有權限問題，也難以追溯答案來源。需要最新或私有知識，優先做 RAG；微調只在你已經有大量一致範例，且要穩定複製語氣或格式時才值得考慮。</p></div></section>
+    <section><h2>80 分鐘教學流程</h2><div class="timeline"><article class="step"><div class="time">0-15<br>min</div><div class="step-body"><h3>挑一個真實失敗案例</h3><p>拿一段 AI 答得不好的內容，保留原始問題、輸入資料與期待結果。</p></div></article><article class="step"><div class="time">15-30<br>min</div><div class="step-body"><h3>判斷根源</h3><p>是指令不清、資料缺少、行為不穩，還是流程太複雜？</p></div></article><article class="step"><div class="time">30-50<br>min</div><div class="step-body"><h3>先做最小測試</h3><p>先改 prompt；若缺資料，再提供可靠來源。每次只改一件事。</p></div></article><article class="step"><div class="time">50-65<br>min</div><div class="step-body"><h3>比較結果</h3><p>用同一組問題比較前後版本，記錄準確度、格式與人工修改量。</p></div></article><article class="step"><div class="time">65-80<br>min</div><div class="step-body"><h3>決定下一步</h3><p>只有需求穩定、範例量足夠時，才把微調列入下一階段。</p></div></article></div></section>
+    <section><h2>實作案例：客服回覆為什麼不穩？</h2><div class="grid two"><article class="tip-card"><h3>第一版判斷</h3><p>如果只是忘記加稱呼、語氣不一致，先用 prompt 加上格式與好範例。</p></article><article class="summary-card"><h3>資料與流程變化</h3><p>如果常問退換貨規則、訂單狀態，先用 RAG 與工具查詢；不是直接微調。</p></article></div></section>
+    <section><h2>可複製模板</h2><div class="prompt">這是 AI 表現不好的案例：
+- 任務：[任務]
+- 原本的指令：[Prompt]
+- 可用資料：[文件、表格、規則]
+- 期待結果：[成功標準]
+- 實際問題：[錯誤或不穩定現象]
+
+請幫我判斷根源比較像：
+1. 指令不清楚
+2. 缺少最新或私有資料
+3. 需要穩定複製特定語氣或格式
+4. 任務其實需要多步驟流程
+
+請先建議成本最低的測試方法，並說明為什麼暫時不需要用其他方法。</div></section>
+    <section><h2>課後作業</h2><p>找三個你常遇到的 AI 問題，分別標記「先改 Prompt」「先補資料」「先拆流程」；若選擇微調，必須列出你已擁有的好範例數量與品質規則。</p></section>
+    <section><h2>Cheat Sheet</h2><div class="cheat-grid"><article class="summary-card"><h3>Prompt</h3><p>讓 AI 聽懂要做什麼。</p></article><article class="summary-card"><h3>RAG</h3><p>讓 AI 看得到可靠資料。</p></article><article class="summary-card"><h3>Fine-Tuning</h3><p>讓 AI 穩定學會一種行為；不是資料倉庫。</p></article></div></section>
+    <section><h2>FAQ</h2><details><summary>什麼時候才值得微調？</summary><p>當任務已穩定、prompt 測過仍不夠一致，而且你有大量已審核的高品質輸入輸出範例時。</p></details><details><summary>RAG 和微調可以一起用嗎？</summary><p>可以，但先分別證明各自需要。RAG 處理知識，微調處理行為；不要為了看起來完整而同時上。</p></details><details><summary>選了錯的方法怎麼辦？</summary><p>先回到同一組測試問題，確認問題根源。方法選錯通常不是失敗，而是讓你更清楚缺的是什麼。</p></details></section>
+    <section><h2>課程導覽</h2><nav class="lesson-nav" aria-label="課程導覽"><a href="/mytools/ai-teaching-flow/">第 1 課：80 分鐘完成第一個 AI 任務</a><a href="/mytools/ai-prompt-engineering/">第 2 課：不是 AI 不聰明，是你沒說清楚</a><a href="/mytools/ai-agent-intro/">第 3 課：AI Agent 入門</a><a href="/mytools/codex-first-project/">第 4 課：Codex 第一個小工具</a><a href="/mytools/ai-automation-intro/">第 5 課：AI 自動化入門</a><a href="/mytools/n8n-workflow-reuse/">第 6 課：n8n 工作流複用</a><a href="/mytools/ai-rag-intro/">第 7 課：RAG 入門</a><a href="/mytools/ai-methods/">目前：第 8 課：AI 方法怎麼選</a><a href="/mytools/agentic-workflow/">第 9 課：可靠 Agent 工作流</a><a href="/mytools/">回課程目錄</a></nav></section>
+    <footer>AI 入門系列第 8 / 9 課。先診斷問題，再選擇最小可行的方法。</footer>
+  </main>
+</body>
+</html>

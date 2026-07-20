@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>AI 入門第七課：RAG，讓 AI 先讀資料再回答</title>
+  <meta name="description" content="AI 入門第七課用白話理解 RAG，學會讓 AI 先讀你的文件、標示來源、測試答案，而不是憑印象回答。">
+  <meta name="slug" content="ai-rag-intro">
+  <link rel="canonical" href="https://zhenguocool.com/mytools/ai-rag-intro/">
+  <meta property="og:title" content="AI 入門第七課：RAG，讓 AI 先讀資料再回答">
+  <meta property="og:description" content="把 AI 當成開卷考試的作答者：先給可靠資料，再要求它回答並標示依據。">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://zhenguocool.com/mytools/ai-rag-intro/">
+  <meta property="og:image" content="https://zhenguocool.com/web-assets/ai-course/rag-retrieval.webp">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="AI 入門第七課：RAG，讓 AI 先讀資料再回答">
+  <meta name="twitter:description" content="先給可靠資料，再要求 AI 回答並標示依據。">
+  <meta name="twitter:image" content="https://zhenguocool.com/web-assets/ai-course/rag-retrieval.webp">
+    <script type="application/ld+json" class="course-structured-data">{"@context":"https://schema.org","@graph":[{"@type":"Course","name":"AI 入門第7課：讓 AI 先讀資料，再回答你。","description":"AI 入門第七課用白話理解 RAG，學會讓 AI 先讀你的文件、標示來源、測試答案，而不是憑印象回答。","url":"https://zhenguocool.com/mytools/ai-rag-intro/","image":"https://zhenguocool.com/web-assets/ai-course/rag-retrieval.webp","inLanguage":"zh-Hant","timeRequired":"PT80M","isPartOf":{"@type":"CollectionPage","name":"ZhenguoCool AI 入門課程","url":"https://zhenguocool.com/mytools/"},"provider":{"@type":"Organization","name":"ZhenguoCool","url":"https://zhenguocool.com"}},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"首頁","item":"https://zhenguocool.com/"},{"@type":"ListItem","position":2,"name":"My Tools","item":"https://zhenguocool.com/mytools/"},{"@type":"ListItem","position":3,"name":"讓 AI 先讀資料，再回答你。","item":"https://zhenguocool.com/mytools/ai-rag-intro/"}]},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"RAG 可以完全消除幻覺嗎？","acceptedAnswer":{"@type":"Answer","text":"不行。它能降低亂答，但仍要檢查檢索到的資料是否正確、回答是否真的依據來源。"}},{"@type":"Question","name":"一定要先做向量資料庫嗎？","acceptedAnswer":{"@type":"Answer","text":"不用。第一版先用少量、清楚的文件與人工挑選相關段落，先驗證問題與資料品質。"}},{"@type":"Question","name":"可以把所有公司文件都丟進去嗎？","acceptedAnswer":{"@type":"Answer","text":"不建議。先處理權限、敏感資料、版本與保留期限，再決定哪些資料能被檢索。"}}]}]}</script>
+  <link rel="stylesheet" href="/mytools/ai-course.css">
+  <script src="/mytools/ai-course.js" defer></script>
+</head>
+<body class="course-page">
+  <div class="course-progress" aria-hidden="true"><span></span></div>
+  <main>
+    <header class="hero"><div><p class="kicker">AI 入門第七課</p><h1>讓 AI 先讀資料，再回答你。</h1><p>RAG 不是讓 AI 變聰明，而是先把可靠資料找出來，讓它像開卷考試一樣回答。</p></div><aside class="stamp"><strong>RAG 入門</strong><span>完成後，你能把一組自己的文件變成可查、可驗證的回答流程。</span></aside></header>
+    <section class="course-overview" aria-label="課程摘要"><article><strong>閱讀時間</strong><span>12 分鐘</span></article><article><strong>學習目標</strong><span>判斷何時該用 RAG，並設計有來源、有檢查的第一版問答流程。</span></article><article><strong>重點整理</strong><span>缺資料就先找資料，不要逼 AI 猜。</span></article></section>
+    <nav class="course-map" aria-label="課程進度"><a href="/mytools/ai-teaching-flow/">第 1 課</a><a href="/mytools/ai-prompt-engineering/">第 2 課</a><a href="/mytools/ai-agent-intro/">第 3 課</a><a href="/mytools/codex-first-project/">第 4 課</a><a href="/mytools/ai-automation-intro/">第 5 課</a><a href="/mytools/n8n-workflow-reuse/">第 6 課</a><span class="is-current">第 7 / 9 課</span><a href="/mytools/ai-methods/">第 8 課</a><a href="/mytools/agentic-workflow/">第 9 課</a></nav>
+    <section class="visual-section"><h2>視覺速記</h2><div class="visual-grid"><figure class="image-card"><img src="/web-assets/ai-course/rag-retrieval.webp" width="1672" height="941" loading="lazy" decoding="async" alt="AI 從文件庫找出相關資料後再回答"><figcaption>RAG 先找相關資料，再讓 AI 根據資料回答。</figcaption></figure><figure class="image-card"><img src="/web-assets/ai-course/rag-document-prep.webp" width="1672" height="941" loading="lazy" decoding="async" alt="文件整理成可供 AI 檢索的知識庫"><figcaption>先整理來源、版本與權限，知識庫才有可信的底。</figcaption></figure><figure class="image-card"><img src="/web-assets/ai-course/rag-source-check.webp" width="1672" height="941" loading="lazy" decoding="async" alt="人檢查 AI 回答是否有可靠來源"><figcaption>有來源不代表正確；仍要檢查它是否真的支持答案。</figcaption></figure></div></section>
+    <section><h2>這堂課解決什麼問題？</h2><p>模型不知道你的公司規則、產品資料、會議紀錄或最新版本文件。這不是 prompt 寫得不夠長，而是它手上沒有可用資料。RAG 的做法是先找資料，再要求 AI 只根據找到的內容回答。</p></section>
+    <section><h2>RAG 的五段流程</h2><div class="grid"><article class="card"><h3>問題</h3><p>使用者問了什麼？先確認問題是否具體。</p></article><article class="card"><h3>找資料</h3><p>從已核准的文件、表格或知識庫找相關段落。</p></article><article class="card"><h3>給上下文</h3><p>把最相關的來源交給 AI，不是把所有檔案塞進去。</p></article><article class="card"><h3>回答</h3><p>要求回答只根據來源，資料不足就明說。</p></article><article class="card"><h3>驗證</h3><p>檢查回答是否對應來源、是否過期、是否漏掉例外。</p></article></div></section>
+    <section><h2>什麼時候該用 RAG？</h2><table class="assessment-table"><tbody><tr><th>情況</th><th>適合 RAG</th><th>先不用 RAG</th></tr><tr><td>資料</td><td>有自己的 FAQ、規範、產品資料或文件。</td><td>只是一般寫作或腦力激盪。</td></tr><tr><td>更新</td><td>內容常更新，不能只靠模型舊知識。</td><td>知識固定且不需要引用來源。</td></tr><tr><td>風險</td><td>回答需要可追溯依據，例如客服、內部 SOP。</td><td>答案只是草稿，人工本來就會全面重寫。</td></tr><tr><td>資料品質</td><td>能選出權威版本並移除過期資料。</td><td>文件彼此矛盾、沒有負責人、也不知道哪份為準。</td></tr></tbody></table></section>
+    <section><h2>80 分鐘教學流程</h2><div class="timeline"><article class="step"><div class="time">0-15<br>min</div><div class="step-body"><h3>挑一個小知識庫</h3><p>選 5 到 10 份可靠資料，例如產品 FAQ、活動規則或內部 SOP。</p></div></article><article class="step"><div class="time">15-30<br>min</div><div class="step-body"><h3>標記來源與版本</h3><p>每份資料寫清楚誰負責、何時更新、哪些人可以使用。</p></div></article><article class="step"><div class="time">30-50<br>min</div><div class="step-body"><h3>做開卷回答</h3><p>先把相關段落交給 AI，要求它引用段落並在資料不足時停下來。</p></div></article><article class="step"><div class="time">50-65<br>min</div><div class="step-body"><h3>用 5 題測試</h3><p>準備已知答案、找不到答案、過期資料、相近但不同的問題，各測一次。</p></div></article><article class="step"><div class="time">65-80<br>min</div><div class="step-body"><h3>留下檢查規則</h3><p>定義何時要引用、何時要說不知道、何時必須人工覆核。</p></div></article></div></section>
+    <section><h2>實作案例：把產品 FAQ 變成可查問答</h2><div class="grid two"><article class="tip-card"><h3>輸入</h3><p>已核准的產品 FAQ、退換貨規則、客服話術；每份都標示版本與日期。</p></article><article class="summary-card"><h3>輸出</h3><p>客服草稿加上來源段落。找不到依據時，回覆「目前資料不足，請轉人工確認」。</p></article></div></section>
+    <section><h2>可複製模板</h2><div class="prompt">你只能根據我提供的來源資料回答。
+問題是：[問題]
+來源資料是：[貼上相關段落或文件摘要]
+
+請輸出：
+1. 直接答案
+2. 支持答案的來源重點
+3. 資料不足、過期或互相矛盾的地方
+4. 是否需要人工確認
+
+如果來源沒有答案，請直接說「資料不足」，不要自行補充。</div></section>
+    <section><h2>課後作業</h2><p>選一組你常用的資料，列出來源清單與 5 個測試問題；其中至少一題必須是「資料中找不到答案」的問題。</p></section>
+    <section><h2>Cheat Sheet</h2><div class="cheat-grid"><article class="summary-card"><h3>RAG 的工作</h3><p>補最新與私有資料，不是把模型重新訓練一遍。</p></article><article class="summary-card"><h3>可信來源</h3><p>先確認版本、負責人、更新日與權限。</p></article><article class="summary-card"><h3>安全回答</h3><p>沒有來源就說資料不足，不能硬答。</p></article></div></section>
+    <section><h2>FAQ</h2><details><summary>RAG 可以完全消除幻覺嗎？</summary><p>不行。它能降低亂答，但仍要檢查檢索到的資料是否正確、回答是否真的依據來源。</p></details><details><summary>一定要先做向量資料庫嗎？</summary><p>不用。第一版先用少量、清楚的文件與人工挑選相關段落，先驗證問題與資料品質。</p></details><details><summary>可以把所有公司文件都丟進去嗎？</summary><p>不建議。先處理權限、敏感資料、版本與保留期限，再決定哪些資料能被檢索。</p></details></section>
+    <section><h2>課程導覽</h2><nav class="lesson-nav" aria-label="課程導覽"><a href="/mytools/ai-teaching-flow/">第 1 課：80 分鐘完成第一個 AI 任務</a><a href="/mytools/ai-prompt-engineering/">第 2 課：不是 AI 不聰明，是你沒說清楚</a><a href="/mytools/ai-agent-intro/">第 3 課：AI Agent 入門</a><a href="/mytools/codex-first-project/">第 4 課：Codex 第一個小工具</a><a href="/mytools/ai-automation-intro/">第 5 課：AI 自動化入門</a><a href="/mytools/n8n-workflow-reuse/">第 6 課：n8n 工作流複用</a><a href="/mytools/ai-rag-intro/">目前：第 7 課：RAG 入門</a><a href="/mytools/ai-methods/">第 8 課：AI 方法怎麼選</a><a href="/mytools/agentic-workflow/">第 9 課：可靠 Agent 工作流</a><a href="/mytools/">回課程目錄</a></nav></section>
+    <footer>AI 入門系列第 7 / 9 課。先讓 AI 讀可靠資料，再要求它回答。</footer>
+  </main>
+</body>
+</html>
