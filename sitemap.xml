@@ -919,5 +919,16 @@
     <loc>https://zhenguocool.com/tools/instagram-insights-passive/updates/</loc>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="zh-Hant" href="https://zhenguocool.com/tools/instagram-insights-passive/updates/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://zhenguocool.com/en/tools/instagram-insights-passive/updates/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://zhenguocool.com/tools/instagram-insights-passive/updates/" />
+  </url>
+  <url>
+    <loc>https://zhenguocool.com/en/tools/instagram-insights-passive/updates/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="zh-Hant" href="https://zhenguocool.com/tools/instagram-insights-passive/updates/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://zhenguocool.com/en/tools/instagram-insights-passive/updates/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://zhenguocool.com/tools/instagram-insights-passive/updates/" />
   </url>
 </urlset>
