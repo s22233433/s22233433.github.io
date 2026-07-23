@@ -26,7 +26,7 @@
     window.dataLayer.push({ event, ...payload });
     if (!measurementId || !window.gtag) return Promise.resolve();
     return new Promise((resolve) => {
-      window.gtag("event", event, { ...payload, event_callback: resolve, event_timeout: 1500 });
+      window.gtag("event", event, { ...payload, transport_type: "beacon", event_callback: resolve, event_timeout: 1500 });
     });
   };
 
