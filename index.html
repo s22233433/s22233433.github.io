@@ -27,8 +27,8 @@
   <meta name="twitter:description" content="榛菓行銷協助品牌完成海內外 KOL/KOC 合作，包含創作者篩選、合作洽談、寄樣、腳本方向、內容審核、發布追蹤與結案整理。">
   <meta name="twitter:image" content="https://zhenguocool.com/web-assets/og-zhenguocool-campaign-plan.webp">
   <title>榛菓行銷 | 海內外 KOL/KOC 行銷執行團隊</title>
-  <script src="web-assets/analytics-config.js?v=20260723-6" defer></script>
-  <script src="web-assets/analytics.js?v=20260723-6" defer></script>
+  <script src="web-assets/analytics-config.js?v=20260723-7" defer></script>
+  <script src="web-assets/analytics.js?v=20260723-7" defer></script>
   <script type="application/ld+json" id="structured-data">
 {
   "@context": "https://schema.org",
@@ -2845,7 +2845,7 @@
         const error = leadForm.querySelector("[data-form-error]");
         if (error) error.hidden = true;
         if (submitButton) submitButton.disabled = true;
-        trackEvent("lead_form_submit", { market: leadForm.elements.target_market.value, budget: leadForm.elements.budget_range.value });
+        trackEvent("lead_form_submit");
 
         try {
           const response = await fetch(leadForm.action, {
@@ -2854,10 +2854,10 @@
             headers: { Accept: "application/json" }
           });
           if (!response.ok) throw new Error("Form delivery failed");
-          trackEvent("generate_lead", { market: leadForm.elements.target_market.value, budget: leadForm.elements.budget_range.value });
+          trackEvent("generate_lead");
           const localeMatch = window.location.pathname.match(/^\/(zh-tw|zh-cn|en)\//);
           const thanksPath = localeMatch ? `/${localeMatch[1]}/thanks/` : "/thanks/";
-          window.location.assign(thanksPath);
+          window.setTimeout(() => window.location.assign(thanksPath), 700);
         } catch (_error) {
           leadSubmitting = false;
           if (submitButton) submitButton.disabled = false;

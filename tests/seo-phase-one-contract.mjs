@@ -36,7 +36,7 @@ for (const page of seoPhaseOnePages) {
     assert.match(html, new RegExp(`<html lang="${locale.html}">`), `${relative} has correct html language`);
     assert.match(html, new RegExp(`<link rel="canonical" href="${url}">`), `${relative} is self-canonical`);
     assert.match(html, /<meta name="robots" content="index, follow">/, `${relative} is indexable`);
-    assert.match(html, /<script src="(?:\.\.\/){2,3}web-assets\/analytics-config\.js\?v=20260723-6" defer><\/script>/, `${relative} loads the current analytics config once`);
+    assert.match(html, /<script src="(?:\.\.\/){2,3}web-assets\/analytics-config\.js\?v=20260723-7" defer><\/script>/, `${relative} loads the current analytics config once`);
     assert.equal((html.match(/web-assets\/analytics\.js/g) || []).length, 1, `${relative} loads analytics once`);
     assert.equal((html.match(/<h1>/g) || []).length, 1, `${relative} has one H1`);
     assert.ok(html.includes(`<h1>${copy.h1}</h1>`), `${relative} exposes the page H1`);
@@ -100,6 +100,10 @@ assert.match(analytics, /window\.gtag\("event", event, payload\)/, "Tracked even
 assert.match(analytics, /window\.setTimeout\(\(\) => location\.assign\(element\.href\), 700\)/, "Tracked cross-page links wait for GA delivery");
 assert.match(analytics, /ga_debug/, "Analytics supports DebugView verification");
 assert.match(analytics, /gtag\("set", "debug_mode", true\)/, "DebugView mode is set before GA configuration");
+assert.doesNotMatch(analytics, /debug_mode:\s*false/, "Non-debug traffic omits debug_mode instead of sending false");
+assert.match(analytics, /sessionStorage\.getItem\(debugKey\)/, "DebugView mode persists only within the test session");
+assert.match(analytics, /from_locale: localeValue/, "Language switching normalizes the source locale");
+assert.match(analytics, /to_locale: localeValue/, "Language switching normalizes the destination locale");
 assert.match(fs.readFileSync(path.join(root, "index.html"), "utf8"), /generate_lead/, "Lead form success emits generate_lead");
 
 console.log(`SEO phase-one contract: pass (${urls.length} routes)`);

@@ -4,6 +4,7 @@
   const query = new URLSearchParams(location.search);
   const isLocal = ["localhost", "127.0.0.1", "::1"].includes(location.hostname);
   const debugMode = query.get(debugKey) === "1" || sessionStorage.getItem(debugKey) === "1" || isLocal;
+  const localeValue = (value) => ({ "zh-Hant": "zh-TW", "zh-Hans": "zh-CN" }[value] || value || "unknown");
   if (query.get(debugKey) === "1") sessionStorage.setItem(debugKey, "1");
   window.dataLayer = window.dataLayer || [];
   const content = () => {
@@ -49,7 +50,7 @@
         destination.searchParams.set(debugKey, "1");
         element.href = destination.href;
       }
-      track("language_switch", { from_locale: document.documentElement.lang || "unknown", to_locale: element.dataset.langLink, target_url: element instanceof HTMLAnchorElement ? new URL(element.href, location.href).href : location.href });
+      track("language_switch", { from_locale: localeValue(document.documentElement.lang), to_locale: localeValue(element.dataset.langLink), target_url: element instanceof HTMLAnchorElement ? new URL(element.href, location.href).href : location.href });
     }
     if (element.dataset.trackEvent) track(element.dataset.trackEvent, { cta_location: element.dataset.trackLocation || "content", target_url: element instanceof HTMLAnchorElement ? new URL(element.href, location.href).href : location.href });
     if (!(element instanceof HTMLAnchorElement) || event.defaultPrevented || event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey || element.target === "_blank") return;
