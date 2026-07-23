@@ -1,24 +1,12 @@
 import fs from "node:fs";
 import path from "node:path";
+import { seoEvidence, seoPhaseOnePages } from "./seo-phase-one-content.mjs";
 
 const root = path.resolve(import.meta.dirname, "..");
 const sourcePath = path.join(root, "index.html");
 const baseUrl = "https://zhenguocool.com/";
 const socialShareImage = "web-assets/og-zhenguocool-campaign-plan.webp";
-const gaMeasurementId = "G-3G60NBREE3";
-const gaSnippet = `  <!-- Google tag (gtag.js) -->\n  <script async src="https://www.googletagmanager.com/gtag/js?id=${gaMeasurementId}"></script>\n  <script>window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments)} gtag("js", new Date()); gtag("config", "${gaMeasurementId}");</script>`;
 const source = fs.readFileSync(sourcePath, "utf8");
-
-const injectGoogleAnalytics = (dir) => fs.readdirSync(dir, { withFileTypes: true }).reduce((count, entry) => {
-  const file = path.join(dir, entry.name);
-  if (entry.isDirectory()) return count + (entry.name === ".git" ? 0 : injectGoogleAnalytics(file));
-  if (!entry.isFile() || !entry.name.endsWith(".html")) return count;
-  const html = fs.readFileSync(file, "utf8");
-  if (html.includes(gaMeasurementId)) return count + 1;
-  if (!html.includes("</head>")) throw new Error(`Missing </head> in ${file}`);
-  fs.writeFileSync(file, html.replace("</head>", `${gaSnippet}\n</head>`));
-  return count + 1;
-}, 0);
 
 const rootLocale = { key: "zh-Hant", dir: "", htmlLang: "zh-Hant", url: baseUrl, label: "榛菓行銷", isRoot: true };
 const locales = [
@@ -903,7 +891,25 @@ const caseStudyUrl = (study, locale) => locale.isRoot
   ? `${baseUrl}cases/${study.slug}/`
   : `${locale.url}cases/${study.slug}/`;
 
-const serviceRelativePrefix = () => "../../";
+const seoLocales = [rootLocale, locales[1], locales[2]];
+const seoLanguage = (locale) => locale.key === "zh-Hant"
+  ? { html: "zh-TW", hreflang: "zh-TW", og: "zh_TW" }
+  : locale.key === "zh-Hans"
+    ? { html: "zh-CN", hreflang: "zh-CN", og: "zh_CN" }
+    : { html: "en", hreflang: "en", og: "en_US" };
+const seoPageUrl = (page, locale) => {
+  const directory = page.kind === "article" ? "insights" : "services";
+  return locale.isRoot
+    ? `${baseUrl}${directory}/${page.slug}/`
+    : `${locale.url}${directory}/${page.slug}/`;
+};
+const seoRelativePrefix = (locale) => locale.isRoot ? "../../" : "../../../";
+const seoPageAlternates = (page) => [
+  ...seoLocales.map((locale) => `<link rel="alternate" hreflang="${seoLanguage(locale).hreflang}" href="${seoPageUrl(page, locale)}">`),
+  `<link rel="alternate" hreflang="x-default" href="${seoPageUrl(page, rootLocale)}">`
+].join("\n  ");
+
+const serviceRelativePrefix = (locale) => locale.isRoot ? "../../" : "../../../";
 
 const caseStudyAlternates = (study) => [
   `<link rel="alternate" hreflang="zh-Hant" href="${caseStudyUrl(study, locales[0])}">`,
@@ -1113,6 +1119,8 @@ const renderServicePage = (page, locale) => {
   <meta name="twitter:title" content="${escapeAttr(page.title[locale.key])}">
   <meta name="twitter:description" content="${escapeAttr(page.description[locale.key])}">
   <title>${escapeHtml(page.title[locale.key])}</title>
+  <script src="${prefix}web-assets/analytics-config.js" defer></script>
+  <script src="${prefix}web-assets/analytics.js" defer></script>
   <script type="application/ld+json">
 ${JSON.stringify(buildServiceSchema(page, locale), null, 2)}
   </script>
@@ -1137,7 +1145,7 @@ ${JSON.stringify(buildServiceSchema(page, locale), null, 2)}
         <h1>${escapeHtml(page.title[locale.key])}</h1>
         <p>${escapeHtml(page.intro[locale.key])}</p>
         <div class="actions">
-          <a class="button primary" href="${prefix}#contact-form">${escapeHtml(ui.ctaPrimary)}</a>
+          <a class="button primary" href="${prefix}#contact-form" data-track-event="service_cta_click" data-track-location="hero">${escapeHtml(ui.ctaPrimary)}</a>
           <a class="button" href="${secondaryHref}">${escapeHtml(ui.ctaSecondary)}</a>
         </div>
       </div>
@@ -1197,7 +1205,7 @@ ${relatedStudies.length ? `<section id="case-studies">
         <h2>${escapeHtml(ui.ctaTitle)}</h2>
         <p>${escapeHtml(ui.ctaBody)}</p>
         <div class="actions">
-          <a class="button primary" href="${prefix}#contact-form">${escapeHtml(ui.ctaPrimary)}</a>
+          <a class="button primary" href="${prefix}#contact-form" data-track-event="service_cta_click" data-track-location="final">${escapeHtml(ui.ctaPrimary)}</a>
           <a class="button" href="${secondaryHref}">${escapeHtml(ui.ctaSecondary)}</a>
         </div>
       </div>
@@ -1243,7 +1251,7 @@ const renderCasePage = (study, locale) => {
   const ui = caseUi[locale.key];
   const serviceCopy = serviceUi[locale.key];
   const url = caseStudyUrl(study, locale);
-  const prefix = "../../";
+  const prefix = locale.isRoot ? "../../" : "../../../";
   const assetPrefix = locale.isRoot ? "../../" : "../../../";
   const sections = study.content[locale.key].map((body, index) => `<article class="card"><h3>${escapeHtml(ui.labels[index])}</h3><p>${escapeHtml(body)}</p></article>`).join("\n          ");
   const serviceLinks = study.relatedServices.map((slug) => servicePages.find((page) => page.slug === slug)).filter(Boolean)
@@ -1267,6 +1275,8 @@ const renderCasePage = (study, locale) => {
   <meta name="twitter:title" content="${escapeAttr(study.title[locale.key])}">
   <meta name="twitter:description" content="${escapeAttr(study.summary[locale.key])}">
   <title>${escapeHtml(study.title[locale.key])} | ${escapeHtml(locale.label)}</title>
+  <script src="${prefix}web-assets/analytics-config.js" defer></script>
+  <script src="${prefix}web-assets/analytics.js" defer></script>
   <script type="application/ld+json">
 ${JSON.stringify(buildCaseSchema(study, locale), null, 2)}
   </script>
@@ -1313,11 +1323,150 @@ ${JSON.stringify(buildCaseSchema(study, locale), null, 2)}
       <div class="wrap">
         <h2>${escapeHtml(ui.ctaTitle)}</h2>
         <p>${escapeHtml(ui.ctaBody)}</p>
-        <div class="actions"><a class="button primary" href="${prefix}#contact-form">${escapeHtml(ui.cta)}</a></div>
+        <div class="actions"><a class="button primary" href="${prefix}#contact-form" data-track-event="case_study_click" data-track-location="case-cta">${escapeHtml(ui.cta)}</a></div>
       </div>
     </section>
   </main>
   <footer><div class="wrap">© 2026 ${escapeHtml(locale.label)} / ZHENGUOCool. All Rights Reserved.</div></footer>
+</body>
+</html>
+`;
+};
+
+const seoPageUi = {
+  "zh-Hant": { answer: "先說結論", evidence: "可驗證的執行觀察", related: "延伸閱讀", faq: "常見問題", updated: "最後更新", home: "首頁", services: "服務", insights: "指南", navigation: "網站語言" },
+  "zh-Hans": { answer: "先说结论", evidence: "可验证的执行观察", related: "延伸阅读", faq: "常见问题", updated: "最后更新", home: "首页", services: "服务", insights: "指南", navigation: "网站语言" },
+  en: { answer: "Direct answer", evidence: "Verified delivery observations", related: "Related reading", faq: "Frequently asked questions", updated: "Last updated", home: "Home", services: "Services", insights: "Guides", navigation: "Site language" }
+};
+
+const seoPageSchema = (page, locale) => {
+  const copy = page.copy[locale.key];
+  const ui = seoPageUi[locale.key];
+  const url = seoPageUrl(page, locale);
+  const directory = page.kind === "article" ? "insights" : "services";
+  const primary = page.kind === "article"
+    ? { "@type": "BlogPosting", "@id": `${url}#article`, headline: copy.h1, description: copy.description, mainEntityOfPage: url, datePublished: "2026-07-23", dateModified: "2026-07-23", author: { "@id": `${baseUrl}#organization` }, publisher: { "@id": `${baseUrl}#organization` }, inLanguage: seoLanguage(locale).html }
+    : { "@type": "Service", "@id": `${url}#service`, name: copy.h1, description: copy.description, provider: { "@id": `${baseUrl}#organization` }, serviceType: copy.h1, areaServed: ["Taiwan", "Japan", "United States", "South Korea", "Southeast Asia"], url, inLanguage: seoLanguage(locale).html };
+  return {
+    "@context": "https://schema.org",
+    "@graph": [
+      organizationSchema(locale),
+      primary,
+      {
+        "@type": "FAQPage",
+        "@id": `${url}#faq`,
+        mainEntity: copy.faqs.map(([question, answer]) => ({ "@type": "Question", name: question, acceptedAnswer: { "@type": "Answer", text: answer } }))
+      },
+      {
+        "@type": "BreadcrumbList",
+        "@id": `${url}#breadcrumb`,
+        itemListElement: [
+          { "@type": "ListItem", position: 1, name: ui.home, item: locale.isRoot ? baseUrl : locale.url },
+          { "@type": "ListItem", position: 2, name: page.kind === "article" ? ui.insights : ui.services, item: `${locale.isRoot ? baseUrl : locale.url}${directory}/` },
+          { "@type": "ListItem", position: 3, name: copy.h1, item: url }
+        ]
+      }
+    ]
+  };
+};
+
+const seoLanguageLinks = (page, locale) => seoLocales.map((target) => {
+  const current = target.key === locale.key ? ' aria-current="page"' : "";
+  return `<a href="${seoPageUrl(page, target)}" data-lang-link="${target.key}"${current}>${escapeHtml(target.key === "zh-Hant" ? "繁中" : target.key === "zh-Hans" ? "简中" : "EN")}</a>`;
+}).join(" ");
+
+const renderSeoPage = (page, locale) => {
+  const copy = page.copy[locale.key];
+  const ui = seoPageUi[locale.key];
+  const serviceCopy = serviceUi[locale.key];
+  const language = seoLanguage(locale);
+  const url = seoPageUrl(page, locale);
+  const prefix = seoRelativePrefix(locale);
+  const evidenceCards = page.evidence.map((key) => seoEvidence[key]).filter(Boolean).map((entry) => {
+    const item = entry[locale.key];
+    return `<article class="card"><h3>${escapeHtml(item.title)}</h3><p>${escapeHtml(item.body)}</p></article>`;
+  }).join("\n          ");
+  const sectionCards = copy.sections.map(([title, points]) => `<article class="card"><h2>${escapeHtml(title)}</h2><ul>${points.map((point) => `<li>${escapeHtml(point)}</li>`).join("")}</ul></article>`).join("\n          ");
+  const faqCards = copy.faqs.map(([question, answer]) => `<article class="card"><h3>${escapeHtml(question)}</h3><p>${escapeHtml(answer)}</p></article>`).join("\n          ");
+  const relatedLinks = page.related.map((slug) => seoPhaseOnePages.find((candidate) => candidate.slug === slug)).filter(Boolean).map((related) => `<a class="button" href="${seoPageUrl(related, locale)}">${escapeHtml(related.copy[locale.key].h1)}</a>`).join("\n          ");
+  const update = page.kind === "article" ? `<p class="updated">${escapeHtml(ui.updated)}: 2026-07-23</p>` : "";
+  const updatedLine = update ? `\n        ${update}` : "";
+  const evidenceSection = evidenceCards ? `\n    <section class="faq"><div class="wrap"><h2>${escapeHtml(ui.evidence)}</h2><div class="grid">${evidenceCards}</div></div></section>` : "";
+  const eventName = page.kind === "article" ? "article_cta_click" : "service_cta_click";
+  return `<!DOCTYPE html>
+<html lang="${language.html}">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="${escapeAttr(copy.description)}">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="${url}">
+  ${seoPageAlternates(page)}
+  <meta property="og:type" content="${page.kind === "article" ? "article" : "website"}">
+  <meta property="og:locale" content="${language.og}">
+  <meta property="og:site_name" content="${escapeAttr(locale.label)}">
+  <meta property="og:title" content="${escapeAttr(copy.title)}">
+  <meta property="og:description" content="${escapeAttr(copy.description)}">
+  <meta property="og:url" content="${url}">
+  <meta property="og:image" content="${baseUrl}${socialShareImage}">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="${escapeAttr(copy.title)}">
+  <meta name="twitter:description" content="${escapeAttr(copy.description)}">
+  <title>${escapeHtml(copy.title)}</title>
+  <script src="${prefix}web-assets/analytics-config.js" defer></script>
+  <script src="${prefix}web-assets/analytics.js" defer></script>
+  <script type="application/ld+json">
+${JSON.stringify(seoPageSchema(page, locale), null, 2)}
+  </script>
+  <style>${serviceCss}
+    .hero h1 { max-width:1000px; font-size:clamp(42px, 4.8vw, 68px); line-height:1.08; }
+    .answer { max-width:840px; border-left:4px solid var(--coral); padding:18px 22px; background:#fff; font-size:clamp(18px,2vw,22px); color:#40516c; }
+    .card h2 { font-size:24px; line-height:1.3; }
+    .card ul { margin:0; padding-left:1.25em; color:var(--muted); }
+    .card li + li { margin-top:10px; }
+    .language-links { display:flex; flex-wrap:wrap; gap:10px; font-size:13px; }
+    .language-links a { padding:4px 0; color:var(--muted); }
+    .language-links a[aria-current="page"] { color:var(--ink); font-weight:900; text-decoration:underline; text-underline-offset:4px; }
+    .updated { margin-top:20px; color:var(--muted); font-size:14px; }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="wrap nav">
+      <a class="brand" href="${prefix}"><span>${escapeHtml(locale.label)}</span><small>${escapeHtml(serviceCopy.brandSmall)}</small></a>
+      <nav class="nav-links" aria-label="${escapeAttr(ui.navigation)}">
+        <a href="${prefix}#services">${escapeHtml(serviceCopy.services)}</a>
+        <a class="nav-cta" href="${prefix}#contact-form" data-track-event="${eventName}" data-track-location="nav">${escapeHtml(copy.cta)}</a>
+      </nav>
+    </div>
+  </header>
+  <main>
+    <section class="hero">
+      <div class="wrap">
+        <span class="eyebrow">${page.kind === "article" ? "DECISION GUIDE" : "CAMPAIGN SERVICE"}</span>
+        <h1>${escapeHtml(copy.h1)}</h1>
+        <div class="answer"><strong>${escapeHtml(ui.answer)}：</strong>${escapeHtml(copy.answer)}</div>${updatedLine}
+        <div class="actions"><a class="button primary" href="${prefix}#contact-form" data-track-event="${eventName}" data-track-location="hero">${escapeHtml(copy.cta)}</a></div>
+      </div>
+    </section>
+    <section>
+      <div class="wrap"><div class="grid">${sectionCards}</div></div>
+    </section>${evidenceSection}
+    <section>
+      <div class="wrap"><h2>${escapeHtml(ui.faq)}</h2><div class="grid">${faqCards}</div></div>
+    </section>
+    <section>
+      <div class="wrap"><h2>${escapeHtml(ui.related)}</h2><div class="actions">${relatedLinks}</div></div>
+    </section>
+    <section class="cta">
+      <div class="wrap">
+        <h2>${escapeHtml(serviceCopy.ctaTitle)}</h2>
+        <p>${escapeHtml(serviceCopy.ctaBody)}</p>
+        <div class="actions"><a class="button primary" href="${prefix}#contact-form" data-track-event="${eventName}" data-track-location="final">${escapeHtml(copy.cta)}</a></div>
+      </div>
+    </section>
+  </main>
+  <footer><div class="wrap"><nav class="language-links" aria-label="${escapeAttr(ui.navigation)}">${seoLanguageLinks(page, locale)}</nav><p>© 2026 ${escapeHtml(locale.label)} / ZHENGUOCool. All Rights Reserved.</p></div></footer>
 </body>
 </html>
 `;
@@ -1333,7 +1482,7 @@ const thankYouUrl = (locale) => locale.isRoot ? `${baseUrl}thanks/` : `${locale.
 
 const renderThankYouPage = (locale) => {
   const copy = thanksUi[locale.key];
-  const prefix = "../";
+  const prefix = locale.isRoot ? "../" : "../../";
   return `<!DOCTYPE html>
 <html lang="${locale.htmlLang}">
 <head>
@@ -1342,6 +1491,8 @@ const renderThankYouPage = (locale) => {
   <meta name="robots" content="noindex, follow">
   <link rel="canonical" href="${thankYouUrl(locale)}">
   <title>${escapeHtml(copy.title)} | ${escapeHtml(locale.label)}</title>
+  <script src="${prefix}web-assets/analytics-config.js" defer></script>
+  <script src="${prefix}web-assets/analytics.js" defer></script>
   <style>${serviceCss}</style>
 </head>
 <body>
@@ -1378,6 +1529,17 @@ for (const study of caseStudies) {
     const dir = path.join(root, locale.dir, "cases", study.slug);
     fs.mkdirSync(dir, { recursive: true });
     fs.writeFileSync(path.join(dir, "index.html"), renderCasePage(study, locale));
+  }
+}
+
+for (const page of seoPhaseOnePages) {
+  const directory = page.kind === "article" ? "insights" : "services";
+  for (const locale of seoLocales) {
+    const dir = locale.isRoot
+      ? path.join(root, directory, page.slug)
+      : path.join(root, locale.dir, directory, page.slug);
+    fs.mkdirSync(dir, { recursive: true });
+    fs.writeFileSync(path.join(dir, "index.html"), renderSeoPage(page, locale));
   }
 }
 
@@ -1429,6 +1591,15 @@ for (const study of caseStudies) {
     sitemapItems.push({ loc: caseStudyUrl(study, locale), priority: "0.74", alternates });
   }
 }
+for (const page of seoPhaseOnePages) {
+  const alternates = [
+    ...seoLocales.map((locale) => [seoLanguage(locale).hreflang, seoPageUrl(page, locale)]),
+    ["x-default", seoPageUrl(page, rootLocale)]
+  ];
+  for (const locale of seoLocales) {
+    sitemapItems.push({ loc: seoPageUrl(page, locale), priority: page.kind === "article" ? "0.76" : "0.84", alternates });
+  }
+}
 for (const extraPath of [
   "mytools/",
   "mytools/ai-teaching-flow/",
@@ -1450,5 +1621,4 @@ fs.writeFileSync(path.join(root, "sitemap.xml"), sitemap);
 const robots = `User-agent: *\nAllow: /\n\nSitemap: ${baseUrl}sitemap.xml\n`;
 fs.writeFileSync(path.join(root, "robots.txt"), robots);
 
-const trackedPageCount = injectGoogleAnalytics(root);
-console.log(`Built ${locales.length} locale pages, ${servicePages.length * allLocales.length} service pages, ${caseStudies.length * allLocales.length} case pages, thank-you pages, sitemap.xml, robots.txt, and GA on ${trackedPageCount} pages`);
+console.log(`Built ${locales.length} locale pages, ${servicePages.length * allLocales.length} service pages, ${caseStudies.length * allLocales.length} case pages, ${seoPhaseOnePages.length * seoLocales.length} phase-one SEO pages, thank-you pages, sitemap.xml, robots.txt, and shared GA4 tracking`);

@@ -27,6 +27,8 @@
   <meta name="twitter:description" content="Zhenguo Marketing helps brands execute overseas KOL/KOC campaigns, including creator screening, negotiation, product seeding, script direction, content review, publishing follow-up, and campaign wrap-up.">
   <meta name="twitter:image" content="https://zhenguocool.com/web-assets/og-zhenguocool-campaign-plan.webp">
   <title>Zhenguo Marketing | Overseas KOL/KOC Campaign Execution Team</title>
+  <script src="../web-assets/analytics-config.js" defer></script>
+  <script src="../web-assets/analytics.js" defer></script>
   <script type="application/ld+json" id="structured-data">
 {
   "@context": "https://schema.org",
@@ -1165,9 +1167,6 @@
       .price-card .price-formula { font-size: clamp(20px, 5.3vw, 23px); }
     }
   </style>
-  <!-- Google tag (gtag.js) -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-3G60NBREE3"></script>
-  <script>window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments)} gtag("js", new Date()); gtag("config", "G-3G60NBREE3");</script>
 </head>
 <body>
   <header>
@@ -2816,8 +2815,11 @@
     }
 
     const trackEvent = (event, details = {}) => {
-      window.dataLayer = window.dataLayer || [];
-      window.dataLayer.push({ event, ...details });
+      if (window.zgTrack) window.zgTrack(event, details);
+      else {
+        window.dataLayer = window.dataLayer || [];
+        window.dataLayer.push({ event, ...details });
+      }
     };
 
     document.querySelectorAll("[data-track-event]").forEach((element) => {

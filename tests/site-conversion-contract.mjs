@@ -7,10 +7,11 @@ const read = (file) => fs.readFileSync(path.join(root, file), "utf8");
 
 const home = read("index.html");
 const builder = read("tools/build-locales.mjs");
+const analyticsConfig = read("web-assets/analytics-config.js");
 
-assert.match(builder, /const gaMeasurementId = "G-3G60NBREE3"/, "Builder needs the ZhenguoCool GA4 measurement ID.");
-for (const file of fs.readdirSync(root, { recursive: true }).filter((file) => file.endsWith(".html"))) {
-  assert.match(fs.readFileSync(path.join(root, file), "utf8"), /googletagmanager\.com\/gtag\/js\?id=G-3G60NBREE3/, `Missing GA4 tag: ${file}`);
+assert.match(analyticsConfig, /G-3G60NBREE3/, "Shared analytics config needs the ZhenguoCool GA4 measurement ID.");
+for (const file of fs.readdirSync(root, { recursive: true }).filter((file) => file.endsWith(".html") && !file.startsWith("mytools/") && !file.startsWith("tools/"))) {
+  assert.match(fs.readFileSync(path.join(root, file), "utf8"), /(web-assets\/analytics\.js|googletagmanager\.com\/gtag\/js\?id=G-3G60NBREE3)/, `Missing analytics entry point: ${file}`);
 }
 
 assert.match(home, /<form[^>]+id="lead-form"/, "Homepage needs a qualifying lead form.");
