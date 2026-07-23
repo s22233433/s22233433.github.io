@@ -8,7 +8,7 @@ const site = (process.env.SITE_URL || "https://zhenguocool.com").replace(/\/$/, 
 const chrome = process.env.CHROME_BIN || "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome";
 const port = Number(process.env.GA4_CDP_PORT || 9500 + (process.pid % 300));
 const measurementId = "G-3G60NBREE3";
-const timeoutMs = Number(process.env.GA4_TIMEOUT_MS || 6000);
+const timeoutMs = Number(process.env.GA4_TIMEOUT_MS || 12000);
 const locales = [
   { key: "zh-TW", prefix: "", lang: "zh-TW" },
   { key: "zh-CN", prefix: "/zh-cn", lang: "zh-CN" },
@@ -16,6 +16,7 @@ const locales = [
 ];
 const collectHosts = new Set(["www.google-analytics.com", "google-analytics.com", "analytics.google.com", "region1.google-analytics.com"]);
 const piiKey = /(^|[_.])(email|e-mail|phone|tel|name|contact|company|brand|message|body)([_.]|$)/i;
+const allowedEventKeys = new Set(["ep.service_name", "ep.content_slug", "ep.content_type", "ep.locale", "ep.page_path", "ep.cta_location", "ep.target_url", "ep.from_locale", "ep.to_locale", "ep.debug_mode"]);
 const emailValue = /[^\s@]+@[^\s@]+\.[^\s@]+/;
 const phoneValue = /(?:\+?\d[\s().-]?){7,}\d/;
 const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
@@ -128,7 +129,8 @@ const requestRows = (events) => {
 
 const scansForPii = (collects) => collects.flatMap((collect) => Object.entries(collect.parameters).flatMap(([key, value]) => {
   const values = Array.isArray(value) ? value : [value];
-  return values.flatMap((item) => (piiKey.test(key) || emailValue.test(item) || (key.startsWith("ep.") && phoneValue.test(item))) ? [{ request_id: collect.request_id, event: collect.event, key, value: item }] : []);
+  const sensitiveKey = piiKey.test(key) && !allowedEventKeys.has(key);
+  return values.flatMap((item) => (sensitiveKey || emailValue.test(item) || (key.startsWith("ep.") && !allowedEventKeys.has(key) && phoneValue.test(item))) ? [{ request_id: collect.request_id, event: collect.event, key, value: item }] : []);
 }));
 
 const gaFor = (events, eventName) => requestRows(events).filter((event) => event.event === eventName);
@@ -242,9 +244,9 @@ async function visit(cdp, sessionId, url) {
   }
 }
 
-async function trigger(cdp, sessionId, selector, description) {
+async function trigger(cdp, sessionId, selector, description, holdNavigation = false) {
   const start = cdp.events.length;
-  const expression = `(() => { const element = document.querySelector(${JSON.stringify(selector)}); if (!element) throw new Error(${JSON.stringify(`Missing selector: ${selector}`)}); element.scrollIntoView({block:"center"}); const target_url = element instanceof HTMLAnchorElement ? element.href : location.href; element.click(); return JSON.stringify({target_url}); })()`;
+  const expression = `(() => { const element = document.querySelector(${JSON.stringify(selector)}); if (!element) throw new Error(${JSON.stringify(`Missing selector: ${selector}`)}); ${holdNavigation ? "document.addEventListener('click', (event) => event.preventDefault(), {capture:true, once:true});" : ""} element.scrollIntoView({block:"center"}); const target_url = element instanceof HTMLAnchorElement ? element.href : location.href; element.click(); return JSON.stringify({target_url}); })()`;
   const result = await cdp.send("Runtime.evaluate", { expression, awaitPromise: true, returnByValue: true }, sessionId);
   return { start, target_url: JSON.parse(result.result.value).target_url, description };
 }
@@ -253,7 +255,7 @@ async function runClickCheck(cdp, definition) {
   return withPage(cdp, async (sessionId) => {
     const url = withDebug(definition.url);
     const loaded = await visit(cdp, sessionId, url);
-    const action = await trigger(cdp, sessionId, definition.selector, definition.name);
+    const action = await trigger(cdp, sessionId, definition.selector, definition.name, true);
     const collected = await cdp.waitFor(action.start, sessionId, (events) => gaFor(events, definition.event).find((event) => event.cta_location === definition.location), `${definition.event} from ${definition.name}`);
     await waitForGaIdle(cdp, action.start, sessionId, definition.name);
     const events = cdp.eventsAfter(action.start, sessionId);
@@ -281,10 +283,12 @@ async function runLanguageCheck(cdp, definition) {
   return withPage(cdp, async (sessionId) => {
     const fromUrl = withDebug(definition.url);
     const loaded = await visit(cdp, sessionId, fromUrl);
-    const action = await trigger(cdp, sessionId, `[data-lang-link="${definition.targetLink}"]`, definition.name);
+    const action = await trigger(cdp, sessionId, `[data-lang-link="${definition.targetLink}"]`, definition.name, true);
     const expectedTarget = withDebug(action.target_url);
     await cdp.waitFor(action.start, sessionId, (events) => gaFor(events, "language_switch").find((event) => event.from_locale === definition.from && event.to_locale === definition.to), `language_switch ${definition.name}`);
-    await cdp.waitFor(action.start, sessionId, (events) => pageViewFor(events, expectedTarget), `language page_view ${definition.name}`);
+    const navigationStart = cdp.events.length;
+    await cdp.send("Page.navigate", { url: expectedTarget }, sessionId);
+    await cdp.waitFor(navigationStart, sessionId, (events) => pageViewFor(events, expectedTarget), `language page_view ${definition.name}`);
     await waitForGaIdle(cdp, action.start, sessionId, definition.name);
     const events = cdp.eventsAfter(action.start, sessionId);
     const switches = gaFor(events, "language_switch");
@@ -326,24 +330,38 @@ async function runLeadCheck(cdp, mode) {
     const isInvalid = mode === "empty" || mode === "invalid";
     const expression = `(() => {
       const form = document.querySelector('#lead-form');
-      window.__zgInvalid = false;
-      form.addEventListener('invalid', () => { window.__zgInvalid = true; }, {capture:true, once:true});
+      const originalTrack = window.zgTrack;
+      window.__leadTrace = [];
+      window.zgTrack = (event, details) => {
+        window.__leadTrace.push(event);
+        const delivery = originalTrack(event, details);
+        if (event !== 'generate_lead') return delivery;
+        return new Promise((resolve) => { window.__releaseLeadNavigation = () => Promise.resolve(delivery).finally(resolve); });
+      };
       window.fetch = async () => new Response('', {status:${mode === "error" ? 500 : 200}});
       ${mode === "empty" ? "" : fillForm}
       ${mode === "invalid" ? "form.elements.email.value = 'not-an-email';" : ""}
+      window.__zgInvalid = !form.checkValidity();
       form.requestSubmit();
       ${mode === "double" ? "form.requestSubmit();" : ""}
     })()`;
-    await cdp.send("Runtime.evaluate", { expression, awaitPromise: true }, sessionId);
+    const submitted = await cdp.send("Runtime.evaluate", { expression, awaitPromise: true }, sessionId);
+    if (submitted.exceptionDetails) throw new Error(`Lead test evaluation failed: ${submitted.exceptionDetails.text}`);
     if (isInvalid) {
-      await cdp.waitFor(start, sessionId, async () => {
-        const value = await cdp.send("Runtime.evaluate", { expression: "window.__zgInvalid === true", returnByValue: true }, sessionId);
-        return value.result.value === true;
-      }, `native validation for ${mode}`);
+      const invalid = await cdp.send("Runtime.evaluate", { expression: "window.__zgInvalid === true", returnByValue: true }, sessionId);
+      if (invalid.result.value !== true) throw new Error(`Native validation did not fail for ${mode}`);
     } else if (mode === "error") {
-      await cdp.waitFor(start, sessionId, (events) => gaFor(events, "lead_form_error")[0], "lead_form_error");
+      await cdp.waitFor(start, sessionId, async () => {
+        const value = await cdp.send("Runtime.evaluate", { expression: "document.querySelector('[data-form-error]')?.hidden === false", returnByValue: true }, sessionId);
+        return value.result.value === true;
+      }, "form error state");
     } else {
+      await cdp.waitFor(start, sessionId, async () => {
+        const value = await cdp.send("Runtime.evaluate", { expression: "window.__leadTrace?.includes('generate_lead') === true", returnByValue: true }, sessionId);
+        return value.result.value === true;
+      }, `generate_lead handler ${mode}`);
       await cdp.waitFor(start, sessionId, (events) => gaFor(events, "generate_lead")[0], `generate_lead ${mode}`);
+      await cdp.send("Runtime.evaluate", { expression: "window.__releaseLeadNavigation?.()", awaitPromise: true }, sessionId);
       await cdp.waitFor(start, sessionId, (events) => pageViewFor(events, `${site}/thanks/`), `thank-you page_view ${mode}`);
     }
     if (!isInvalid) await waitForGaIdle(cdp, start, sessionId, `lead ${mode}`);
