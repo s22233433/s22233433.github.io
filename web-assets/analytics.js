@@ -32,5 +32,11 @@
     if (!element) return;
     if (element.dataset.langLink) track("language_switch", { target_locale: element.dataset.langLink });
     if (element.dataset.trackEvent) track(element.dataset.trackEvent, { cta_location: element.dataset.trackLocation || "content" });
+    if (!(element instanceof HTMLAnchorElement) || event.defaultPrevented || event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey || element.target === "_blank") return;
+    const destination = new URL(element.href, location.href);
+    const isSameDocument = destination.origin === location.origin && destination.pathname === location.pathname && destination.search === location.search;
+    if (isSameDocument) return;
+    event.preventDefault();
+    window.setTimeout(() => location.assign(element.href), 180);
   });
 })();
