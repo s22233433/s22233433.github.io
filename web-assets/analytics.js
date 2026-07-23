@@ -37,6 +37,6 @@
     const isSameDocument = destination.origin === location.origin && destination.pathname === location.pathname && destination.search === location.search;
     if (isSameDocument) return;
     event.preventDefault();
-    window.setTimeout(() => location.assign(element.href), 180);
+    window.setTimeout(() => location.assign(element.href), 700);
   });
 })();

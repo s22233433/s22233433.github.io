@@ -36,7 +36,7 @@ for (const page of seoPhaseOnePages) {
     assert.match(html, new RegExp(`<html lang="${locale.html}">`), `${relative} has correct html language`);
     assert.match(html, new RegExp(`<link rel="canonical" href="${url}">`), `${relative} is self-canonical`);
     assert.match(html, /<meta name="robots" content="index, follow">/, `${relative} is indexable`);
-    assert.match(html, /<script src="(?:\.\.\/){2,3}web-assets\/analytics-config\.js\?v=20260723-4" defer><\/script>/, `${relative} loads the current analytics config once`);
+    assert.match(html, /<script src="(?:\.\.\/){2,3}web-assets\/analytics-config\.js\?v=20260723-5" defer><\/script>/, `${relative} loads the current analytics config once`);
     assert.equal((html.match(/web-assets\/analytics\.js/g) || []).length, 1, `${relative} loads analytics once`);
     assert.equal((html.match(/<h1>/g) || []).length, 1, `${relative} has one H1`);
     assert.ok(html.includes(`<h1>${copy.h1}</h1>`), `${relative} exposes the page H1`);
@@ -97,7 +97,7 @@ assert.match(analytics, /send_page_view: false/, "GA config suppresses the autom
 assert.equal((analytics.match(/track\("page_view"\)/g) || []).length, 1, "Analytics emits page_view exactly once in the shared tracker");
 assert.match(analytics, /googletagmanager\.com\/gtag\/js\?id=/, "GA loader is present when a measurement ID is configured");
 assert.match(analytics, /window\.gtag\("event", event, payload\)/, "Tracked events are forwarded to GA4");
-assert.match(analytics, /window\.setTimeout\(\(\) => location\.assign\(element\.href\), 180\)/, "Tracked cross-page links wait briefly for GA delivery");
+assert.match(analytics, /window\.setTimeout\(\(\) => location\.assign\(element\.href\), 700\)/, "Tracked cross-page links wait for GA delivery");
 assert.match(analytics, /ga_debug/, "Analytics supports DebugView verification");
 assert.match(analytics, /gtag\("set", "debug_mode", true\)/, "DebugView mode is set before GA configuration");
 assert.match(fs.readFileSync(path.join(root, "index.html"), "utf8"), /generate_lead/, "Lead form success emits generate_lead");
