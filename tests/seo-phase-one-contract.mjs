@@ -97,6 +97,7 @@ assert.equal((analytics.match(/track\("page_view"\)/g) || []).length, 1, "Analyt
 assert.match(analytics, /googletagmanager\.com\/gtag\/js\?id=/, "GA loader is present when a measurement ID is configured");
 assert.match(analytics, /window\.gtag\("event", event, payload\)/, "Tracked events are forwarded to GA4");
 assert.match(analytics, /ga_debug/, "Analytics supports DebugView verification");
+assert.match(analytics, /gtag\("set", "debug_mode", true\)/, "DebugView mode is set before GA configuration");
 assert.match(fs.readFileSync(path.join(root, "index.html"), "utf8"), /generate_lead/, "Lead form success emits generate_lead");
 
 console.log(`SEO phase-one contract: pass (${urls.length} routes)`);

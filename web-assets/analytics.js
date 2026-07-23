@@ -21,6 +21,7 @@
     script.src = `https://www.googletagmanager.com/gtag/js?id=${encodeURIComponent(measurementId)}`;
     document.head.append(script);
     window.gtag("js", new Date());
+    if (debugMode) window.gtag("set", "debug_mode", true);
     window.gtag("config", measurementId, { send_page_view: false, ...(debugMode ? { debug_mode: true } : {}) });
   }
   track("page_view");
