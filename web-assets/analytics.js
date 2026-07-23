@@ -36,12 +36,12 @@
     const script = document.createElement("script");
     script.async = true;
     script.src = `https://www.googletagmanager.com/gtag/js?id=${encodeURIComponent(measurementId)}`;
+    script.addEventListener("load", () => track("page_view"), { once: true });
     document.head.append(script);
     window.gtag("js", new Date());
     if (debugMode) window.gtag("set", "debug_mode", true);
     window.gtag("config", measurementId, { send_page_view: false, ...(debugMode ? { debug_mode: true } : {}) });
-  }
-  track("page_view");
+  } else track("page_view");
 
   document.addEventListener("click", (event) => {
     if (!(event.target instanceof Element)) return;

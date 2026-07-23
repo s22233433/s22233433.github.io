@@ -27,8 +27,8 @@
   <meta name="twitter:description" content="Zhenguo Marketing helps brands execute overseas KOL/KOC campaigns, including creator screening, negotiation, product seeding, script direction, content review, publishing follow-up, and campaign wrap-up.">
   <meta name="twitter:image" content="https://zhenguocool.com/web-assets/og-zhenguocool-campaign-plan.webp">
   <title>Zhenguo Marketing | Overseas KOL/KOC Campaign Execution Team</title>
-  <script src="../web-assets/analytics-config.js?v=20260723-9" defer></script>
-  <script src="../web-assets/analytics.js?v=20260723-9" defer></script>
+  <script src="../web-assets/analytics-config.js?v=20260723-10" defer></script>
+  <script src="../web-assets/analytics.js?v=20260723-10" defer></script>
   <script type="application/ld+json" id="structured-data">
 {
   "@context": "https://schema.org",
@@ -2856,6 +2856,7 @@
           });
           if (!response.ok) throw new Error("Form delivery failed");
           await trackEvent("generate_lead");
+          await new Promise((resolve) => setTimeout(resolve, 250));
           const localeMatch = window.location.pathname.match(/^\/(zh-tw|zh-cn|en)\//);
           const thanksPath = localeMatch ? `/${localeMatch[1]}/thanks/` : "/thanks/";
           window.location.assign(thanksPath);
