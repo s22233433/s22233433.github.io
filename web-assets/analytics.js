@@ -1,11 +1,24 @@
 (() => {
   const measurementId = window.ZG_GA_MEASUREMENT_ID;
-  const debugMode = new URLSearchParams(location.search).has("ga_debug");
+  const debugKey = "ga_debug";
+  const query = new URLSearchParams(location.search);
+  const isLocal = ["localhost", "127.0.0.1", "::1"].includes(location.hostname);
+  const debugMode = query.get(debugKey) === "1" || sessionStorage.getItem(debugKey) === "1" || isLocal;
+  if (query.get(debugKey) === "1") sessionStorage.setItem(debugKey, "1");
   window.dataLayer = window.dataLayer || [];
+  const content = () => {
+    const parts = location.pathname.split("/").filter(Boolean);
+    const typeIndex = parts.findIndex((part) => part === "services" || part === "insights" || part === "cases");
+    const contentType = typeIndex < 0 ? "homepage" : parts[typeIndex] === "insights" ? "article" : parts[typeIndex] === "cases" ? "case_study" : "service";
+    const contentSlug = typeIndex < 0 ? "home" : parts[typeIndex + 1] || contentType;
+    return { content_type: contentType, content_slug: contentSlug, ...(contentType === "service" ? { service_name: contentSlug } : {}) };
+  };
   const page = () => ({
     page_path: `${location.pathname}${location.search}`,
     page_title: document.title,
-    locale: document.documentElement.lang || "unknown"
+    page_location: location.href,
+    locale: document.documentElement.lang || "unknown",
+    ...content()
   });
   const track = (event, details = {}) => {
     const payload = { ...page(), ...details, ...(debugMode ? { debug_mode: true } : {}) };
@@ -30,8 +43,15 @@
     if (!(event.target instanceof Element)) return;
     const element = event.target.closest("[data-track-event], [data-lang-link]");
     if (!element) return;
-    if (element.dataset.langLink) track("language_switch", { target_locale: element.dataset.langLink });
-    if (element.dataset.trackEvent) track(element.dataset.trackEvent, { cta_location: element.dataset.trackLocation || "content" });
+    if (element.dataset.langLink) {
+      if (debugMode && element instanceof HTMLAnchorElement) {
+        const destination = new URL(element.href, location.href);
+        destination.searchParams.set(debugKey, "1");
+        element.href = destination.href;
+      }
+      track("language_switch", { from_locale: document.documentElement.lang || "unknown", to_locale: element.dataset.langLink, target_url: element instanceof HTMLAnchorElement ? new URL(element.href, location.href).href : location.href });
+    }
+    if (element.dataset.trackEvent) track(element.dataset.trackEvent, { cta_location: element.dataset.trackLocation || "content", target_url: element instanceof HTMLAnchorElement ? new URL(element.href, location.href).href : location.href });
     if (!(element instanceof HTMLAnchorElement) || event.defaultPrevented || event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey || element.target === "_blank") return;
     const destination = new URL(element.href, location.href);
     const isSameDocument = destination.origin === location.origin && destination.pathname === location.pathname && destination.search === location.search;

@@ -27,8 +27,8 @@
   <meta name="twitter:description" content="Zhenguo Marketing helps brands execute overseas KOL/KOC campaigns, including creator screening, negotiation, product seeding, script direction, content review, publishing follow-up, and campaign wrap-up.">
   <meta name="twitter:image" content="https://zhenguocool.com/web-assets/og-zhenguocool-campaign-plan.webp">
   <title>Zhenguo Marketing | Overseas KOL/KOC Campaign Execution Team</title>
-  <script src="../web-assets/analytics-config.js?v=20260723-5" defer></script>
-  <script src="../web-assets/analytics.js?v=20260723-5" defer></script>
+  <script src="../web-assets/analytics-config.js?v=20260723-6" defer></script>
+  <script src="../web-assets/analytics.js?v=20260723-6" defer></script>
   <script type="application/ld+json" id="structured-data">
 {
   "@context": "https://schema.org",
@@ -1184,7 +1184,7 @@
           <a href="#process" data-i18n="navProcess">Process</a>
           <a href="#pricing" data-i18n="navPricing">Pricing</a>
           <a href="#answers" data-i18n="navAnswers">FAQ</a>
-          <a class="nav-cta" href="#contact" data-i18n="navContact">Contact</a>
+          <a class="nav-cta" href="#contact" data-track-event="contact_click" data-track-location="nav" data-i18n="navContact">Contact</a>
         </nav>
         <div class="lang-switch" aria-label="Language switcher" data-i18n-aria-label="langAria">
           <a href="../zh-tw/" hreflang="zh-Hant" lang="zh-Hant" data-lang-link="zh-Hant">繁</a>
@@ -1204,8 +1204,8 @@
           <h1><span data-i18n="heroTitleLineOne">Domestic and Overseas KOL/KOC</span><span data-i18n="heroTitleLineTwo">Campaign Execution Team</span></h1>
           <p data-i18n="heroBody">From creator screening, negotiation, product seeding, script direction, and content review to publishing follow-up, we help brands complete overseas influencer collaborations.</p>
           <div class="hero-actions">
-            <a class="button primary" href="#contact-form" data-track-event="lead_initial_advice" data-i18n="heroCta">Get Initial Campaign Advice</a>
-            <a class="button secondary" href="#cases" data-track-event="view_cases" data-i18n="heroSecondary">View Past Cases</a>
+            <a class="button primary" href="#contact-form" data-track-event="quote_request_click" data-track-location="hero" data-i18n="heroCta">Get Initial Campaign Advice</a>
+            <a class="button secondary" href="#cases" data-track-event="case_study_click" data-track-location="hero" data-i18n="heroSecondary">View Past Cases</a>
           </div>
         </div>
         <aside class="hero-panel reveal" style="--delay:120ms">
@@ -1344,7 +1344,7 @@
                 <div><dt data-i18n="caseLabelExecution">Execution Method</dt><dd data-i18n="caseExecutionDefault">Creator communication, content direction, material check, and publishing follow-up.</dd></div>
                 <div><dt data-i18n="caseLabelDelivery">Deliverables</dt><dd data-i18n="caseDeliveryDefault">Campaign materials, publishing links, and wrap-up notes.</dd></div>
               </dl>
-              <a class="case-link" href="../cases/liming-weiquan-cheer/" data-i18n="caseReadMore">Read the full case</a>
+              <a class="case-link" href="../cases/liming-weiquan-cheer/" data-track-event="case_study_click" data-track-location="case-card" data-i18n="caseReadMore">Read the full case</a>
             </div>
           </article>
           <article class="featured-case reveal" style="--delay:90ms" data-case-tags="game">
@@ -1533,7 +1533,7 @@
                 <div><dt data-i18n="caseLabelExecution">Execution Method</dt><dd data-i18n="caseExecutionDefault">Creator communication, content direction, material check, and publishing follow-up.</dd></div>
                 <div><dt data-i18n="caseLabelDelivery">Deliverables</dt><dd data-i18n="caseDeliveryDefault">Campaign materials, publishing links, and wrap-up notes.</dd></div>
               </dl>
-              <a class="case-link" href="../cases/korea-kol-goodme/" data-i18n="caseReadMore">Read the full case</a>
+              <a class="case-link" href="../cases/korea-kol-goodme/" data-track-event="case_study_click" data-track-location="case-card" data-i18n="caseReadMore">Read the full case</a>
             </div>
             </article>
 
@@ -1564,7 +1564,7 @@
                 <div><dt data-i18n="caseLabelExecution">Execution Method</dt><dd data-i18n="caseExecutionDefault">Creator communication, content direction, material check, and publishing follow-up.</dd></div>
                 <div><dt data-i18n="caseLabelDelivery">Deliverables</dt><dd data-i18n="caseDeliveryDefault">Campaign materials, publishing links, and wrap-up notes.</dd></div>
               </dl>
-              <a class="case-link" href="../cases/camay-curling-iron/" data-i18n="caseReadMore">Read the full case</a>
+              <a class="case-link" href="../cases/camay-curling-iron/" data-track-event="case_study_click" data-track-location="case-card" data-i18n="caseReadMore">Read the full case</a>
             </div>
             </article>
             
@@ -1654,7 +1654,7 @@
         <div>
           <h2 data-i18n="contactTitle">Want to confirm what fits your brand?</h2>
           <p data-i18n="contactBody">Send us your brand goal, budget range, target market, and preferred platforms. We will organize the first campaign direction.</p>
-          <div class="final-actions"><a class="button primary" href="#contact-form" data-track-event="lead_final_form" data-i18n="finalCtaPrimary">Get Initial Campaign Advice</a><a class="button secondary on-dark" href="#cases" data-track-event="view_cases_final" data-i18n="finalCtaSecondary">View Past Cases</a></div>
+          <div class="final-actions"><a class="button primary" href="#contact-form" data-track-event="quote_request_click" data-track-location="contact" data-i18n="finalCtaPrimary">Get Initial Campaign Advice</a><a class="button secondary on-dark" href="#cases" data-track-event="case_study_click" data-track-location="contact" data-i18n="finalCtaSecondary">View Past Cases</a></div>
         </div>
         <div class="contact-card">
           <form id="lead-form" class="lead-form" action="https://formsubmit.co/ajax/weiting@zhenguocool.com" method="POST">
@@ -2827,6 +2827,7 @@
 
     const leadForm = document.querySelector("#lead-form");
     if (leadForm) {
+      let leadSubmitting = false;
       const params = new URLSearchParams(window.location.search);
       ["utm_source", "utm_medium", "utm_campaign", "utm_content"].forEach((key) => {
         const field = leadForm.elements.namedItem(key);
@@ -2838,6 +2839,8 @@
       leadForm.addEventListener("submit", async (event) => {
         event.preventDefault();
         if (!leadForm.reportValidity()) return;
+        if (leadSubmitting) return;
+        leadSubmitting = true;
         const submitButton = leadForm.querySelector('button[type="submit"]');
         const error = leadForm.querySelector("[data-form-error]");
         if (error) error.hidden = true;
@@ -2856,6 +2859,7 @@
           const thanksPath = localeMatch ? `/${localeMatch[1]}/thanks/` : "/thanks/";
           window.location.assign(thanksPath);
         } catch (_error) {
+          leadSubmitting = false;
           if (submitButton) submitButton.disabled = false;
           if (error) {
             error.textContent = pageCopy.formError;
