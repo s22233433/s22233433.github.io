@@ -178,6 +178,19 @@
     .language-links a { padding:4px 0; color:var(--muted); }
     .language-links a[aria-current="page"] { color:var(--ink); font-weight:900; text-decoration:underline; text-underline-offset:4px; }
     .updated { margin-top:20px; color:var(--muted); font-size:14px; }
+    .core-module { padding:64px 0; }
+    .table-wrap { overflow-x:auto; background:#fff; border:1px solid var(--line); border-radius:8px; }
+    table { width:100%; min-width:640px; border-collapse:collapse; text-align:left; }
+    th, td { padding:16px 18px; vertical-align:top; border-bottom:1px solid var(--line); }
+    th { background:#f4efe5; color:var(--ink); font-size:14px; }
+    td { color:var(--muted); }
+    .timeline { display:grid; grid-template-columns:repeat(4, 1fr); gap:14px; }
+    .timeline-item { min-height:150px; border-top:3px solid var(--teal); padding:18px 0; }
+    .timeline-item span { color:var(--coral); font-family:Georgia,"Times New Roman",serif; font-size:28px; }
+    .timeline-item h3 { margin:8px 0; font-size:19px; }
+    .timeline-item p { margin:0; color:var(--muted); }
+    .evidence-meta { margin-top:14px !important; padding-top:12px; border-top:1px solid var(--line); color:#526074 !important; font-size:13px; line-height:1.55; }
+    @media (max-width:760px) { .core-module { padding:48px 0; } .timeline { grid-template-columns:1fr; } .timeline-item { min-height:0; display:grid; grid-template-columns:52px 1fr; gap:10px; } .timeline-item h3 { margin-top:2px; } }
   </style>
 </head>
 <body>
@@ -204,9 +217,16 @@
           <article class="card"><h2>Who it fits</h2><ul><li>Brands with a defined product story, budget range, timing, and internal review owner.</li><li>Not a fit for list-only requests, guaranteed-virality expectations, or brands that cannot allow creator expression.</li><li>We do not accept group-buying, resale, or commission-led campaigns.</li></ul></article>
           <article class="card"><h2>Platform, talent agency, or campaign partner</h2><ul><li>A platform fits teams that can run verification, follow-up, and reporting themselves.</li><li>A talent agency represents its roster; cross-roster comparison and coordination may be separate work.</li><li>Zhenguo works from the brand project outward, with decision records and execution checkpoints.</li></ul></article>
           <article class="card"><h2>Prepare before outreach</h2><ul><li>Share product materials, prohibited claims, target market, channel, and launch date.</li><li>Set a budget range, seeding availability, and any known rights requirements.</li><li>Name the approver and acceptable revision rounds before the brief is sent.</li></ul></article></div></div>
-    </section>
-    <section class="faq"><div class="wrap"><h2>Verified delivery observations</h2><div class="grid"><article class="card"><h3>Anonymous case: Taiwan consumer brand creator mix</h3><p>An eight-creator campaign in May 2026 used six KOLs and two KOCs. It recorded 566,178 impressions and 224,376 reach; engagement divided by reach was 8.39%.</p></article>
-          <article class="card"><h3>Anonymous case: a 30-creator KOL/KOC mix</h3><p>A campaign from April to May 2026 used 12 KOLs and 18 KOCs. The source recorded 517,698 impressions and 409,575 reach; engagement divided by reach was 0.84%.</p></article></div></div></section>
+    </section><section class="core-module comparison-module"><div class="wrap"><h2>Collaboration comparison</h2><div class="table-wrap"><table><thead><tr><th>Approach</th><th>When it fits</th><th>What is often missed</th></tr></thead><tbody><tr><td>Brand-managed</td><td>You have a shortlist, legal support, and follow-up capacity</td><td>The brand owns delays, replacements, and rights</td></tr><tr><td>Creator platform</td><td>You need discovery and first contact</td><td>It does not complete review or close-out</td></tr><tr><td>Campaign team</td><td>You need aligned terms and delivery across creators</td><td>It is not for list-only buying</td></tr></tbody></table></div></div></section>
+    <section class="core-module"><div class="wrap"><h2>Execution timeline</h2><div class="timeline"><article class="timeline-item"><span>01</span><div><h3>Brief</h3><p>Separate awareness, asset, and conversion-handoff goals.</p></div></article><article class="timeline-item"><span>02</span><div><h3>Evaluation</h3><p>Compare audience, content context, brand safety, and reliability.</p></div></article><article class="timeline-item"><span>03</span><div><h3>Terms</h3><p>Confirm publishing, rights, exclusivity, and revisions separately.</p></div></article><article class="timeline-item"><span>04</span><div><h3>Close-out</h3><p>Organize live links, rights status, and next-round decisions.</p></div></article></div></div></section>
+    <section class="core-module faq"><div class="wrap"><h2>Decision details</h2><div class="grid"><article class="card"><h3>Selection standard</h3><p>Recent content must explain the product naturally, reach the intended market, and show reliable delivery.</p></article>
+          <article class="card"><h3>Rights rule</h3><p>Original posting, reposting, website use, whitelisting, and paid media need separate approval.</p></article>
+          <article class="card"><h3>Cost factors</h3><p>Creator count, format, revisions, rights, exclusivity, and management intensity.</p></article>
+          <article class="card"><h3>Key risk</h3><p>Treating follower count as the only filter or negotiating rights after content is made.</p></article>
+          <article class="card"><h3>Common failure</h3><p>No single review owner, causing uncontrolled revision loops and launch dates.</p></article>
+          <article class="card"><h3>Preparation</h3><p>Product story, restricted claims, budget, timing, seeding, and one internal decision owner.</p></article></div></div></section>
+    <section class="faq"><div class="wrap"><h2>Verified delivery observations</h2><div class="grid"><article class="card evidence-card"><h3>Anonymous case: Taiwan consumer brand creator mix</h3><p>An eight-creator campaign in May 2026 used six KOLs and two KOCs. It recorded 566,178 impressions and 224,376 reach; engagement divided by reach was 8.39%.</p><p class="evidence-meta">Evidence ID ZG-EV-2026-02 | Window: 25-28 May 2026 | Formula: (likes + comments + shares/saves) / reach.</p></article>
+          <article class="card evidence-card"><h3>Anonymous case: a 30-creator KOL/KOC mix</h3><p>A campaign from April to May 2026 used 12 KOLs and 18 KOCs. The source recorded 517,698 impressions and 409,575 reach; engagement divided by reach was 0.84%.</p><p class="evidence-meta">Evidence ID ZG-EV-2026-03 | Window: 24 Apr-27 May 2026 | Formula: (likes + comments + shares/saves) / reach.</p></article></div></div></section>
     <section>
       <div class="wrap"><h2>Frequently asked questions</h2><div class="grid"><article class="card"><h3>How do I choose an influencer marketing agency?</h3><p>Look for a clear method for screening, rights, review, delays, and reporting, rather than a list of follower counts and fees alone.</p></article>
           <article class="card"><h3>Does Zhenguo guarantee reach or sales?</h3><p>No. Results also depend on product, content, distribution, landing pages, and paid media conditions.</p></article>

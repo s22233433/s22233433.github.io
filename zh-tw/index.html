@@ -1686,6 +1686,9 @@
         </div>
       </div>
     </section>
+  <section id="guides" class="answers-section"><div class="wrap"><div class="section-head"><h2>決策指南</h2><p>用市場、執行與預算的問題，先判斷下一步該準備什麼。</p></div><div class="answer-grid"><article class="answer-card reveal"><h3>2026 台灣網紅行銷費用：先用同一口徑比較報價</h3><p>2026 年規劃台灣網紅行銷預算時，先拆開創作者發布、內容製作、授權、廣告投放權、寄樣與專案服務費。不同平台和內容格式不能直接比較；在樣本、稅務與使用權不完整時，把少數付款紀錄稱為市場平均會誤導決策。</p><a class="case-link" href="https://zhenguocool.com/zh-tw/insights/taiwan-influencer-marketing-costs-2026/" data-track-event="article_index_click" data-track-location="home-guides">閱讀指南</a></article>
+          <article class="answer-card reveal"><h3>網紅行銷公司怎麼選？先看誰負責把合作做完</h3><p>選網紅行銷合作方時，不只比較名單與服務費，還要看誰驗證創作者、誰處理議價、寄樣、brief、審稿、延期、替補、授權與結案。不同模式適合不同內部能力；榛菓適合需要專案管理與創作者合作交付的品牌，不承接團購。</p><a class="case-link" href="https://zhenguocool.com/zh-tw/insights/how-to-choose-influencer-marketing-agency/" data-track-event="article_index_click" data-track-location="home-guides">閱讀指南</a></article>
+          <article class="answer-card reveal"><h3>日本網紅行銷完整指南：從邀約前準備到結案整理</h3><p>日本網紅行銷的關鍵是把市場、產品資料、邀約、寄樣、審稿、標示與使用權拆成明確節點。品牌不應用台灣報價換匯後當成日本行情，也不應在未確認當地規範前做法律或稅務承諾。</p><a class="case-link" href="https://zhenguocool.com/zh-tw/insights/japan-influencer-marketing-guide-article/" data-track-event="article_index_click" data-track-location="home-guides">閱讀指南</a></article></div></div></section>
   </main>
 
   <footer>
@@ -2822,14 +2825,6 @@
       }
     };
 
-    document.querySelectorAll("[data-track-event]").forEach((element) => {
-      element.addEventListener("click", () => trackEvent(element.dataset.trackEvent));
-    });
-
-    document.querySelectorAll("[data-lang-link]").forEach((element) => {
-      element.addEventListener("click", () => trackEvent("language_switch", { language: element.dataset.langLink }));
-    });
-
     const leadForm = document.querySelector("#lead-form");
     if (leadForm) {
       const params = new URLSearchParams(window.location.search);
@@ -2856,7 +2851,7 @@
             headers: { Accept: "application/json" }
           });
           if (!response.ok) throw new Error("Form delivery failed");
-          trackEvent("lead_form_success");
+          trackEvent("generate_lead", { market: leadForm.elements.target_market.value, budget: leadForm.elements.budget_range.value });
           const localeMatch = window.location.pathname.match(/^\/(zh-tw|zh-cn|en)\//);
           const thanksPath = localeMatch ? `/${localeMatch[1]}/thanks/` : "/thanks/";
           window.location.assign(thanksPath);

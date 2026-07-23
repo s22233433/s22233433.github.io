@@ -178,6 +178,19 @@
     .language-links a { padding:4px 0; color:var(--muted); }
     .language-links a[aria-current="page"] { color:var(--ink); font-weight:900; text-decoration:underline; text-underline-offset:4px; }
     .updated { margin-top:20px; color:var(--muted); font-size:14px; }
+    .core-module { padding:64px 0; }
+    .table-wrap { overflow-x:auto; background:#fff; border:1px solid var(--line); border-radius:8px; }
+    table { width:100%; min-width:640px; border-collapse:collapse; text-align:left; }
+    th, td { padding:16px 18px; vertical-align:top; border-bottom:1px solid var(--line); }
+    th { background:#f4efe5; color:var(--ink); font-size:14px; }
+    td { color:var(--muted); }
+    .timeline { display:grid; grid-template-columns:repeat(4, 1fr); gap:14px; }
+    .timeline-item { min-height:150px; border-top:3px solid var(--teal); padding:18px 0; }
+    .timeline-item span { color:var(--coral); font-family:Georgia,"Times New Roman",serif; font-size:28px; }
+    .timeline-item h3 { margin:8px 0; font-size:19px; }
+    .timeline-item p { margin:0; color:var(--muted); }
+    .evidence-meta { margin-top:14px !important; padding-top:12px; border-top:1px solid var(--line); color:#526074 !important; font-size:13px; line-height:1.55; }
+    @media (max-width:760px) { .core-module { padding:48px 0; } .timeline { grid-template-columns:1fr; } .timeline-item { min-height:0; display:grid; grid-template-columns:52px 1fr; gap:10px; } .timeline-item h3 { margin-top:2px; } }
   </style>
 </head>
 <body>
@@ -204,9 +217,16 @@
           <article class="card"><h2>创作者筛选指标</h2><ul><li>查看近期内容是否自然呈现产品、是否稳定发布及受众情境是否明确。</li><li>不要只按单条爆款或粉丝数选人，应看可重复的内容习惯。</li><li>邀约前确认寄样、出镜、审核、修改和发布时间能否配合。</li></ul></article>
           <article class="card"><h2>内容测试矩阵</h2><ul><li>将不同产品卖点、开场、使用情境和 CTA 分给不同创作者。</li><li>保留共同事实和禁用说法，其余叙事让创作者按账号风格发挥。</li><li>发布后按内容类型、链接、素材权利与反馈整理，不把不同平台指标硬加总。</li></ul></article>
           <article class="card"><h2>不适合的情况</h2><ul><li>卖点不清楚、不能寄样或没有基础承接页时，应先补足基础。</li><li>要求每条视频完全相同通常会降低原生感和配合度。</li><li>需要固定明星背书或深度长内容时，KOL 或 YouTube 合作可能更合适。</li></ul></article></div></div>
-    </section>
-    <section class="faq"><div class="wrap"><h2>可验证的执行观察</h2><div class="grid"><article class="card"><h3>匿名案例：美发护理品牌双平台配置</h3><p>2026 年 4 至 6 月共 30 则内容，Instagram 与 TikTok 各 15 则。资料记录 65,923 次曝光、4,062 次互动；互动率以曝光为分母计算为 6.16%。</p></article>
-          <article class="card"><h3>匿名案例：30 位创作者的 KOL／KOC 组合</h3><p>2026 年 4 至 5 月的合作包含 12 位 KOL 与 18 位 KOC。资料记录 517,698 次曝光、409,575 人触达；以触达为分母计算的互动率为 0.84%。</p></article></div></div></section>
+    </section><section class="core-module comparison-module"><div class="wrap"><h2>合作模式比较</h2><div class="table-wrap"><table><thead><tr><th>做法</th><th>适合情况</th><th>容易忽略</th></tr></thead><tbody><tr><td>少量高影响力 KOL</td><td>需要集中背书或深度说明</td><td>不适合快速测试多个角度</td></tr><tr><td>批次 TikTok KOC</td><td>要测试口吻、卖点和素材</td><td>不保证单条爆量</td></tr><tr><td>纯 UGC 素材</td><td>只要素材不需要创作者发布</td><td>不能假设包含账号或广告授权</td></tr></tbody></table></div></div></section>
+    <section class="core-module"><div class="wrap"><h2>执行时间轴</h2><div class="timeline"><article class="timeline-item"><span>01</span><div><h3>测试假设</h3><p>先定义想验证的卖点、受众和素材用途。</p></div></article><article class="timeline-item"><span>02</span><div><h3>批次筛选</h3><p>按内容节奏、受众和可交付格式建名单。</p></div></article><article class="timeline-item"><span>03</span><div><h3>寄样与脚本</h3><p>提供必要事实和画面方向，不强制同一句口播。</p></div></article><article class="timeline-item"><span>04</span><div><h3>发布复盘</h3><p>比较素材角度、发布链接和可再利用权利。</p></div></article></div></div></section>
+    <section class="core-module faq"><div class="wrap"><h2>合作判断细节</h2><div class="grid"><article class="card"><h3>筛选标准</h3><p>近期短视频节奏、真实互动、产品情境和批次配合度。</p></article>
+          <article class="card"><h3>授权规则</h3><p>TikTok 原始发布、Spark Ads、下载剪辑和品牌二次使用须分开。</p></article>
+          <article class="card"><h3>费用因素</h3><p>创作者数量、视频支数、样品、修改、素材交付和广告权利。</p></article>
+          <article class="card"><h3>主要风险</h3><p>低预算期待爆量，或为了统一而抹掉创作者自然语气。</p></article>
+          <article class="card"><h3>常见失败</h3><p>没有让每条视频的测试假设与承接页对齐，最后无法比较。</p></article>
+          <article class="card"><h3>准备清单</h3><p>产品卖点、可寄样数量、禁用说法、目标受众、素材用途和上线窗口。</p></article></div></div></section>
+    <section class="faq"><div class="wrap"><h2>可验证的执行观察</h2><div class="grid"><article class="card evidence-card"><h3>匿名案例：美发护理品牌双平台配置</h3><p>2026 年 4 至 6 月共 30 则内容，Instagram 与 TikTok 各 15 则。资料记录 65,923 次曝光、4,062 次互动；互动率以曝光为分母计算为 6.16%。</p><p class="evidence-meta">证据代码 ZG-EV-2026-01｜数据周期：2026-04-24 至 2026-06-17｜公式：互动 ÷ 曝光。</p></article>
+          <article class="card evidence-card"><h3>匿名案例：30 位创作者的 KOL／KOC 组合</h3><p>2026 年 4 至 5 月的合作包含 12 位 KOL 与 18 位 KOC。资料记录 517,698 次曝光、409,575 人触达；以触达为分母计算的互动率为 0.84%。</p><p class="evidence-meta">证据代码 ZG-EV-2026-03｜数据周期：2026-04-24 至 2026-05-27｜公式：（点赞＋评论＋分享／收藏）÷ 触达。</p></article></div></div></section>
     <section>
       <div class="wrap"><h2>常见问题</h2><div class="grid"><article class="card"><h3>TikTok KOC 等于低粉丝创作者吗？</h3><p>不是。还要看内容能力、受众情境、近期观看、回复和执行配合度。</p></article>
           <article class="card"><h3>如何避免批量视频看起来一样？</h3><p>设置共同事实和不同测试变量，例如开场、使用情境、卖点或演示方式，让每位创作者有发挥空间。</p></article>

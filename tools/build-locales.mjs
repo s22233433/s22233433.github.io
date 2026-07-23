@@ -16,6 +16,34 @@ const locales = [
 ];
 const allLocales = [rootLocale, ...locales];
 
+const coreServiceProfiles = {
+  "influencer-marketing-agency": {
+    "zh-Hant": { compare: [["品牌自行執行", "已有名單、法務與催稿人力", "延誤、替補與授權由品牌承擔"], ["媒合平台", "只需要搜尋與初步接觸", "不會替品牌完成審稿與結案"], ["專案管理團隊", "需跨創作者統一條件與交付", "不適合只買帳號名單"]], timeline: [["需求確認", "拆出曝光、素材或銷售承接目標。"], ["候選評估", "比較受眾、內容語境、品牌安全與配合度。"], ["條件鎖定", "分開確認發布、授權、競品與修改範圍。"], ["上線結案", "整理連結、權利狀態與下一輪判斷。"]], cards: [["篩選標準", "近期內容是否能自然說明產品、受眾是否真的在目標市場、過往合作是否穩定。"], ["授權規則", "原始發布、品牌轉載、官網、白名單與廣告投放必須分項確認。"], ["費用因素", "創作者數量、內容形式、修改、使用權、競品限制與專案管理密度。"], ["主要風險", "把粉絲數當成唯一標準，或在內容完成後才補談授權。"], ["常見失敗", "沒有單一審稿窗口，導致多輪回覆與上線日失控。"], ["準備清單", "產品賣點、禁用說法、預算、時程、寄樣方式與內部決策者。"]] },
+    "zh-Hans": { compare: [["品牌自行执行", "已有名单、法务和催稿人力", "延期、替补与授权由品牌承担"], ["媒合平台", "只需要搜索和初步接触", "不会替品牌完成审核和结案"], ["项目管理团队", "需跨创作者统一条件与交付", "不适合只买账号名单"]], timeline: [["需求确认", "拆分曝光、素材或销售承接目标。"], ["候选评估", "比较受众、内容语境、品牌安全和配合度。"], ["条款锁定", "分别确认发布、授权、竞品和修改范围。"], ["上线结案", "整理链接、权利状态和下一轮判断。"]], cards: [["筛选标准", "近期内容能否自然说明产品、受众是否在目标市场、过往合作是否稳定。"], ["授权规则", "原始发布、品牌转载、官网、白名单和广告投放必须分项确认。"], ["费用因素", "创作者数量、内容形式、修改、使用权、竞品限制与项目管理密度。"], ["主要风险", "把粉丝数当成唯一标准，或在内容完成后才补谈授权。"], ["常见失败", "没有单一审核窗口，造成多轮回复和上线日失控。"], ["准备清单", "产品卖点、禁用说法、预算、排期、寄样方式和内部决策者。"]] },
+    en: { compare: [["Brand-managed", "You have a shortlist, legal support, and follow-up capacity", "The brand owns delays, replacements, and rights"], ["Creator platform", "You need discovery and first contact", "It does not complete review or close-out"], ["Campaign team", "You need aligned terms and delivery across creators", "It is not for list-only buying"]], timeline: [["Brief", "Separate awareness, asset, and conversion-handoff goals."], ["Evaluation", "Compare audience, content context, brand safety, and reliability."], ["Terms", "Confirm publishing, rights, exclusivity, and revisions separately."], ["Close-out", "Organize live links, rights status, and next-round decisions."]], cards: [["Selection standard", "Recent content must explain the product naturally, reach the intended market, and show reliable delivery."], ["Rights rule", "Original posting, reposting, website use, whitelisting, and paid media need separate approval."], ["Cost factors", "Creator count, format, revisions, rights, exclusivity, and management intensity."], ["Key risk", "Treating follower count as the only filter or negotiating rights after content is made."], ["Common failure", "No single review owner, causing uncontrolled revision loops and launch dates."], ["Preparation", "Product story, restricted claims, budget, timing, seeding, and one internal decision owner."]] }
+  },
+  "overseas-influencer-marketing-guide": {
+    "zh-Hant": { compare: [["單一市場測試", "首次進入、承接頁與客服仍在驗證", "不宜直接承諾多國同步"], ["多國分批", "已有一國流程與素材基礎", "不能只翻譯同一份腳本"], ["同時多國", "物流、在地資源與審稿都已就緒", "不適合未確認產品限制的品牌"]], timeline: [["市場閘門", "確認可寄送性、承接頁、客服與必要標示。"], ["在地候選", "以語境、平台習慣與物流可行性篩選。"], ["寄樣與 brief", "先鎖地址、限制、文件與本地化內容條件。"], ["發布結案", "以各市場獨立節點與資料期間整理。"]], cards: [["篩選標準", "在地受眾、語言表達、產品可寄送性與回覆節奏缺一不可。"], ["授權規則", "地區、語言版本、媒體、期間與帳號授權不能預設共用。"], ["費用因素", "市場、物流、匯款文件、翻譯或在地化、內容與使用權。"], ["主要風險", "用台灣案例或價格替代海外證據，或未確認通關與產品限制。"], ["常見失敗", "承接頁、客服或產品資料未就緒就同時啟動多國合作。"], ["準備清單", "各市場產品資料、可用語言、禁用說法、寄樣限制、時程與預算。"]] },
+    "zh-Hans": { compare: [["单一市场测试", "首次进入、承接页和客服仍在验证", "不宜直接承诺多国同步"], ["多国分批", "已有一国流程和素材基础", "不能只翻译同一份脚本"], ["同时多国", "物流、本地资源和审核均已就绪", "不适合未确认产品限制的品牌"]], timeline: [["市场闸门", "确认可寄送性、承接页、客服和必要标示。"], ["本地候选", "按语境、平台习惯和物流可行性筛选。"], ["寄样与 brief", "先锁定地址、限制、文件和本地化内容条件。"], ["发布结案", "按各市场独立节点和数据周期整理。"]], cards: [["筛选标准", "本地受众、语言表达、产品可寄送性和回复节奏缺一不可。"], ["授权规则", "地区、语言版本、媒体、期限和账号授权不能默认共用。"], ["费用因素", "市场、物流、汇款文件、翻译或本地化、内容和使用权。"], ["主要风险", "用台湾案例或价格替代海外证据，或未确认通关与产品限制。"], ["常见失败", "承接页、客服或产品资料未就绪就同时启动多国合作。"], ["准备清单", "各市场产品资料、可用语言、禁用说法、寄样限制、排期和预算。"]] },
+    en: { compare: [["One-market test", "First entry with landing pages and support still being proven", "Do not promise multi-market rollout yet"], ["Phased markets", "One market workflow and assets already work", "Do not merely translate one script"], ["Parallel markets", "Logistics, local resources, and review are ready", "Not for brands with unresolved product constraints"]], timeline: [["Market gate", "Confirm shippability, landing pages, support, and required disclosure."], ["Local shortlist", "Screen for context, platform habits, and logistics feasibility."], ["Seeding and brief", "Lock address, restrictions, documents, and localized content terms."], ["Publish and close", "Report each market with its own milestones and data window."]], cards: [["Selection standard", "Local audience, language expression, shippability, and response rhythm are all required."], ["Rights rule", "Territory, language version, media, term, and account authorization are never assumed shared."], ["Cost factors", "Market, logistics, payment documents, localization, format, and usage rights."], ["Key risk", "Using Taiwan evidence or pricing as overseas proof, or skipping customs and product checks."], ["Common failure", "Launching several markets before landing pages, support, or materials are ready."], ["Preparation", "Market-ready materials, supported languages, restricted claims, shipping limits, timing, and budget."]] }
+  },
+  "japan-influencer-marketing-guide": {
+    "zh-Hant": { compare: [["產品體驗合作", "需讓創作者實測與自然說明", "不宜壓縮寄樣與體驗時間"], ["素材授權合作", "品牌要重用內容", "不能把發布權當成廣告權"], ["日本市場專案", "需統整篩選、審稿與交付", "不適合只把台灣流程換成日文"]], timeline: [["資料準備", "提供規格、使用方式與可理解的日文或英文資料。"], ["人選與邀約", "確認內容情境、回覆節奏與合作條件。"], ["寄樣與審稿", "預留到貨、體驗、初稿與修改時間。"], ["授權結案", "分項記錄發布、轉載、官網與投放權利。"]], cards: [["篩選標準", "近期內容、受眾語境、產品示範能力與審稿配合度。"], ["授權規則", "原始貼文、品牌社群、官網、Spark Ads 或白名單要分開寫。"], ["費用因素", "內容格式、平台、體驗時間、修改輪次、使用期間與地區。"], ["主要風險", "在邀約後才確認寄樣限制、標示或可投放範圍。"], ["常見失敗", "直接套用台灣腳本，讓內容失去日本受眾能理解的情境。"], ["準備清單", "產品規格、禁用說法、素材、寄樣資訊、審稿人與最晚上線日。"]] },
+    "zh-Hans": { compare: [["产品体验合作", "需要创作者实测和自然说明", "不宜压缩寄样与体验时间"], ["素材授权合作", "品牌要复用内容", "不能把发布权当成广告权"], ["日本市场项目", "需统筹筛选、审核和交付", "不适合只把台湾流程换成日文"]], timeline: [["资料准备", "提供规格、使用方法和可理解的日文或英文资料。"], ["候选与邀约", "确认内容情境、回复节奏和合作条件。"], ["寄样与审核", "预留到货、体验、初稿和修改时间。"], ["授权结案", "分项记录发布、转载、官网和投放权利。"]], cards: [["筛选标准", "近期内容、受众语境、产品演示能力和审核配合度。"], ["授权规则", "原始帖文、品牌社媒、官网、Spark Ads 或白名单应分别约定。"], ["费用因素", "内容形式、平台、体验时间、修改轮次、使用期限和地区。"], ["主要风险", "邀约后才确认寄样限制、标示或可投放范围。"], ["常见失败", "直接套用台湾脚本，让内容失去日本受众能理解的情境。"], ["准备清单", "产品规格、禁用说法、素材、寄样信息、审核人与最晚上线日。"]] },
+    en: { compare: [["Product-experience work", "Creators need hands-on testing and natural explanation", "Do not compress seeding and experience time"], ["Asset-rights work", "The brand plans to reuse content", "Publishing rights are not paid-media rights"], ["Japan campaign", "Screening, review, and delivery need coordination", "Do not simply translate a Taiwan workflow"]], timeline: [["Materials", "Provide specifications, use instructions, and understandable Japanese or English materials."], ["Shortlist and outreach", "Confirm context, response rhythm, and terms."], ["Seeding and review", "Allow delivery, experience, first draft, and revision time."], ["Rights and close", "Record publishing, reposting, website, and paid-use rights separately."]], cards: [["Selection standard", "Recent content, audience context, product-demonstration ability, and review reliability."], ["Rights rule", "Original post, brand social, website, Spark Ads, and whitelisting need separate terms."], ["Cost factors", "Format, channel, experience time, revisions, usage term, and territory."], ["Key risk", "Confirming shipping limits, disclosure, or paid use only after outreach."], ["Common failure", "Reusing a Taiwan script without a context Japan audiences can understand."], ["Preparation", "Specifications, restricted claims, assets, seeding details, review owner, and latest launch date."]] }
+  },
+  "tiktok-koc-marketing-guide": {
+    "zh-Hant": { compare: [["少量高影響力 KOL", "需要集中背書或深度說明", "不適合快速測多個角度"], ["批次 TikTok KOC", "要測試口吻、賣點與素材", "不保證單支爆量"], ["純 UGC 素材", "只要素材不需要創作者發布", "不可假設包含帳號或廣告授權"]], timeline: [["測試假設", "先定義想驗證的賣點、受眾與素材用途。"], ["批次篩選", "依內容節奏、受眾與可交付格式建立名單。"], ["寄樣與腳本", "提供必要事實與畫面方向，不強制同一句口播。"], ["上刊復盤", "比較素材角度、發布連結與可再利用權利。"]], cards: [["篩選標準", "近期短影音節奏、真實互動、產品情境與批次配合度。"], ["授權規則", "TikTok 原始發布、Spark Ads、下載剪輯與品牌二次使用須分開。"], ["費用因素", "創作者數量、影片支數、樣品、修改、素材交付與廣告權利。"], ["主要風險", "低預算期待爆量，或為了統一而抹掉創作者自然語氣。"], ["常見失敗", "沒有把每支影片的測試假設與承接頁對齊，最後無法比較。"], ["準備清單", "產品賣點、可寄樣數量、禁用說法、目標受眾、素材用途與上線窗。"]] },
+    "zh-Hans": { compare: [["少量高影响力 KOL", "需要集中背书或深度说明", "不适合快速测试多个角度"], ["批次 TikTok KOC", "要测试口吻、卖点和素材", "不保证单条爆量"], ["纯 UGC 素材", "只要素材不需要创作者发布", "不能假设包含账号或广告授权"]], timeline: [["测试假设", "先定义想验证的卖点、受众和素材用途。"], ["批次筛选", "按内容节奏、受众和可交付格式建名单。"], ["寄样与脚本", "提供必要事实和画面方向，不强制同一句口播。"], ["发布复盘", "比较素材角度、发布链接和可再利用权利。"]], cards: [["筛选标准", "近期短视频节奏、真实互动、产品情境和批次配合度。"], ["授权规则", "TikTok 原始发布、Spark Ads、下载剪辑和品牌二次使用须分开。"], ["费用因素", "创作者数量、视频支数、样品、修改、素材交付和广告权利。"], ["主要风险", "低预算期待爆量，或为了统一而抹掉创作者自然语气。"], ["常见失败", "没有让每条视频的测试假设与承接页对齐，最后无法比较。"], ["准备清单", "产品卖点、可寄样数量、禁用说法、目标受众、素材用途和上线窗口。"]] },
+    en: { compare: [["Focused KOLs", "You need concentrated endorsement or depth", "It is not for fast multi-angle testing"], ["Batch TikTok KOCs", "You need to test tone, claims, and assets", "It does not guarantee one viral post"], ["UGC-only assets", "You need assets without creator publishing", "Do not assume account or paid-use rights"]], timeline: [["Test hypothesis", "Define the claim, audience, and asset use you are testing."], ["Batch screen", "Build the list around video rhythm, audience, and deliverable format."], ["Seeding and brief", "Set facts and visual direction without forcing one script."], ["Publish and review", "Compare angles, live links, and reuse rights."]], cards: [["Selection standard", "Recent short-video rhythm, real engagement, product context, and batch reliability."], ["Rights rule", "TikTok publishing, Spark Ads, download/editing, and brand reuse are separate."], ["Cost factors", "Creator count, video count, samples, revisions, asset delivery, and paid-media rights."], ["Key risk", "Expecting virality from a low budget or removing natural creator language for consistency."], ["Common failure", "Not aligning each video hypothesis with the landing page, leaving nothing comparable."], ["Preparation", "Product claim, sample volume, restricted claims, target audience, asset use, and launch window."]] }
+  },
+  "influencer-marketing-costs": {
+    "zh-Hant": { compare: [["創作者發布", "需要既有受眾與上刊連結", "不等於可投放素材"], ["內容製作與授權", "品牌要二次使用內容", "不含創作者發布除非另列"], ["專案管理", "需統一篩選、審稿與結案", "不能和創作者費混為一談"]], timeline: [["鎖定口徑", "先確認市場、平台、格式與合作目標。"], ["拆分報價", "把創作者、製作、權利、物流與管理分項。"], ["確認權利", "在內容製作前鎖期間、地區、媒體與帳號。"], ["結案核對", "以實際交付、上刊與權利狀態對照報價。"]], cards: [["篩選標準", "先選能承接目標的內容與受眾，再比相同口徑下的條件。"], ["授權規則", "品牌社群、官網、白名單、廣告與剪輯都可能是不同費用項。"], ["費用因素", "市場、平台、格式、創作者數、修改、使用權、物流與管理範圍。"], ["主要風險", "只比較單價，忽略稅、權利、樣品、修改與專案工作。"], ["常見失敗", "上刊後才補談廣告或剪輯權，導致素材無法再利用。"], ["準備清單", "預算範圍、內容目標、使用權需求、時程、寄樣與審稿規則。"]] },
+    "zh-Hans": { compare: [["创作者发布", "需要既有受众和发布链接", "不等于可投放素材"], ["内容制作与授权", "品牌要二次使用内容", "不含创作者发布，除非另列"], ["项目管理", "需统一筛选、审核和结案", "不能与创作者费混为一谈"]], timeline: [["锁定口径", "先确认市场、平台、形式和合作目标。"], ["拆分报价", "将创作者、制作、权利、物流和管理分项。"], ["确认权利", "内容制作前锁定期限、地区、媒体和账号。"], ["结案核对", "按实际交付、发布和权利状态对照报价。"]], cards: [["筛选标准", "先选能承接目标的内容和受众，再比相同口径下的条件。"], ["授权规则", "品牌社媒、官网、白名单、广告和剪辑都可能是不同费用项。"], ["费用因素", "市场、平台、形式、创作者数、修改、使用权、物流和管理范围。"], ["主要风险", "只比单价，忽略税、权利、样品、修改和项目工作。"], ["常见失败", "发布后才补谈广告或剪辑权，导致素材无法复用。"], ["准备清单", "预算范围、内容目标、使用权需求、排期、寄样和审核规则。"]] },
+    en: { compare: [["Creator publishing", "You need an existing audience and live link", "It does not automatically include paid-use assets"], ["Production and rights", "The brand needs to reuse content", "It excludes creator publishing unless listed"], ["Project management", "Screening, review, and close-out need coordination", "It must not be mixed with creator fees"]], timeline: [["Set the basis", "Confirm market, channel, format, and campaign objective first."], ["Split the quote", "Separate creator, production, rights, logistics, and management."], ["Confirm rights", "Set term, territory, media, and account use before production."], ["Close-out check", "Match the quote with actual delivery, publishing, and rights status."]], cards: [["Selection standard", "Choose content and audience that can carry the objective before comparing terms on the same basis."], ["Rights rule", "Brand social, website, whitelisting, paid media, and editing can each be separate cost items."], ["Cost factors", "Market, channel, format, creator count, revisions, rights, logistics, and management scope."], ["Key risk", "Comparing unit prices while ignoring tax, rights, samples, revisions, and project work."], ["Common failure", "Negotiating advertising or editing rights only after publishing, leaving assets unusable."], ["Preparation", "Budget range, content objective, rights needs, timing, seeding, and review rules."]] }
+  }
+};
+
 const servicePages = [
   {
     slug: "kol-marketing",
@@ -656,7 +684,6 @@ const serviceUi = {
     ctaPrimary: "立即取得初步合作建議",
     ctaSecondary: "查看相關案例",
     steps: ["需求與市場確認", "創作者篩選", "合作洽談與寄樣", "內容審核與發布", "成效追蹤與下一步"],
-    stepBody: "每一步都以品牌端可判斷、可追蹤、可交接為原則，降低跨境溝通成本。"
   },
   "zh-Hans": {
     home: "首页",
@@ -681,7 +708,6 @@ const serviceUi = {
     ctaPrimary: "立即获取初步合作建议",
     ctaSecondary: "查看相关案例",
     steps: ["需求与市场确认", "创作者筛选", "合作洽谈与寄样", "内容审核与发布", "成效追踪与下一步"],
-    stepBody: "每一步都以品牌端可判断、可追踪、可交接为原则，降低跨境沟通成本。"
   },
   en: {
     home: "Home",
@@ -706,7 +732,6 @@ const serviceUi = {
     ctaPrimary: "Get Initial Campaign Advice",
     ctaSecondary: "View Related Cases",
     steps: ["Brief and market alignment", "Creator screening", "Negotiation and product seeding", "Content review and publishing", "Tracking and next steps"],
-    stepBody: "Each step is designed to be easy for brand teams to judge, track, and hand off, reducing cross-border coordination cost."
   }
 };
 
@@ -862,6 +887,8 @@ const renderHomePage = (locale, isRoot = false) => {
   if (!copy) throw new Error(`Missing copy for ${locale.key}`);
 
   let html = source;
+  // index.html is also the generated root locale, so remove prior generated guides before inserting them again.
+  html = html.replace(/\s*<section id="guides" class="answers-section">[\s\S]*?<\/section>/g, "");
   html = html.replace(/<html lang="[^"]+" data-locale="[^"]+">/, `<html lang="${locale.htmlLang}" data-locale="${locale.key}">`);
   html = html.replace(/<title>[\s\S]*?<\/title>/, `<title>${copy.metaTitle}</title>`);
   html = html.replace(/<meta name="description" content="[^"]*">/, `<meta name="description" content="${escapeAttr(copy.metaDescription)}">`);
@@ -875,6 +902,7 @@ const renderHomePage = (locale, isRoot = false) => {
   html = html.replace(/<script type="application\/ld\+json" id="structured-data">[\s\S]*?<\/script>/, `<script type="application/ld+json" id="structured-data">\n${JSON.stringify(buildHomeSchema(copy, locale), null, 2)}\n  </script>`);
   html = localizeElements(html, copy);
   html = setLanguageLinks(html, locale, isRoot);
+  html = html.replace("</main>", `${renderHomeGuideIndex(locale)}\n  </main>`);
   if (!isRoot) {
     html = html
       .replace(/(src|href)="web-assets\//g, '$1="../web-assets/')
@@ -908,6 +936,23 @@ const seoPageAlternates = (page) => [
   ...seoLocales.map((locale) => `<link rel="alternate" hreflang="${seoLanguage(locale).hreflang}" href="${seoPageUrl(page, locale)}">`),
   `<link rel="alternate" hreflang="x-default" href="${seoPageUrl(page, rootLocale)}">`
 ].join("\n  ");
+
+const homeGuideIndex = {
+  "zh-Hant": { title: "決策指南", body: "用市場、執行與預算的問題，先判斷下一步該準備什麼。", read: "閱讀指南" },
+  "zh-Hans": { title: "决策指南", body: "从市场、执行与预算问题开始，先判断下一步该准备什么。", read: "阅读指南" },
+  en: { title: "Decision guides", body: "Start with the market, delivery, and budget questions that determine the next useful step.", read: "Read guide" }
+};
+
+const renderHomeGuideIndex = (locale) => {
+  const ui = homeGuideIndex[locale.key];
+  const slugs = ["taiwan-influencer-marketing-costs-2026", "how-to-choose-influencer-marketing-agency", "japan-influencer-marketing-guide-article"];
+  const cards = slugs.map((slug) => {
+    const page = seoPhaseOnePages.find((candidate) => candidate.slug === slug);
+    const copy = page.copy[locale.key];
+    return `<article class="answer-card reveal"><h3>${escapeHtml(copy.h1)}</h3><p>${escapeHtml(copy.answer)}</p><a class="case-link" href="${seoPageUrl(page, locale)}" data-track-event="article_index_click" data-track-location="home-guides">${escapeHtml(ui.read)}</a></article>`;
+  }).join("\n          ");
+  return `<section id="guides" class="answers-section"><div class="wrap"><div class="section-head"><h2>${escapeHtml(ui.title)}</h2><p>${escapeHtml(ui.body)}</p></div><div class="answer-grid">${cards}</div></div></section>`;
+};
 
 const serviceRelativePrefix = (locale) => locale.isRoot ? "../../" : "../../../";
 
@@ -1096,7 +1141,7 @@ const renderServicePage = (page, locale) => {
   const comparison = serviceComparison(page, locale);
   const relatedStudies = relatedCaseStudies(page);
   const secondaryHref = relatedStudies.length ? "#case-studies" : `${prefix}#cases`;
-  const steps = ui.steps.map((step) => `<article class="card"><h3>${escapeHtml(step)}</h3><p>${escapeHtml(ui.stepBody)}</p></article>`).join("\n          ");
+  const steps = serviceWorkflowSteps(page, locale).map(([step, body]) => `<article class="card"><h3>${escapeHtml(step)}</h3><p>${escapeHtml(body)}</p></article>`).join("\n          ");
   const faqCards = faqs.map(([question, answer]) => `<article class="card"><h3>${escapeHtml(question)}</h3><p>${escapeHtml(answer)}</p></article>`).join("\n          ");
   const guideCards = decisionGuide.map(([title, body]) => `<article class="card"><h3>${escapeHtml(title)}</h3><p>${escapeHtml(body)}</p></article>`).join("\n          ");
   const caseCards = relatedStudies.map((study) => `<article class="card"><h3>${escapeHtml(study.title[locale.key])}</h3><p>${escapeHtml(study.summary[locale.key])}</p><p style="margin-top:16px"><a class="button" href="${prefix}cases/${study.slug}/">${escapeHtml(caseUi[locale.key].readCase)}</a></p></article>`).join("\n          ");
@@ -1339,6 +1384,52 @@ const seoPageUi = {
   en: { answer: "Direct answer", evidence: "Verified delivery observations", related: "Related reading", faq: "Frequently asked questions", updated: "Last updated", home: "Home", services: "Services", insights: "Guides", navigation: "Site language" }
 };
 
+const coreModuleUi = {
+  "zh-Hant": { comparison: "合作模式比較", timeline: "執行時間軸", decision: "合作判斷細節", columns: ["做法", "適合情況", "容易忽略"] },
+  "zh-Hans": { comparison: "合作模式比较", timeline: "执行时间轴", decision: "合作判断细节", columns: ["做法", "适合情况", "容易忽略"] },
+  en: { comparison: "Collaboration comparison", timeline: "Execution timeline", decision: "Decision details", columns: ["Approach", "When it fits", "What is often missed"] }
+};
+
+const renderCoreServiceModules = (page, locale) => {
+  const profile = coreServiceProfiles[page.slug]?.[locale.key];
+  if (!profile) return "";
+  const ui = coreModuleUi[locale.key];
+  const rows = profile.compare.map((row) => `<tr>${row.map((cell) => `<td>${escapeHtml(cell)}</td>`).join("")}</tr>`).join("");
+  const timeline = profile.timeline.map(([phase, detail], index) => `<article class="timeline-item"><span>${String(index + 1).padStart(2, "0")}</span><div><h3>${escapeHtml(phase)}</h3><p>${escapeHtml(detail)}</p></div></article>`).join("");
+  const cards = profile.cards.map(([title, body]) => `<article class="card"><h3>${escapeHtml(title)}</h3><p>${escapeHtml(body)}</p></article>`).join("\n          ");
+  return `<section class="core-module comparison-module"><div class="wrap"><h2>${escapeHtml(ui.comparison)}</h2><div class="table-wrap"><table><thead><tr>${ui.columns.map((column) => `<th>${escapeHtml(column)}</th>`).join("")}</tr></thead><tbody>${rows}</tbody></table></div></div></section>
+    <section class="core-module"><div class="wrap"><h2>${escapeHtml(ui.timeline)}</h2><div class="timeline">${timeline}</div></div></section>
+    <section class="core-module faq"><div class="wrap"><h2>${escapeHtml(ui.decision)}</h2><div class="grid">${cards}</div></div></section>`;
+};
+
+const workflowProfileByService = {
+  "kol-marketing": "influencer-marketing-agency",
+  "overseas-influencer-marketing": "overseas-influencer-marketing-guide",
+  "japan-influencer-marketing": "japan-influencer-marketing-guide",
+  "tiktok-koc-marketing": "tiktok-koc-marketing-guide"
+};
+
+const serviceWorkflowSteps = (page, locale) => {
+  const profile = coreServiceProfiles[workflowProfileByService[page.slug]]?.[locale.key];
+  if (profile) return profile.timeline;
+  const name = page.name[locale.key];
+  if (locale.key === "en") return [
+    ["Campaign brief", `Confirm the market, audience, product constraints, and decision needed from ${name}.`],
+    ["Creator screen", `Compare audience context, recent content, and delivery reliability for ${name}.`],
+    ["Terms and materials", "Lock the format, timing, product delivery, review point, and rights before production."],
+    ["Publishing", "Check the agreed claims, disclosure, final asset, and live link before close-out."],
+    ["Review", "Record the delivered links, rights status, and next decision instead of treating posting as the finish line."]
+  ];
+  const simplified = locale.key === "zh-Hans";
+  return [
+    [simplified ? "需求与市场" : "需求與市場", `${simplified ? "确认" : "確認"}${name}${simplified ? "的市场、受众、产品限制与需决定的目标。" : "的市場、受眾、產品限制與需要決定的目標。"}`],
+    [simplified ? "创作者筛选" : "創作者篩選", `${simplified ? "比较" : "比較"}受众语境、近期内容与${simplified ? "执行" : "執行"}${simplified ? "配合度，避免只看粉丝数。" : "配合度，避免只看粉絲數。"}`],
+    [simplified ? "条款与素材" : "條件與素材", `${simplified ? "在制作前锁定" : "在製作前鎖定"}${simplified ? "形式、排期、寄样、审核点与使用权。" : "形式、時程、寄樣、審稿點與使用權。"}`],
+    [simplified ? "发布确认" : "發布確認", `${simplified ? "核对" : "核對"}${simplified ? "约定说法、标示、成品与上线链接。" : "約定說法、標示、成品與上線連結。"}`],
+    [simplified ? "结案判断" : "結案判斷", `${simplified ? "整理" : "整理"}${simplified ? "上刊、权利状态和下一轮要调整的方向。" : "上刊、權利狀態與下一輪要調整的方向。"}`]
+  ];
+};
+
 const seoPageSchema = (page, locale) => {
   const copy = page.copy[locale.key];
   const ui = seoPageUi[locale.key];
@@ -1384,11 +1475,12 @@ const renderSeoPage = (page, locale) => {
   const prefix = seoRelativePrefix(locale);
   const evidenceCards = page.evidence.map((key) => seoEvidence[key]).filter(Boolean).map((entry) => {
     const item = entry[locale.key];
-    return `<article class="card"><h3>${escapeHtml(item.title)}</h3><p>${escapeHtml(item.body)}</p></article>`;
+    return `<article class="card evidence-card"><h3>${escapeHtml(item.title)}</h3><p>${escapeHtml(item.body)}</p><p class="evidence-meta">${escapeHtml(item.evidence)}</p></article>`;
   }).join("\n          ");
   const sectionCards = copy.sections.map(([title, points]) => `<article class="card"><h2>${escapeHtml(title)}</h2><ul>${points.map((point) => `<li>${escapeHtml(point)}</li>`).join("")}</ul></article>`).join("\n          ");
   const faqCards = copy.faqs.map(([question, answer]) => `<article class="card"><h3>${escapeHtml(question)}</h3><p>${escapeHtml(answer)}</p></article>`).join("\n          ");
   const relatedLinks = page.related.map((slug) => seoPhaseOnePages.find((candidate) => candidate.slug === slug)).filter(Boolean).map((related) => `<a class="button" href="${seoPageUrl(related, locale)}">${escapeHtml(related.copy[locale.key].h1)}</a>`).join("\n          ");
+  const coreModules = page.kind === "service" ? renderCoreServiceModules(page, locale) : "";
   const update = page.kind === "article" ? `<p class="updated">${escapeHtml(ui.updated)}: 2026-07-23</p>` : "";
   const updatedLine = update ? `\n        ${update}` : "";
   const evidenceSection = evidenceCards ? `\n    <section class="faq"><div class="wrap"><h2>${escapeHtml(ui.evidence)}</h2><div class="grid">${evidenceCards}</div></div></section>` : "";
@@ -1428,6 +1520,19 @@ ${JSON.stringify(seoPageSchema(page, locale), null, 2)}
     .language-links a { padding:4px 0; color:var(--muted); }
     .language-links a[aria-current="page"] { color:var(--ink); font-weight:900; text-decoration:underline; text-underline-offset:4px; }
     .updated { margin-top:20px; color:var(--muted); font-size:14px; }
+    .core-module { padding:64px 0; }
+    .table-wrap { overflow-x:auto; background:#fff; border:1px solid var(--line); border-radius:8px; }
+    table { width:100%; min-width:640px; border-collapse:collapse; text-align:left; }
+    th, td { padding:16px 18px; vertical-align:top; border-bottom:1px solid var(--line); }
+    th { background:#f4efe5; color:var(--ink); font-size:14px; }
+    td { color:var(--muted); }
+    .timeline { display:grid; grid-template-columns:repeat(4, 1fr); gap:14px; }
+    .timeline-item { min-height:150px; border-top:3px solid var(--teal); padding:18px 0; }
+    .timeline-item span { color:var(--coral); font-family:Georgia,"Times New Roman",serif; font-size:28px; }
+    .timeline-item h3 { margin:8px 0; font-size:19px; }
+    .timeline-item p { margin:0; color:var(--muted); }
+    .evidence-meta { margin-top:14px !important; padding-top:12px; border-top:1px solid var(--line); color:#526074 !important; font-size:13px; line-height:1.55; }
+    @media (max-width:760px) { .core-module { padding:48px 0; } .timeline { grid-template-columns:1fr; } .timeline-item { min-height:0; display:grid; grid-template-columns:52px 1fr; gap:10px; } .timeline-item h3 { margin-top:2px; } }
   </style>
 </head>
 <body>
@@ -1451,7 +1556,7 @@ ${JSON.stringify(seoPageSchema(page, locale), null, 2)}
     </section>
     <section>
       <div class="wrap"><div class="grid">${sectionCards}</div></div>
-    </section>${evidenceSection}
+    </section>${coreModules}${evidenceSection}
     <section>
       <div class="wrap"><h2>${escapeHtml(ui.faq)}</h2><div class="grid">${faqCards}</div></div>
     </section>

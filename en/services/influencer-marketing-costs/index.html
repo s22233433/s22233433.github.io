@@ -178,6 +178,19 @@
     .language-links a { padding:4px 0; color:var(--muted); }
     .language-links a[aria-current="page"] { color:var(--ink); font-weight:900; text-decoration:underline; text-underline-offset:4px; }
     .updated { margin-top:20px; color:var(--muted); font-size:14px; }
+    .core-module { padding:64px 0; }
+    .table-wrap { overflow-x:auto; background:#fff; border:1px solid var(--line); border-radius:8px; }
+    table { width:100%; min-width:640px; border-collapse:collapse; text-align:left; }
+    th, td { padding:16px 18px; vertical-align:top; border-bottom:1px solid var(--line); }
+    th { background:#f4efe5; color:var(--ink); font-size:14px; }
+    td { color:var(--muted); }
+    .timeline { display:grid; grid-template-columns:repeat(4, 1fr); gap:14px; }
+    .timeline-item { min-height:150px; border-top:3px solid var(--teal); padding:18px 0; }
+    .timeline-item span { color:var(--coral); font-family:Georgia,"Times New Roman",serif; font-size:28px; }
+    .timeline-item h3 { margin:8px 0; font-size:19px; }
+    .timeline-item p { margin:0; color:var(--muted); }
+    .evidence-meta { margin-top:14px !important; padding-top:12px; border-top:1px solid var(--line); color:#526074 !important; font-size:13px; line-height:1.55; }
+    @media (max-width:760px) { .core-module { padding:48px 0; } .timeline { grid-template-columns:1fr; } .timeline-item { min-height:0; display:grid; grid-template-columns:52px 1fr; gap:10px; } .timeline-item h3 { margin-top:2px; } }
   </style>
 </head>
 <body>
@@ -204,8 +217,16 @@
           <article class="card"><h2>Why followers do not set the price</h2><ul><li>Format, recent views, audience context, production effort, and usage scope all affect terms.</li><li>The same creator can have different economics for original publishing and paid-media rights.</li><li>A low quote may omit revisions, rights, seeding handling, or campaign management.</li></ul></article>
           <article class="card"><h2>How we handle public price evidence</h2><ul><li>A published range needs consistent platform, format, tax, rights, and sample definitions.</li><li>The accessible historical payment rows do not record those dimensions consistently, so Zhenguo does not publish individual creator fees or a misleading market average.</li><li>When a complete sample is available, it should show n, P25, median, and P75 with market, currency, and tax treatment.</li></ul></article>
           <article class="card"><h2>What to include in a quote request</h2><ul><li>Market, channel, format, creator count, latest launch date, and budget range.</li><li>Seeding, script or review needs, content production, and paid-media requirements.</li><li>Rights term, territory, media, and whether account authorization is required.</li></ul></article></div></div>
-    </section>
-    <section class="faq"><div class="wrap"><h2>Verified delivery observations</h2><div class="grid"><article class="card"><h3>Anonymous case: Taiwan consumer brand creator mix</h3><p>An eight-creator campaign in May 2026 used six KOLs and two KOCs. It recorded 566,178 impressions and 224,376 reach; engagement divided by reach was 8.39%.</p></article></div></div></section>
+    </section><section class="core-module comparison-module"><div class="wrap"><h2>Collaboration comparison</h2><div class="table-wrap"><table><thead><tr><th>Approach</th><th>When it fits</th><th>What is often missed</th></tr></thead><tbody><tr><td>Creator publishing</td><td>You need an existing audience and live link</td><td>It does not automatically include paid-use assets</td></tr><tr><td>Production and rights</td><td>The brand needs to reuse content</td><td>It excludes creator publishing unless listed</td></tr><tr><td>Project management</td><td>Screening, review, and close-out need coordination</td><td>It must not be mixed with creator fees</td></tr></tbody></table></div></div></section>
+    <section class="core-module"><div class="wrap"><h2>Execution timeline</h2><div class="timeline"><article class="timeline-item"><span>01</span><div><h3>Set the basis</h3><p>Confirm market, channel, format, and campaign objective first.</p></div></article><article class="timeline-item"><span>02</span><div><h3>Split the quote</h3><p>Separate creator, production, rights, logistics, and management.</p></div></article><article class="timeline-item"><span>03</span><div><h3>Confirm rights</h3><p>Set term, territory, media, and account use before production.</p></div></article><article class="timeline-item"><span>04</span><div><h3>Close-out check</h3><p>Match the quote with actual delivery, publishing, and rights status.</p></div></article></div></div></section>
+    <section class="core-module faq"><div class="wrap"><h2>Decision details</h2><div class="grid"><article class="card"><h3>Selection standard</h3><p>Choose content and audience that can carry the objective before comparing terms on the same basis.</p></article>
+          <article class="card"><h3>Rights rule</h3><p>Brand social, website, whitelisting, paid media, and editing can each be separate cost items.</p></article>
+          <article class="card"><h3>Cost factors</h3><p>Market, channel, format, creator count, revisions, rights, logistics, and management scope.</p></article>
+          <article class="card"><h3>Key risk</h3><p>Comparing unit prices while ignoring tax, rights, samples, revisions, and project work.</p></article>
+          <article class="card"><h3>Common failure</h3><p>Negotiating advertising or editing rights only after publishing, leaving assets unusable.</p></article>
+          <article class="card"><h3>Preparation</h3><p>Budget range, content objective, rights needs, timing, seeding, and review rules.</p></article></div></div></section>
+    <section class="faq"><div class="wrap"><h2>Verified delivery observations</h2><div class="grid"><article class="card evidence-card"><h3>Historical price reference: Taiwan Instagram/Facebook single post</h3><p>An internal rate card last updated 24 Sep 2025 lists NT$0-1,300 below 2k followers, NT$650-2,600 for 2k-10k, and NT$1,300-4,550 for 10k-50k. This is a historical single-post reference, not a 2026 public quote or an overseas market rate.</p><p class="evidence-meta">Evidence ID ZG-PR-2025-01 | Scope: Taiwan-currency IG/Facebook single post | Not included or not verified: rights, paid use, tax, seeding, revisions, and management.</p></article>
+          <article class="card evidence-card"><h3>Anonymous case: Taiwan consumer brand creator mix</h3><p>An eight-creator campaign in May 2026 used six KOLs and two KOCs. It recorded 566,178 impressions and 224,376 reach; engagement divided by reach was 8.39%.</p><p class="evidence-meta">Evidence ID ZG-EV-2026-02 | Window: 25-28 May 2026 | Formula: (likes + comments + shares/saves) / reach.</p></article></div></div></section>
     <section>
       <div class="wrap"><h2>Frequently asked questions</h2><div class="grid"><article class="card"><h3>Is an agency fee the same as a creator fee?</h3><p>No. The creator fee pays for content or publishing; the service fee covers screening, negotiation, execution, review, and reporting.</p></article>
           <article class="card"><h3>Why is there no fixed rate card?</h3><p>A rate card can blur platform, format, rights, tax, and execution scope. Terms must be aligned before quotes are comparable.</p></article>

@@ -1686,6 +1686,9 @@
         </div>
       </div>
     </section>
+  <section id="guides" class="answers-section"><div class="wrap"><div class="section-head"><h2>决策指南</h2><p>从市场、执行与预算问题开始，先判断下一步该准备什么。</p></div><div class="answer-grid"><article class="answer-card reveal"><h3>2026 台湾网红营销费用：先用同一口径比较报价</h3><p>规划 2026 台湾网红营销预算时，应先拆开创作者发布、内容制作、授权、广告投放权、寄样和项目服务费。不同平台与内容形式不能直接比较；样本、税务和使用权不完整时，把少量付款记录称为市场平均会误导决策。</p><a class="case-link" href="https://zhenguocool.com/zh-cn/insights/taiwan-influencer-marketing-costs-2026/" data-track-event="article_index_click" data-track-location="home-guides">阅读指南</a></article>
+          <article class="answer-card reveal"><h3>网红营销公司怎么选？先看谁负责把合作做完</h3><p>选择网红营销合作方时，不只比较名单和服务费，还要看谁验证创作者、处理议价、寄样、brief、审核、延期、替补、授权和结案。不同模式适合不同内部能力；榛果适合需要项目管理与创作者合作交付的品牌，不承接团购。</p><a class="case-link" href="https://zhenguocool.com/zh-cn/insights/how-to-choose-influencer-marketing-agency/" data-track-event="article_index_click" data-track-location="home-guides">阅读指南</a></article>
+          <article class="answer-card reveal"><h3>日本网红营销完整指南：从邀约准备到结案整理</h3><p>日本网红营销的关键是把市场、产品资料、邀约、寄样、审核、标示和使用权拆成明确节点。品牌不应把台湾报价换汇后当作日本行情，也不应在未确认当地规范前作出法律或税务承诺。</p><a class="case-link" href="https://zhenguocool.com/zh-cn/insights/japan-influencer-marketing-guide-article/" data-track-event="article_index_click" data-track-location="home-guides">阅读指南</a></article></div></div></section>
   </main>
 
   <footer>
@@ -2822,14 +2825,6 @@
       }
     };
 
-    document.querySelectorAll("[data-track-event]").forEach((element) => {
-      element.addEventListener("click", () => trackEvent(element.dataset.trackEvent));
-    });
-
-    document.querySelectorAll("[data-lang-link]").forEach((element) => {
-      element.addEventListener("click", () => trackEvent("language_switch", { language: element.dataset.langLink }));
-    });
-
     const leadForm = document.querySelector("#lead-form");
     if (leadForm) {
       const params = new URLSearchParams(window.location.search);
@@ -2856,7 +2851,7 @@
             headers: { Accept: "application/json" }
           });
           if (!response.ok) throw new Error("Form delivery failed");
-          trackEvent("lead_form_success");
+          trackEvent("generate_lead", { market: leadForm.elements.target_market.value, budget: leadForm.elements.budget_range.value });
           const localeMatch = window.location.pathname.match(/^\/(zh-tw|zh-cn|en)\//);
           const thanksPath = localeMatch ? `/${localeMatch[1]}/thanks/` : "/thanks/";
           window.location.assign(thanksPath);
