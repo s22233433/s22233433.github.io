@@ -24,7 +24,10 @@
   const track = (event, details = {}) => {
     const payload = { ...page(), ...details, ...(debugMode ? { debug_mode: true } : {}) };
     window.dataLayer.push({ event, ...payload });
-    if (measurementId && window.gtag) window.gtag("event", event, payload);
+    if (!measurementId || !window.gtag) return Promise.resolve();
+    return new Promise((resolve) => {
+      window.gtag("event", event, { ...payload, event_callback: resolve, event_timeout: 1500 });
+    });
   };
 
   window.zgTrack = track;
@@ -44,20 +47,21 @@
     if (!(event.target instanceof Element)) return;
     const element = event.target.closest("[data-track-event], [data-lang-link]");
     if (!element) return;
+    let tracked = null;
     if (element.dataset.langLink) {
       if (debugMode && element instanceof HTMLAnchorElement) {
         const destination = new URL(element.href, location.href);
         destination.searchParams.set(debugKey, "1");
         element.href = destination.href;
       }
-      track("language_switch", { from_locale: localeValue(document.documentElement.lang), to_locale: localeValue(element.dataset.langLink), target_url: element instanceof HTMLAnchorElement ? new URL(element.href, location.href).href : location.href });
+      tracked = track("language_switch", { from_locale: localeValue(document.documentElement.lang), to_locale: localeValue(element.dataset.langLink), target_url: element instanceof HTMLAnchorElement ? new URL(element.href, location.href).href : location.href });
     }
-    if (element.dataset.trackEvent) track(element.dataset.trackEvent, { cta_location: element.dataset.trackLocation || "content", target_url: element instanceof HTMLAnchorElement ? new URL(element.href, location.href).href : location.href });
+    if (element.dataset.trackEvent) tracked = track(element.dataset.trackEvent, { cta_location: element.dataset.trackLocation || "content", target_url: element instanceof HTMLAnchorElement ? new URL(element.href, location.href).href : location.href });
     if (!(element instanceof HTMLAnchorElement) || event.defaultPrevented || event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey || element.target === "_blank") return;
     const destination = new URL(element.href, location.href);
     const isSameDocument = destination.origin === location.origin && destination.pathname === location.pathname && destination.search === location.search;
     if (isSameDocument) return;
     event.preventDefault();
-    window.setTimeout(() => location.assign(element.href), 700);
+    (tracked || Promise.resolve()).finally(() => location.assign(element.href));
   });
 })();

@@ -27,8 +27,8 @@
   <meta name="twitter:description" content="榛果营销协助品牌完成海内外 KOL/KOC 合作，包含创作者筛选、合作洽谈、寄样、脚本方向、内容审核、发布追踪与结案整理。">
   <meta name="twitter:image" content="https://zhenguocool.com/web-assets/og-zhenguocool-campaign-plan.webp">
   <title>榛果营销 | 海内外 KOL/KOC 营销执行团队</title>
-  <script src="../web-assets/analytics-config.js?v=20260723-7" defer></script>
-  <script src="../web-assets/analytics.js?v=20260723-7" defer></script>
+  <script src="../web-assets/analytics-config.js?v=20260723-8" defer></script>
+  <script src="../web-assets/analytics.js?v=20260723-8" defer></script>
   <script type="application/ld+json" id="structured-data">
 {
   "@context": "https://schema.org",
@@ -2818,10 +2818,11 @@
     }
 
     const trackEvent = (event, details = {}) => {
-      if (window.zgTrack) window.zgTrack(event, details);
+      if (window.zgTrack) return window.zgTrack(event, details);
       else {
         window.dataLayer = window.dataLayer || [];
         window.dataLayer.push({ event, ...details });
+        return Promise.resolve();
       }
     };
 
@@ -2854,10 +2855,10 @@
             headers: { Accept: "application/json" }
           });
           if (!response.ok) throw new Error("Form delivery failed");
-          trackEvent("generate_lead");
+          await trackEvent("generate_lead");
           const localeMatch = window.location.pathname.match(/^\/(zh-tw|zh-cn|en)\//);
           const thanksPath = localeMatch ? `/${localeMatch[1]}/thanks/` : "/thanks/";
-          window.setTimeout(() => window.location.assign(thanksPath), 700);
+          window.location.assign(thanksPath);
         } catch (_error) {
           leadSubmitting = false;
           if (submitButton) submitButton.disabled = false;

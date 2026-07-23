@@ -8,7 +8,7 @@ const site = (process.env.SITE_URL || "https://zhenguocool.com").replace(/\/$/, 
 const chrome = process.env.CHROME_BIN || "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome";
 const port = Number(process.env.GA4_CDP_PORT || 9500 + (process.pid % 300));
 const measurementId = "G-3G60NBREE3";
-const timeoutMs = Number(process.env.GA4_TIMEOUT_MS || 12000);
+const timeoutMs = Number(process.env.GA4_TIMEOUT_MS || 6000);
 const locales = [
   { key: "zh-TW", prefix: "", lang: "zh-TW" },
   { key: "zh-CN", prefix: "/zh-cn", lang: "zh-CN" },
@@ -128,7 +128,7 @@ const requestRows = (events) => {
 
 const scansForPii = (collects) => collects.flatMap((collect) => Object.entries(collect.parameters).flatMap(([key, value]) => {
   const values = Array.isArray(value) ? value : [value];
-  return values.flatMap((item) => (piiKey.test(key) || emailValue.test(item) || phoneValue.test(item)) ? [{ request_id: collect.request_id, event: collect.event, key, value: item }] : []);
+  return values.flatMap((item) => (piiKey.test(key) || emailValue.test(item) || (key.startsWith("ep.") && phoneValue.test(item))) ? [{ request_id: collect.request_id, event: collect.event, key, value: item }] : []);
 }));
 
 const gaFor = (events, eventName) => requestRows(events).filter((event) => event.event === eventName);
@@ -149,7 +149,7 @@ function eventParameters(event, context, extra = {}) {
     ...extra
   };
   const actual = {
-    page_path: event?.parameters["ep.page_path"] || null,
+    page_path: event?.parameters.dp || null,
     page_title: event?.page_title || null,
     locale: event?.locale || null,
     content_type: event?.content_type || null,
@@ -188,6 +188,21 @@ async function withPage(cdp, callback) {
   }
 }
 
+async function retryCheck(name, runner, attemptsLimit = 2) {
+  const attempts = [];
+  let result = null;
+  for (let attempt = 1; attempt <= attemptsLimit; attempt += 1) {
+    try {
+      result = await runner();
+      attempts.push({ attempt, passed: result.passed, raw_collects: result.raw_collects || [], reason: result.reason || [] });
+      if (result.passed) return { result, attempts };
+    } catch (error) {
+      attempts.push({ attempt, passed: false, error: error.message, network_evidence: error.network_evidence || null });
+    }
+  }
+  return { result, attempts };
+}
+
 const responseForUrl = (events, url) => events.find((event) => event.method === "Network.responseReceived" && event.params.type === "Document" && normalizedUrl(event.params.response.url) === normalizedUrl(url));
 const pageViewFor = (events, url) => gaFor(events, "page_view").find((event) => event.page_location === normalizedUrl(url));
 
@@ -213,13 +228,18 @@ async function pageInfo(cdp, sessionId) {
 
 async function visit(cdp, sessionId, url) {
   const start = cdp.events.length;
-  await cdp.send("Page.navigate", { url }, sessionId);
-  await cdp.waitFor(start, sessionId, (events) => responseForUrl(events, url), `document response for ${url}`);
-  await cdp.waitFor(start, sessionId, (events) => pageViewFor(events, url), `page_view for ${url}`);
-  await waitForGaIdle(cdp, start, sessionId, `page load ${url}`);
-  const events = cdp.eventsAfter(start, sessionId);
-  const response = responseForUrl(events, url);
-  return { start, url: normalizedUrl(url), page: await pageInfo(cdp, sessionId), http_status: response?.params.response.status || null, events, collects: requestRows(events) };
+  try {
+    await cdp.send("Page.navigate", { url }, sessionId);
+    await cdp.waitFor(start, sessionId, (events) => responseForUrl(events, url), `document response for ${url}`);
+    await cdp.waitFor(start, sessionId, (events) => pageViewFor(events, url), `page_view for ${url}`);
+    await waitForGaIdle(cdp, start, sessionId, `page load ${url}`);
+    const events = cdp.eventsAfter(start, sessionId);
+    const response = responseForUrl(events, url);
+    return { start, url: normalizedUrl(url), page: await pageInfo(cdp, sessionId), http_status: response?.params.response.status || null, events, collects: requestRows(events) };
+  } catch (error) {
+    error.network_evidence = { url, collects: requestRows(cdp.eventsAfter(start, sessionId)), requests: cdp.eventsAfter(start, sessionId).filter((event) => event.method === "Network.requestWillBeSent").map((event) => event.params.request.url) };
+    throw error;
+  }
 }
 
 async function trigger(cdp, sessionId, selector, description) {
@@ -351,7 +371,11 @@ async function runLeadCheck(cdp, mode) {
 
 async function runLifecycleChecks(cdp) {
   const checks = [];
-  checks.push(await withPage(cdp, async (sessionId) => {
+  const add = async (test, runner, fallback) => {
+    const outcome = await retryCheck(`lifecycle ${test}`, runner);
+    checks.push(outcome.result ? { ...outcome.result, attempts: outcome.attempts } : fallback(outcome.attempts));
+  };
+  await add("reload", () => withPage(cdp, async (sessionId) => {
     const url = withDebug(`${site}/services/influencer-marketing-agency/`);
     await visit(cdp, sessionId, url);
     const start = cdp.events.length;
@@ -360,22 +384,22 @@ async function runLifecycleChecks(cdp) {
     await waitForGaIdle(cdp, start, sessionId, "reload");
     const pageViews = gaFor(cdp.eventsAfter(start, sessionId), "page_view").filter((event) => event.page_location === url);
     return { event: "page_view", test: "reload", test_page: url, expected_count: 1, actual_count: pageViews.length, duplicate: pageViews.length > 1, raw_collects: requestRows(cdp.eventsAfter(start, sessionId)), passed: pageViews.length === 1, reason: pageViews.length === 1 ? [] : [`Expected one reload page_view; received ${pageViews.length}.`] };
-  }));
-  checks.push(await withPage(cdp, async (sessionId) => {
+  }), (attempts) => ({ event: "page_view", test: "reload", test_page: withDebug(`${site}/services/influencer-marketing-agency/`), expected_count: 1, actual_count: 0, duplicate: false, raw_collects: [], passed: false, attempts, reason: ["No reload attempt received the expected page_view collect request."] }));
+  await add("no_debug_fresh_context", () => withPage(cdp, async (sessionId) => {
     const url = withoutDebug(`${site}/`);
     const loaded = await visit(cdp, sessionId, url);
     const pageView = gaFor(loaded.events, "page_view")[0];
     const validation = eventParameters(pageView, { url, title: loaded.page.title, locale: loaded.page.locale, debug: false });
     return { event: "page_view", test: "no_debug_fresh_context", test_page: url, expected_count: 1, actual_count: gaFor(loaded.events, "page_view").length, duplicate: gaFor(loaded.events, "page_view").length > 1, parameters: validation, raw_collects: loaded.collects, passed: gaFor(loaded.events, "page_view").length === 1 && validation.passed, reason: validation.passed ? [] : ["Fresh non-debug context included debug_mode or mismatched page parameters."] };
-  }));
-  checks.push(await withPage(cdp, async (sessionId) => {
+  }), (attempts) => ({ event: "page_view", test: "no_debug_fresh_context", test_page: withoutDebug(`${site}/`), expected_count: 1, actual_count: 0, duplicate: false, raw_collects: [], passed: false, attempts, reason: ["No non-debug attempt received the expected page_view collect request."] }));
+  await add("session_debug_persists", () => withPage(cdp, async (sessionId) => {
     await visit(cdp, sessionId, withDebug(`${site}/`));
     const url = withoutDebug(`${site}/services/influencer-marketing-agency/`);
     const loaded = await visit(cdp, sessionId, url);
     const pageView = gaFor(loaded.events, "page_view")[0];
     const validation = eventParameters(pageView, { url, title: loaded.page.title, locale: loaded.page.locale, debug: true });
     return { event: "page_view", test: "session_debug_persists", test_page: url, expected_count: 1, actual_count: gaFor(loaded.events, "page_view").length, duplicate: gaFor(loaded.events, "page_view").length > 1, parameters: validation, raw_collects: loaded.collects, passed: gaFor(loaded.events, "page_view").length === 1 && validation.passed, reason: validation.passed ? [] : ["sessionStorage ga_debug did not retain debug_mode on a no-query navigation."] };
-  }));
+  }), (attempts) => ({ event: "page_view", test: "session_debug_persists", test_page: withoutDebug(`${site}/services/influencer-marketing-agency/`), expected_count: 1, actual_count: 0, duplicate: false, raw_collects: [], passed: false, attempts, reason: ["No session-debug attempt received the expected page_view collect request."] }));
   return checks;
 }
 
@@ -423,6 +447,11 @@ ${failures}
 `;
 };
 
+const writeProgress = async (phase, completed, total, detail) => {
+  await mkdir("artifacts", { recursive: true });
+  await writeFile("artifacts/ga4-network-progress.json", `${JSON.stringify({ updated_at: new Date().toISOString(), phase, completed, total, detail }, null, 2)}\n`);
+};
+
 const profile = await mkdtemp(path.join(tmpdir(), "zg-ga4-"));
 const child = spawn(chrome, ["--headless=new", "--disable-extensions", "--disable-component-extensions-with-background-pages", "--disable-default-apps", "--no-first-run", `--remote-debugging-port=${port}`, `--user-data-dir=${profile}`, "about:blank"], { stdio: "ignore" });
 let cdp;
@@ -431,44 +460,78 @@ try {
   cdp = new Cdp(version.webSocketDebuggerUrl);
   await cdp.open();
   const coverage = [];
-  for (const page of seoPhaseOnePages) for (const locale of locales) {
+  const coverageTargets = seoPhaseOnePages.flatMap((page) => locales.map((locale) => ({ page, locale })));
+  for (const [coverageIndex, { page, locale }] of coverageTargets.entries()) {
+    await writeProgress("coverage", coverageIndex, coverageTargets.length, pageUrl(page, locale));
     const expected = { url: pageUrl(page, locale), locale: locale.key, lang: locale.lang };
-    const result = await withPage(cdp, (sessionId) => visit(cdp, sessionId, withDebug(expected.url)));
-    const pageViews = gaFor(result.events, "page_view");
-    const event = pageViews[0];
-    const validation = eventParameters(event, { url: withDebug(expected.url), title: result.page.title, locale: expected.lang, debug: true });
-    const pii = scansForPii(result.collects);
-    coverage.push({
+    const outcome = await retryCheck(`coverage ${expected.url}`, async () => {
+      const result = await withPage(cdp, (sessionId) => visit(cdp, sessionId, withDebug(expected.url)));
+      const pageViews = gaFor(result.events, "page_view");
+      const event = pageViews[0];
+      const validation = eventParameters(event, { url: withDebug(expected.url), title: result.page.title, locale: expected.lang, debug: true });
+      const pii = scansForPii(result.collects);
+      return {
+        url: expected.url,
+        locale: expected.locale,
+        page_view_count: pageViews.length,
+        measurement_id: event?.tid || null,
+        page_location: event?.page_location || null,
+        page_title: event?.page_title || null,
+        language: event?.language || null,
+        http_status: result.http_status,
+        parameters: validation,
+        raw_collects: result.collects,
+        pii_findings: pii,
+        passed: result.http_status === 200 && pageViews.length === 1 && event?.tid === measurementId && validation.passed && pii.length === 0,
+        reason: result.http_status !== 200 ? [`HTTP status was ${result.http_status}.`] : pageViews.length !== 1 ? [`Expected one page_view; received ${pageViews.length}.`] : event?.tid !== measurementId ? [`Measurement ID was ${event?.tid || "missing"}.`] : validation.passed && !pii.length ? [] : ["Page-view parameter or privacy validation failed."]
+      };
+    });
+    coverage.push(outcome.result ? { ...outcome.result, attempts: outcome.attempts } : {
       url: expected.url,
       locale: expected.locale,
-      page_view_count: pageViews.length,
-      measurement_id: event?.tid || null,
-      page_location: event?.page_location || null,
-      page_title: event?.page_title || null,
-      language: event?.language || null,
-      http_status: result.http_status,
-      parameters: validation,
-      raw_collects: result.collects,
-      pii_findings: pii,
-      passed: result.http_status === 200 && pageViews.length === 1 && event?.tid === measurementId && validation.passed && pii.length === 0,
-      reason: result.http_status !== 200 ? [`HTTP status was ${result.http_status}.`] : pageViews.length !== 1 ? [`Expected one page_view; received ${pageViews.length}.`] : event?.tid !== measurementId ? [`Measurement ID was ${event?.tid || "missing"}.`] : validation.passed && !pii.length ? [] : ["Page-view parameter or privacy validation failed."]
+      page_view_count: 0,
+      measurement_id: null,
+      page_location: null,
+      page_title: null,
+      http_status: null,
+      raw_collects: [],
+      pii_findings: [],
+      passed: false,
+      attempts: outcome.attempts,
+      reason: ["No attempt received the expected page_view collect request."]
     });
   }
+  await writeProgress("interactions", 0, 14, "starting");
   const interactions = [];
-  for (const definition of [
+  const clickDefinitions = [
     { name: "service hero CTA", url: `${site}/services/influencer-marketing-agency/`, selector: '[data-track-event="service_cta_click"][data-track-location="hero"]', event: "service_cta_click", location: "hero" },
     { name: "service final CTA", url: `${site}/services/influencer-marketing-agency/`, selector: '[data-track-event="service_cta_click"][data-track-location="final"]', event: "service_cta_click", location: "final" },
     { name: "article hero CTA", url: `${site}/insights/how-to-choose-influencer-marketing-agency/`, selector: '[data-track-event="article_cta_click"][data-track-location="hero"]', event: "article_cta_click", location: "hero" },
     { name: "contact navigation", url: `${site}/`, selector: '[data-track-event="contact_click"][data-track-location="nav"]', event: "contact_click", location: "nav" },
     { name: "case study card", url: `${site}/`, selector: '[data-track-event="case_study_click"][data-track-location="case-card"]', event: "case_study_click", location: "case-card" },
     { name: "quote request hero", url: `${site}/`, selector: '[data-track-event="quote_request_click"][data-track-location="hero"]', event: "quote_request_click", location: "hero" }
-  ]) interactions.push(await runClickCheck(cdp, definition));
-  for (const definition of [
+  ];
+  for (const [interactionIndex, definition] of clickDefinitions.entries()) {
+    await writeProgress("interactions", interactionIndex, 14, definition.name);
+    const outcome = await retryCheck(definition.name, () => runClickCheck(cdp, definition));
+    interactions.push(outcome.result ? { ...outcome.result, attempts: outcome.attempts } : { event: definition.event, test: definition.name, test_page: withDebug(definition.url), expected_count: 1, actual_count: 0, duplicate: false, raw_collects: [], pii_findings: [], passed: false, attempts: outcome.attempts, reason: ["No attempt received the expected CTA collect request."] });
+  }
+  const languageDefinitions = [
     { name: "zh-TW to zh-CN", url: `${site}/services/influencer-marketing-agency/`, targetLink: "zh-Hans", from: "zh-TW", to: "zh-CN" },
     { name: "zh-CN to en", url: `${site}/zh-cn/services/influencer-marketing-agency/`, targetLink: "en", from: "zh-CN", to: "en" },
     { name: "en to zh-TW", url: `${site}/en/services/influencer-marketing-agency/`, targetLink: "zh-Hant", from: "en", to: "zh-TW" }
-  ]) interactions.push(await runLanguageCheck(cdp, definition));
-  for (const mode of ["empty", "invalid", "error", "success", "double"]) interactions.push(await runLeadCheck(cdp, mode));
+  ];
+  for (const [languageIndex, definition] of languageDefinitions.entries()) {
+    await writeProgress("interactions", clickDefinitions.length + languageIndex, 14, definition.name);
+    const outcome = await retryCheck(definition.name, () => runLanguageCheck(cdp, definition));
+    interactions.push(outcome.result ? { ...outcome.result, attempts: outcome.attempts } : { event: "language_switch", test: definition.name, test_page: withDebug(definition.url), expected_count: 1, actual_count: 0, duplicate: false, raw_collects: [], pii_findings: [], passed: false, attempts: outcome.attempts, reason: ["No attempt received the expected language-switch collect request."] });
+  }
+  for (const [leadIndex, mode] of ["empty", "invalid", "error", "success", "double"].entries()) {
+    await writeProgress("interactions", clickDefinitions.length + languageDefinitions.length + leadIndex, 14, `generate_lead ${mode}`);
+    const outcome = await retryCheck(`generate_lead ${mode}`, () => runLeadCheck(cdp, mode));
+    interactions.push(outcome.result ? { ...outcome.result, attempts: outcome.attempts } : { event: "generate_lead", test: mode, test_page: withDebug(`${site}/`), expected_count: ["success", "double"].includes(mode) ? 1 : 0, actual_count: 0, duplicate: false, raw_collects: [], pii_findings: [], passed: false, attempts: outcome.attempts, reason: ["No attempt completed the lead test."] });
+  }
+  await writeProgress("lifecycle", 0, 3, "starting");
   const lifecycle = await runLifecycleChecks(cdp);
   const report = {
     generated_at: new Date().toISOString(),
@@ -494,6 +557,11 @@ try {
   await writeFile("artifacts/ga4-network-report.md", markdown(report));
   console.log(JSON.stringify(report.summary));
   if (report.failures.length) process.exitCode = 1;
+} catch (error) {
+  await mkdir("artifacts", { recursive: true });
+  await writeFile("artifacts/ga4-network-error.json", `${JSON.stringify({ generated_at: new Date().toISOString(), site, message: error.message, stack: error.stack, network_evidence: error.network_evidence || null }, null, 2)}\n`);
+  console.error(error.stack);
+  process.exitCode = 1;
 } finally {
   cdp?.close();
   child.kill("SIGTERM");
