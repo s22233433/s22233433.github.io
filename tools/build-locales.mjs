@@ -3,6 +3,7 @@ import path from "node:path";
 import { seoEvidence, seoPhaseOnePages } from "./seo-phase-one-content.mjs";
 
 const root = path.resolve(import.meta.dirname, "..");
+const analyticsAssetVersion = "20260723-3";
 const sourcePath = path.join(root, "index.html");
 const baseUrl = "https://zhenguocool.com/";
 const socialShareImage = "web-assets/og-zhenguocool-campaign-plan.webp";
@@ -1164,8 +1165,8 @@ const renderServicePage = (page, locale) => {
   <meta name="twitter:title" content="${escapeAttr(page.title[locale.key])}">
   <meta name="twitter:description" content="${escapeAttr(page.description[locale.key])}">
   <title>${escapeHtml(page.title[locale.key])}</title>
-  <script src="${prefix}web-assets/analytics-config.js" defer></script>
-  <script src="${prefix}web-assets/analytics.js" defer></script>
+  <script src="${prefix}web-assets/analytics-config.js?v=${analyticsAssetVersion}" defer></script>
+  <script src="${prefix}web-assets/analytics.js?v=${analyticsAssetVersion}" defer></script>
   <script type="application/ld+json">
 ${JSON.stringify(buildServiceSchema(page, locale), null, 2)}
   </script>
@@ -1320,8 +1321,8 @@ const renderCasePage = (study, locale) => {
   <meta name="twitter:title" content="${escapeAttr(study.title[locale.key])}">
   <meta name="twitter:description" content="${escapeAttr(study.summary[locale.key])}">
   <title>${escapeHtml(study.title[locale.key])} | ${escapeHtml(locale.label)}</title>
-  <script src="${prefix}web-assets/analytics-config.js" defer></script>
-  <script src="${prefix}web-assets/analytics.js" defer></script>
+  <script src="${prefix}web-assets/analytics-config.js?v=${analyticsAssetVersion}" defer></script>
+  <script src="${prefix}web-assets/analytics.js?v=${analyticsAssetVersion}" defer></script>
   <script type="application/ld+json">
 ${JSON.stringify(buildCaseSchema(study, locale), null, 2)}
   </script>
@@ -1505,8 +1506,8 @@ const renderSeoPage = (page, locale) => {
   <meta name="twitter:title" content="${escapeAttr(copy.title)}">
   <meta name="twitter:description" content="${escapeAttr(copy.description)}">
   <title>${escapeHtml(copy.title)}</title>
-  <script src="${prefix}web-assets/analytics-config.js" defer></script>
-  <script src="${prefix}web-assets/analytics.js" defer></script>
+  <script src="${prefix}web-assets/analytics-config.js?v=${analyticsAssetVersion}" defer></script>
+  <script src="${prefix}web-assets/analytics.js?v=${analyticsAssetVersion}" defer></script>
   <script type="application/ld+json">
 ${JSON.stringify(seoPageSchema(page, locale), null, 2)}
   </script>
@@ -1596,8 +1597,8 @@ const renderThankYouPage = (locale) => {
   <meta name="robots" content="noindex, follow">
   <link rel="canonical" href="${thankYouUrl(locale)}">
   <title>${escapeHtml(copy.title)} | ${escapeHtml(locale.label)}</title>
-  <script src="${prefix}web-assets/analytics-config.js" defer></script>
-  <script src="${prefix}web-assets/analytics.js" defer></script>
+  <script src="${prefix}web-assets/analytics-config.js?v=${analyticsAssetVersion}" defer></script>
+  <script src="${prefix}web-assets/analytics.js?v=${analyticsAssetVersion}" defer></script>
   <style>${serviceCss}</style>
 </head>
 <body>
