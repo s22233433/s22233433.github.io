@@ -1,6 +1,7 @@
 (() => {
   const measurementId = window.ZG_GA_MEASUREMENT_ID;
   const debugMode = new URLSearchParams(location.search).has("ga_debug");
+  window.dataLayer = window.dataLayer || [];
   const page = () => ({
     page_path: `${location.pathname}${location.search}`,
     page_title: document.title,
@@ -8,7 +9,6 @@
   });
   const track = (event, details = {}) => {
     const payload = { ...page(), ...details, ...(debugMode ? { debug_mode: true } : {}) };
-    window.dataLayer = window.dataLayer || [];
     window.dataLayer.push({ event, ...payload });
     if (measurementId && window.gtag) window.gtag("event", event, payload);
   };

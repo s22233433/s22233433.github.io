@@ -92,6 +92,7 @@ for (const slug of ["kol-marketing", "overseas-influencer-marketing", "japan-inf
 const analytics = fs.readFileSync(path.join(root, "web-assets", "analytics.js"), "utf8");
 const analyticsConfig = fs.readFileSync(path.join(root, "web-assets", "analytics-config.js"), "utf8");
 assert.match(analyticsConfig, /G-3G60NBREE3/, "GA4 measurement ID is configured in the shared config");
+assert.ok(analytics.indexOf("window.dataLayer = window.dataLayer || []") < analytics.indexOf("window.gtag = window.gtag ||"), "GA dataLayer is initialized before the first gtag call");
 assert.match(analytics, /send_page_view: false/, "GA config suppresses the automatic duplicate page view");
 assert.equal((analytics.match(/track\("page_view"\)/g) || []).length, 1, "Analytics emits page_view exactly once in the shared tracker");
 assert.match(analytics, /googletagmanager\.com\/gtag\/js\?id=/, "GA loader is present when a measurement ID is configured");
