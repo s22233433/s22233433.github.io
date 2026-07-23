@@ -36,7 +36,7 @@ for (const page of seoPhaseOnePages) {
     assert.match(html, new RegExp(`<html lang="${locale.html}">`), `${relative} has correct html language`);
     assert.match(html, new RegExp(`<link rel="canonical" href="${url}">`), `${relative} is self-canonical`);
     assert.match(html, /<meta name="robots" content="index, follow">/, `${relative} is indexable`);
-    assert.match(html, /<script src="(?:\.\.\/){2,3}web-assets\/analytics-config\.js\?v=20260723-10" defer><\/script>/, `${relative} loads the current analytics config once`);
+    assert.match(html, /<script src="(?:\.\.\/){2,3}web-assets\/analytics-config\.js\?v=20260723-11" defer><\/script>/, `${relative} loads the current analytics config once`);
     assert.equal((html.match(/web-assets\/analytics\.js/g) || []).length, 1, `${relative} loads analytics once`);
     assert.equal((html.match(/<h1>/g) || []).length, 1, `${relative} has one H1`);
     assert.ok(html.includes(`<h1>${copy.h1}</h1>`), `${relative} exposes the page H1`);

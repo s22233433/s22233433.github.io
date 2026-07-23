@@ -1,6 +1,6 @@
 # GA4 Network Report
 
-Generated: 2026-07-23T16:26:32.048Z
+Generated: 2026-07-23T16:39:41.166Z
 
 ## Test method
 
@@ -16,16 +16,16 @@ Generated: 2026-07-23T16:26:32.048Z
 | --- | --- | ---: | ---: | --- | --- |
 | zh-TW | https://zhenguocool.com/services/influencer-marketing-agency/ | 1 | 200 | G-3G60NBREE3 | PASS |
 | zh-CN | https://zhenguocool.com/zh-cn/services/influencer-marketing-agency/ | 1 | 200 | G-3G60NBREE3 | PASS |
-| en | https://zhenguocool.com/en/services/influencer-marketing-agency/ | 0 | - | - | FAIL |
+| en | https://zhenguocool.com/en/services/influencer-marketing-agency/ | 1 | 200 | G-3G60NBREE3 | PASS |
 | zh-TW | https://zhenguocool.com/services/overseas-influencer-marketing-guide/ | 1 | 200 | G-3G60NBREE3 | PASS |
-| zh-CN | https://zhenguocool.com/zh-cn/services/overseas-influencer-marketing-guide/ | 0 | - | - | FAIL |
+| zh-CN | https://zhenguocool.com/zh-cn/services/overseas-influencer-marketing-guide/ | 1 | 200 | G-3G60NBREE3 | PASS |
 | en | https://zhenguocool.com/en/services/overseas-influencer-marketing-guide/ | 1 | 200 | G-3G60NBREE3 | PASS |
-| zh-TW | https://zhenguocool.com/services/japan-influencer-marketing-guide/ | 0 | - | - | FAIL |
+| zh-TW | https://zhenguocool.com/services/japan-influencer-marketing-guide/ | 1 | 200 | G-3G60NBREE3 | PASS |
 | zh-CN | https://zhenguocool.com/zh-cn/services/japan-influencer-marketing-guide/ | 1 | 200 | G-3G60NBREE3 | PASS |
-| en | https://zhenguocool.com/en/services/japan-influencer-marketing-guide/ | 0 | - | - | FAIL |
+| en | https://zhenguocool.com/en/services/japan-influencer-marketing-guide/ | 1 | 200 | G-3G60NBREE3 | PASS |
 | zh-TW | https://zhenguocool.com/services/tiktok-koc-marketing-guide/ | 1 | 200 | G-3G60NBREE3 | PASS |
 | zh-CN | https://zhenguocool.com/zh-cn/services/tiktok-koc-marketing-guide/ | 1 | 200 | G-3G60NBREE3 | PASS |
-| en | https://zhenguocool.com/en/services/tiktok-koc-marketing-guide/ | 0 | - | - | FAIL |
+| en | https://zhenguocool.com/en/services/tiktok-koc-marketing-guide/ | 1 | 200 | G-3G60NBREE3 | PASS |
 | zh-TW | https://zhenguocool.com/services/influencer-marketing-costs/ | 1 | 200 | G-3G60NBREE3 | PASS |
 | zh-CN | https://zhenguocool.com/zh-cn/services/influencer-marketing-costs/ | 1 | 200 | G-3G60NBREE3 | PASS |
 | en | https://zhenguocool.com/en/services/influencer-marketing-costs/ | 1 | 200 | G-3G60NBREE3 | PASS |
@@ -33,8 +33,8 @@ Generated: 2026-07-23T16:26:32.048Z
 | zh-CN | https://zhenguocool.com/zh-cn/insights/taiwan-influencer-marketing-costs-2026/ | 1 | 200 | G-3G60NBREE3 | PASS |
 | en | https://zhenguocool.com/en/insights/taiwan-influencer-marketing-costs-2026/ | 1 | 200 | G-3G60NBREE3 | PASS |
 | zh-TW | https://zhenguocool.com/insights/how-to-choose-influencer-marketing-agency/ | 1 | 200 | G-3G60NBREE3 | PASS |
-| zh-CN | https://zhenguocool.com/zh-cn/insights/how-to-choose-influencer-marketing-agency/ | 0 | - | - | FAIL |
-| en | https://zhenguocool.com/en/insights/how-to-choose-influencer-marketing-agency/ | 1 | 200 | G-3G60NBREE3 | PASS |
+| zh-CN | https://zhenguocool.com/zh-cn/insights/how-to-choose-influencer-marketing-agency/ | 1 | 200 | G-3G60NBREE3 | PASS |
+| en | https://zhenguocool.com/en/insights/how-to-choose-influencer-marketing-agency/ | 0 | - | - | FAIL |
 | zh-TW | https://zhenguocool.com/insights/japan-influencer-marketing-guide-article/ | 1 | 200 | G-3G60NBREE3 | PASS |
 | zh-CN | https://zhenguocool.com/zh-cn/insights/japan-influencer-marketing-guide-article/ | 1 | 200 | G-3G60NBREE3 | PASS |
 | en | https://zhenguocool.com/en/insights/japan-influencer-marketing-guide-article/ | 1 | 200 | G-3G60NBREE3 | PASS |
@@ -43,19 +43,19 @@ Generated: 2026-07-23T16:26:32.048Z
 
 | Event | Test | Expected | Actual | Duplicate | Result |
 | --- | --- | ---: | ---: | --- | --- |
-| page_view | reload | 1 | 1 | no | PASS |
+| page_view | reload | 1 | 0 | no | FAIL |
 | page_view | no_debug_fresh_context | 1 | 1 | no | PASS |
 | page_view | session_debug_persists | 1 | 1 | no | PASS |
 | service_cta_click | service hero CTA | 1 | 1 | no | PASS |
 | service_cta_click | service final CTA | 1 | 1 | no | PASS |
 | article_cta_click | article hero CTA | 1 | 1 | no | PASS |
 | contact_click | contact navigation | 1 | 1 | no | PASS |
-| case_study_click | case study card | 1 | 1 | no | PASS |
+| case_study_click | case study card | 1 | 0 | no | FAIL |
 | quote_request_click | quote request hero | 1 | 1 | no | PASS |
 | language_switch | zh-TW to zh-CN | 1 | 1 | no | PASS |
 | language_switch | zh-CN to en | 1 | 1 | no | PASS |
 | language_switch | en to zh-TW | 1 | 1 | no | PASS |
-| generate_lead | empty | 0 | 0 | no | FAIL |
+| generate_lead | empty | 0 | 0 | no | PASS |
 | generate_lead | invalid | 0 | 0 | no | PASS |
 | generate_lead | error | 0 | 0 | no | PASS |
 | generate_lead | success | 1 | 0 | no | FAIL |
@@ -63,13 +63,9 @@ Generated: 2026-07-23T16:26:32.048Z
 
 ## Failed items
 
-- **undefined / https://zhenguocool.com/en/services/influencer-marketing-agency/**: No attempt received the expected page_view collect request.
-- **undefined / https://zhenguocool.com/zh-cn/services/overseas-influencer-marketing-guide/**: No attempt received the expected page_view collect request.
-- **undefined / https://zhenguocool.com/services/japan-influencer-marketing-guide/**: No attempt received the expected page_view collect request.
-- **undefined / https://zhenguocool.com/en/services/japan-influencer-marketing-guide/**: No attempt received the expected page_view collect request.
-- **undefined / https://zhenguocool.com/en/services/tiktok-koc-marketing-guide/**: No attempt received the expected page_view collect request.
-- **undefined / https://zhenguocool.com/zh-cn/insights/how-to-choose-influencer-marketing-agency/**: No attempt received the expected page_view collect request.
-- **generate_lead / empty**: No attempt completed the lead test.
+- **undefined / https://zhenguocool.com/en/insights/how-to-choose-influencer-marketing-agency/**: No attempt received the expected page_view collect request.
+- **page_view / reload**: No reload attempt received the expected page_view collect request.
+- **case_study_click / case study card**: No attempt received the expected CTA collect request.
 - **generate_lead / success**: No attempt completed the lead test.
 - **generate_lead / double**: No attempt completed the lead test.
 
