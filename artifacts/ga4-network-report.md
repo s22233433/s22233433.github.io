@@ -1,6 +1,6 @@
 # GA4 Network Report
 
-Generated: 2026-07-23T16:39:41.166Z
+Generated: 2026-07-24T03:32:31.051Z
 
 ## Test method
 
@@ -34,7 +34,7 @@ Generated: 2026-07-23T16:39:41.166Z
 | en | https://zhenguocool.com/en/insights/taiwan-influencer-marketing-costs-2026/ | 1 | 200 | G-3G60NBREE3 | PASS |
 | zh-TW | https://zhenguocool.com/insights/how-to-choose-influencer-marketing-agency/ | 1 | 200 | G-3G60NBREE3 | PASS |
 | zh-CN | https://zhenguocool.com/zh-cn/insights/how-to-choose-influencer-marketing-agency/ | 1 | 200 | G-3G60NBREE3 | PASS |
-| en | https://zhenguocool.com/en/insights/how-to-choose-influencer-marketing-agency/ | 0 | - | - | FAIL |
+| en | https://zhenguocool.com/en/insights/how-to-choose-influencer-marketing-agency/ | 1 | 200 | G-3G60NBREE3 | PASS |
 | zh-TW | https://zhenguocool.com/insights/japan-influencer-marketing-guide-article/ | 1 | 200 | G-3G60NBREE3 | PASS |
 | zh-CN | https://zhenguocool.com/zh-cn/insights/japan-influencer-marketing-guide-article/ | 1 | 200 | G-3G60NBREE3 | PASS |
 | en | https://zhenguocool.com/en/insights/japan-influencer-marketing-guide-article/ | 1 | 200 | G-3G60NBREE3 | PASS |
@@ -43,14 +43,14 @@ Generated: 2026-07-23T16:39:41.166Z
 
 | Event | Test | Expected | Actual | Duplicate | Result |
 | --- | --- | ---: | ---: | --- | --- |
-| page_view | reload | 1 | 0 | no | FAIL |
+| page_view | reload | 1 | 1 | no | PASS |
 | page_view | no_debug_fresh_context | 1 | 1 | no | PASS |
 | page_view | session_debug_persists | 1 | 1 | no | PASS |
 | service_cta_click | service hero CTA | 1 | 1 | no | PASS |
 | service_cta_click | service final CTA | 1 | 1 | no | PASS |
 | article_cta_click | article hero CTA | 1 | 1 | no | PASS |
 | contact_click | contact navigation | 1 | 1 | no | PASS |
-| case_study_click | case study card | 1 | 0 | no | FAIL |
+| case_study_click | case study card | 1 | 1 | no | PASS |
 | quote_request_click | quote request hero | 1 | 1 | no | PASS |
 | language_switch | zh-TW to zh-CN | 1 | 1 | no | PASS |
 | language_switch | zh-CN to en | 1 | 1 | no | PASS |
@@ -58,16 +58,12 @@ Generated: 2026-07-23T16:39:41.166Z
 | generate_lead | empty | 0 | 0 | no | PASS |
 | generate_lead | invalid | 0 | 0 | no | PASS |
 | generate_lead | error | 0 | 0 | no | PASS |
-| generate_lead | success | 1 | 0 | no | FAIL |
-| generate_lead | double | 1 | 0 | no | FAIL |
+| generate_lead | success | 1 | 1 | no | PASS |
+| generate_lead | double | 1 | 1 | no | PASS |
 
 ## Failed items
 
-- **undefined / https://zhenguocool.com/en/insights/how-to-choose-influencer-marketing-agency/**: No attempt received the expected page_view collect request.
-- **page_view / reload**: No reload attempt received the expected page_view collect request.
-- **case_study_click / case study card**: No attempt received the expected CTA collect request.
-- **generate_lead / success**: No attempt completed the lead test.
-- **generate_lead / double**: No attempt completed the lead test.
+- None.
 
 ## DebugView manual confirmation
 
