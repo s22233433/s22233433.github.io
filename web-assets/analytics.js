@@ -1,6 +1,7 @@
 (() => {
   const measurementId = window.ZG_GA_MEASUREMENT_ID;
   const debugKey = "ga_debug";
+  const pendingLeadKey = "zg_pending_generate_lead";
   const query = new URLSearchParams(location.search);
   const isLocal = ["localhost", "127.0.0.1", "::1"].includes(location.hostname);
   const debugMode = query.get(debugKey) === "1" || sessionStorage.getItem(debugKey) === "1" || isLocal;
@@ -21,6 +22,15 @@
     locale: document.documentElement.lang || "unknown",
     ...content()
   });
+  const pendingLead = (() => {
+    try {
+      const value = sessionStorage.getItem(pendingLeadKey);
+      sessionStorage.removeItem(pendingLeadKey);
+      return value ? JSON.parse(value) : null;
+    } catch {
+      return null;
+    }
+  })();
   const track = (event, details = {}) => {
     const payload = { ...page(), ...details, ...(debugMode ? { debug_mode: true } : {}) };
     window.dataLayer.push({ event, ...payload });
@@ -31,12 +41,16 @@
   };
 
   window.zgTrack = track;
+  window.zgPagePayload = page;
   if (measurementId) {
     window.gtag = window.gtag || function gtag() { window.dataLayer.push(arguments); };
     const script = document.createElement("script");
     script.async = true;
     script.src = `https://www.googletagmanager.com/gtag/js?id=${encodeURIComponent(measurementId)}`;
-    script.addEventListener("load", () => track("page_view"), { once: true });
+    script.addEventListener("load", () => {
+      track("page_view");
+      if (pendingLead) track("generate_lead", pendingLead);
+    }, { once: true });
     document.head.append(script);
     window.gtag("js", new Date());
     if (debugMode) window.gtag("set", "debug_mode", true);

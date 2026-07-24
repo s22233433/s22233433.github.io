@@ -36,7 +36,7 @@ for (const page of seoPhaseOnePages) {
     assert.match(html, new RegExp(`<html lang="${locale.html}">`), `${relative} has correct html language`);
     assert.match(html, new RegExp(`<link rel="canonical" href="${url}">`), `${relative} is self-canonical`);
     assert.match(html, /<meta name="robots" content="index, follow">/, `${relative} is indexable`);
-    assert.match(html, /<script src="(?:\.\.\/){2,3}web-assets\/analytics-config\.js\?v=20260723-12" defer><\/script>/, `${relative} loads the current analytics config once`);
+    assert.match(html, /<script src="(?:\.\.\/){2,3}web-assets\/analytics-config\.js\?v=20260723-13" defer><\/script>/, `${relative} loads the current analytics config once`);
     assert.equal((html.match(/web-assets\/analytics\.js/g) || []).length, 1, `${relative} loads analytics once`);
     assert.equal((html.match(/<h1>/g) || []).length, 1, `${relative} has one H1`);
     assert.ok(html.includes(`<h1>${copy.h1}</h1>`), `${relative} exposes the page H1`);
@@ -92,12 +92,12 @@ for (const slug of ["kol-marketing", "overseas-influencer-marketing", "japan-inf
 const analytics = fs.readFileSync(path.join(root, "web-assets", "analytics.js"), "utf8");
 const analyticsConfig = fs.readFileSync(path.join(root, "web-assets", "analytics-config.js"), "utf8");
 for (const relative of ["index.html", "zh-tw/index.html", "zh-cn/index.html", "en/index.html"]) {
-  assert.match(fs.readFileSync(path.join(root, relative), "utf8"), /analytics\.js\?v=20260723-12/, `${relative} loads the current analytics asset`);
+  assert.match(fs.readFileSync(path.join(root, relative), "utf8"), /analytics\.js\?v=20260723-13/, `${relative} loads the current analytics asset`);
 }
 assert.match(analyticsConfig, /G-3G60NBREE3/, "GA4 measurement ID is configured in the shared config");
 assert.ok(analytics.indexOf("window.dataLayer = window.dataLayer || []") < analytics.indexOf("window.gtag = window.gtag ||"), "GA dataLayer is initialized before the first gtag call");
 assert.match(analytics, /send_page_view: false/, "GA config suppresses the automatic duplicate page view");
-assert.match(analytics, /script\.addEventListener\("load", \(\) => track\("page_view"\), \{ once: true \}\)/, "Analytics emits page_view once after the GA runtime is ready");
+assert.match(analytics, /track\("page_view"\);\n      if \(pendingLead\) track\("generate_lead", pendingLead\);/, "Analytics emits a pending successful lead after the GA runtime is ready");
 assert.match(analytics, /\} else track\("page_view"\);/, "Analytics has a single no-measurement fallback for page_view");
 assert.match(analytics, /googletagmanager\.com\/gtag\/js\?id=/, "GA loader is present when a measurement ID is configured");
 assert.match(analytics, /window\.gtag\("event", event, \{ \.\.\.payload, event_callback: resolve, event_timeout: 1500 \}\)/, "Tracked events use a delivery callback without a transport event parameter");
@@ -110,5 +110,6 @@ assert.match(analytics, /sessionStorage\.getItem\(debugKey\)/, "DebugView mode p
 assert.match(analytics, /from_locale: localeValue/, "Language switching normalizes the source locale");
 assert.match(analytics, /to_locale: localeValue/, "Language switching normalizes the destination locale");
 assert.match(fs.readFileSync(path.join(root, "index.html"), "utf8"), /generate_lead/, "Lead form success emits generate_lead");
+assert.match(fs.readFileSync(path.join(root, "index.html"), "utf8"), /zg_pending_generate_lead/, "Lead form stores a successful submission for the thank-you page only");
 
 console.log(`SEO phase-one contract: pass (${urls.length} routes)`);

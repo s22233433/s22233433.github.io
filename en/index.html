@@ -27,8 +27,8 @@
   <meta name="twitter:description" content="Zhenguo Marketing helps brands execute overseas KOL/KOC campaigns, including creator screening, negotiation, product seeding, script direction, content review, publishing follow-up, and campaign wrap-up.">
   <meta name="twitter:image" content="https://zhenguocool.com/web-assets/og-zhenguocool-campaign-plan.webp">
   <title>Zhenguo Marketing | Overseas KOL/KOC Campaign Execution Team</title>
-  <script src="../web-assets/analytics-config.js?v=20260723-12" defer></script>
-  <script src="../web-assets/analytics.js?v=20260723-12" defer></script>
+  <script src="../web-assets/analytics-config.js?v=20260723-13" defer></script>
+  <script src="../web-assets/analytics.js?v=20260723-13" defer></script>
   <script type="application/ld+json" id="structured-data">
 {
   "@context": "https://schema.org",
@@ -2855,8 +2855,12 @@
             headers: { Accept: "application/json" }
           });
           if (!response.ok) throw new Error("Form delivery failed");
-          await trackEvent("generate_lead");
-          await new Promise((resolve) => setTimeout(resolve, 2000));
+          sessionStorage.setItem("zg_pending_generate_lead", JSON.stringify(window.zgPagePayload ? window.zgPagePayload() : {
+            page_path: `${location.pathname}${location.search}`,
+            page_title: document.title,
+            page_location: location.href,
+            locale: document.documentElement.lang || "unknown"
+          }));
           const localeMatch = window.location.pathname.match(/^\/(zh-tw|zh-cn|en)\//);
           const thanksPath = localeMatch ? `/${localeMatch[1]}/thanks/` : "/thanks/";
           window.location.assign(thanksPath);
