@@ -24,8 +24,8 @@
   });
   const pendingLead = (() => {
     try {
-      const value = sessionStorage.getItem(pendingLeadKey);
-      sessionStorage.removeItem(pendingLeadKey);
+      const value = localStorage.getItem(pendingLeadKey);
+      localStorage.removeItem(pendingLeadKey);
       return value ? JSON.parse(value) : null;
     } catch {
       return null;
