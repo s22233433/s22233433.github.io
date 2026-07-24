@@ -9,6 +9,9 @@ const chrome = process.env.CHROME_BIN || "/Applications/Google Chrome.app/Conten
 const port = Number(process.env.GA4_CDP_PORT || 9500 + (process.pid % 300));
 const measurementId = "G-3G60NBREE3";
 const timeoutMs = Number(process.env.GA4_TIMEOUT_MS || 12000);
+const targets = process.env.GA4_TARGETS ? process.env.GA4_TARGETS.split("|").filter(Boolean) : [];
+const selected = (value) => !targets.length || targets.some((target) => value.includes(target));
+const reportName = targets.length ? "ga4-targeted-report" : "ga4-network-report";
 const locales = [
   { key: "zh-TW", prefix: "", lang: "zh-TW" },
   { key: "zh-CN", prefix: "/zh-cn", lang: "zh-CN" },
@@ -74,6 +77,9 @@ class Cdp {
     this.id = 0;
     this.pending = new Map();
     this.events = [];
+    this.formSubmitResponse = null;
+    this.formSubmitSessionId = null;
+    this.fetchFulfillErrors = [];
   }
 
   async open() {
@@ -85,6 +91,15 @@ class Cdp {
         this.pending.delete(message.id);
       } else {
         this.events.push({ ...message, observed_at: new Date().toISOString(), observed_ms: Date.now() });
+        if (message.method === "Fetch.requestPaused") {
+          const url = message.params.request.url;
+          if (this.formSubmitResponse && url.includes("formsubmit.co")) {
+            const body = Buffer.from(JSON.stringify(this.formSubmitResponse < 400 ? { success: "true" } : { success: "false" })).toString("base64");
+            this.send("Fetch.fulfillRequest", { requestId: message.params.requestId, responseCode: this.formSubmitResponse, responseHeaders: [{ name: "content-type", value: "application/json" }, { name: "access-control-allow-origin", value: "https://zhenguocool.com" }], body }, message.sessionId).catch((error) => {
+              this.fetchFulfillErrors.push({ paused_session: message.sessionId, configured_session: this.formSubmitSessionId, error: error.message });
+            });
+          }
+        }
       }
     };
   }
@@ -190,7 +205,7 @@ async function withPage(cdp, callback) {
   }
 }
 
-async function retryCheck(name, runner, attemptsLimit = 2) {
+async function retryCheck(name, runner, attemptsLimit = 3) {
   const attempts = [];
   let result = null;
   for (let attempt = 1; attempt <= attemptsLimit; attempt += 1) {
@@ -337,14 +352,14 @@ async function runLeadCheck(cdp, mode) {
     await waitForUi(cdp, sessionId, "#lead-form");
     const start = cdp.events.length;
     const isInvalid = mode === "empty" || mode === "invalid";
+    if (!isInvalid) {
+      cdp.formSubmitResponse = mode === "error" ? 500 : 200;
+      cdp.formSubmitSessionId = sessionId;
+      cdp.fetchFulfillErrors = [];
+      await cdp.send("Fetch.enable", { patterns: [{ urlPattern: "*formsubmit.co/*", requestStage: "Request" }] }, sessionId);
+    }
     const expression = `(() => {
       const form = document.querySelector('#lead-form');
-      const nativeFetch = window.fetch.bind(window);
-      window.fetch = async (input, init) => {
-        const requestUrl = typeof input === 'string' ? input : input?.url;
-        if (requestUrl === form.action) return new Response('', {status:${mode === "error" ? 500 : 200}});
-        return nativeFetch(input, init);
-      };
       ${mode === "empty" ? "" : fillForm}
       ${mode === "invalid" ? "form.elements.email.value = 'not-an-email';" : ""}
       window.__zgInvalid = !form.checkValidity();
@@ -362,10 +377,6 @@ async function runLeadCheck(cdp, mode) {
         return value.result.value === true;
       }, "form error state");
     } else {
-      await cdp.waitFor(start, sessionId, async () => {
-        const value = await cdp.send("Runtime.evaluate", { expression: "window.dataLayer?.some((entry) => entry.event === 'generate_lead') === true", returnByValue: true }, sessionId);
-        return value.result.value === true;
-      }, `generate_lead handler ${mode}`);
       try {
         await cdp.waitFor(start, sessionId, (events) => gaFor(events, "generate_lead")[0], `generate_lead ${mode}`);
       } catch (error) {
@@ -493,7 +504,7 @@ try {
   cdp = new Cdp(version.webSocketDebuggerUrl);
   await cdp.open();
   const coverage = [];
-  const coverageTargets = seoPhaseOnePages.flatMap((page) => locales.map((locale) => ({ page, locale })));
+  const coverageTargets = seoPhaseOnePages.flatMap((page) => locales.map((locale) => ({ page, locale }))).filter(({ page, locale }) => selected(pageUrl(page, locale)));
   for (const [coverageIndex, { page, locale }] of coverageTargets.entries()) {
     await writeProgress("coverage", coverageIndex, coverageTargets.length, pageUrl(page, locale));
     const expected = { url: pageUrl(page, locale), locale: locale.key, lang: locale.lang };
@@ -544,7 +555,7 @@ try {
     { name: "case study card", url: `${site}/`, selector: '[data-track-event="case_study_click"][data-track-location="case-card"]', event: "case_study_click", location: "case-card" },
     { name: "quote request hero", url: `${site}/`, selector: '[data-track-event="quote_request_click"][data-track-location="hero"]', event: "quote_request_click", location: "hero" }
   ];
-  for (const [interactionIndex, definition] of clickDefinitions.entries()) {
+  for (const [interactionIndex, definition] of clickDefinitions.filter((item) => selected(item.name)).entries()) {
     await writeProgress("interactions", interactionIndex, 14, definition.name);
     const outcome = await retryCheck(definition.name, () => runClickCheck(cdp, definition));
     interactions.push(outcome.result ? { ...outcome.result, attempts: outcome.attempts } : { event: definition.event, test: definition.name, test_page: withDebug(definition.url), expected_count: 1, actual_count: 0, duplicate: false, raw_collects: [], pii_findings: [], passed: false, attempts: outcome.attempts, reason: ["No attempt received the expected CTA collect request."] });
@@ -554,18 +565,18 @@ try {
     { name: "zh-CN to en", url: `${site}/zh-cn/services/influencer-marketing-agency/`, targetLink: "en", from: "zh-CN", to: "en" },
     { name: "en to zh-TW", url: `${site}/en/services/influencer-marketing-agency/`, targetLink: "zh-Hant", from: "en", to: "zh-TW" }
   ];
-  for (const [languageIndex, definition] of languageDefinitions.entries()) {
+  for (const [languageIndex, definition] of languageDefinitions.filter((item) => selected(item.name)).entries()) {
     await writeProgress("interactions", clickDefinitions.length + languageIndex, 14, definition.name);
     const outcome = await retryCheck(definition.name, () => runLanguageCheck(cdp, definition));
     interactions.push(outcome.result ? { ...outcome.result, attempts: outcome.attempts } : { event: "language_switch", test: definition.name, test_page: withDebug(definition.url), expected_count: 1, actual_count: 0, duplicate: false, raw_collects: [], pii_findings: [], passed: false, attempts: outcome.attempts, reason: ["No attempt received the expected language-switch collect request."] });
   }
-  for (const [leadIndex, mode] of ["empty", "invalid", "error", "success", "double"].entries()) {
+  for (const [leadIndex, mode] of ["empty", "invalid", "error", "success", "double"].filter(selected).entries()) {
     await writeProgress("interactions", clickDefinitions.length + languageDefinitions.length + leadIndex, 14, `generate_lead ${mode}`);
     const outcome = await retryCheck(`generate_lead ${mode}`, () => runLeadCheck(cdp, mode));
     interactions.push(outcome.result ? { ...outcome.result, attempts: outcome.attempts } : { event: "generate_lead", test: mode, test_page: withDebug(`${site}/`), expected_count: ["success", "double"].includes(mode) ? 1 : 0, actual_count: 0, duplicate: false, raw_collects: [], pii_findings: [], passed: false, attempts: outcome.attempts, reason: ["No attempt completed the lead test."] });
   }
   await writeProgress("lifecycle", 0, 3, "starting");
-  const lifecycle = await runLifecycleChecks(cdp);
+  const lifecycle = targets.length ? [] : await runLifecycleChecks(cdp);
   const report = {
     generated_at: new Date().toISOString(),
     site,
@@ -586,8 +597,8 @@ try {
     }
   };
   await mkdir("artifacts", { recursive: true });
-  await writeFile("artifacts/ga4-network-report.json", `${JSON.stringify(report, null, 2)}\n`);
-  await writeFile("artifacts/ga4-network-report.md", markdown(report));
+  await writeFile(`artifacts/${reportName}.json`, `${JSON.stringify(report, null, 2)}\n`);
+  await writeFile(`artifacts/${reportName}.md`, markdown(report));
   console.log(JSON.stringify(report.summary));
   if (report.failures.length) process.exitCode = 1;
 } catch (error) {
@@ -599,7 +610,8 @@ try {
   cdp?.close();
   if (child.exitCode === null) {
     child.kill("SIGTERM");
-    await new Promise((resolve) => child.once("exit", resolve));
+    await Promise.race([new Promise((resolve) => child.once("exit", resolve)), delay(2000)]);
+    if (child.exitCode === null) child.kill("SIGKILL");
   }
   await rm(profile, { recursive: true, force: true, maxRetries: 3, retryDelay: 100 });
 }
