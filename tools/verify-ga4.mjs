@@ -149,6 +149,12 @@ const scansForPii = (collects) => collects.flatMap((collect) => Object.entries(c
 }));
 
 const gaFor = (events, eventName) => requestRows(events).filter((event) => event.event === eventName);
+const is2xx = (event) => Number.isInteger(event?.http_status) && event.http_status >= 200 && event.http_status < 300;
+const statusText = (event) => event?.http_status ?? "missing";
+async function waitForCollectResponse(cdp, after, sessionId, match, description) {
+  const request = await cdp.waitFor(after, sessionId, (events) => requestRows(events).find(match), `${description} collect`);
+  await cdp.waitFor(after, sessionId, (events) => events.some((event) => event.method === "Network.responseReceived" && event.params.requestId === request.request_id), `${description} HTTP response`);
+}
 const expectedContent = (url) => {
   const parts = new URL(url).pathname.split("/").filter(Boolean);
   const index = parts.findIndex((part) => ["services", "insights", "cases"].includes(part));
@@ -255,7 +261,7 @@ async function visit(cdp, sessionId, url) {
   try {
     await cdp.send("Page.navigate", { url }, sessionId);
     await cdp.waitFor(start, sessionId, (events) => responseForUrl(events, url), `document response for ${url}`);
-    await cdp.waitFor(start, sessionId, (events) => pageViewFor(events, url), `page_view for ${url}`);
+    await waitForCollectResponse(cdp, start, sessionId, (event) => event.event === "page_view" && event.page_location === normalizedUrl(url), `page_view for ${url}`);
     await waitForGaIdle(cdp, start, sessionId, `page load ${url}`);
     const events = cdp.eventsAfter(start, sessionId);
     const response = responseForUrl(events, url);
@@ -279,7 +285,7 @@ async function runClickCheck(cdp, definition) {
     const loaded = await visit(cdp, sessionId, url);
     await waitForUi(cdp, sessionId, definition.selector);
     const action = await trigger(cdp, sessionId, definition.selector, definition.name, true);
-    const collected = await cdp.waitFor(action.start, sessionId, (events) => gaFor(events, definition.event).find((event) => event.cta_location === definition.location), `${definition.event} from ${definition.name}`);
+    await waitForCollectResponse(cdp, action.start, sessionId, (event) => event.event === definition.event && event.cta_location === definition.location, `${definition.event} from ${definition.name}`);
     await waitForGaIdle(cdp, action.start, sessionId, definition.name);
     const events = cdp.eventsAfter(action.start, sessionId);
     const actual = gaFor(events, definition.event).filter((event) => event.cta_location === definition.location);
@@ -293,11 +299,12 @@ async function runClickCheck(cdp, definition) {
       expected_count: 1,
       actual_count: actual.length,
       duplicate: actual.length > 1,
+      http_status: actual[0]?.http_status ?? null,
       parameters: validation,
       raw_collects: requestRows(events),
       pii_findings: pii,
-      passed: actual.length === 1 && validation.passed && pii.length === 0,
-      reason: actual.length !== 1 ? [`Expected one ${definition.event} at ${definition.location}; received ${actual.length}.`] : validation.passed && !pii.length ? [] : ["Event parameter or privacy validation failed."]
+      passed: actual.length === 1 && is2xx(actual[0]) && validation.passed && pii.length === 0,
+      reason: actual.length !== 1 ? [`Expected one ${definition.event} at ${definition.location}; received ${actual.length}.`] : !is2xx(actual[0]) ? [`Expected a 2xx response; received ${statusText(actual[0])}.`] : validation.passed && !pii.length ? [] : ["Event parameter or privacy validation failed."]
     };
   });
 }
@@ -309,10 +316,10 @@ async function runLanguageCheck(cdp, definition) {
     await waitForUi(cdp, sessionId, `[data-lang-link="${definition.targetLink}"]`);
     const action = await trigger(cdp, sessionId, `[data-lang-link="${definition.targetLink}"]`, definition.name, true);
     const expectedTarget = withDebug(action.target_url);
-    await cdp.waitFor(action.start, sessionId, (events) => gaFor(events, "language_switch").find((event) => event.from_locale === definition.from && event.to_locale === definition.to), `language_switch ${definition.name}`);
+    await waitForCollectResponse(cdp, action.start, sessionId, (event) => event.event === "language_switch" && event.from_locale === definition.from && event.to_locale === definition.to, `language_switch ${definition.name}`);
     const navigationStart = cdp.events.length;
     await cdp.send("Page.navigate", { url: expectedTarget }, sessionId);
-    await cdp.waitFor(navigationStart, sessionId, (events) => pageViewFor(events, expectedTarget), `language page_view ${definition.name}`);
+    await waitForCollectResponse(cdp, navigationStart, sessionId, (event) => event.event === "page_view" && event.page_location === expectedTarget, `language page_view ${definition.name}`);
     await waitForGaIdle(cdp, action.start, sessionId, definition.name);
     const events = cdp.eventsAfter(action.start, sessionId);
     const switches = gaFor(events, "language_switch");
@@ -328,11 +335,13 @@ async function runLanguageCheck(cdp, definition) {
       actual_count: switches.length,
       page_view_count_after_switch: pages.length,
       duplicate: switches.length > 1 || pages.length > 1,
+      http_status: switches[0]?.http_status ?? null,
+      destination_page_view_http_status: pages[0]?.http_status ?? null,
       parameters: validation,
       raw_collects: requestRows(events),
       pii_findings: pii,
-      passed: switches.length === 1 && pages.length === 1 && validation.passed && pii.length === 0,
-      reason: switches.length !== 1 || pages.length !== 1 ? [`Expected one language_switch and one destination page_view; received ${switches.length} and ${pages.length}.`] : validation.passed && !pii.length ? [] : ["Language event parameter or privacy validation failed."]
+      passed: switches.length === 1 && pages.length === 1 && is2xx(switches[0]) && is2xx(pages[0]) && validation.passed && pii.length === 0,
+      reason: switches.length !== 1 || pages.length !== 1 ? [`Expected one language_switch and one destination page_view; received ${switches.length} and ${pages.length}.`] : !is2xx(switches[0]) || !is2xx(pages[0]) ? [`Expected 2xx responses; received ${statusText(switches[0])} and ${statusText(pages[0])}.`] : validation.passed && !pii.length ? [] : ["Language event parameter or privacy validation failed."]
     };
   });
 }
@@ -378,7 +387,7 @@ async function runLeadCheck(cdp, mode) {
       }, "form error state");
     } else {
       try {
-        await cdp.waitFor(start, sessionId, (events) => gaFor(events, "generate_lead")[0], `generate_lead ${mode}`);
+        await waitForCollectResponse(cdp, start, sessionId, (event) => event.event === "generate_lead", `generate_lead ${mode}`);
       } catch (error) {
         const state = await cdp.send("Runtime.evaluate", { expression: "JSON.stringify({url:location.href,data_layer_events:(window.dataLayer || []).map((entry) => entry?.event || entry?.[1] || null),tag_manager:Boolean(window.google_tag_manager),gtag:String(window.gtag).slice(0,120)})", returnByValue: true }, sessionId);
         error.network_evidence = {
@@ -388,7 +397,7 @@ async function runLeadCheck(cdp, mode) {
         };
         throw error;
       }
-      await cdp.waitFor(start, sessionId, (events) => pageViewFor(events, `${site}/thanks/`), `thank-you page_view ${mode}`);
+      await waitForCollectResponse(cdp, start, sessionId, (event) => event.event === "page_view" && event.page_location === `${site}/thanks/`, `thank-you page_view ${mode}`);
     }
     if (mode !== "error" && !isInvalid) await waitForGaIdle(cdp, start, sessionId, `lead ${mode}`);
     const events = cdp.eventsAfter(start, sessionId);
@@ -404,11 +413,12 @@ async function runLeadCheck(cdp, mode) {
       expected_count: expected,
       actual_count: leads.length,
       duplicate: leads.length > 1,
+      http_status: leads[0]?.http_status ?? null,
       parameters: validation,
       raw_collects: requestRows(events),
       pii_findings: pii,
-      passed: leads.length === expected && validation.passed && pii.length === 0,
-      reason: leads.length !== expected ? [`Expected ${expected} generate_lead event(s); received ${leads.length}.`] : validation.passed && !pii.length ? [] : ["Lead event parameter or privacy validation failed."]
+      passed: leads.length === expected && (expected === 0 || is2xx(leads[0])) && validation.passed && pii.length === 0,
+      reason: leads.length !== expected ? [`Expected ${expected} generate_lead event(s); received ${leads.length}.`] : expected && !is2xx(leads[0]) ? [`Expected a 2xx response; received ${statusText(leads[0])}.`] : validation.passed && !pii.length ? [] : ["Lead event parameter or privacy validation failed."]
     };
   });
 }
@@ -424,17 +434,17 @@ async function runLifecycleChecks(cdp) {
     await visit(cdp, sessionId, url);
     const start = cdp.events.length;
     await cdp.send("Page.reload", { ignoreCache: true }, sessionId);
-    await cdp.waitFor(start, sessionId, (events) => pageViewFor(events, url), "reload page_view");
+    await waitForCollectResponse(cdp, start, sessionId, (event) => event.event === "page_view" && event.page_location === url, "reload page_view");
     await waitForGaIdle(cdp, start, sessionId, "reload");
     const pageViews = gaFor(cdp.eventsAfter(start, sessionId), "page_view").filter((event) => event.page_location === url);
-    return { event: "page_view", test: "reload", test_page: url, expected_count: 1, actual_count: pageViews.length, duplicate: pageViews.length > 1, raw_collects: requestRows(cdp.eventsAfter(start, sessionId)), passed: pageViews.length === 1, reason: pageViews.length === 1 ? [] : [`Expected one reload page_view; received ${pageViews.length}.`] };
+    return { event: "page_view", test: "reload", test_page: url, expected_count: 1, actual_count: pageViews.length, duplicate: pageViews.length > 1, http_status: pageViews[0]?.http_status ?? null, raw_collects: requestRows(cdp.eventsAfter(start, sessionId)), passed: pageViews.length === 1 && is2xx(pageViews[0]), reason: pageViews.length !== 1 ? [`Expected one reload page_view; received ${pageViews.length}.`] : !is2xx(pageViews[0]) ? [`Expected a 2xx response; received ${statusText(pageViews[0])}.`] : [] };
   }), (attempts) => ({ event: "page_view", test: "reload", test_page: withDebug(`${site}/services/influencer-marketing-agency/`), expected_count: 1, actual_count: 0, duplicate: false, raw_collects: [], passed: false, attempts, reason: ["No reload attempt received the expected page_view collect request."] }));
   await add("no_debug_fresh_context", () => withPage(cdp, async (sessionId) => {
     const url = withoutDebug(`${site}/`);
     const loaded = await visit(cdp, sessionId, url);
     const pageView = gaFor(loaded.events, "page_view")[0];
     const validation = eventParameters(pageView, { url, title: loaded.page.title, locale: loaded.page.locale, debug: false });
-    return { event: "page_view", test: "no_debug_fresh_context", test_page: url, expected_count: 1, actual_count: gaFor(loaded.events, "page_view").length, duplicate: gaFor(loaded.events, "page_view").length > 1, parameters: validation, raw_collects: loaded.collects, passed: gaFor(loaded.events, "page_view").length === 1 && validation.passed, reason: validation.passed ? [] : ["Fresh non-debug context included debug_mode or mismatched page parameters."] };
+    return { event: "page_view", test: "no_debug_fresh_context", test_page: url, expected_count: 1, actual_count: gaFor(loaded.events, "page_view").length, duplicate: gaFor(loaded.events, "page_view").length > 1, http_status: pageView?.http_status ?? null, parameters: validation, raw_collects: loaded.collects, passed: gaFor(loaded.events, "page_view").length === 1 && is2xx(pageView) && validation.passed, reason: !is2xx(pageView) ? [`Expected a 2xx response; received ${statusText(pageView)}.`] : validation.passed ? [] : ["Fresh non-debug context included debug_mode or mismatched page parameters."] };
   }), (attempts) => ({ event: "page_view", test: "no_debug_fresh_context", test_page: withoutDebug(`${site}/`), expected_count: 1, actual_count: 0, duplicate: false, raw_collects: [], passed: false, attempts, reason: ["No non-debug attempt received the expected page_view collect request."] }));
   await add("session_debug_persists", () => withPage(cdp, async (sessionId) => {
     await visit(cdp, sessionId, withDebug(`${site}/`));
@@ -442,7 +452,7 @@ async function runLifecycleChecks(cdp) {
     const loaded = await visit(cdp, sessionId, url);
     const pageView = gaFor(loaded.events, "page_view")[0];
     const validation = eventParameters(pageView, { url, title: loaded.page.title, locale: loaded.page.locale, debug: true });
-    return { event: "page_view", test: "session_debug_persists", test_page: url, expected_count: 1, actual_count: gaFor(loaded.events, "page_view").length, duplicate: gaFor(loaded.events, "page_view").length > 1, parameters: validation, raw_collects: loaded.collects, passed: gaFor(loaded.events, "page_view").length === 1 && validation.passed, reason: validation.passed ? [] : ["sessionStorage ga_debug did not retain debug_mode on a no-query navigation."] };
+    return { event: "page_view", test: "session_debug_persists", test_page: url, expected_count: 1, actual_count: gaFor(loaded.events, "page_view").length, duplicate: gaFor(loaded.events, "page_view").length > 1, http_status: pageView?.http_status ?? null, parameters: validation, raw_collects: loaded.collects, passed: gaFor(loaded.events, "page_view").length === 1 && is2xx(pageView) && validation.passed, reason: !is2xx(pageView) ? [`Expected a 2xx response; received ${statusText(pageView)}.`] : validation.passed ? [] : ["sessionStorage ga_debug did not retain debug_mode on a no-query navigation."] };
   }), (attempts) => ({ event: "page_view", test: "session_debug_persists", test_page: withoutDebug(`${site}/services/influencer-marketing-agency/`), expected_count: 1, actual_count: 0, duplicate: false, raw_collects: [], passed: false, attempts, reason: ["No session-debug attempt received the expected page_view collect request."] }));
   return checks;
 }
@@ -450,7 +460,7 @@ async function runLifecycleChecks(cdp) {
 const markdown = (report) => {
   const coverageRows = report.coverage.map((item) => `| ${item.locale} | ${item.url} | ${item.page_view_count} | ${item.http_status || "-"} | ${item.measurement_id || "-"} | ${item.passed ? "PASS" : "FAIL"} |`).join("\n");
   const interactions = [...report.lifecycle, ...report.interaction_events];
-  const interactionRows = interactions.map((item) => `| ${item.event} | ${item.test || "-"} | ${item.expected_count} | ${item.actual_count} | ${item.duplicate ? "yes" : "no"} | ${item.passed ? "PASS" : "FAIL"} |`).join("\n");
+  const interactionRows = interactions.map((item) => `| ${item.event} | ${item.test || "-"} | ${item.expected_count} | ${item.actual_count} | ${item.http_status ?? "-"}${item.destination_page_view_http_status ? ` / ${item.destination_page_view_http_status}` : ""} | ${item.duplicate ? "yes" : "no"} | ${item.passed ? "PASS" : "FAIL"} |`).join("\n");
   const failures = report.failures.length ? report.failures.map((item) => `- **${item.event} / ${item.test || item.url}**: ${item.reason.join(" ")}`).join("\n") : "- None.";
   return `# GA4 Network Report
 
@@ -459,7 +469,7 @@ Generated: ${report.generated_at}
 ## Test method
 
 - Every route uses a new Chrome Browser Context, so cookies, localStorage, and sessionStorage start empty.
-- Each assertion waits for its expected GA4 collect request or an explicit timeout; there is no fixed page or interaction sleep.
+- Each expected GA4 collect waits for its matching \`Network.responseReceived\` by request ID; expected events require a 2xx response.
 - Raw request evidence, complete parameters, response status, and PII scan results are in the JSON companion report.
 - Browser language (GA4 \`ul\`) reflects the isolated test browser. Route correctness uses the explicit \`ep.locale\` value.
 - SPA route test: **N/A**. This is a static multi-page site; route changes load a new document.
@@ -472,8 +482,8 @@ ${coverageRows}
 
 ## Lifecycle and interaction events
 
-| Event | Test | Expected | Actual | Duplicate | Result |
-| --- | --- | ---: | ---: | --- | --- |
+| Event | Test | Expected | Actual | HTTP | Duplicate | Result |
+| --- | --- | ---: | ---: | ---: | --- | --- |
 ${interactionRows}
 
 ## Failed items

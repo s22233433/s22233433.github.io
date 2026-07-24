@@ -1,11 +1,11 @@
 # GA4 Network Report
 
-Generated: 2026-07-24T03:32:31.051Z
+Generated: 2026-07-24T03:44:01.004Z
 
 ## Test method
 
 - Every route uses a new Chrome Browser Context, so cookies, localStorage, and sessionStorage start empty.
-- Each assertion waits for its expected GA4 collect request or an explicit timeout; there is no fixed page or interaction sleep.
+- Each expected GA4 collect waits for its matching `Network.responseReceived` by request ID; expected events require a 2xx response.
 - Raw request evidence, complete parameters, response status, and PII scan results are in the JSON companion report.
 - Browser language (GA4 `ul`) reflects the isolated test browser. Route correctness uses the explicit `ep.locale` value.
 - SPA route test: **N/A**. This is a static multi-page site; route changes load a new document.
@@ -41,25 +41,25 @@ Generated: 2026-07-24T03:32:31.051Z
 
 ## Lifecycle and interaction events
 
-| Event | Test | Expected | Actual | Duplicate | Result |
-| --- | --- | ---: | ---: | --- | --- |
-| page_view | reload | 1 | 1 | no | PASS |
-| page_view | no_debug_fresh_context | 1 | 1 | no | PASS |
-| page_view | session_debug_persists | 1 | 1 | no | PASS |
-| service_cta_click | service hero CTA | 1 | 1 | no | PASS |
-| service_cta_click | service final CTA | 1 | 1 | no | PASS |
-| article_cta_click | article hero CTA | 1 | 1 | no | PASS |
-| contact_click | contact navigation | 1 | 1 | no | PASS |
-| case_study_click | case study card | 1 | 1 | no | PASS |
-| quote_request_click | quote request hero | 1 | 1 | no | PASS |
-| language_switch | zh-TW to zh-CN | 1 | 1 | no | PASS |
-| language_switch | zh-CN to en | 1 | 1 | no | PASS |
-| language_switch | en to zh-TW | 1 | 1 | no | PASS |
-| generate_lead | empty | 0 | 0 | no | PASS |
-| generate_lead | invalid | 0 | 0 | no | PASS |
-| generate_lead | error | 0 | 0 | no | PASS |
-| generate_lead | success | 1 | 1 | no | PASS |
-| generate_lead | double | 1 | 1 | no | PASS |
+| Event | Test | Expected | Actual | HTTP | Duplicate | Result |
+| --- | --- | ---: | ---: | ---: | --- | --- |
+| page_view | reload | 1 | 1 | 204 | no | PASS |
+| page_view | no_debug_fresh_context | 1 | 1 | 204 | no | PASS |
+| page_view | session_debug_persists | 1 | 1 | 204 | no | PASS |
+| service_cta_click | service hero CTA | 1 | 1 | 204 | no | PASS |
+| service_cta_click | service final CTA | 1 | 1 | 204 | no | PASS |
+| article_cta_click | article hero CTA | 1 | 1 | 204 | no | PASS |
+| contact_click | contact navigation | 1 | 1 | 204 | no | PASS |
+| case_study_click | case study card | 1 | 1 | 204 | no | PASS |
+| quote_request_click | quote request hero | 1 | 1 | 204 | no | PASS |
+| language_switch | zh-TW to zh-CN | 1 | 1 | 204 / 204 | no | PASS |
+| language_switch | zh-CN to en | 1 | 1 | 204 / 204 | no | PASS |
+| language_switch | en to zh-TW | 1 | 1 | 204 / 204 | no | PASS |
+| generate_lead | empty | 0 | 0 | - | no | PASS |
+| generate_lead | invalid | 0 | 0 | - | no | PASS |
+| generate_lead | error | 0 | 0 | - | no | PASS |
+| generate_lead | success | 1 | 1 | 204 | no | PASS |
+| generate_lead | double | 1 | 1 | 204 | no | PASS |
 
 ## Failed items
 
