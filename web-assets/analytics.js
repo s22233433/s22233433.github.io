@@ -49,7 +49,7 @@
     script.src = `https://www.googletagmanager.com/gtag/js?id=${encodeURIComponent(measurementId)}`;
     script.addEventListener("load", () => {
       track("page_view");
-      if (pendingLead) track("generate_lead", pendingLead);
+      if (pendingLead) setTimeout(() => track("generate_lead", pendingLead), 50);
     }, { once: true });
     document.head.append(script);
     window.gtag("js", new Date());
