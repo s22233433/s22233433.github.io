@@ -17,6 +17,15 @@ for (const file of fs.readdirSync(root, { recursive: true }).filter((file) => fi
 assert.match(home, /<form[^>]+id="lead-form"/, "Homepage needs a qualifying lead form.");
 assert.match(home, /name="brand_name"/, "Lead form needs a brand field.");
 assert.match(home, /name="budget_range"/, "Lead form needs a budget field.");
+const leadForm = home.match(/<form[^>]+id="lead-form"[\s\S]*?<\/form>/)?.[0] || "";
+for (const field of ["brand_name", "email", "target_market"]) {
+  assert.match(leadForm, new RegExp(`name="${field}"[^>]*required`), `Lead form needs ${field} to remain required.`);
+}
+for (const field of ["contact_name", "product_category", "budget_range", "launch_timing", "cooperation_goal"]) {
+  assert.doesNotMatch(leadForm, new RegExp(`name="${field}"[^>]*required`), `Lead form needs ${field} to remain optional.`);
+}
+assert.match(leadForm, /FormSubmit 轉寄至公司信箱/, "Lead form needs a nearby data-use notice.");
+assert.match(home, /lead_form_start/, "Lead form needs a first-interaction funnel event.");
 assert.match(home, /name="utm_source"/, "Lead form needs UTM capture.");
 assert.match(home, /formsubmit\.co\/ajax/, "Lead form needs a delivery endpoint.");
 assert.match(home, /thanks\//, "Lead form needs a thank-you destination.");
@@ -43,6 +52,9 @@ assert.match(service, /cases\//, "Service pages need relevant case-study links."
 
 const homepage = read("index.html");
 assert.match(homepage, /cases\/liming-weiquan-cheer\//, "Homepage needs a case-study link.");
+assert.match(homepage, /caseLabelMarket">專案範圍/, "Homepage cases need a project-scope label.");
+assert.match(homepage, /caseLabelExecution">專案節點/, "Homepage cases need a project-stage label.");
+assert.doesNotMatch(read("zh-tw/index.html"), /href="https:\/\/zhenguocool\.com\/zh-tw\/insights\//, "Traditional Chinese guide links must use the existing root routes.");
 
 const seoSlugs = [
   "ugc-content-creation",

@@ -928,7 +928,7 @@ const seoLanguage = (locale) => locale.key === "zh-Hant"
     : { html: "en", hreflang: "en", og: "en_US" };
 const seoPageUrl = (page, locale) => {
   const directory = page.kind === "article" ? "insights" : "services";
-  return locale.isRoot
+  return locale.key === "zh-Hant"
     ? `${baseUrl}${directory}/${page.slug}/`
     : `${locale.url}${directory}/${page.slug}/`;
 };
