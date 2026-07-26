@@ -1,6 +1,7 @@
 import assert from "node:assert/strict";
 import fs from "node:fs";
 import path from "node:path";
+import vm from "node:vm";
 
 const root = path.resolve(import.meta.dirname, "..");
 const read = (file) => fs.readFileSync(path.join(root, file), "utf8");
@@ -8,6 +9,22 @@ const read = (file) => fs.readFileSync(path.join(root, file), "utf8");
 const home = read("index.html");
 const builder = read("tools/build-locales.mjs");
 const analyticsConfig = read("web-assets/analytics-config.js");
+
+const localeEntry = home.match(/<script id="locale-entry">([\s\S]*?)<\/script>/)?.[1] || "";
+const runLocaleEntry = ({ pathname = "/", search = "", hash = "", saved = "", languages = [] } = {}) => {
+  const redirects = [];
+  vm.runInNewContext(localeEntry, {
+    location: { pathname, search, hash, replace: (url) => redirects.push(url) },
+    localStorage: { getItem: () => saved },
+    navigator: { languages, language: languages[0] || "" }
+  });
+  return redirects;
+};
+assert.deepEqual(runLocaleEntry({ search: "?utm_source=test", hash: "#contact", languages: ["en-US"] }), ["/en/?utm_source=test#contact"], "English visitors should enter the English homepage without an intermediate page.");
+assert.deepEqual(runLocaleEntry({ languages: ["zh-CN"] }), ["/zh-cn/"], "Simplified Chinese visitors should enter the Simplified Chinese homepage.");
+assert.deepEqual(runLocaleEntry({ saved: "zh-Hant", languages: ["en-US"] }), [], "A saved manual language choice should override the browser language.");
+assert.deepEqual(runLocaleEntry({ pathname: "/en/", languages: ["zh-CN"] }), [], "Localized routes must not redirect again.");
+assert.match(home, /localStorage\.setItem\("zg_locale", link\.dataset\.langLink\)/, "Manual language choices need to be remembered.");
 
 assert.match(analyticsConfig, /G-3G60NBREE3/, "Shared analytics config needs the ZhenguoCool GA4 measurement ID.");
 for (const file of fs.readdirSync(root, { recursive: true }).filter((file) => file.endsWith(".html") && !file.startsWith("mytools/") && !file.startsWith("tools/"))) {

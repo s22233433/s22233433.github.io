@@ -3,6 +3,20 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script id="locale-entry">
+    (() => {
+      if (location.pathname !== "/") return;
+      let saved = "";
+      try { saved = localStorage.getItem("zg_locale") || ""; } catch (_error) {}
+      const language = (saved || navigator.languages?.[0] || navigator.language || "").toLowerCase();
+      const target = language === "zh-hans" || language.startsWith("zh-cn") || language.startsWith("zh-sg")
+        ? "/zh-cn/"
+        : language === "en" || language.startsWith("en-")
+          ? "/en/"
+          : "/";
+      if (target !== location.pathname) location.replace(`${target}${location.search}${location.hash}`);
+    })();
+  </script>
   <meta name="description" content="榛果营销协助品牌完成海内外 KOL/KOC 合作，包含创作者筛选、合作洽谈、寄样、脚本方向、内容审核、发布追踪与结案整理。">
   <meta name="robots" content="index, follow">
   <meta name="theme-color" content="#fbfaf6">
@@ -2714,6 +2728,9 @@
 
     document.querySelectorAll("[data-lang-link]").forEach((link) => {
       const isCurrent = link.dataset.langLink === currentLocale;
+      link.addEventListener("click", () => {
+        try { localStorage.setItem("zg_locale", link.dataset.langLink); } catch (_error) {}
+      });
       if (isCurrent) {
         link.setAttribute("aria-current", "page");
       } else {
