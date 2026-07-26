@@ -1096,4 +1096,20 @@
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
+  <url>
+    <loc>https://zhenguocool.com/privacy/passive-analytics/</loc>
+    <changefreq>yearly</changefreq>
+    <priority>0.4</priority>
+    <xhtml:link rel="alternate" hreflang="zh-Hant" href="https://zhenguocool.com/privacy/passive-analytics/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://zhenguocool.com/en/privacy/passive-analytics/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://zhenguocool.com/privacy/passive-analytics/" />
+  </url>
+  <url>
+    <loc>https://zhenguocool.com/en/privacy/passive-analytics/</loc>
+    <changefreq>yearly</changefreq>
+    <priority>0.4</priority>
+    <xhtml:link rel="alternate" hreflang="zh-Hant" href="https://zhenguocool.com/privacy/passive-analytics/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://zhenguocool.com/en/privacy/passive-analytics/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://zhenguocool.com/privacy/passive-analytics/" />
+  </url>
 </urlset>
