@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="榛菓行銷的數據產品：Passive Analytics 與 YouTube 影片平均。">
+  <meta name="robots" content="index,follow">
+  <meta name="theme-color" content="#172033">
+  <link rel="canonical" href="https://zhenguocool.com/tools/">
+  <link rel="icon" href="/web-assets/icons/favicon-32x32.png">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="榛菓行銷">
+  <meta property="og:title" content="數據產品｜榛菓行銷">
+  <meta property="og:description" content="用兩個 Chrome 擴充功能，快速整理創作者與 YouTube 頻道的近期公開內容表現。">
+  <meta property="og:url" content="https://zhenguocool.com/tools/">
+  <meta property="og:image" content="https://zhenguocool.com/web-assets/og-zhenguocool-project-board.webp">
+  <meta name="twitter:card" content="summary_large_image">
+  <title>數據產品｜榛菓行銷</title>
+  <link rel="stylesheet" href="/tools/extensions.css">
+  <script src="/web-assets/analytics-config.js?v=20260728-1" defer></script>
+  <script src="/web-assets/analytics.js?v=20260728-1" defer></script>
+  <style>
+    .product-hub { --accent:#315b9d; }
+    .product-hub .hub-hero { max-width:760px; padding:64px 0 34px; }
+    .product-hub .hub-hero h1 { font-size:clamp(44px,6vw,72px); }
+    .product-hub .hub-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:18px; padding:20px 0 72px; }
+    .product-hub .hub-card { display:grid; grid-template-rows:auto 1fr; min-height:410px; padding:28px; border:1px solid var(--line); border-top:4px solid var(--accent); border-radius:8px; background:var(--card); box-shadow:var(--shadow); }
+    .product-hub .hub-card.youtube { --accent:#e62117; }
+    .product-hub .hub-card h2 { margin:8px 0 12px; font-size:30px; line-height:1.15; }
+    .product-hub .hub-card p { margin:0; color:var(--muted); }
+    .product-hub .hub-card .actions { align-self:end; margin-top:28px; }
+    .product-hub .hub-shot { overflow:hidden; margin:24px 0 0; border:1px solid var(--line); border-radius:8px; background:#edf3f9; }
+    .product-hub .hub-shot img { display:block; width:100%; height:166px; object-fit:cover; object-position:top; }
+    .product-hub .youtube-shot { display:grid; grid-template-columns:repeat(2,1fr); gap:8px; padding:14px; background:#fff4f2; }
+    .product-hub .youtube-shot span { min-height:62px; padding:10px; border:1px solid rgba(23,32,51,.1); border-radius:6px; background:#fff; color:var(--muted); font-size:11px; }
+    .product-hub .youtube-shot b { display:block; margin-top:4px; color:var(--ink); font-size:20px; }
+    @media (max-width:760px) { .product-hub .hub-grid { grid-template-columns:1fr; padding-bottom:48px; } .product-hub .hub-hero { padding-top:42px; } }
+  </style>
+</head>
+<body class="product-hub">
+  <nav class="site-nav wrap" aria-label="網站導覽">
+    <a class="brand" href="/"><small>ZHENGUOCOOL</small>榛菓行銷</a>
+    <a class="back" href="/">行銷服務首頁 ↗</a>
+  </nav>
+  <main class="wrap">
+    <section class="hub-hero">
+      <p class="eyebrow">DATA PRODUCTS</p>
+      <h1>先把公開內容訊號，整理成可比較的判斷。</h1>
+      <p class="lead">兩個工具各自處理不同工作：一個整理社群創作者近期內容，另一個快速判讀 YouTube 頻道影片平均表現。</p>
+    </section>
+    <section class="hub-grid" aria-label="數據產品">
+      <article class="hub-card" data-product-card="passive-analytics">
+        <div>
+          <p class="eyebrow">CHROME EXTENSION</p>
+          <h2>Passive Analytics</h2>
+          <p>整理 Instagram、TikTok、Threads 創作者近期內容表現，資料留在你的 Chrome 本機。</p>
+          <figure class="hub-shot"><img src="/web-assets/passive-analytics/analysis-panel-anonymized.png" alt="Passive Analytics 匿名內容分析介面"></figure>
+        </div>
+        <div class="actions">
+          <a class="button secondary" href="/tools/instagram-insights-passive/" data-track-event="product_click" data-track-location="product-hub-card" data-product-name="Passive Analytics">查看產品</a>
+          <a class="button" href="https://chromewebstore.google.com/detail/instagram-insights-passiv/lmgkdhjmagniblpcpnfdacloakkpmggj" target="_blank" rel="noopener noreferrer" data-track-event="chrome_store_click" data-track-location="product-hub-card" data-product-name="Passive Analytics">前往 Chrome 商店</a>
+        </div>
+      </article>
+      <article class="hub-card youtube" data-product-card="youtube-channel-metrics">
+        <div>
+          <p class="eyebrow">CHROME EXTENSION</p>
+          <h2>YouTube 影片平均</h2>
+          <p>快速判讀 YouTube 頻道最近影片的平均觀看、讚、留言與互動率。</p>
+          <div class="hub-shot youtube-shot" aria-label="YouTube 影片平均介面示意"><span>平均觀看<b>18.4K</b></span><span>平均互動率<b>4.8%</b></span><span>平均讚數<b>936</b></span><span>平均留言<b>42</b></span></div>
+        </div>
+        <div class="actions">
+          <a class="button secondary" href="/tools/youtube-channel-metrics/" data-track-event="product_click" data-track-location="product-hub-card" data-product-name="YouTube 影片平均">查看產品</a>
+          <a class="button" href="https://chromewebstore.google.com/detail/youtube-%E5%BD%B1%E7%89%87%E5%B9%B3%E5%9D%87/dgngaaaaffepbphniphcgefpbgehpokj" target="_blank" rel="noopener noreferrer" data-track-event="chrome_store_click" data-track-location="product-hub-card" data-product-name="YouTube 影片平均">前往 Chrome 商店</a>
+        </div>
+      </article>
+    </section>
+  </main>
+  <footer class="wrap">© 榛菓行銷 · <a href="/">回首頁</a></footer>
+</body>
+</html>

@@ -545,6 +545,44 @@
       background: var(--ink);
       border-color: var(--ink);
     }
+    .product-discovery {
+      background: #fffdf8;
+      border-block: 1px solid var(--line);
+    }
+    .product-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 18px;
+    }
+    .product-card {
+      display: grid;
+      grid-template-columns: minmax(0, 1.05fr) minmax(180px, .95fr);
+      gap: 22px;
+      min-height: 286px;
+      padding: 26px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--surface);
+      box-shadow: 0 16px 40px rgba(20,33,61,.05);
+    }
+    .product-card h3 { margin: 8px 0 10px; font-size: 26px; line-height: 1.18; }
+    .product-card p { margin: 0; color: var(--muted); }
+    .product-card .hero-actions { margin-top: 18px; }
+    .product-card .button { min-height: 42px; padding: 9px 14px; font-size: 14px; }
+    .product-label { color: var(--teal); font-size: 12px; font-weight: 900; letter-spacing: .14em; }
+    .product-preview {
+      align-self: center;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #edf3f9;
+    }
+    .product-preview img { width: 100%; height: 190px; object-fit: cover; object-position: top; }
+    .youtube-preview { padding: 18px; background: #fff4f2; }
+    .youtube-preview strong { display: block; margin-bottom: 14px; color: #e62117; font-size: 13px; }
+    .youtube-preview div { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; }
+    .youtube-preview span { display: block; min-height: 54px; padding: 10px; border: 1px solid rgba(20,33,61,.1); border-radius: 6px; background: white; color: var(--muted); font-size: 11px; }
+    .youtube-preview b { display: block; margin-top: 3px; color: var(--ink); font-size: 18px; }
     .answers-section {
       background: #fffdf8;
       border-block: 1px solid var(--line);
@@ -1100,7 +1138,8 @@
       .nav-tools { margin-left: auto; }
       .hero-grid, .section-head, .case-study, .contact-box, .planner-panel, .step-detail { grid-template-columns: 1fr; }
       .hero-panel { min-height: auto; border-left: 0; padding-left: 0; }
-      .services, .trust-grid, .why-grid, .answer-grid, .fit-grid, .planning-grid, .featured-cases, .case-grid, .pricing, .planner-fields { grid-template-columns: 1fr; }
+      .services, .trust-grid, .why-grid, .answer-grid, .fit-grid, .planning-grid, .featured-cases, .case-grid, .pricing, .planner-fields, .product-grid { grid-template-columns: 1fr; }
+      .product-card { grid-template-columns: 1fr; }
       .planning-card img { height: clamp(210px, 42vw, 340px); }
       .featured-case img,
       .case-card img { height: clamp(180px, 44vw, 300px); }
@@ -1199,6 +1238,7 @@
           <a href="#process" data-i18n="navProcess">流程</a>
           <a href="#pricing" data-i18n="navPricing">收費</a>
           <a href="#answers" data-i18n="navAnswers">FAQ</a>
+          <a href="/tools/" data-track-event="product_click" data-track-location="nav" data-i18n="navProducts">數據產品</a>
           <a class="nav-cta" href="#contact" data-track-event="contact_click" data-track-location="nav" data-i18n="navContact">聯繫我們</a>
         </nav>
         <div class="lang-switch" aria-label="語言切換" data-i18n-aria-label="langAria">
@@ -1221,6 +1261,7 @@
           <div class="hero-actions">
             <a class="button primary" href="#contact-form" data-track-event="quote_request_click" data-track-location="hero" data-i18n="heroCta">立即取得初步合作建議</a>
             <a class="button secondary" href="#cases" data-track-event="case_study_click" data-track-location="hero" data-i18n="heroSecondary">查看過往案例</a>
+            <a class="button secondary" href="/tools/" data-track-event="product_click" data-track-location="hero" data-i18n="heroProducts">查看數據產品</a>
           </div>
         </div>
         <aside class="hero-panel reveal" style="--delay:120ms">
@@ -1325,6 +1366,41 @@
           <a href="services/health-supplement-influencer-marketing/" data-i18n="serviceLinkSupplement">保健食品網紅行銷</a>
           <a href="services/japan-koc-marketing/" data-i18n="serviceLinkJapanKoc">日本 KOC 行銷</a>
           <a href="services/korea-koc-marketing/" data-i18n="serviceLinkKoreaKoc">韓國 KOC 行銷</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="product-discovery" id="products" aria-label="數據產品" data-i18n-aria-label="productsAria">
+      <div class="wrap">
+        <div class="section-head">
+          <h2 data-i18n="productsTitle">數據產品</h2>
+          <p data-i18n="productsBody">先用產品快速整理公開內容訊號，再決定下一步研究或合作方向。</p>
+        </div>
+        <div class="product-grid">
+          <article class="product-card reveal" data-product-card="passive-analytics">
+            <div>
+              <span class="product-label">CHROME EXTENSION</span>
+              <h3>Passive Analytics</h3>
+              <p data-i18n="productPassiveBody">整理 Instagram、TikTok、Threads 創作者近期內容表現，資料留在你的 Chrome 本機。</p>
+              <div class="hero-actions">
+                <a class="button secondary" href="/tools/instagram-insights-passive/" data-track-event="product_click" data-track-location="homepage-products" data-product-name="Passive Analytics" data-i18n="productView">查看產品</a>
+                <a class="button primary" href="https://chromewebstore.google.com/detail/instagram-insights-passiv/lmgkdhjmagniblpcpnfdacloakkpmggj" target="_blank" rel="noopener noreferrer" data-track-event="chrome_store_click" data-track-location="homepage-products" data-product-name="Passive Analytics" data-i18n="productStore">前往 Chrome 商店</a>
+              </div>
+            </div>
+            <figure class="product-preview"><img loading="lazy" src="web-assets/passive-analytics/analysis-panel-anonymized.png" alt="Passive Analytics 匿名內容分析介面"></figure>
+          </article>
+          <article class="product-card reveal" style="--delay:90ms" data-product-card="youtube-channel-metrics">
+            <div>
+              <span class="product-label">CHROME EXTENSION</span>
+              <h3 data-i18n="productYoutubeTitle">YouTube 影片平均</h3>
+              <p data-i18n="productYoutubeBody">快速判讀 YouTube 頻道最近影片的平均觀看、讚、留言與互動率。</p>
+              <div class="hero-actions">
+                <a class="button secondary" href="/tools/youtube-channel-metrics/" data-track-event="product_click" data-track-location="homepage-products" data-product-name="YouTube 影片平均" data-i18n="productView">查看產品</a>
+                <a class="button primary" href="https://chromewebstore.google.com/detail/youtube-%E5%BD%B1%E7%89%87%E5%B9%B3%E5%9D%87/dgngaaaaffepbphniphcgefpbgehpokj" target="_blank" rel="noopener noreferrer" data-track-event="chrome_store_click" data-track-location="homepage-products" data-product-name="YouTube 影片平均" data-i18n="productStore">前往 Chrome 商店</a>
+              </div>
+            </div>
+            <div class="product-preview youtube-preview" aria-label="YouTube 影片平均介面示意"><strong>RECENT CHANNEL PERFORMANCE</strong><div><span>平均觀看<b>18.4K</b></span><span>平均互動率<b>4.8%</b></span><span>平均讚數<b>936</b></span><span>平均留言<b>42</b></span></div></div>
+          </article>
         </div>
       </div>
     </section>
@@ -1726,11 +1802,21 @@
                 "navAnswers": "FAQ",
                 "navCases": "案例",
                 "navPricing": "收費",
+                "navProducts": "數據產品",
                 "navContact": "聯繫我們",
                 "heroTitle": "海內外 KOL/KOC 行銷執行團隊",
                 "heroBody": "從創作者篩選、合作洽談、寄樣管理、腳本方向、內容審核到發布追蹤，協助品牌把海內外網紅合作真正做完。",
                 "heroCta": "立即取得初步合作建議",
                 "heroSecondary": "查看過往案例",
+                "heroProducts": "查看數據產品",
+                "productsAria": "數據產品",
+                "productsTitle": "數據產品",
+                "productsBody": "先用產品快速整理公開內容訊號，再決定下一步研究或合作方向。",
+                "productPassiveBody": "整理 Instagram、TikTok、Threads 創作者近期內容表現，資料留在你的 Chrome 本機。",
+                "productYoutubeTitle": "YouTube 影片平均",
+                "productYoutubeBody": "快速判讀 YouTube 頻道最近影片的平均觀看、讚、留言與互動率。",
+                "productView": "查看產品",
+                "productStore": "前往 Chrome 商店",
                 "caseReadMore": "閱讀完整案例",
                 "metricOneUnit": "市場判斷",
                 "metricOne": "台灣、美國、日本、韓國、東南亞依品牌目標切入。",
@@ -2063,11 +2149,21 @@
                 "navAnswers": "FAQ",
                 "navCases": "案例",
                 "navPricing": "收费",
+                "navProducts": "数据产品",
                 "navContact": "联系我们",
                 "heroTitle": "海内外 KOL/KOC 营销执行团队",
                 "heroBody": "从创作者筛选、合作洽谈、寄样管理、脚本方向、内容审核到发布追踪，协助品牌把海内外网红合作真正做完。",
                 "heroCta": "立即取得初步合作建议",
                 "heroSecondary": "查看过往案例",
+                "heroProducts": "查看数据产品",
+                "productsAria": "数据产品",
+                "productsTitle": "数据产品",
+                "productsBody": "先用产品快速整理公开内容讯号，再决定下一步研究或合作方向。",
+                "productPassiveBody": "整理 Instagram、TikTok、Threads 创作者近期内容表现，数据留在你的 Chrome 本机。",
+                "productYoutubeTitle": "YouTube 影片平均",
+                "productYoutubeBody": "快速判断 YouTube 频道最近影片的平均观看、赞、留言与互动率。",
+                "productView": "查看产品",
+                "productStore": "前往 Chrome 商店",
                 "caseReadMore": "阅读完整案例",
                 "metricOneUnit": "市场判断",
                 "metricOne": "台湾、美国、日本、韩国、东南亚依品牌目标切入。",
@@ -2400,11 +2496,21 @@
                 "navAnswers": "FAQ",
                 "navCases": "Cases",
                 "navPricing": "Pricing",
+                "navProducts": "Data Products",
                 "navContact": "Contact",
                 "heroTitle": "Domestic and Overseas KOL/KOC Campaign Execution Team",
                 "heroBody": "From creator screening, negotiation, product seeding, script direction, and content review to publishing follow-up, we help brands complete overseas influencer collaborations.",
                 "heroCta": "Get Initial Campaign Advice",
                 "heroSecondary": "View Past Cases",
+                "heroProducts": "Explore Data Products",
+                "productsAria": "Data products",
+                "productsTitle": "Data Products",
+                "productsBody": "Use products to organize public content signals before deciding the next research or collaboration step.",
+                "productPassiveBody": "Organize recent creator content from Instagram, TikTok, and Threads while keeping the data in your local Chrome browser.",
+                "productYoutubeTitle": "YouTube 影片平均",
+                "productYoutubeBody": "Quickly read recent YouTube channel averages for views, likes, comments, and engagement.",
+                "productView": "View Product",
+                "productStore": "Open Chrome Web Store",
                 "caseReadMore": "Read the full case",
                 "metricOneUnit": "Market Direction",
                 "metricOne": "Taiwan, the US, Japan, Korea, and Southeast Asia selected by brand objective.",

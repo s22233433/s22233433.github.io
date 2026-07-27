@@ -10,6 +10,7 @@ const port = Number(process.env.GA4_CDP_PORT || 9500 + (process.pid % 300));
 const measurementId = "G-3G60NBREE3";
 const timeoutMs = Number(process.env.GA4_TIMEOUT_MS || 12000);
 const targets = process.env.GA4_TARGETS ? process.env.GA4_TARGETS.split("|").filter(Boolean) : [];
+const includeProductDiscovery = process.env.GA4_PRODUCT_DISCOVERY === "1";
 const selected = (value) => !targets.length || targets.some((target) => value.includes(target));
 const reportName = targets.length ? "ga4-targeted-report" : "ga4-network-report";
 const locales = [
@@ -299,7 +300,7 @@ async function runClickCheck(cdp, definition) {
     const events = cdp.eventsAfter(action.start, sessionId);
     const actual = gaFor(events, definition.event).filter((event) => event.cta_location === definition.location);
     const context = { url, title: loaded.page.title, locale: loaded.page.locale, debug: true };
-    const validation = eventParameters(actual[0], context, { cta_location: definition.location, target_url: action.target_url });
+    const validation = eventParameters(actual[0], context, { cta_location: definition.location, target_url: action.target_url, ...(definition.parameters || {}) });
     const pii = scansForPii(requestRows(events));
     return {
       event: definition.event,
@@ -612,7 +613,6 @@ try {
     const outcome = await retryCheck(`classification ${definition.name}`, () => runClassificationCheck(cdp, definition));
     classification.push(outcome.result ? { ...outcome.result, attempts: outcome.attempts } : { event: "page_view", test: definition.name, test_page: withDebug(definition.url), expected_count: 1, actual_count: 0, duplicate: false, raw_collects: [], pii_findings: [], passed: false, attempts: outcome.attempts, reason: ["No classification attempt received the expected page_view collect request."] });
   }
-  await writeProgress("interactions", 0, 14, "starting");
   const interactions = [];
   const clickDefinitions = [
     { name: "service hero CTA", url: `${site}/services/influencer-marketing-agency/`, selector: '[data-track-event="service_cta_click"][data-track-location="hero"]', event: "service_cta_click", location: "hero" },
@@ -620,25 +620,36 @@ try {
     { name: "article hero CTA", url: `${site}/insights/how-to-choose-influencer-marketing-agency/`, selector: '[data-track-event="article_cta_click"][data-track-location="hero"]', event: "article_cta_click", location: "hero" },
     { name: "contact navigation", url: `${site}/`, selector: '[data-track-event="contact_click"][data-track-location="nav"]', event: "contact_click", location: "nav" },
     { name: "case study card", url: `${site}/`, selector: '[data-track-event="case_study_click"][data-track-location="case-card"]', event: "case_study_click", location: "case-card" },
-    { name: "quote request hero", url: `${site}/`, selector: '[data-track-event="quote_request_click"][data-track-location="hero"]', event: "quote_request_click", location: "hero" }
+    { name: "quote request hero", url: `${site}/`, selector: '[data-track-event="quote_request_click"][data-track-location="hero"]', event: "quote_request_click", location: "hero" },
+    ...(includeProductDiscovery ? [
+      { name: "product hub hero", url: `${site}/`, selector: '[data-track-event="product_click"][data-track-location="hero"]', event: "product_click", location: "hero" },
+      { name: "Passive Analytics hub entry", url: `${site}/tools/`, selector: '[data-track-event="product_click"][data-product-name="Passive Analytics"]', event: "product_click", location: "product-hub-card", parameters: { product_name: "Passive Analytics" } },
+      { name: "Passive Analytics Chrome Store", url: `${site}/tools/`, selector: '[data-track-event="chrome_store_click"][data-product-name="Passive Analytics"]', event: "chrome_store_click", location: "product-hub-card", parameters: { product_name: "Passive Analytics" } },
+      { name: "YouTube 影片平均 Chrome Store", url: `${site}/tools/`, selector: '[data-track-event="chrome_store_click"][data-product-name="YouTube 影片平均"]', event: "chrome_store_click", location: "product-hub-card", parameters: { product_name: "YouTube 影片平均" } }
+    ] : [])
   ];
-  for (const [interactionIndex, definition] of clickDefinitions.filter((item) => selected(item.name)).entries()) {
-    await writeProgress("interactions", interactionIndex, 14, definition.name);
-    const outcome = await retryCheck(definition.name, () => runClickCheck(cdp, definition));
-    interactions.push(outcome.result ? { ...outcome.result, attempts: outcome.attempts } : { event: definition.event, test: definition.name, test_page: withDebug(definition.url), expected_count: 1, actual_count: 0, duplicate: false, raw_collects: [], pii_findings: [], passed: false, attempts: outcome.attempts, reason: ["No attempt received the expected CTA collect request."] });
-  }
+  const selectedClickDefinitions = clickDefinitions.filter((item) => selected(item.name));
   const languageDefinitions = [
     { name: "zh-TW to zh-CN", url: `${site}/services/influencer-marketing-agency/`, targetLink: "zh-Hans", from: "zh-TW", to: "zh-CN" },
     { name: "zh-CN to en", url: `${site}/zh-cn/services/influencer-marketing-agency/`, targetLink: "en", from: "zh-CN", to: "en" },
     { name: "en to zh-TW", url: `${site}/en/services/influencer-marketing-agency/`, targetLink: "zh-Hant", from: "en", to: "zh-TW" }
   ];
-  for (const [languageIndex, definition] of languageDefinitions.filter((item) => selected(item.name)).entries()) {
-    await writeProgress("interactions", clickDefinitions.length + languageIndex, 14, definition.name);
+  const selectedLanguageDefinitions = languageDefinitions.filter((item) => selected(item.name));
+  const leadModes = ["empty", "invalid", "error", "success", "double"].filter(selected);
+  const interactionTotal = selectedClickDefinitions.length + selectedLanguageDefinitions.length + leadModes.length;
+  await writeProgress("interactions", 0, interactionTotal, "starting");
+  for (const [interactionIndex, definition] of selectedClickDefinitions.entries()) {
+    await writeProgress("interactions", interactionIndex, interactionTotal, definition.name);
+    const outcome = await retryCheck(definition.name, () => runClickCheck(cdp, definition));
+    interactions.push(outcome.result ? { ...outcome.result, attempts: outcome.attempts } : { event: definition.event, test: definition.name, test_page: withDebug(definition.url), expected_count: 1, actual_count: 0, duplicate: false, raw_collects: [], pii_findings: [], passed: false, attempts: outcome.attempts, reason: ["No attempt received the expected CTA collect request."] });
+  }
+  for (const [languageIndex, definition] of selectedLanguageDefinitions.entries()) {
+    await writeProgress("interactions", selectedClickDefinitions.length + languageIndex, interactionTotal, definition.name);
     const outcome = await retryCheck(definition.name, () => runLanguageCheck(cdp, definition));
     interactions.push(outcome.result ? { ...outcome.result, attempts: outcome.attempts } : { event: "language_switch", test: definition.name, test_page: withDebug(definition.url), expected_count: 1, actual_count: 0, duplicate: false, raw_collects: [], pii_findings: [], passed: false, attempts: outcome.attempts, reason: ["No attempt received the expected language-switch collect request."] });
   }
-  for (const [leadIndex, mode] of ["empty", "invalid", "error", "success", "double"].filter(selected).entries()) {
-    await writeProgress("interactions", clickDefinitions.length + languageDefinitions.length + leadIndex, 14, `generate_lead ${mode}`);
+  for (const [leadIndex, mode] of leadModes.entries()) {
+    await writeProgress("interactions", selectedClickDefinitions.length + selectedLanguageDefinitions.length + leadIndex, interactionTotal, `generate_lead ${mode}`);
     const outcome = await retryCheck(`generate_lead ${mode}`, () => runLeadCheck(cdp, mode));
     interactions.push(outcome.result ? { ...outcome.result, attempts: outcome.attempts } : { event: "generate_lead", test: mode, test_page: withDebug(`${site}/`), expected_count: ["success", "double"].includes(mode) ? 1 : 0, actual_count: 0, duplicate: false, raw_collects: [], pii_findings: [], passed: false, attempts: outcome.attempts, reason: ["No attempt completed the lead test."] });
   }
