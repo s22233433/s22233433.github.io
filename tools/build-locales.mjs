@@ -906,6 +906,7 @@ const renderHomePage = (locale, isRoot = false) => {
   html = html.replace("</main>", `${renderHomeGuideIndex(locale)}\n  </main>`);
   if (!isRoot) {
     html = html
+      .replace(/\s*<meta name="google-site-verification"[^>]*>\n?/, "\n")
       .replace(/(src|href)="web-assets\//g, '$1="../web-assets/')
       .replace(/href="cases\//g, 'href="../cases/');
   }
