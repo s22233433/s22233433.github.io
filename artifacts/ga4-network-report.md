@@ -1,6 +1,6 @@
 # GA4 Network Report
 
-Generated: 2026-07-24T03:44:01.004Z
+Generated: 2026-07-27T17:21:04.318Z
 
 ## Test method
 
@@ -38,6 +38,17 @@ Generated: 2026-07-24T03:44:01.004Z
 | zh-TW | https://zhenguocool.com/insights/japan-influencer-marketing-guide-article/ | 1 | 200 | G-3G60NBREE3 | PASS |
 | zh-CN | https://zhenguocool.com/zh-cn/insights/japan-influencer-marketing-guide-article/ | 1 | 200 | G-3G60NBREE3 | PASS |
 | en | https://zhenguocool.com/en/insights/japan-influencer-marketing-guide-article/ | 1 | 200 | G-3G60NBREE3 | PASS |
+
+## Shared classification regression
+
+| Test | URL | content_type | content_slug | HTTP | Result |
+| --- | --- | --- | --- | ---: | --- |
+| product zh-TW | https://zhenguocool.com/tools/instagram-insights-passive/?ga_debug=1 | product | instagram-insights-passive | 204 | PASS |
+| product zh-CN | https://zhenguocool.com/zh-cn/tools/instagram-insights-passive/?ga_debug=1 | product | instagram-insights-passive | 204 | PASS |
+| product en | https://zhenguocool.com/en/tools/instagram-insights-passive/?ga_debug=1 | product | instagram-insights-passive | 204 | PASS |
+| mytools | https://zhenguocool.com/mytools/?ga_debug=1 | mytools | mytools | 204 | PASS |
+| privacy | https://zhenguocool.com/privacy/passive-analytics/?ga_debug=1 | privacy | passive-analytics | 204 | PASS |
+| other | https://zhenguocool.com/wuhan-itinerary-2026-07/?ga_debug=1 | other | wuhan-itinerary-2026-07 | 204 | PASS |
 
 ## Lifecycle and interaction events
 

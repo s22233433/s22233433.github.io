@@ -1,7 +1,7 @@
 import assert from "node:assert/strict";
 import { seoPhaseOnePages } from "../tools/seo-phase-one-content.mjs";
 
-const baseUrl = process.env.SITE_URL || "https://zhenguocool.com/";
+const baseUrl = `${(process.env.SITE_URL || "https://zhenguocool.com").replace(/\/$/, "")}/`;
 const locales = [
   { key: "zh-Hant", dir: "", href: "zh-TW" },
   { key: "zh-Hans", dir: "zh-cn", href: "zh-CN" },
