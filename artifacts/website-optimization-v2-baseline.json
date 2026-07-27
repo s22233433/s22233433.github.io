@@ -1,0 +1,76 @@
+{
+  "generated_at": "2026-07-27T16:46:54.356Z",
+  "local_timezone": "Asia/Taipei",
+  "source": {
+    "checkout": "/Users/weiting/Documents/Codex/2026-07-14/https-docs-google-com-spreadsheets-d/work/zhenguocool-site-m1",
+    "commit": "536a40a357e8f4229ec01a9e2996028c71df8827",
+    "site": "https://zhenguocool.com"
+  },
+  "period": {
+    "requested_start": "2026-06-30",
+    "requested_end": "2026-07-27",
+    "ga4_available_start": "2026-07-19",
+    "ga4_available_end": "2026-07-27",
+    "ga4_property_timezone": null
+  },
+  "ga4": {
+    "source": "Google Analytics Data API, property 546169378",
+    "summary": { "active_users": 47, "sessions": 84, "screen_page_views": 237 },
+    "top_landing_pages": [
+      { "path": "/tools/instagram-insights-passive/updates/", "sessions": 25, "active_users": 3, "screen_page_views": 55 },
+      { "path": "/", "sessions": 16, "active_users": 16, "screen_page_views": 55 },
+      { "path": "/tools/instagram-insights-passive/", "sessions": 11, "active_users": 6, "screen_page_views": 53 },
+      { "path": "/mytools/", "sessions": 6, "active_users": 2, "screen_page_views": 21 }
+    ],
+    "top_events": [
+      { "event": "page_view", "count": 237 },
+      { "event": "user_engagement", "count": 140 },
+      { "event": "session_start", "count": 83 },
+      { "event": "scroll", "count": 59 },
+      { "event": "language_switch", "count": 8 },
+      { "event": "form_start", "count": 5 }
+    ],
+    "top_session_sources": [
+      { "source_medium": "(direct) / (none)", "sessions": 67, "active_users": 23 },
+      { "source_medium": "google / organic", "sessions": 6, "active_users": 5 },
+      { "source_medium": "(not set)", "sessions": 5, "active_users": 3 },
+      { "source_medium": "ig / social", "sessions": 3, "active_users": 3 }
+    ],
+    "limitations": [
+      "The requested 28-day range has data only from 2026-07-19 through 2026-07-27.",
+      "GA4 Admin API was unavailable because analyticsadmin.googleapis.com is disabled for the local credential project; custom dimensions, key events, and internal-traffic filter status are N/A.",
+      "The observed form_start is reported as received from GA4. It is not a reason to rename the existing lead_form_start implementation."
+    ]
+  },
+  "gsc": {
+    "source": "Google Search Console Search Analytics API, sc-domain:zhenguocool.com",
+    "status": "N/A",
+    "reason": "The available application-default credential returned HTTP 403: insufficient authentication scopes for query and page reports. Indexed pages, CTR, top queries, and top landing pages are not inferred."
+  },
+  "psi_lighthouse": {
+    "status": "N/A",
+    "reason": "PageSpeed Insights mobile request returned HTTP 429 because the unauthenticated daily query quota is exhausted. No mobile or desktop scores, three-run medians, or Lighthouse conclusions are recorded."
+  },
+  "technical": {
+    "artifact": "artifacts/technical-baseline.json",
+    "sitemap_urls": 127,
+    "sitemap_status_counts": { "200": 127 },
+    "canonical_missing": 0,
+    "hreflang_missing": 8,
+    "internal_link_edges": 1426,
+    "internal_link_unique_urls": 126,
+    "internal_link_status_counts": { "200": 126 },
+    "limitations": [
+      "The 24-page SEO live audit passed 24/24 for status, title, meta description, H1, canonical, hreflang, schema, sitemap, internal-link presence, analytics markup, and mobile markup.",
+      "Eight sitemap pages have no hreflang: MyTools pages and the YouTube product page. This is observed only; hreflang and sitemap decisions are deferred to Milestone 4.",
+      "No sitemap URL or live internal link returned a non-200 response. No redirect or 404 decision is made in this milestone."
+    ]
+  },
+  "rerun": {
+    "ga4_summary": "node /Users/weiting/Documents/Codex/2026-07-14/https-docs-google-com-spreadsheets-d/work/zhenguocool-site/tools/read-ga4.mjs 2026-06-30 2026-07-27",
+    "technical": "cd /Users/weiting/Documents/Codex/2026-07-14/https-docs-google-com-spreadsheets-d/work/zhenguocool-site-m1 && SITE_URL=https://zhenguocool.com node tools/technical-baseline.mjs",
+    "seo_live_audit": "cd /Users/weiting/Documents/Codex/2026-07-14/https-docs-google-com-spreadsheets-d/work/zhenguocool-site-m1 && SITE_URL=https://zhenguocool.com node tests/seo-phase-one-live-audit.mjs",
+    "gsc": "POST https://searchconsole.googleapis.com/webmasters/v3/sites/sc-domain%3Azhenguocool.com/searchAnalytics/query with date range 2026-06-30..2026-07-27 and dimensions query or page; requires a credential with Search Console scope.",
+    "psi": "curl -sG https://www.googleapis.com/pagespeedonline/v5/runPagespeed --data-urlencode url=https://zhenguocool.com/ --data strategy=mobile --data category=performance; rerun each selected URL and strategy three times when quota is available."
+  }
+}

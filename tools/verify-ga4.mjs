@@ -19,7 +19,7 @@ const locales = [
 ];
 const collectHosts = new Set(["www.google-analytics.com", "google-analytics.com", "analytics.google.com", "region1.google-analytics.com"]);
 const piiKey = /(^|[_.])(email|e-mail|phone|tel|name|contact|company|brand|message|body)([_.]|$)/i;
-const allowedEventKeys = new Set(["ep.service_name", "ep.content_slug", "ep.content_type", "ep.locale", "ep.page_path", "ep.cta_location", "ep.target_url", "ep.from_locale", "ep.to_locale", "ep.debug_mode"]);
+const allowedEventKeys = new Set(["ep.service_name", "ep.product_name", "ep.content_slug", "ep.content_type", "ep.locale", "ep.page_path", "ep.cta_location", "ep.target_url", "ep.from_locale", "ep.to_locale", "ep.debug_mode"]);
 const emailValue = /[^\s@]+@[^\s@]+\.[^\s@]+/;
 const phoneValue = /(?:\+?\d[\s().-]?){7,}\d/;
 const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
@@ -61,6 +61,7 @@ const parseCollect = (request, status = null) => {
     content_type: value("ep.content_type"),
     content_slug: value("ep.content_slug"),
     service_name: value("ep.service_name"),
+    product_name: value("ep.product_name"),
     cta_location: value("ep.cta_location"),
     target_url: value("ep.target_url"),
     from_locale: value("ep.from_locale"),
@@ -95,7 +96,7 @@ class Cdp {
           const url = message.params.request.url;
           if (this.formSubmitResponse && url.includes("formsubmit.co")) {
             const body = Buffer.from(JSON.stringify(this.formSubmitResponse < 400 ? { success: "true" } : { success: "false" })).toString("base64");
-            this.send("Fetch.fulfillRequest", { requestId: message.params.requestId, responseCode: this.formSubmitResponse, responseHeaders: [{ name: "content-type", value: "application/json" }, { name: "access-control-allow-origin", value: "https://zhenguocool.com" }], body }, message.sessionId).catch((error) => {
+            this.send("Fetch.fulfillRequest", { requestId: message.params.requestId, responseCode: this.formSubmitResponse, responseHeaders: [{ name: "content-type", value: "application/json" }, { name: "access-control-allow-origin", value: site }], body }, message.sessionId).catch((error) => {
               this.fetchFulfillErrors.push({ paused_session: message.sessionId, configured_session: this.formSubmitSessionId, error: error.message });
             });
           }
@@ -157,9 +158,16 @@ async function waitForCollectResponse(cdp, after, sessionId, match, description)
 }
 const expectedContent = (url) => {
   const parts = new URL(url).pathname.split("/").filter(Boolean);
-  const index = parts.findIndex((part) => ["services", "insights", "cases"].includes(part));
-  const content_type = index < 0 ? "homepage" : parts[index] === "insights" ? "article" : parts[index] === "cases" ? "case_study" : "service";
-  const content_slug = index < 0 ? "home" : parts[index + 1] || content_type;
+  const route = ["zh-tw", "zh-cn", "en", "ja"].includes(parts[0]) ? parts.slice(1) : parts;
+  const section = route[0];
+  const content_type = section === "services" ? "service"
+    : section === "insights" ? "article"
+    : section === "cases" ? "case_study"
+    : section === "tools" ? "product"
+    : section === "mytools" ? "mytools"
+    : section === "privacy" ? "privacy"
+    : section ? "other" : "homepage";
+  const content_slug = content_type === "homepage" ? "home" : route[1] || (content_type === "other" ? section : content_type);
   return { content_type, content_slug, ...(content_type === "service" ? { service_name: content_slug } : {}) };
 };
 
@@ -178,6 +186,7 @@ function eventParameters(event, context, extra = {}) {
     content_type: event?.content_type || null,
     content_slug: event?.content_slug || null,
     service_name: event?.service_name || null,
+    product_name: event?.product_name || null,
     cta_location: event?.cta_location || null,
     target_url: event?.target_url || null,
     from_locale: event?.from_locale || null,
@@ -346,6 +355,31 @@ async function runLanguageCheck(cdp, definition) {
   });
 }
 
+async function runClassificationCheck(cdp, definition) {
+  return withPage(cdp, async (sessionId) => {
+    const url = withDebug(definition.url);
+    const loaded = await visit(cdp, sessionId, url);
+    const pageViews = gaFor(loaded.events, "page_view");
+    const pageView = pageViews[0];
+    const validation = eventParameters(pageView, { url, title: loaded.page.title, locale: loaded.page.locale, debug: true });
+    const pii = scansForPii(loaded.collects);
+    return {
+      event: "page_view",
+      test: definition.name,
+      test_page: url,
+      expected_count: 1,
+      actual_count: pageViews.length,
+      duplicate: pageViews.length > 1,
+      http_status: pageView?.http_status ?? null,
+      parameters: validation,
+      raw_collects: loaded.collects,
+      pii_findings: pii,
+      passed: loaded.http_status === 200 && pageViews.length === 1 && pageView?.tid === measurementId && is2xx(pageView) && validation.passed && pii.length === 0,
+      reason: loaded.http_status !== 200 ? [`HTTP status was ${loaded.http_status}.`] : pageViews.length !== 1 ? [`Expected one page_view; received ${pageViews.length}.`] : pageView?.tid !== measurementId ? [`Measurement ID was ${pageView?.tid || "missing"}.`] : !is2xx(pageView) ? [`Expected a 2xx response; received ${statusText(pageView)}.`] : validation.passed && !pii.length ? [] : ["Classification parameter or privacy validation failed."]
+    };
+  });
+}
+
 const fillForm = `
   for (const field of form.querySelectorAll('input[required], select[required], textarea[required]')) {
     if (field.type === 'email') field.value = 'ga4-test@example.invalid';
@@ -425,6 +459,7 @@ async function runLeadCheck(cdp, mode) {
 
 async function runLifecycleChecks(cdp) {
   const checks = [];
+  const localSite = ["localhost", "127.0.0.1", "::1"].includes(new URL(site).hostname);
   const add = async (test, runner, fallback) => {
     const outcome = await retryCheck(`lifecycle ${test}`, runner);
     checks.push(outcome.result ? { ...outcome.result, attempts: outcome.attempts } : fallback(outcome.attempts));
@@ -439,7 +474,9 @@ async function runLifecycleChecks(cdp) {
     const pageViews = gaFor(cdp.eventsAfter(start, sessionId), "page_view").filter((event) => event.page_location === url);
     return { event: "page_view", test: "reload", test_page: url, expected_count: 1, actual_count: pageViews.length, duplicate: pageViews.length > 1, http_status: pageViews[0]?.http_status ?? null, raw_collects: requestRows(cdp.eventsAfter(start, sessionId)), passed: pageViews.length === 1 && is2xx(pageViews[0]), reason: pageViews.length !== 1 ? [`Expected one reload page_view; received ${pageViews.length}.`] : !is2xx(pageViews[0]) ? [`Expected a 2xx response; received ${statusText(pageViews[0])}.`] : [] };
   }), (attempts) => ({ event: "page_view", test: "reload", test_page: withDebug(`${site}/services/influencer-marketing-agency/`), expected_count: 1, actual_count: 0, duplicate: false, raw_collects: [], passed: false, attempts, reason: ["No reload attempt received the expected page_view collect request."] }));
-  await add("no_debug_fresh_context", () => withPage(cdp, async (sessionId) => {
+  if (localSite) {
+    checks.push({ event: "page_view", test: "no_debug_fresh_context", applicable: false, expected_count: 0, actual_count: 0, duplicate: false, raw_collects: [], passed: true, reason: ["N/A: localhost intentionally enables debug_mode."] });
+  } else await add("no_debug_fresh_context", () => withPage(cdp, async (sessionId) => {
     const url = withoutDebug(`${site}/`);
     const loaded = await visit(cdp, sessionId, url);
     const pageView = gaFor(loaded.events, "page_view")[0];
@@ -459,6 +496,7 @@ async function runLifecycleChecks(cdp) {
 
 const markdown = (report) => {
   const coverageRows = report.coverage.map((item) => `| ${item.locale} | ${item.url} | ${item.page_view_count} | ${item.http_status || "-"} | ${item.measurement_id || "-"} | ${item.passed ? "PASS" : "FAIL"} |`).join("\n");
+  const classificationRows = report.classification.map((item) => `| ${item.test} | ${item.test_page} | ${item.parameters.actual.content_type || "-"} | ${item.parameters.actual.content_slug || "-"} | ${item.http_status ?? "-"} | ${item.passed ? "PASS" : "FAIL"} |`).join("\n");
   const interactions = [...report.lifecycle, ...report.interaction_events];
   const interactionRows = interactions.map((item) => `| ${item.event} | ${item.test || "-"} | ${item.expected_count} | ${item.actual_count} | ${item.http_status ?? "-"}${item.destination_page_view_http_status ? ` / ${item.destination_page_view_http_status}` : ""} | ${item.duplicate ? "yes" : "no"} | ${item.passed ? "PASS" : "FAIL"} |`).join("\n");
   const failures = report.failures.length ? report.failures.map((item) => `- **${item.event} / ${item.test || item.url}**: ${item.reason.join(" ")}`).join("\n") : "- None.";
@@ -479,6 +517,12 @@ Generated: ${report.generated_at}
 | Locale | URL | page_view | HTTP | Measurement ID | Result |
 | --- | --- | ---: | ---: | --- | --- |
 ${coverageRows}
+
+## Shared classification regression
+
+| Test | URL | content_type | content_slug | HTTP | Result |
+| --- | --- | --- | --- | ---: | --- |
+${classificationRows}
 
 ## Lifecycle and interaction events
 
@@ -555,6 +599,19 @@ try {
       reason: ["No attempt received the expected page_view collect request."]
     });
   }
+  const classificationDefinitions = [
+    { name: "product zh-TW", url: `${site}/tools/instagram-insights-passive/` },
+    { name: "product zh-CN", url: `${site}/zh-cn/tools/instagram-insights-passive/` },
+    { name: "product en", url: `${site}/en/tools/instagram-insights-passive/` },
+    { name: "mytools", url: `${site}/mytools/` },
+    { name: "privacy", url: `${site}/privacy/passive-analytics/` },
+    { name: "other", url: `${site}/wuhan-itinerary-2026-07/` }
+  ];
+  const classification = [];
+  for (const definition of classificationDefinitions.filter((item) => selected(item.name))) {
+    const outcome = await retryCheck(`classification ${definition.name}`, () => runClassificationCheck(cdp, definition));
+    classification.push(outcome.result ? { ...outcome.result, attempts: outcome.attempts } : { event: "page_view", test: definition.name, test_page: withDebug(definition.url), expected_count: 1, actual_count: 0, duplicate: false, raw_collects: [], pii_findings: [], passed: false, attempts: outcome.attempts, reason: ["No classification attempt received the expected page_view collect request."] });
+  }
   await writeProgress("interactions", 0, 14, "starting");
   const interactions = [];
   const clickDefinitions = [
@@ -594,12 +651,15 @@ try {
     storage_isolation: "A new CDP BrowserContext is created per check; no cookies, localStorage, or sessionStorage are reused.",
     spa_route_change: { applicable: false, reason: "Static multi-page site; route changes create a new document." },
     coverage,
+    classification,
     lifecycle,
     interaction_events: interactions,
-    failures: [...coverage, ...lifecycle, ...interactions].filter((item) => !item.passed),
+    failures: [...coverage, ...classification, ...lifecycle, ...interactions].filter((item) => !item.passed),
     summary: {
       coverage_passed: coverage.filter((item) => item.passed).length,
       coverage_total: coverage.length,
+      classification_passed: classification.filter((item) => item.passed).length,
+      classification_total: classification.length,
       lifecycle_passed: lifecycle.filter((item) => item.passed).length,
       lifecycle_total: lifecycle.length,
       interactions_passed: interactions.filter((item) => item.passed).length,

@@ -10,9 +10,16 @@
   window.dataLayer = window.dataLayer || [];
   const content = () => {
     const parts = location.pathname.split("/").filter(Boolean);
-    const typeIndex = parts.findIndex((part) => part === "services" || part === "insights" || part === "cases");
-    const contentType = typeIndex < 0 ? "homepage" : parts[typeIndex] === "insights" ? "article" : parts[typeIndex] === "cases" ? "case_study" : "service";
-    const contentSlug = typeIndex < 0 ? "home" : parts[typeIndex + 1] || contentType;
+    const route = ["zh-tw", "zh-cn", "en", "ja"].includes(parts[0]) ? parts.slice(1) : parts;
+    const section = route[0];
+    const contentType = section === "services" ? "service"
+      : section === "insights" ? "article"
+      : section === "cases" ? "case_study"
+      : section === "tools" ? "product"
+      : section === "mytools" ? "mytools"
+      : section === "privacy" ? "privacy"
+      : section ? "other" : "homepage";
+    const contentSlug = contentType === "homepage" ? "home" : route[1] || (contentType === "other" ? section : contentType);
     return { content_type: contentType, content_slug: contentSlug, ...(contentType === "service" ? { service_name: contentSlug } : {}) };
   };
   const page = () => ({
@@ -70,7 +77,12 @@
       }
       tracked = track("language_switch", { from_locale: localeValue(document.documentElement.lang), to_locale: localeValue(element.dataset.langLink), target_url: element instanceof HTMLAnchorElement ? new URL(element.href, location.href).href : location.href });
     }
-    if (element.dataset.trackEvent) tracked = track(element.dataset.trackEvent, { cta_location: element.dataset.trackLocation || "content", target_url: element instanceof HTMLAnchorElement ? new URL(element.href, location.href).href : location.href });
+    if (element.dataset.trackEvent) tracked = track(element.dataset.trackEvent, {
+      cta_location: element.dataset.trackLocation || "content",
+      target_url: element instanceof HTMLAnchorElement ? new URL(element.href, location.href).href : location.href,
+      ...(element.dataset.productName ? { product_name: element.dataset.productName } : {}),
+      ...(element.dataset.serviceName ? { service_name: element.dataset.serviceName } : {})
+    });
     if (!(element instanceof HTMLAnchorElement) || event.defaultPrevented || event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey || element.target === "_blank") return;
     const destination = new URL(element.href, location.href);
     const isSameDocument = destination.origin === location.origin && destination.pathname === location.pathname && destination.search === location.search;

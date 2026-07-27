@@ -1,0 +1,35 @@
+{
+  "generated_at": "2026-07-27T16:46:54.356Z",
+  "site": "https://zhenguocool.com",
+  "sitemap": {
+    "http_status": 200,
+    "urls": 127,
+    "status_counts": {
+      "200": 127
+    },
+    "non_200": []
+  },
+  "canonical": {
+    "missing": []
+  },
+  "hreflang": {
+    "missing": [
+      "https://zhenguocool.com/mytools/",
+      "https://zhenguocool.com/mytools/ai-teaching-flow/",
+      "https://zhenguocool.com/mytools/ai-prompt-engineering/",
+      "https://zhenguocool.com/mytools/ai-agent-intro/",
+      "https://zhenguocool.com/mytools/codex-first-project/",
+      "https://zhenguocool.com/mytools/ai-automation-intro/",
+      "https://zhenguocool.com/mytools/n8n-workflow-reuse/",
+      "https://zhenguocool.com/tools/youtube-channel-metrics/"
+    ]
+  },
+  "internal_links": {
+    "unique": 126,
+    "edges": 1426,
+    "status_counts": {
+      "200": 126
+    },
+    "non_200": []
+  }
+}
