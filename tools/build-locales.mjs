@@ -888,6 +888,9 @@ const renderHomePage = (locale, isRoot = false) => {
   if (!copy) throw new Error(`Missing copy for ${locale.key}`);
 
   let html = source;
+  html = html
+    .replace(/--coral:\s*#e94f37;/, "--coral: #cf3f2d;")
+    .replace(/--teal:\s*#0f8b8d;/, "--teal: #0d7d80;");
   // index.html is also the generated root locale, so remove prior generated guides before inserting them again.
   html = html.replace(/\s*<section id="guides" class="answers-section">[\s\S]*?<\/section>/g, "");
   html = html.replace(/<html lang="[^"]+" data-locale="[^"]+">/, `<html lang="${locale.htmlLang}" data-locale="${locale.key}">`);
@@ -1134,6 +1137,23 @@ const serviceCss = `
     @media (max-width: 760px) { .nav { align-items:flex-start; flex-direction:column; padding:14px 0; } .nav-links { flex-wrap:wrap; } .grid { grid-template-columns:1fr; } section { padding:54px 0; } h1 { font-size:clamp(38px, 10vw, 46px); line-height:1.08; overflow-wrap:anywhere; } }
 `;
 
+const serviceProductModules = {
+  "kol-marketing": ["先整理近期內容，再決定優先洽談誰", "用相同口徑做第一輪創作者判讀", "開始 KOL 專案前，可先整理近期內容、互動與發布狀態；再把候選人帶進品牌目標、內容語境與執行條件的完整評估。", "Passive Analytics", "用 Passive Analytics 做第一輪判讀"],
+  "instagram-influencer-marketing": ["先看近期內容，再安排 Instagram 合作", "先整理公開內容訊號", "初步比較 Reels、貼文與互動表現時，可先在本機整理已載入內容；專案合作仍會依受眾、內容語境、品牌安全與配合度進一步判斷。", "Passive Analytics", "用 Passive Analytics 整理近期內容"],
+  "tiktok-influencer-marketing": ["先看近期影片，再決定測試方向", "把公開內容整理成可比較的起點", "在設定 TikTok 合作組合前，可先整理目前已載入影片的近期表現；專案執行仍會回到內容風格、受眾情境與合作可行性判斷。", "Passive Analytics", "用 Passive Analytics 整理近期影片"],
+  "overseas-influencer-marketing": ["先掌握近期內容，再進入跨市場判斷", "先用公開內容做候選研究", "跨市場合作前，可先整理創作者近期內容的公開訊號；市場語境、品牌安全、寄樣與溝通條件仍須以專案方式確認。", "Passive Analytics", "用 Passive Analytics 做候選研究"],
+  "youtube-influencer-marketing": ["先用一致樣本比較 YouTube 頻道", "把近期影片平均當成第一層判讀", "在規劃長影音合作前，可先比較近期影片的平均觀看、讚、留言與互動率；後續仍需搭配內容適配、受眾與合作條件確認。", "YouTube 影片平均", "用 YouTube 影片平均比較頻道"]
+};
+
+const serviceProductModule = (page, locale, prefix) => {
+  if (locale.key !== "zh-Hant") return "";
+  const content = serviceProductModules[page.slug];
+  if (!content) return "";
+  const [title, cardTitle, body, product, label] = content;
+  const productPath = product === "Passive Analytics" ? "tools/instagram-insights-passive/" : "tools/youtube-channel-metrics/";
+  return `    <section class="faq"><div class="wrap"><h2>${escapeHtml(title)}</h2><div class="grid"><article class="card"><h3>${escapeHtml(cardTitle)}</h3><p>${escapeHtml(body)}</p><p style="margin-top:18px"><a class="button" href="${prefix}${productPath}" data-track-event="service_to_product_click" data-track-location="service-product-module" data-service-name="${escapeAttr(page.slug)}" data-product-name="${escapeAttr(product)}">${escapeHtml(label)}</a></p></article></div></div></section>`;
+};
+
 const renderServicePage = (page, locale) => {
   const ui = serviceUi[locale.key];
   const url = serviceUrl(page, locale);
@@ -1239,6 +1259,7 @@ ${comparison ? `<section class="service-comparison">
         </div>
       </div>
     </section>
+${serviceProductModule(page, locale, prefix)}
 ${relatedStudies.length ? `<section id="case-studies">
       <div class="wrap">
         <h2>${escapeHtml(ui.caseStudiesTitle)}</h2>
@@ -1481,7 +1502,12 @@ const renderSeoPage = (page, locale) => {
   }).join("\n          ");
   const sectionCards = copy.sections.map(([title, points]) => `<article class="card"><h2>${escapeHtml(title)}</h2><ul>${points.map((point) => `<li>${escapeHtml(point)}</li>`).join("")}</ul></article>`).join("\n          ");
   const faqCards = copy.faqs.map(([question, answer]) => `<article class="card"><h3>${escapeHtml(question)}</h3><p>${escapeHtml(answer)}</p></article>`).join("\n          ");
-  const relatedLinks = page.related.map((slug) => seoPhaseOnePages.find((candidate) => candidate.slug === slug)).filter(Boolean).map((related) => `<a class="button" href="${seoPageUrl(related, locale)}">${escapeHtml(related.copy[locale.key].h1)}</a>`).join("\n          ");
+  const relatedLinks = page.related.map((slug) => seoPhaseOnePages.find((candidate) => candidate.slug === slug)).filter(Boolean).map((related) => {
+    const trackedService = locale.isRoot && page.slug === "taiwan-influencer-marketing-costs-2026" && related.slug === "influencer-marketing-costs";
+    const attributes = trackedService ? ' data-track-event="article_cta_click" data-track-location="article-related-service" data-service-name="influencer-marketing-costs"' : "";
+    const productLink = trackedService ? '\n          <a class="button" href="https://zhenguocool.com/tools/instagram-insights-passive/" data-track-event="article_cta_click" data-track-location="article-related-product" data-product-name="Passive Analytics">先用 Passive Analytics 整理近期內容表現</a>' : "";
+    return `<a class="button" href="${seoPageUrl(related, locale)}"${attributes}>${escapeHtml(related.copy[locale.key].h1)}</a>${productLink}`;
+  }).join("\n          ");
   const coreModules = page.kind === "service" ? renderCoreServiceModules(page, locale) : "";
   const update = page.kind === "article" ? `<p class="updated">${escapeHtml(ui.updated)}: 2026-07-23</p>` : "";
   const updatedLine = update ? `\n        ${update}` : "";
@@ -1714,15 +1740,51 @@ for (const extraPath of [
   "mytools/ai-agent-intro/",
   "mytools/codex-first-project/",
   "mytools/ai-automation-intro/",
-  "mytools/n8n-workflow-reuse/"
+  "mytools/n8n-workflow-reuse/",
+  "mytools/ai-rag-intro/",
+  "mytools/ai-methods/",
+  "mytools/agentic-workflow/",
+  "tools/"
 ]) {
   sitemapItems.push({ loc: `${baseUrl}${extraPath}`, priority: "0.6", alternates: [] });
 }
-for (const toolPath of ["tools/youtube-channel-metrics/", "tools/instagram-insights-passive/"]) {
-  sitemapItems.push({ loc: `${baseUrl}${toolPath}`, priority: "0.7", alternates: [], noAlternatePadding: true });
+const passiveAnalyticsAlternates = [
+  ["zh-Hant", `${baseUrl}tools/instagram-insights-passive/`],
+  ["zh-Hans", `${baseUrl}zh-cn/tools/instagram-insights-passive/`],
+  ["en", `${baseUrl}en/tools/instagram-insights-passive/`],
+  ["ja", `${baseUrl}ja/tools/instagram-insights-passive/`],
+  ["x-default", `${baseUrl}tools/instagram-insights-passive/`]
+];
+for (const [toolPath, priority] of [
+  ["tools/instagram-insights-passive/", "0.7"],
+  ["zh-cn/tools/instagram-insights-passive/", "0.65"],
+  ["en/tools/instagram-insights-passive/", "0.65"],
+  ["ja/tools/instagram-insights-passive/", "0.65"]
+]) {
+  sitemapItems.push({ loc: `${baseUrl}${toolPath}`, priority, alternates: passiveAnalyticsAlternates });
+}
+const passiveAnalyticsUpdateAlternates = [
+  ["zh-Hant", `${baseUrl}tools/instagram-insights-passive/updates/`],
+  ["en", `${baseUrl}en/tools/instagram-insights-passive/updates/`],
+  ["x-default", `${baseUrl}tools/instagram-insights-passive/updates/`]
+];
+for (const [toolPath, priority] of [
+  ["tools/instagram-insights-passive/updates/", "0.6"],
+  ["en/tools/instagram-insights-passive/updates/", "0.6"]
+]) {
+  sitemapItems.push({ loc: `${baseUrl}${toolPath}`, priority, alternates: passiveAnalyticsUpdateAlternates });
+}
+sitemapItems.push({ loc: `${baseUrl}tools/youtube-channel-metrics/`, priority: "0.7", alternates: [], noAlternatePadding: true });
+const passiveAnalyticsPrivacyAlternates = [
+  ["zh-Hant", `${baseUrl}privacy/passive-analytics/`],
+  ["en", `${baseUrl}en/privacy/passive-analytics/`],
+  ["x-default", `${baseUrl}privacy/passive-analytics/`]
+];
+for (const privacyPath of ["privacy/passive-analytics/", "en/privacy/passive-analytics/"]) {
+  sitemapItems.push({ loc: `${baseUrl}${privacyPath}`, priority: "0.4", changefreq: "yearly", alternates: passiveAnalyticsPrivacyAlternates });
 }
 
-const sitemap = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">\n${sitemapItems.map((item) => `  <url>\n    <loc>${item.loc}</loc>\n    <changefreq>monthly</changefreq>\n    <priority>${item.priority}</priority>\n${item.alternates.map(([hreflang, href]) => `    <xhtml:link rel="alternate" hreflang="${hreflang}" href="${href}" />`).join("\n")}${item.noAlternatePadding ? "" : "\n"}  </url>`).join("\n")}\n</urlset>\n`;
+const sitemap = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">\n${sitemapItems.map((item) => `  <url>\n    <loc>${item.loc}</loc>\n    <changefreq>${item.changefreq || "monthly"}</changefreq>\n    <priority>${item.priority}</priority>\n${item.alternates.map(([hreflang, href]) => `    <xhtml:link rel="alternate" hreflang="${hreflang}" href="${href}" />`).join("\n")}${item.noAlternatePadding ? "" : "\n"}  </url>`).join("\n")}\n</urlset>\n`;
 fs.writeFileSync(path.join(root, "sitemap.xml"), sitemap);
 
 const robots = `User-agent: *\nAllow: /\n\nSitemap: ${baseUrl}sitemap.xml\n`;

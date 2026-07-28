@@ -30,7 +30,7 @@ const pages = await concurrent(sitemapUrls, fetchPage);
 const internalLinks = new Map();
 const pageChecks = pages.map((page) => {
   const canonical = page.html.match(/<link\s+rel="canonical"\s+href="([^"]+)"/i)?.[1] || null;
-  const hreflang = [...page.html.matchAll(/<link\s+rel="alternate"\s+hreflang="[^"]+"\s+href="[^"]+"/gi)].length;
+  const alternates = [...page.html.matchAll(/<link\s+rel="alternate"\s+hreflang="([^"]+)"\s+href="([^"]+)"/gi)].map((match) => ({ hreflang: match[1], href: match[2] }));
   for (const match of page.html.matchAll(/<a\b[^>]*\bhref="([^"]+)"/gi)) {
     try {
       const target = new URL(match[1], page.url);
@@ -39,9 +39,11 @@ const pageChecks = pages.map((page) => {
       internalLinks.set(target.href, (internalLinks.get(target.href) || 0) + 1);
     } catch {}
   }
-  return { url: page.url, status: page.status, canonical, hreflang_count: hreflang };
+  return { url: page.url, status: page.status, canonical, alternates };
 });
 const linked = await concurrent([...internalLinks.keys()], fetchPage);
+const alternateTargets = [...new Set(pageChecks.flatMap((page) => page.alternates.map((alternate) => alternate.href)))];
+const alternatePages = await concurrent(alternateTargets, fetchPage);
 const report = {
   generated_at: new Date().toISOString(),
   site,
@@ -51,8 +53,16 @@ const report = {
     status_counts: countByStatus(pages),
     non_200: pages.filter((page) => page.status !== 200).map(({ url, status, error }) => ({ url, status, error: error || null }))
   },
-  canonical: { missing: pageChecks.filter((page) => !page.canonical).map(({ url }) => url) },
-  hreflang: { missing: pageChecks.filter((page) => page.hreflang_count === 0).map(({ url }) => url) },
+  canonical: {
+    missing: pageChecks.filter((page) => !page.canonical).map(({ url }) => url),
+    non_self: pageChecks.filter((page) => page.canonical && page.canonical !== page.url).map(({ url, canonical }) => ({ url, canonical }))
+  },
+  hreflang: {
+    missing: pageChecks.filter((page) => page.alternates.length === 0).map(({ url }) => url),
+    targets: alternateTargets.length,
+    status_counts: countByStatus(alternatePages),
+    non_200: alternatePages.filter((page) => page.status !== 200).map(({ url, status, error }) => ({ url, status, error: error || null }))
+  },
   internal_links: {
     unique: linked.length,
     edges: [...internalLinks.values()].reduce((total, count) => total + count, 0),
@@ -62,5 +72,5 @@ const report = {
 };
 await mkdir("artifacts", { recursive: true });
 await writeFile("artifacts/technical-baseline.json", `${JSON.stringify(report, null, 2)}\n`);
-console.log(JSON.stringify({ sitemap_urls: report.sitemap.urls, sitemap_status_counts: report.sitemap.status_counts, canonical_missing: report.canonical.missing.length, hreflang_missing: report.hreflang.missing.length, internal_link_status_counts: report.internal_links.status_counts }, null, 2));
-if (report.sitemap.http_status !== 200 || report.sitemap.non_200.length || report.internal_links.non_200.length) process.exitCode = 1;
+console.log(JSON.stringify({ sitemap_urls: report.sitemap.urls, sitemap_status_counts: report.sitemap.status_counts, canonical_missing: report.canonical.missing.length, canonical_non_self: report.canonical.non_self.length, hreflang_missing: report.hreflang.missing.length, hreflang_target_status_counts: report.hreflang.status_counts, internal_link_status_counts: report.internal_links.status_counts }, null, 2));
+if (report.sitemap.http_status !== 200 || report.sitemap.non_200.length || report.canonical.missing.length || report.canonical.non_self.length || report.hreflang.non_200.length || report.internal_links.non_200.length) process.exitCode = 1;

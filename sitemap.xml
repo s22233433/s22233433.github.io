@@ -1087,12 +1087,87 @@
 
   </url>
   <url>
-    <loc>https://zhenguocool.com/tools/youtube-channel-metrics/</loc>
+    <loc>https://zhenguocool.com/mytools/ai-rag-intro/</loc>
     <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.6</priority>
+
+  </url>
+  <url>
+    <loc>https://zhenguocool.com/mytools/ai-methods/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+
+  </url>
+  <url>
+    <loc>https://zhenguocool.com/mytools/agentic-workflow/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+
+  </url>
+  <url>
+    <loc>https://zhenguocool.com/tools/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+
   </url>
   <url>
     <loc>https://zhenguocool.com/tools/instagram-insights-passive/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="zh-Hant" href="https://zhenguocool.com/tools/instagram-insights-passive/" />
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://zhenguocool.com/zh-cn/tools/instagram-insights-passive/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://zhenguocool.com/en/tools/instagram-insights-passive/" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://zhenguocool.com/ja/tools/instagram-insights-passive/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://zhenguocool.com/tools/instagram-insights-passive/" />
+  </url>
+  <url>
+    <loc>https://zhenguocool.com/zh-cn/tools/instagram-insights-passive/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.65</priority>
+    <xhtml:link rel="alternate" hreflang="zh-Hant" href="https://zhenguocool.com/tools/instagram-insights-passive/" />
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://zhenguocool.com/zh-cn/tools/instagram-insights-passive/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://zhenguocool.com/en/tools/instagram-insights-passive/" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://zhenguocool.com/ja/tools/instagram-insights-passive/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://zhenguocool.com/tools/instagram-insights-passive/" />
+  </url>
+  <url>
+    <loc>https://zhenguocool.com/en/tools/instagram-insights-passive/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.65</priority>
+    <xhtml:link rel="alternate" hreflang="zh-Hant" href="https://zhenguocool.com/tools/instagram-insights-passive/" />
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://zhenguocool.com/zh-cn/tools/instagram-insights-passive/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://zhenguocool.com/en/tools/instagram-insights-passive/" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://zhenguocool.com/ja/tools/instagram-insights-passive/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://zhenguocool.com/tools/instagram-insights-passive/" />
+  </url>
+  <url>
+    <loc>https://zhenguocool.com/ja/tools/instagram-insights-passive/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.65</priority>
+    <xhtml:link rel="alternate" hreflang="zh-Hant" href="https://zhenguocool.com/tools/instagram-insights-passive/" />
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://zhenguocool.com/zh-cn/tools/instagram-insights-passive/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://zhenguocool.com/en/tools/instagram-insights-passive/" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://zhenguocool.com/ja/tools/instagram-insights-passive/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://zhenguocool.com/tools/instagram-insights-passive/" />
+  </url>
+  <url>
+    <loc>https://zhenguocool.com/tools/instagram-insights-passive/updates/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="zh-Hant" href="https://zhenguocool.com/tools/instagram-insights-passive/updates/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://zhenguocool.com/en/tools/instagram-insights-passive/updates/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://zhenguocool.com/tools/instagram-insights-passive/updates/" />
+  </url>
+  <url>
+    <loc>https://zhenguocool.com/en/tools/instagram-insights-passive/updates/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="zh-Hant" href="https://zhenguocool.com/tools/instagram-insights-passive/updates/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://zhenguocool.com/en/tools/instagram-insights-passive/updates/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://zhenguocool.com/tools/instagram-insights-passive/updates/" />
+  </url>
+  <url>
+    <loc>https://zhenguocool.com/tools/youtube-channel-metrics/</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
