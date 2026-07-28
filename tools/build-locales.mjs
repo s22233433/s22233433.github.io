@@ -1146,7 +1146,7 @@ const serviceProductModules = {
 };
 
 const serviceProductModule = (page, locale, prefix) => {
-  if (locale.key !== "zh-Hant") return "";
+  if (!locale.isRoot) return "";
   const content = serviceProductModules[page.slug];
   if (!content) return "";
   const [title, cardTitle, body, product, label] = content;
@@ -1162,6 +1162,10 @@ const renderServicePage = (page, locale) => {
   const decisionGuide = serviceDecisionGuide(page, locale);
   const comparison = serviceComparison(page, locale);
   const relatedStudies = relatedCaseStudies(page);
+  const productModule = serviceProductModule(page, locale, prefix);
+  const serviceProductArea = productModule
+    ? `${relatedStudies.length ? "\n" : "\n\n"}${productModule}${relatedStudies.length ? "\n" : ""}`
+    : "\n";
   const secondaryHref = relatedStudies.length ? "#case-studies" : `${prefix}#cases`;
   const steps = serviceWorkflowSteps(page, locale).map(([step, body]) => `<article class="card"><h3>${escapeHtml(step)}</h3><p>${escapeHtml(body)}</p></article>`).join("\n          ");
   const faqCards = faqs.map(([question, answer]) => `<article class="card"><h3>${escapeHtml(question)}</h3><p>${escapeHtml(answer)}</p></article>`).join("\n          ");
@@ -1258,9 +1262,7 @@ ${comparison ? `<section class="service-comparison">
           ${faqCards}
         </div>
       </div>
-    </section>
-${serviceProductModule(page, locale, prefix)}
-${relatedStudies.length ? `<section id="case-studies">
+    </section>${serviceProductArea}${relatedStudies.length ? `<section id="case-studies">
       <div class="wrap">
         <h2>${escapeHtml(ui.caseStudiesTitle)}</h2>
         <div class="grid">
