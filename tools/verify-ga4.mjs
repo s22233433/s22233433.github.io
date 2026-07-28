@@ -11,6 +11,7 @@ const measurementId = "G-3G60NBREE3";
 const timeoutMs = Number(process.env.GA4_TIMEOUT_MS || 12000);
 const targets = process.env.GA4_TARGETS ? process.env.GA4_TARGETS.split("|").filter(Boolean) : [];
 const includeProductDiscovery = process.env.GA4_PRODUCT_DISCOVERY === "1";
+const includeInternalLinking = process.env.GA4_INTERNAL_LINKING === "1";
 const selected = (value) => !targets.length || targets.some((target) => value.includes(target));
 const reportName = targets.length ? "ga4-targeted-report" : "ga4-network-report";
 const locales = [
@@ -626,6 +627,17 @@ try {
       { name: "Passive Analytics hub entry", url: `${site}/tools/`, selector: '[data-track-event="product_click"][data-product-name="Passive Analytics"]', event: "product_click", location: "product-hub-card", parameters: { product_name: "Passive Analytics" } },
       { name: "Passive Analytics Chrome Store", url: `${site}/tools/`, selector: '[data-track-event="chrome_store_click"][data-product-name="Passive Analytics"]', event: "chrome_store_click", location: "product-hub-card", parameters: { product_name: "Passive Analytics" } },
       { name: "YouTube 影片平均 Chrome Store", url: `${site}/tools/`, selector: '[data-track-event="chrome_store_click"][data-product-name="YouTube 影片平均"]', event: "chrome_store_click", location: "product-hub-card", parameters: { product_name: "YouTube 影片平均" } }
+    ] : []),
+    ...(includeInternalLinking ? [
+      { name: "Passive Analytics to service", url: `${site}/tools/instagram-insights-passive/`, selector: '[data-track-event="product_to_service_click"][data-product-name="Passive Analytics"]', event: "product_to_service_click", location: "product-service-module", parameters: { product_name: "Passive Analytics", service_name: "influencer-marketing-agency" } },
+      { name: "YouTube product to service", url: `${site}/tools/youtube-channel-metrics/`, selector: '[data-track-event="product_to_service_click"][data-product-name="YouTube 影片平均"]', event: "product_to_service_click", location: "product-service-module", parameters: { product_name: "YouTube 影片平均", service_name: "youtube-influencer-marketing" } },
+      { name: "KOL service to Passive Analytics", url: `${site}/services/kol-marketing/`, selector: '[data-track-event="service_to_product_click"][data-product-name="Passive Analytics"]', event: "service_to_product_click", location: "service-product-module", parameters: { service_name: "kol-marketing", product_name: "Passive Analytics" } },
+      { name: "Instagram service to Passive Analytics", url: `${site}/services/instagram-influencer-marketing/`, selector: '[data-track-event="service_to_product_click"][data-product-name="Passive Analytics"]', event: "service_to_product_click", location: "service-product-module", parameters: { service_name: "instagram-influencer-marketing", product_name: "Passive Analytics" } },
+      { name: "TikTok service to Passive Analytics", url: `${site}/services/tiktok-influencer-marketing/`, selector: '[data-track-event="service_to_product_click"][data-product-name="Passive Analytics"]', event: "service_to_product_click", location: "service-product-module", parameters: { service_name: "tiktok-influencer-marketing", product_name: "Passive Analytics" } },
+      { name: "YouTube service to product", url: `${site}/services/youtube-influencer-marketing/`, selector: '[data-track-event="service_to_product_click"][data-product-name="YouTube 影片平均"]', event: "service_to_product_click", location: "service-product-module", parameters: { service_name: "youtube-influencer-marketing", product_name: "YouTube 影片平均" } },
+      { name: "Overseas service to Passive Analytics", url: `${site}/services/overseas-influencer-marketing/`, selector: '[data-track-event="service_to_product_click"][data-product-name="Passive Analytics"]', event: "service_to_product_click", location: "service-product-module", parameters: { service_name: "overseas-influencer-marketing", product_name: "Passive Analytics" } },
+      { name: "Cost insight to service", url: `${site}/insights/taiwan-influencer-marketing-costs-2026/`, selector: '[data-track-event="article_cta_click"][data-track-location="article-related-service"]', event: "article_cta_click", location: "article-related-service", parameters: { service_name: "influencer-marketing-costs" } },
+      { name: "Cost insight to Passive Analytics", url: `${site}/insights/taiwan-influencer-marketing-costs-2026/`, selector: '[data-track-event="article_cta_click"][data-track-location="article-related-product"]', event: "article_cta_click", location: "article-related-product", parameters: { product_name: "Passive Analytics" } }
     ] : [])
   ];
   const selectedClickDefinitions = clickDefinitions.filter((item) => selected(item.name));
