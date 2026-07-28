@@ -20,7 +20,7 @@ const coreServiceSlugs = [
   "influencer-marketing-costs"
 ];
 
-assert.equal(seoPhaseOnePages.length, 8, "Phase one must contain exactly eight topics");
+assert.equal(seoPhaseOnePages.length, 9, "Phase one must contain exactly nine topics");
 
 for (const page of seoPhaseOnePages) {
   assert.ok(["service", "article"].includes(page.kind), `${page.slug} has a supported page kind`);
@@ -70,8 +70,8 @@ for (const page of seoPhaseOnePages) {
   }
 }
 
-assert.equal(urls.length, 24, "Phase one must emit 24 direct language routes");
-assert.equal(titles.size, 24, "All phase-one pages must have unique titles");
+assert.equal(urls.length, 27, "Phase one must emit 27 direct language routes");
+assert.equal(titles.size, 27, "All phase-one pages must have unique titles");
 
 const sitemap = fs.readFileSync(path.join(root, "sitemap.xml"), "utf8");
 for (const url of urls) assert.ok(sitemap.includes(`<loc>${url}</loc>`), `Sitemap includes ${url}`);
@@ -80,8 +80,8 @@ for (const locale of localePaths) {
   const home = fs.readFileSync(path.join(root, locale.dir, "index.html"), "utf8");
   if (locale.dir) assert.doesNotMatch(home, /google-site-verification/, `${locale.dir} does not inherit the root verification tag`);
   else assert.match(home, /google-site-verification/, "root homepage retains its verification tag");
-  for (const slug of ["taiwan-influencer-marketing-costs-2026", "how-to-choose-influencer-marketing-agency", "japan-influencer-marketing-guide-article"]) {
-    const pathPart = locale.dir ? `${locale.dir}/insights/${slug}/` : `insights/${slug}/`;
+  for (const slug of ["taiwan-influencer-marketing-costs-2026", "how-to-choose-influencer-marketing-agency", "japan-influencer-marketing-guide-article", "beverage-kol-marketing-guide"]) {
+    const pathPart = locale.dir === "zh-tw" ? `insights/${slug}/` : locale.dir ? `${locale.dir}/insights/${slug}/` : `insights/${slug}/`;
     assert.ok(home.includes(`${baseUrl}${pathPart}`), `${locale.dir || "root"} homepage links ${slug}`);
   }
 }

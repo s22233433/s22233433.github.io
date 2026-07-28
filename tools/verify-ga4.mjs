@@ -12,6 +12,7 @@ const timeoutMs = Number(process.env.GA4_TIMEOUT_MS || 12000);
 const targets = process.env.GA4_TARGETS ? process.env.GA4_TARGETS.split("|").filter(Boolean) : [];
 const includeProductDiscovery = process.env.GA4_PRODUCT_DISCOVERY === "1";
 const includeInternalLinking = process.env.GA4_INTERNAL_LINKING === "1";
+const includeContentOptimization = process.env.GA4_CONTENT_OPTIMIZATION === "1";
 const selected = (value) => !targets.length || targets.some((target) => value.includes(target));
 const reportName = targets.length ? "ga4-targeted-report" : "ga4-network-report";
 const locales = [
@@ -638,6 +639,11 @@ try {
       { name: "Overseas service to Passive Analytics", url: `${site}/services/overseas-influencer-marketing/`, selector: '[data-track-event="service_to_product_click"][data-product-name="Passive Analytics"]', event: "service_to_product_click", location: "service-product-module", parameters: { service_name: "overseas-influencer-marketing", product_name: "Passive Analytics" } },
       { name: "Cost insight to service", url: `${site}/insights/taiwan-influencer-marketing-costs-2026/`, selector: '[data-track-event="article_cta_click"][data-track-location="article-related-service"]', event: "article_cta_click", location: "article-related-service", parameters: { service_name: "influencer-marketing-costs" } },
       { name: "Cost insight to Passive Analytics", url: `${site}/insights/taiwan-influencer-marketing-costs-2026/`, selector: '[data-track-event="article_cta_click"][data-track-location="article-related-product"]', event: "article_cta_click", location: "article-related-product", parameters: { product_name: "Passive Analytics" } }
+    ] : []),
+    ...(includeContentOptimization ? [
+      { name: "Beverage home guide", url: `${site}/`, selector: '[data-track-event="article_index_click"][data-track-location="home-guides"][href$="/insights/beverage-kol-marketing-guide/"]', event: "article_index_click", location: "home-guides" },
+      { name: "Beverage guide to Goodme case", url: `${site}/insights/beverage-kol-marketing-guide/`, selector: '[data-track-event="case_study_click"][data-track-location="beverage-guide-case"]', event: "case_study_click", location: "beverage-guide-case" },
+      { name: "Goodme case to beverage guide", url: `${site}/cases/korea-kol-goodme/`, selector: '[data-track-event="article_cta_click"][data-track-location="case-beverage-guide"]', event: "article_cta_click", location: "case-beverage-guide" }
     ] : [])
   ];
   const selectedClickDefinitions = clickDefinitions.filter((item) => selected(item.name));

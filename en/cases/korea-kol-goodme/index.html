@@ -133,6 +133,21 @@
 
     .case-image { width:100%; max-width:760px; margin-top:32px; border:1px solid var(--line); border-radius:8px; background:#fff; }
     .case-summary { max-width:780px; color:#40516c; font-size:clamp(18px,2vw,22px); }
+    .case-detail { background:#fffdf8; }
+    .case-summary-band { max-width:900px; border-left:4px solid var(--coral); background:#fff; padding:24px; }
+    .case-summary-band h2, .case-detail h2 { margin:10px 0; }
+    .case-summary-band p, .case-detail p, .case-detail li { color:var(--muted); }
+    .case-split { display:grid; grid-template-columns:repeat(2, 1fr); gap:16px; margin-top:16px; }
+    .case-split > article { border:1px solid var(--line); border-radius:8px; background:#fff; padding:22px; }
+    .case-split ul { margin:0; padding-left:1.25em; }
+    .case-split li + li { margin-top:10px; }
+    .case-story { display:grid; grid-template-columns:repeat(3, 1fr); gap:16px; }
+    .case-story span, .case-timeline span { color:var(--coral); font-family:Georgia,"Times New Roman",serif; font-size:26px; }
+    .case-timeline { display:grid; grid-template-columns:repeat(4, 1fr); gap:14px; }
+    .case-timeline article { border-top:3px solid var(--teal); padding:18px 0; }
+    .case-timeline h3 { margin:8px 0; font-size:19px; }
+    .case-checklist .button { margin-top:12px; }
+    @media (max-width:760px) { .case-split, .case-story, .case-timeline { grid-template-columns:1fr; } .case-timeline article { display:grid; grid-template-columns:52px 1fr; gap:10px; } .case-timeline h3 { margin-top:2px; } }
   </style>
 </head>
 <body>
@@ -154,17 +169,14 @@
         <img class="case-image" src="../../../web-assets/case-goodme-korean-kol.webp" alt="Korean KOL x Goodme Tea">
       </div>
     </section>
-    <section>
+    <section class="case-detail">
       <div class="wrap">
-        <div class="grid">
-          <article class="card"><h3>Project Background</h3><p>Goodme Tea wanted overseas audiences to better understand the store and product experience of a Chinese tea brand.</p></article>
-          <article class="card"><h3>Brand Objective</h3><p>Use Korean creator content to create a tangible store experience and brand understanding in the Korean market.</p></article>
-          <article class="card"><h3>Market Challenge</h3><p>Food content that only describes a product rarely explains why a new audience would visit a store.</p></article>
-          <article class="card"><h3>Creator Selection Logic</h3><p>A Korean creator who could naturally connect travel, city exploration, and everyday drink experiences was selected.</p></article>
-          <article class="card"><h3>Content Strategy</h3><p>The content used the visit, drink selection, store context, and personal response as its narrative thread while keeping the creator's own voice.</p></article>
-          <article class="card"><h3>Execution</h3><p>Zhenguo managed communication, visit arrangements, key-message checks, and publishing follow-up so the brand could follow the campaign rhythm.</p></article>
-          <article class="card"><h3>Deliverables and Review</h3><p>Deliverables included published content and a link summary. The review focused on how overseas creators can add local context for physical stores.</p></article>
-        </div>
+        <div class="case-summary-band"><span class="eyebrow">Project summary</span><h2>Key judgment</h2><p>For a beverage brand entering an unfamiliar market, the store, drink choice, and personal response need to form a credible visit story. A creator is not only there to show the product.</p></div>
+        <div class="case-split"><article><h2>Background and objective</h2><p>Goodme Tea wanted Korean audiences to understand the store and product experience of a Chinese tea brand, not simply see a drink.</p></article><article><h2>Brand Objective</h2><p>Use a tangible store visit to make an initial connection between the brand, city context, and everyday drinking occasion.</p></article></div>
+        <div class="case-split"><article><h2>The unfamiliar-market challenge</h2><p>When food content only describes a menu item, an unfamiliar audience has little reason to visit, little sense of the store, and no connection to a travel or everyday routine.</p></article><article><h2>Creator screening dimensions</h2><ul><li>Travel, city exploration, and food-and-drink content fit naturally together.</li><li>Can turn a visit and personal response into a coherent story instead of reciting selling points.</li><li>Can realistically coordinate the store visit, filming timing, and on-site communication.</li><li>Recent content, collaboration reliability, and brand-safety fit can be reviewed in advance.</li></ul></article></div>
+        <h2>Store-visit content cues</h2><div class="case-story"><article class="card"><span>01</span><h3>Reason to visit</h3><p>Start with a credible reason for the stop within travel, city exploration, or a daily route.</p></article><article class="card"><span>02</span><h3>Drink choice and store experience</h3><p>Use the selection process, space, and service experience to give the product context.</p></article><article class="card"><span>03</span><h3>Personal response</h3><p>Keep the creator's own tone and opinion instead of turning the content into a hard sell.</p></article></div>
+        <h2>Execution checkpoints</h2><div class="case-timeline"><article><span>01</span><div><h3>Store and menu</h3><p>Confirm visit timing, store details, and drinks that can be introduced accurately.</p></div></article><article><span>02</span><div><h3>Brief and filming</h3><p>Align required information, filming scope, non-misleading language, and on-site arrangements.</p></div></article><article><span>03</span><div><h3>Review and disclosure</h3><p>Confirm key messages, commercial disclosure, and the revision window.</p></div></article><article><span>04</span><div><h3>Publish and handover</h3><p>Record live links, rights status, and reusable delivery records.</p></div></article></div>
+        <div class="case-split"><article><h2>Deliverables and reusable learning</h2><p>The close-out is grounded in the published content and link record. The reusable lesson is not a fixed script: align the creator's reason to visit, story rhythm, and brand information in one workable brief.</p></article><article class="case-checklist"><h2>Beverage brand decision guide</h2><p>This page does not publish reach, sales, ranking, or fee figures without traceable supporting evidence. Empty metric cards are not a substitute for delivery detail.</p><a class="button" href="https://zhenguocool.com/en/insights/beverage-kol-marketing-guide/" data-track-event="article_cta_click" data-track-location="case-beverage-guide">Read the beverage brand KOL marketing guide</a></article></div>
       </div>
     </section>
     <section>

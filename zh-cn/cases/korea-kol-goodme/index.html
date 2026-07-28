@@ -133,6 +133,21 @@
 
     .case-image { width:100%; max-width:760px; margin-top:32px; border:1px solid var(--line); border-radius:8px; background:#fff; }
     .case-summary { max-width:780px; color:#40516c; font-size:clamp(18px,2vw,22px); }
+    .case-detail { background:#fffdf8; }
+    .case-summary-band { max-width:900px; border-left:4px solid var(--coral); background:#fff; padding:24px; }
+    .case-summary-band h2, .case-detail h2 { margin:10px 0; }
+    .case-summary-band p, .case-detail p, .case-detail li { color:var(--muted); }
+    .case-split { display:grid; grid-template-columns:repeat(2, 1fr); gap:16px; margin-top:16px; }
+    .case-split > article { border:1px solid var(--line); border-radius:8px; background:#fff; padding:22px; }
+    .case-split ul { margin:0; padding-left:1.25em; }
+    .case-split li + li { margin-top:10px; }
+    .case-story { display:grid; grid-template-columns:repeat(3, 1fr); gap:16px; }
+    .case-story span, .case-timeline span { color:var(--coral); font-family:Georgia,"Times New Roman",serif; font-size:26px; }
+    .case-timeline { display:grid; grid-template-columns:repeat(4, 1fr); gap:14px; }
+    .case-timeline article { border-top:3px solid var(--teal); padding:18px 0; }
+    .case-timeline h3 { margin:8px 0; font-size:19px; }
+    .case-checklist .button { margin-top:12px; }
+    @media (max-width:760px) { .case-split, .case-story, .case-timeline { grid-template-columns:1fr; } .case-timeline article { display:grid; grid-template-columns:52px 1fr; gap:10px; } .case-timeline h3 { margin-top:2px; } }
   </style>
 </head>
 <body>
@@ -154,17 +169,14 @@
         <img class="case-image" src="../../../web-assets/case-goodme-korean-kol.webp" alt="韩国 KOL x 古茗饮料">
       </div>
     </section>
-    <section>
+    <section class="case-detail">
       <div class="wrap">
-        <div class="grid">
-          <article class="card"><h3>项目背景</h3><p>古茗希望让海外受众更容易理解中国茶饮品牌的门店与产品体验。</p></article>
-          <article class="card"><h3>品牌目标</h3><p>以韩国市场的创作者内容，建立可感知的门店体验与品牌认知。</p></article>
-          <article class="card"><h3>市场难点</h3><p>餐饮内容若只描述产品，很难让陌生市场理解到店的理由与消费情境。</p></article>
-          <article class="card"><h3>创作者选择逻辑</h3><p>选择能把旅行、城市探索与日常饮品体验自然串连的韩国创作者。</p></article>
-          <article class="card"><h3>内容策略</h3><p>以实访、饮品选择、门店情境与个人感受为内容线索，保留创作者自身叙事。</p></article>
-          <article class="card"><h3>执行过程</h3><p>管理沟通、到店安排、重点确认与发布追踪，让素材与合作节奏可被品牌端掌握。</p></article>
-          <article class="card"><h3>交付与复盘</h3><p>交付发布内容与链接整理；复盘重点是海外创作者如何替在地门店补足品牌情境。</p></article>
-        </div>
+        <div class="case-summary-band"><span class="eyebrow">项目摘要</span><h2>关键判断</h2><p>饮料品牌进入陌生市场时，门店、选饮与个人感受必须先成为可信的到店故事；创作者不只是负责露出产品。</p></div>
+        <div class="case-split"><article><h2>背景与目标</h2><p>古茗希望让韩国受众理解中国茶饮品牌的门店与产品体验，而不只是看到一杯饮品。</p></article><article><h2>品牌目标</h2><p>以可感知的实访内容，建立品牌、城市路线与日常饮用情境之间的第一层连结。</p></article></div>
+        <div class="case-split"><article><h2>陌生市场的内容难点</h2><p>餐饮内容若只有品项描述，受众很难理解为何进店、现场会遇见什么，或这杯饮品如何进入旅行与生活节奏。</p></article><article><h2>创作者筛选维度</h2><ul><li>旅行、城市探索与餐饮饮品内容能够自然相容。</li><li>能把到店过程与个人感受说成完整叙事，而非只念卖点。</li><li>到店拍摄、时间安排与现场沟通具可行性。</li><li>近期内容、合作表现与品牌安全可在事前检视。</li></ul></article></div>
+        <h2>实访内容线索</h2><div class="case-story"><article class="card"><span>01</span><h3>到店理由</h3><p>先说明旅行、城市探索或日常行程中的到店原因。</p></article><article class="card"><span>02</span><h3>选饮与门店体验</h3><p>以选择过程、空间与服务感受补足产品以外的情境。</p></article><article class="card"><span>03</span><h3>个人感受</h3><p>保留创作者自己的语气与评价，不把内容做成硬性广告。</p></article></div>
+        <h2>执行节点与检查清单</h2><div class="case-timeline"><article><span>01</span><div><h3>门店与品项</h3><p>确认可到店的时间、门店资讯与可介绍的饮品内容。</p></div></article><article><span>02</span><div><h3>Brief 与拍摄</h3><p>对齐必要讯息、拍摄范围、不可误导的描述与现场安排。</p></div></article><article><span>03</span><div><h3>审核与标示</h3><p>确认内容重点、商业合作标示与修改窗口。</p></div></article><article><span>04</span><div><h3>发布与交付</h3><p>整理发布链接、授权状态与可供后续使用的交付记录。</p></div></article></div>
+        <div class="case-split"><article><h2>交付与可复用学习</h2><p>本案以内容与链接整理作为结案基础。可复用的学习不在于套用单一话术，而是先把海外创作者的到店理由、内容节奏与品牌讯息放进同一份可执行的 brief。</p></article><article class="case-checklist"><h2>饮料品牌决策指南</h2><p>本页未公开没有可追溯证据支持的曝光、销售、排名或费用数字；不以空白数字卡取代实际交付说明。</p><a class="button" href="https://zhenguocool.com/zh-cn/insights/beverage-kol-marketing-guide/" data-track-event="article_cta_click" data-track-location="case-beverage-guide">阅读饮料品牌 KOL 营销指南</a></article></div>
       </div>
     </section>
     <section>

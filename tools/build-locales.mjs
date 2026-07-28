@@ -619,6 +619,38 @@ const caseStudies = [
       "zh-Hant": ["古茗希望讓海外受眾更容易理解中國茶飲品牌的門市與產品體驗。", "以韓國市場的創作者內容，建立可感知的門市體驗與品牌認知。", "餐飲內容若只描述產品，很難讓陌生市場理解到店的理由與消費情境。", "選擇能把旅遊、城市探索與日常飲品體驗自然串連的韓國創作者。", "以實訪、飲品選擇、門市情境與個人感受為內容線索，保留創作者自身敘事。", "管理溝通、到店安排、重點確認與上刊追蹤，讓素材與合作節奏可被品牌端掌握。", "交付上刊內容與連結整理；復盤重點是海外創作者如何替在地門市補足品牌情境。"],
       "zh-Hans": ["古茗希望让海外受众更容易理解中国茶饮品牌的门店与产品体验。", "以韩国市场的创作者内容，建立可感知的门店体验与品牌认知。", "餐饮内容若只描述产品，很难让陌生市场理解到店的理由与消费情境。", "选择能把旅行、城市探索与日常饮品体验自然串连的韩国创作者。", "以实访、饮品选择、门店情境与个人感受为内容线索，保留创作者自身叙事。", "管理沟通、到店安排、重点确认与发布追踪，让素材与合作节奏可被品牌端掌握。", "交付发布内容与链接整理；复盘重点是海外创作者如何替在地门店补足品牌情境。"],
       en: ["Goodme Tea wanted overseas audiences to better understand the store and product experience of a Chinese tea brand.", "Use Korean creator content to create a tangible store experience and brand understanding in the Korean market.", "Food content that only describes a product rarely explains why a new audience would visit a store.", "A Korean creator who could naturally connect travel, city exploration, and everyday drink experiences was selected.", "The content used the visit, drink selection, store context, and personal response as its narrative thread while keeping the creator's own voice.", "Zhenguo managed communication, visit arrangements, key-message checks, and publishing follow-up so the brand could follow the campaign rhythm.", "Deliverables included published content and a link summary. The review focused on how overseas creators can add local context for physical stores."]
+    },
+    detail: {
+      "zh-Hant": {
+        summaryTitle: "專案摘要", keyLabel: "關鍵判斷", keyDecision: "飲料品牌進入陌生市場時，門市、選飲與個人感受必須先成為一段可信的到店故事；創作者不是只負責露出產品。",
+        backgroundTitle: "背景與目標", background: "古茗希望讓韓國受眾理解中國茶飲品牌的門市與產品體驗，而不是只看到一杯飲品。", objective: "以可感知的實訪內容，建立品牌、城市動線與日常飲用情境之間的第一層連結。",
+        challengeTitle: "陌生市場的內容難點", challenge: "餐飲內容若只有品項描述，受眾很難理解為何要進店、現場會遇見什麼，或這杯飲品如何進入旅遊與生活節奏。",
+        selectionTitle: "創作者篩選維度", selection: ["旅遊、城市探索與餐飲飲品內容能自然相容。", "能把到店過程與個人感受說成完整敘事，而非只念賣點。", "到店拍攝、時間安排與現場溝通具可行性。", "近期內容、合作表現與品牌安全可被事前檢視。"],
+        storyTitle: "實訪內容線索", story: [["01", "到店理由", "先說清楚旅程、城市探索或日常行程中的到店原因。"], ["02", "選飲與門市體驗", "以選擇過程、空間與服務感受補足產品以外的情境。"], ["03", "個人感受", "保留創作者自己的語氣與評價，不把內容做成硬性廣告。"]],
+        timelineTitle: "執行節點與檢查清單", timeline: [["門市與品項", "確認可到店的時間、門市資訊與可介紹的飲品內容。"], ["Brief 與拍攝", "對齊必要訊息、拍攝範圍、不可誤導的描述與現場安排。"], ["審稿與標示", "確認內容重點、商業合作標示與修改窗口。"], ["上刊與交付", "整理上刊連結、授權狀態與可供後續使用的交付紀錄。"]],
+        deliveryTitle: "交付與可複用學習", delivery: "本案以內容與連結整理作為結案基礎。可複用的學習不在於套用單一話術，而是先把海外創作者的到店理由、內容節奏與品牌訊息放進同一份可執行的 brief。",
+        disclosure: "本頁未公開沒有可追溯證據支持的曝光、銷售、排名或費用數字；不以空白數字卡取代實際交付說明。", guideLabel: "飲料品牌決策指南", guideCta: "閱讀飲料品牌 KOL 行銷指南"
+      },
+      "zh-Hans": {
+        summaryTitle: "项目摘要", keyLabel: "关键判断", keyDecision: "饮料品牌进入陌生市场时，门店、选饮与个人感受必须先成为可信的到店故事；创作者不只是负责露出产品。",
+        backgroundTitle: "背景与目标", background: "古茗希望让韩国受众理解中国茶饮品牌的门店与产品体验，而不只是看到一杯饮品。", objective: "以可感知的实访内容，建立品牌、城市路线与日常饮用情境之间的第一层连结。",
+        challengeTitle: "陌生市场的内容难点", challenge: "餐饮内容若只有品项描述，受众很难理解为何进店、现场会遇见什么，或这杯饮品如何进入旅行与生活节奏。",
+        selectionTitle: "创作者筛选维度", selection: ["旅行、城市探索与餐饮饮品内容能够自然相容。", "能把到店过程与个人感受说成完整叙事，而非只念卖点。", "到店拍摄、时间安排与现场沟通具可行性。", "近期内容、合作表现与品牌安全可在事前检视。"],
+        storyTitle: "实访内容线索", story: [["01", "到店理由", "先说明旅行、城市探索或日常行程中的到店原因。"], ["02", "选饮与门店体验", "以选择过程、空间与服务感受补足产品以外的情境。"], ["03", "个人感受", "保留创作者自己的语气与评价，不把内容做成硬性广告。"]],
+        timelineTitle: "执行节点与检查清单", timeline: [["门店与品项", "确认可到店的时间、门店资讯与可介绍的饮品内容。"], ["Brief 与拍摄", "对齐必要讯息、拍摄范围、不可误导的描述与现场安排。"], ["审核与标示", "确认内容重点、商业合作标示与修改窗口。"], ["发布与交付", "整理发布链接、授权状态与可供后续使用的交付记录。"]],
+        deliveryTitle: "交付与可复用学习", delivery: "本案以内容与链接整理作为结案基础。可复用的学习不在于套用单一话术，而是先把海外创作者的到店理由、内容节奏与品牌讯息放进同一份可执行的 brief。",
+        disclosure: "本页未公开没有可追溯证据支持的曝光、销售、排名或费用数字；不以空白数字卡取代实际交付说明。", guideLabel: "饮料品牌决策指南", guideCta: "阅读饮料品牌 KOL 营销指南"
+      },
+      en: {
+        summaryTitle: "Project summary", keyLabel: "Key judgment", keyDecision: "For a beverage brand entering an unfamiliar market, the store, drink choice, and personal response need to form a credible visit story. A creator is not only there to show the product.",
+        backgroundTitle: "Background and objective", background: "Goodme Tea wanted Korean audiences to understand the store and product experience of a Chinese tea brand, not simply see a drink.", objective: "Use a tangible store visit to make an initial connection between the brand, city context, and everyday drinking occasion.",
+        challengeTitle: "The unfamiliar-market challenge", challenge: "When food content only describes a menu item, an unfamiliar audience has little reason to visit, little sense of the store, and no connection to a travel or everyday routine.",
+        selectionTitle: "Creator screening dimensions", selection: ["Travel, city exploration, and food-and-drink content fit naturally together.", "Can turn a visit and personal response into a coherent story instead of reciting selling points.", "Can realistically coordinate the store visit, filming timing, and on-site communication.", "Recent content, collaboration reliability, and brand-safety fit can be reviewed in advance."],
+        storyTitle: "Store-visit content cues", story: [["01", "Reason to visit", "Start with a credible reason for the stop within travel, city exploration, or a daily route."], ["02", "Drink choice and store experience", "Use the selection process, space, and service experience to give the product context."], ["03", "Personal response", "Keep the creator's own tone and opinion instead of turning the content into a hard sell."]],
+        timelineTitle: "Execution checkpoints", timeline: [["Store and menu", "Confirm visit timing, store details, and drinks that can be introduced accurately."], ["Brief and filming", "Align required information, filming scope, non-misleading language, and on-site arrangements."], ["Review and disclosure", "Confirm key messages, commercial disclosure, and the revision window."], ["Publish and handover", "Record live links, rights status, and reusable delivery records."]],
+        deliveryTitle: "Deliverables and reusable learning", delivery: "The close-out is grounded in the published content and link record. The reusable lesson is not a fixed script: align the creator's reason to visit, story rhythm, and brand information in one workable brief.",
+        disclosure: "This page does not publish reach, sales, ranking, or fee figures without traceable supporting evidence. Empty metric cards are not a substitute for delivery detail.", guideLabel: "Beverage brand decision guide", guideCta: "Read the beverage brand KOL marketing guide"
+      }
     }
   },
   {
@@ -950,7 +982,7 @@ const homeGuideIndex = {
 
 const renderHomeGuideIndex = (locale) => {
   const ui = homeGuideIndex[locale.key];
-  const slugs = ["taiwan-influencer-marketing-costs-2026", "how-to-choose-influencer-marketing-agency", "japan-influencer-marketing-guide-article"];
+  const slugs = ["taiwan-influencer-marketing-costs-2026", "how-to-choose-influencer-marketing-agency", "japan-influencer-marketing-guide-article", "beverage-kol-marketing-guide"];
   const cards = slugs.map((slug) => {
     const page = seoPhaseOnePages.find((candidate) => candidate.slug === slug);
     const copy = page.copy[locale.key];
@@ -1326,6 +1358,40 @@ const renderCasePage = (study, locale) => {
   const sections = study.content[locale.key].map((body, index) => `<article class="card"><h3>${escapeHtml(ui.labels[index])}</h3><p>${escapeHtml(body)}</p></article>`).join("\n          ");
   const serviceLinks = study.relatedServices.map((slug) => servicePages.find((page) => page.slug === slug)).filter(Boolean)
     .map((page) => `<a class="button" href="${prefix}services/${page.slug}/">${escapeHtml(page.name[locale.key])}</a>`).join("\n          ");
+  const detail = study.detail?.[locale.key];
+  const beverageGuide = seoPhaseOnePages.find((page) => page.slug === "beverage-kol-marketing-guide");
+  const caseDetailCss = detail ? `
+    .case-detail { background:#fffdf8; }
+    .case-summary-band { max-width:900px; border-left:4px solid var(--coral); background:#fff; padding:24px; }
+    .case-summary-band h2, .case-detail h2 { margin:10px 0; }
+    .case-summary-band p, .case-detail p, .case-detail li { color:var(--muted); }
+    .case-split { display:grid; grid-template-columns:repeat(2, 1fr); gap:16px; margin-top:16px; }
+    .case-split > article { border:1px solid var(--line); border-radius:8px; background:#fff; padding:22px; }
+    .case-split ul { margin:0; padding-left:1.25em; }
+    .case-split li + li { margin-top:10px; }
+    .case-story { display:grid; grid-template-columns:repeat(3, 1fr); gap:16px; }
+    .case-story span, .case-timeline span { color:var(--coral); font-family:Georgia,"Times New Roman",serif; font-size:26px; }
+    .case-timeline { display:grid; grid-template-columns:repeat(4, 1fr); gap:14px; }
+    .case-timeline article { border-top:3px solid var(--teal); padding:18px 0; }
+    .case-timeline h3 { margin:8px 0; font-size:19px; }
+    .case-checklist .button { margin-top:12px; }
+    @media (max-width:760px) { .case-split, .case-story, .case-timeline { grid-template-columns:1fr; } .case-timeline article { display:grid; grid-template-columns:52px 1fr; gap:10px; } .case-timeline h3 { margin-top:2px; } }` : "";
+  const caseContent = detail ? `<section class="case-detail">
+      <div class="wrap">
+        <div class="case-summary-band"><span class="eyebrow">${escapeHtml(detail.summaryTitle)}</span><h2>${escapeHtml(detail.keyLabel)}</h2><p>${escapeHtml(detail.keyDecision)}</p></div>
+        <div class="case-split"><article><h2>${escapeHtml(detail.backgroundTitle)}</h2><p>${escapeHtml(detail.background)}</p></article><article><h2>${escapeHtml(ui.labels[1])}</h2><p>${escapeHtml(detail.objective)}</p></article></div>
+        <div class="case-split"><article><h2>${escapeHtml(detail.challengeTitle)}</h2><p>${escapeHtml(detail.challenge)}</p></article><article><h2>${escapeHtml(detail.selectionTitle)}</h2><ul>${detail.selection.map((item) => `<li>${escapeHtml(item)}</li>`).join("")}</ul></article></div>
+        <h2>${escapeHtml(detail.storyTitle)}</h2><div class="case-story">${detail.story.map(([number, title, body]) => `<article class="card"><span>${escapeHtml(number)}</span><h3>${escapeHtml(title)}</h3><p>${escapeHtml(body)}</p></article>`).join("")}</div>
+        <h2>${escapeHtml(detail.timelineTitle)}</h2><div class="case-timeline">${detail.timeline.map(([title, body], index) => `<article><span>${String(index + 1).padStart(2, "0")}</span><div><h3>${escapeHtml(title)}</h3><p>${escapeHtml(body)}</p></div></article>`).join("")}</div>
+        <div class="case-split"><article><h2>${escapeHtml(detail.deliveryTitle)}</h2><p>${escapeHtml(detail.delivery)}</p></article><article class="case-checklist"><h2>${escapeHtml(detail.guideLabel)}</h2><p>${escapeHtml(detail.disclosure)}</p><a class="button" href="${seoPageUrl(beverageGuide, locale)}" data-track-event="article_cta_click" data-track-location="case-beverage-guide">${escapeHtml(detail.guideCta)}</a></article></div>
+      </div>
+    </section>` : `<section>
+      <div class="wrap">
+        <div class="grid">
+          ${sections}
+        </div>
+      </div>
+    </section>`;
   return `<!DOCTYPE html>
 <html lang="${locale.htmlLang}">
 <head>
@@ -1352,7 +1418,7 @@ ${JSON.stringify(buildCaseSchema(study, locale), null, 2)}
   </script>
   <style>${serviceCss}
     .case-image { width:100%; max-width:760px; margin-top:32px; border:1px solid var(--line); border-radius:8px; background:#fff; }
-    .case-summary { max-width:780px; color:#40516c; font-size:clamp(18px,2vw,22px); }
+    .case-summary { max-width:780px; color:#40516c; font-size:clamp(18px,2vw,22px); }${caseDetailCss}
   </style>
 </head>
 <body>
@@ -1374,13 +1440,7 @@ ${JSON.stringify(buildCaseSchema(study, locale), null, 2)}
         <img class="case-image" src="${assetPrefix}${study.image}" alt="${escapeAttr(study.title[locale.key])}">
       </div>
     </section>
-    <section>
-      <div class="wrap">
-        <div class="grid">
-          ${sections}
-        </div>
-      </div>
-    </section>
+    ${caseContent}
     <section>
       <div class="wrap">
         <h2>${escapeHtml(ui.relatedServices)}</h2>
@@ -1461,7 +1521,7 @@ const seoPageSchema = (page, locale) => {
   const url = seoPageUrl(page, locale);
   const directory = page.kind === "article" ? "insights" : "services";
   const primary = page.kind === "article"
-    ? { "@type": "BlogPosting", "@id": `${url}#article`, headline: copy.h1, description: copy.description, mainEntityOfPage: url, datePublished: "2026-07-23", dateModified: "2026-07-23", author: { "@id": `${baseUrl}#organization` }, publisher: { "@id": `${baseUrl}#organization` }, inLanguage: seoLanguage(locale).html }
+    ? { "@type": "BlogPosting", "@id": `${url}#article`, headline: copy.h1, description: copy.description, mainEntityOfPage: url, datePublished: page.published || "2026-07-23", dateModified: page.modified || page.published || "2026-07-23", author: { "@id": `${baseUrl}#organization` }, publisher: { "@id": `${baseUrl}#organization` }, inLanguage: seoLanguage(locale).html }
     : { "@type": "Service", "@id": `${url}#service`, name: copy.h1, description: copy.description, provider: { "@id": `${baseUrl}#organization` }, serviceType: copy.h1, areaServed: ["Taiwan", "Japan", "United States", "South Korea", "Southeast Asia"], url, inLanguage: seoLanguage(locale).html };
   return {
     "@context": "https://schema.org",
@@ -1510,8 +1570,13 @@ const renderSeoPage = (page, locale) => {
     const productLink = trackedService ? '\n          <a class="button" href="https://zhenguocool.com/tools/instagram-insights-passive/" data-track-event="article_cta_click" data-track-location="article-related-product" data-product-name="Passive Analytics">先用 Passive Analytics 整理近期內容表現</a>' : "";
     return `<a class="button" href="${seoPageUrl(related, locale)}"${attributes}>${escapeHtml(related.copy[locale.key].h1)}</a>${productLink}`;
   }).join("\n          ");
+  const relatedServiceLinks = (page.relatedServices || []).map((slug) => servicePages.find((candidate) => candidate.slug === slug)).filter(Boolean)
+    .map((service) => `<a class="button" href="${serviceUrl(service, locale)}" data-track-event="article_cta_click" data-track-location="beverage-guide-service" data-service-name="${escapeAttr(service.slug)}">${escapeHtml(service.name[locale.key])}</a>`).join("\n          ");
+  const relatedCaseLinks = (page.relatedCases || []).map((slug) => caseStudies.find((candidate) => candidate.slug === slug)).filter(Boolean)
+    .map((study) => `<a class="button" href="${caseStudyUrl(study, locale)}" data-track-event="case_study_click" data-track-location="beverage-guide-case">${escapeHtml(study.title[locale.key])}</a>`).join("\n          ");
+  const allRelatedLinks = [relatedLinks, relatedServiceLinks, relatedCaseLinks].filter(Boolean).join("\n          ");
   const coreModules = page.kind === "service" ? renderCoreServiceModules(page, locale) : "";
-  const update = page.kind === "article" ? `<p class="updated">${escapeHtml(ui.updated)}: 2026-07-23</p>` : "";
+  const update = page.kind === "article" ? `<p class="updated">${escapeHtml(ui.updated)}: ${escapeHtml(page.modified || "2026-07-23")}</p>` : "";
   const updatedLine = update ? `\n        ${update}` : "";
   const evidenceSection = evidenceCards ? `\n    <section class="faq"><div class="wrap"><h2>${escapeHtml(ui.evidence)}</h2><div class="grid">${evidenceCards}</div></div></section>` : "";
   const eventName = page.kind === "article" ? "article_cta_click" : "service_cta_click";
@@ -1591,7 +1656,7 @@ ${JSON.stringify(seoPageSchema(page, locale), null, 2)}
       <div class="wrap"><h2>${escapeHtml(ui.faq)}</h2><div class="grid">${faqCards}</div></div>
     </section>
     <section>
-      <div class="wrap"><h2>${escapeHtml(ui.related)}</h2><div class="actions">${relatedLinks}</div></div>
+      <div class="wrap"><h2>${escapeHtml(ui.related)}</h2><div class="actions">${allRelatedLinks}</div></div>
     </section>
     <section class="cta">
       <div class="wrap">
