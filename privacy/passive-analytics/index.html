@@ -22,15 +22,16 @@
     <a class="languages" lang="en" href="/en/privacy/passive-analytics/">English</a>
     <div class="brand">PASSIVE ANALYTICS · ZHENGUOCOOL</div>
     <h1>隱私權政策</h1>
-    <p class="updated">生效與最後更新日期：2026 年 7 月 27 日</p>
-    <p class="summary">Passive Analytics 採本機優先設計。一般分析資料留在你的 Chrome 瀏覽器；只有當你主動註冊、登入並開啟付費雲端功能時，指定的結構化資料才會同步到我們的 Supabase 後端。</p>
+    <p class="updated">生效與最後更新日期：2026 年 7 月 29 日</p>
+    <p class="summary">Passive Analytics 採本機優先設計。一般分析資料留在你的 Chrome 瀏覽器；只有當你主動註冊、登入並開啟雲端備份時，指定的結構化資料與符合條件的帳號頭像才會同步到我們的 Supabase 後端。</p>
 
     <h2>1. 本機分析會處理的資料</h2>
     <p>擴充功能只在你主動開啟的 Instagram、TikTok 或 Threads 支援頁面上，被動整理該頁已載入的公開帳號與內容資料，例如帳號名稱、公開頭像來源網址、粉絲數、貼文／影片資訊、互動數字、發布與抓取時間。分析偏好、報告、收藏、備註、快照、比較資料與小型圖片快取預設保存在 Chrome storage 或 IndexedDB。</p>
 
     <h2>2. 選用式帳號與雲端備份</h2>
     <p>當你使用 Passive Analytics 帳號或 Google 登入時，我們會透過 Supabase Auth 處理電子郵件地址、顯示名稱、使用者識別碼及登入工作階段。Google 登入只要求基本個人資料與電子郵件；Google 的 provider token 與 provider refresh token 不會保存。</p>
-    <p>只有你登入、取得付費權限並明確開啟雲端功能後，工作區內的收藏帳號、貼文結構化欄位、快照、備註、專案關聯與一般分析／報告設定才會同步。雲端資料用於線上備份、跨裝置還原與團隊協作。v0.8.0 不上傳本機頭像或貼文縮圖 Blob。</p>
+    <p>只有你登入並明確開啟雲端備份後，工作區內的帳號公開資料、貼文結構化欄位、快照、專案關聯及可共享的分析／顯示設定才會同步。Free Personal 提供個人線上備份；付費 Team 或 Business 工作區另提供團隊協作。個人收藏狀態與備註維持本機保存，不會成為工作區共享資料。</p>
+    <p>若你已在本機保存帳號頭像，擴充功能可將不超過 120×120、256 KiB 的 JPEG、PNG 或 WebP 頭像 Blob 上傳到私有 Storage，供跨裝置還原。原始 HTTPS 網址仍作為來源索引；沒有本機 Blob 時不會主動向社群平台下載。貼文縮圖 Blob 固定留在本機，不會上傳。</p>
 
     <h2>3. 我們不會收集或上傳的資料</h2>
     <ul>
@@ -44,14 +45,14 @@
     <p>我們使用 Supabase 提供身分驗證與 PostgreSQL 雲端儲存。雲端專案部署於新加坡區域。使用 Google 登入時，Google 會依其政策處理登入與同意畫面資料。除提供服務、維護安全或依法要求外，我們不與其他第三方分享資料。</p>
 
     <h2>5. 保存、安全與刪除</h2>
-    <p>本機資料由你控制，可在擴充功能設定中清除，或透過 Chrome 移除擴充功能。雲端資料以工作區權限與資料列層級安全政策隔離；刪除同步資料後，為避免離線裝置將資料復原，刪除標記最長保留 90 天後才永久清理。若要刪除 Passive Analytics 雲端帳號或工作區資料，請來信提出申請。我們可能為安全、除錯及防止重送而保留必要的同步與稽核紀錄。</p>
+    <p>本機資料由你控制，可在擴充功能設定中清除，或透過 Chrome 移除擴充功能。雲端資料以工作區權限與資料列層級安全政策隔離；刪除同步資料後，為避免離線裝置將資料復原，刪除標記最長保留 90 天。未被引用的雲端頭像物件最早於 90 天後清理。設定頁提供下載備份、刪除雲端備份、退出工作區及符合條件時刪除帳號的入口；若帳號仍擁有其他成員所在的工作區，須先聯絡我們處理擁有權。</p>
 
     <h2>6. 你的選擇</h2>
     <p>你可以完全不註冊、不登入或不開啟雲端功能，繼續使用本機分析。你也可以登出、停用同步、刪除本機資料，或要求刪除雲端帳號資料。撤銷 Google 存取權不會自動刪除已同步的 Passive Analytics 資料；如需刪除，請另外提出申請。</p>
 
     <h2>7. 政策更新與聯絡方式</h2>
     <p>若功能或資料處理方式有重大變更，我們會更新本頁及生效日期。若對本政策、資料存取或刪除有疑問，請聯絡 <a href="mailto:weiting@zhenguocool.com">weiting@zhenguocool.com</a>。</p>
-    <p><a href="/tools/instagram-insights-passive/">返回 Passive Analytics 產品頁</a> · <a href="/">返回 ZhenguoCool</a></p>
+    <p><a href="/terms/passive-analytics/">服務條款</a> · <a href="/tools/instagram-insights-passive/">返回 Passive Analytics 產品頁</a> · <a href="/">返回 ZhenguoCool</a></p>
   </main>
 </body>
 </html>

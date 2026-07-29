@@ -22,15 +22,16 @@
     <a class="languages" lang="zh-Hant" href="/privacy/passive-analytics/">繁體中文</a>
     <div class="brand">PASSIVE ANALYTICS · ZHENGUOCOOL</div>
     <h1>Privacy Policy</h1>
-    <p class="updated">Effective and last updated: July 27, 2026</p>
-    <p class="summary">Passive Analytics is local-first. Regular analysis data stays in your Chrome browser. Structured data is synchronized to our Supabase backend only when you choose to register, sign in, obtain access to the paid cloud feature, and enable it.</p>
+    <p class="updated">Effective and last updated: July 29, 2026</p>
+    <p class="summary">Passive Analytics is local-first. Regular analysis data stays in your Chrome browser. Structured data and eligible account avatars are synchronized to our Supabase backend only when you choose to register, sign in, and enable cloud backup.</p>
 
     <h2>1. Data processed locally</h2>
     <p>On supported Instagram, TikTok, or Threads pages that you open, the extension passively organizes public account and content data already loaded by the page. This may include account names, public avatar source URLs, follower counts, post or video information, engagement metrics, publishing dates, and capture times. Analysis preferences, reports, favorites, notes, snapshots, comparisons, and small image caches are stored locally in Chrome storage or IndexedDB by default.</p>
 
     <h2>2. Optional account and cloud backup</h2>
     <p>When you create a Passive Analytics account or sign in with Google, Supabase Auth processes your email address, display name, user identifier, and authentication session. Google sign-in requests only basic profile and email information. Google provider tokens and provider refresh tokens are not stored.</p>
-    <p>Only after you sign in, receive a paid entitlement, and explicitly enable cloud features may the extension synchronize structured workspace records: saved creator accounts, post fields, snapshots, notes, project relationships, and ordinary analysis or report settings. These records support online backup, cross-device restore, and team collaboration. Version 0.8.0 does not upload locally cached avatar or post-thumbnail Blobs.</p>
+    <p>Only after you sign in and explicitly enable cloud backup may the extension synchronize public account data, structured post fields, snapshots, project relationships, and shareable analysis or display settings. Free Personal provides individual online backup. Paid Team and Business workspaces additionally support team collaboration. Personal favorite status and notes remain local and are not shared as workspace data.</p>
+    <p>If an account avatar already exists in local storage, the extension may upload a private JPEG, PNG, or WebP avatar Blob no larger than 120×120 pixels and 256 KiB for cross-device restore. The original HTTPS URL remains the source index. The extension does not fetch an avatar from a social platform when no local Blob exists. Post-thumbnail Blobs always remain local and are never uploaded.</p>
 
     <h2>3. Data we do not collect or upload</h2>
     <ul>
@@ -44,14 +45,14 @@
     <p>We use Supabase for authentication and PostgreSQL cloud storage. Our cloud project is hosted in the Singapore region. If you use Google sign-in, Google processes the authentication and consent-screen information under its own policies. We do not share data with other third parties except to provide the service, maintain security, or comply with law.</p>
 
     <h2>5. Retention, security, and deletion</h2>
-    <p>You control local data and can clear it in the extension settings or remove the extension through Chrome. Cloud data is isolated by workspace permissions and row-level security. After synchronized data is deleted, a deletion marker may be retained for up to 90 days to prevent an offline device from restoring it. Contact us to request deletion of your Passive Analytics cloud account or workspace data. We may retain limited synchronization and audit records when necessary for security, troubleshooting, and replay protection.</p>
+    <p>You control local data and can clear it in the extension settings or remove the extension through Chrome. Cloud data is isolated by workspace permissions and row-level security. A deletion marker may be retained for up to 90 days to prevent an offline device from restoring deleted data. Unreferenced cloud avatar objects are eligible for cleanup after at least 90 days. Settings provide controls to download a backup, delete cloud backup data, leave a workspace, and delete an account when eligible. If an account owns a workspace with other members, contact us first to resolve ownership.</p>
 
     <h2>6. Your choices</h2>
     <p>You may continue using local analysis without registering, signing in, or enabling cloud features. You may sign out, disable synchronization, delete local data, or request deletion of your cloud account data. Revoking Google access does not automatically delete data already synchronized to Passive Analytics; contact us if you also want that data deleted.</p>
 
     <h2>7. Updates and contact</h2>
     <p>If our features or data practices materially change, we will update this page and its effective date. For privacy questions or data access and deletion requests, contact <a href="mailto:weiting@zhenguocool.com">weiting@zhenguocool.com</a>.</p>
-    <p><a href="/en/tools/instagram-insights-passive/">Back to Passive Analytics</a> · <a href="/">Back to ZhenguoCool</a></p>
+    <p><a href="/en/terms/passive-analytics/">Terms of Service</a> · <a href="/en/tools/instagram-insights-passive/">Back to Passive Analytics</a> · <a href="/">Back to ZhenguoCool</a></p>
   </main>
 </body>
 </html>
