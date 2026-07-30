@@ -6,6 +6,9 @@ const root = path.resolve(import.meta.dirname, "..");
 const read = (file) => fs.readFileSync(path.join(root, file), "utf8");
 const site = "https://zhenguocool.com";
 const sitemap = read("sitemap.xml");
+for (const termsPath of ["terms/passive-analytics/", "en/terms/passive-analytics/"]) {
+  assert.ok(sitemap.includes(`<loc>https://zhenguocool.com/${termsPath}</loc>`), `Sitemap retains ${termsPath}.`);
+}
 const sitemapUrls = new Set([...sitemap.matchAll(/<loc>([^<]+)<\/loc>/g)].map((match) => match[1]));
 const url = (route) => `${site}${route}`;
 

@@ -1850,6 +1850,14 @@ const passiveAnalyticsPrivacyAlternates = [
 for (const privacyPath of ["privacy/passive-analytics/", "en/privacy/passive-analytics/"]) {
   sitemapItems.push({ loc: `${baseUrl}${privacyPath}`, priority: "0.4", changefreq: "yearly", alternates: passiveAnalyticsPrivacyAlternates });
 }
+const passiveAnalyticsTermsAlternates = [
+  ["zh-Hant", `${baseUrl}terms/passive-analytics/`],
+  ["en", `${baseUrl}en/terms/passive-analytics/`],
+  ["x-default", `${baseUrl}terms/passive-analytics/`]
+];
+for (const termsPath of ["terms/passive-analytics/", "en/terms/passive-analytics/"]) {
+  sitemapItems.push({ loc: `${baseUrl}${termsPath}`, priority: "0.4", changefreq: "yearly", alternates: passiveAnalyticsTermsAlternates });
+}
 
 const sitemap = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">\n${sitemapItems.map((item) => `  <url>\n    <loc>${item.loc}</loc>\n    <changefreq>${item.changefreq || "monthly"}</changefreq>\n    <priority>${item.priority}</priority>\n${item.alternates.map(([hreflang, href]) => `    <xhtml:link rel="alternate" hreflang="${hreflang}" href="${href}" />`).join("\n")}${item.noAlternatePadding ? "" : "\n"}  </url>`).join("\n")}\n</urlset>\n`;
 fs.writeFileSync(path.join(root, "sitemap.xml"), sitemap);
