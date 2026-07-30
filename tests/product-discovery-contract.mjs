@@ -21,6 +21,8 @@ for (const [name, store] of Object.entries(chromeStores)) {
 
 for (const page of ["index.html", "zh-tw/index.html", "zh-cn/index.html", "en/index.html"]) {
   const home = read(page);
+  assert.match(home, /\.product-card > div:first-child \{ display: flex; flex-direction: column; \}/, `${page} keeps product-card CTA content in a vertical layout.`);
+  assert.match(home, /\.product-card \.hero-actions \{ margin-top: auto; padding-top: 18px; \}/, `${page} aligns product-card CTA rows.`);
   assert.match(home, /href="\/tools\/" data-track-event="product_click" data-track-location="nav"/, `${page} has a tracked products navigation entry.`);
   assert.match(home, /href="\/tools\/" data-track-event="product_click" data-track-location="hero"/, `${page} has a tracked hero products entry.`);
   assert.equal((home.match(/data-product-card=/g) || []).length, 2, `${page} has exactly two product cards.`);

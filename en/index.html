@@ -566,7 +566,8 @@
     }
     .product-card h3 { margin: 8px 0 10px; font-size: 26px; line-height: 1.18; }
     .product-card p { margin: 0; color: var(--muted); }
-    .product-card .hero-actions { margin-top: 18px; }
+    .product-card > div:first-child { display: flex; flex-direction: column; }
+    .product-card .hero-actions { margin-top: auto; padding-top: 18px; }
     .product-card .button { min-height: 42px; padding: 9px 14px; font-size: 14px; }
     .product-label { color: var(--teal); font-size: 12px; font-weight: 900; letter-spacing: .14em; }
     .product-preview {
