@@ -13,6 +13,7 @@ const targets = process.env.GA4_TARGETS ? process.env.GA4_TARGETS.split("|").fil
 const includeProductDiscovery = process.env.GA4_PRODUCT_DISCOVERY === "1";
 const includeInternalLinking = process.env.GA4_INTERNAL_LINKING === "1";
 const includeContentOptimization = process.env.GA4_CONTENT_OPTIMIZATION === "1";
+const includeInternalTraffic = process.env.GA4_INTERNAL_TRAFFIC === "1";
 const selected = (value) => !targets.length || targets.some((target) => value.includes(target));
 const reportName = targets.length ? "ga4-targeted-report" : "ga4-network-report";
 const locales = [
@@ -26,8 +27,8 @@ const allowedEventKeys = new Set(["ep.service_name", "ep.product_name", "ep.cont
 const emailValue = /[^\s@]+@[^\s@]+\.[^\s@]+/;
 const phoneValue = /(?:\+?\d[\s().-]?){7,}\d/;
 const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
-const withDebug = (url) => { const target = new URL(url); target.searchParams.set("ga_debug", "1"); return target.href; };
-const withoutDebug = (url) => { const target = new URL(url); target.searchParams.delete("ga_debug"); return target.href; };
+const withDebug = (url) => { const target = new URL(url); target.searchParams.set("ga_debug", "1"); if (includeInternalTraffic) target.searchParams.set("ga_internal", "1"); return target.href; };
+const withoutDebug = (url) => { const target = new URL(url); target.searchParams.delete("ga_debug"); if (includeInternalTraffic) target.searchParams.set("ga_internal", "1"); return target.href; };
 const pageUrl = (page, locale) => `${site}${locale.prefix}/${page.kind === "article" ? "insights" : "services"}/${page.slug}/`;
 const pathnameWithSearch = (url) => { const target = new URL(url); return `${target.pathname}${target.search}`; };
 const normalizedUrl = (url) => new URL(url).href;
@@ -70,6 +71,7 @@ const parseCollect = (request, status = null) => {
     from_locale: value("ep.from_locale"),
     to_locale: value("ep.to_locale"),
     debug_mode: value("ep.debug_mode"),
+    traffic_type: value("tt"),
     request_time: request.timestamp,
     http_status: status
   };
@@ -194,11 +196,14 @@ function eventParameters(event, context, extra = {}) {
     target_url: event?.target_url || null,
     from_locale: event?.from_locale || null,
     to_locale: event?.to_locale || null,
-    debug_mode: event?.debug_mode || null
+    debug_mode: event?.debug_mode || null,
+    traffic_type: event?.traffic_type || null
   };
   const mismatches = Object.entries(expected).flatMap(([key, value]) => value === undefined ? [] : actual[key] === value ? [] : [{ key, expected: value, actual: actual[key] }]);
   if (context.debug && actual.debug_mode !== "true") mismatches.push({ key: "debug_mode", expected: "true", actual: actual.debug_mode });
   if (!context.debug && actual.debug_mode !== null) mismatches.push({ key: "debug_mode", expected: null, actual: actual.debug_mode });
+  if (includeInternalTraffic && actual.traffic_type !== "internal") mismatches.push({ key: "traffic_type", expected: "internal", actual: actual.traffic_type });
+  if (!includeInternalTraffic && actual.traffic_type !== null) mismatches.push({ key: "traffic_type", expected: null, actual: actual.traffic_type });
   return { expected, actual, mismatches, passed: mismatches.length === 0 };
 }
 
