@@ -1,10 +1,20 @@
 (() => {
   const measurementId = window.ZG_GA_MEASUREMENT_ID;
   const debugKey = "ga_debug";
+  const internalTrafficKey = "zg_internal_traffic";
   const pendingLeadKey = "zg_pending_generate_lead";
   const query = new URLSearchParams(location.search);
   const isLocal = ["localhost", "127.0.0.1", "::1"].includes(location.hostname);
   const debugMode = query.get(debugKey) === "1" || sessionStorage.getItem(debugKey) === "1" || isLocal;
+  const internalTraffic = (() => {
+    try {
+      if (query.get("ga_internal") === "1") localStorage.setItem(internalTrafficKey, "1");
+      if (query.get("ga_internal") === "0") localStorage.removeItem(internalTrafficKey);
+      return localStorage.getItem(internalTrafficKey) === "1";
+    } catch {
+      return false;
+    }
+  })();
   const localeValue = (value) => ({ "zh-Hant": "zh-TW", "zh-Hans": "zh-CN" }[value] || value || "unknown");
   if (query.get(debugKey) === "1") sessionStorage.setItem(debugKey, "1");
   window.dataLayer = window.dataLayer || [];
@@ -39,7 +49,7 @@
     }
   })();
   const track = (event, details = {}) => {
-    const payload = { ...page(), ...details, ...(debugMode ? { debug_mode: true } : {}) };
+    const payload = { ...page(), ...details, ...(internalTraffic ? { traffic_type: "internal" } : {}), ...(debugMode ? { debug_mode: true } : {}) };
     window.dataLayer.push({ event, ...payload });
     if (!measurementId || !window.gtag) return Promise.resolve();
     return new Promise((resolve) => {
@@ -61,7 +71,7 @@
     document.head.append(script);
     window.gtag("js", new Date());
     if (debugMode) window.gtag("set", "debug_mode", true);
-    window.gtag("config", measurementId, { send_page_view: false, ...(debugMode ? { debug_mode: true } : {}) });
+    window.gtag("config", measurementId, { send_page_view: false, ...(internalTraffic ? { traffic_type: "internal" } : {}), ...(debugMode ? { debug_mode: true } : {}) });
   } else track("page_view");
 
   document.addEventListener("click", (event) => {

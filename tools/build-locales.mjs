@@ -3,7 +3,7 @@ import path from "node:path";
 import { seoEvidence, seoPhaseOnePages } from "./seo-phase-one-content.mjs";
 
 const root = path.resolve(import.meta.dirname, "..");
-const analyticsAssetVersion = "20260728-1";
+const analyticsAssetVersion = "20260803-1";
 const sourcePath = path.join(root, "index.html");
 const baseUrl = "https://zhenguocool.com/";
 const socialShareImage = "web-assets/og-zhenguocool-campaign-plan.webp";

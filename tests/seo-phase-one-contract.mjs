@@ -36,7 +36,7 @@ for (const page of seoPhaseOnePages) {
     assert.match(html, new RegExp(`<html lang="${locale.html}">`), `${relative} has correct html language`);
     assert.match(html, new RegExp(`<link rel="canonical" href="${url}">`), `${relative} is self-canonical`);
     assert.match(html, /<meta name="robots" content="index, follow">/, `${relative} is indexable`);
-    assert.match(html, /<script src="(?:\.\.\/){2,3}web-assets\/analytics-config\.js\?v=20260728-1" defer><\/script>/, `${relative} loads the current analytics config once`);
+    assert.match(html, /<script src="(?:\.\.\/){2,3}web-assets\/analytics-config\.js\?v=20260803-1" defer><\/script>/, `${relative} loads the current analytics config once`);
     assert.equal((html.match(/web-assets\/analytics\.js/g) || []).length, 1, `${relative} loads analytics once`);
     assert.equal((html.match(/<h1>/g) || []).length, 1, `${relative} has one H1`);
     assert.ok(html.includes(`<h1>${copy.h1}</h1>`), `${relative} exposes the page H1`);
@@ -94,7 +94,7 @@ for (const slug of ["kol-marketing", "overseas-influencer-marketing", "japan-inf
 const analytics = fs.readFileSync(path.join(root, "web-assets", "analytics.js"), "utf8");
 const analyticsConfig = fs.readFileSync(path.join(root, "web-assets", "analytics-config.js"), "utf8");
 for (const relative of ["index.html", "zh-tw/index.html", "zh-cn/index.html", "en/index.html"]) {
-  assert.match(fs.readFileSync(path.join(root, relative), "utf8"), /analytics\.js\?v=20260728-1/, `${relative} loads the current analytics asset`);
+  assert.match(fs.readFileSync(path.join(root, relative), "utf8"), /analytics\.js\?v=20260803-1/, `${relative} loads the current analytics asset`);
 }
 assert.match(analyticsConfig, /G-3G60NBREE3/, "GA4 measurement ID is configured in the shared config");
 assert.ok(analytics.indexOf("window.dataLayer = window.dataLayer || []") < analytics.indexOf("window.gtag = window.gtag ||"), "GA dataLayer is initialized before the first gtag call");
