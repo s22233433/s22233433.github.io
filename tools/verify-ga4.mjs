@@ -13,6 +13,7 @@ const targets = process.env.GA4_TARGETS ? process.env.GA4_TARGETS.split("|").fil
 const includeProductDiscovery = process.env.GA4_PRODUCT_DISCOVERY === "1";
 const includeInternalLinking = process.env.GA4_INTERNAL_LINKING === "1";
 const includeContentOptimization = process.env.GA4_CONTENT_OPTIMIZATION === "1";
+const includeCareers = process.env.GA4_CAREERS === "1";
 const includeInternalTraffic = process.env.GA4_INTERNAL_TRAFFIC === "1";
 const selected = (value) => !targets.length || targets.some((target) => value.includes(target));
 const reportName = targets.length ? "ga4-targeted-report" : "ga4-network-report";
@@ -649,6 +650,9 @@ try {
       { name: "Beverage home guide", url: `${site}/`, selector: '[data-track-event="article_index_click"][data-track-location="home-guides"][href$="/insights/beverage-kol-marketing-guide/"]', event: "article_index_click", location: "home-guides" },
       { name: "Beverage guide to Goodme case", url: `${site}/insights/beverage-kol-marketing-guide/`, selector: '[data-track-event="case_study_click"][data-track-location="beverage-guide-case"]', event: "case_study_click", location: "beverage-guide-case" },
       { name: "Goodme case to beverage guide", url: `${site}/cases/korea-kol-goodme/`, selector: '[data-track-event="article_cta_click"][data-track-location="case-beverage-guide"]', event: "article_cta_click", location: "case-beverage-guide" }
+    ] : []),
+    ...(includeCareers ? [
+      { name: "careers hero CTA", url: `${site}/careers/`, selector: '[data-track-event="contact_click"][data-track-location="careers-hero"]', event: "contact_click", location: "careers-hero" }
     ] : [])
   ];
   const selectedClickDefinitions = clickDefinitions.filter((item) => selected(item.name));
