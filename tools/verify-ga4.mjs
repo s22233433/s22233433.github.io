@@ -487,7 +487,13 @@ async function runCareerFormCheck(cdp) {
     await cdp.send("Fetch.enable", { patterns: [{ urlPattern: "*://*/api/careers*", requestStage: "Request" }, { urlPattern: "*formsubmit.co/*", requestStage: "Request" }] }, sessionId);
     const submitted = await cdp.send("Runtime.evaluate", { expression: `(() => { const form = document.querySelector('.career-form'); ${fillCareerForm} form.dispatchEvent(new Event('submit', {bubbles:true, cancelable:true})); })()`, awaitPromise: true }, sessionId);
     if (submitted.exceptionDetails) throw new Error(`Career form test evaluation failed: ${submitted.exceptionDetails.exception?.description || submitted.exceptionDetails.text}`);
-    await waitForCollectResponse(cdp, start, sessionId, (event) => event.event === "career_form_success", "career_form_success");
+    try {
+      await waitForCollectResponse(cdp, start, sessionId, (event) => event.event === "career_form_success", "career_form_success");
+    } catch (error) {
+      const state = await cdp.send("Runtime.evaluate", { expression: "JSON.stringify({has_zg_track:Boolean(window.zgTrack),has_gtag:Boolean(window.gtag),data_layer_events:(window.dataLayer || []).map((entry) => entry?.event || entry?.[1] || null),form_success_hidden:document.querySelector('[data-career-success]')?.hidden,form_error_hidden:document.querySelector('[data-career-error]')?.hidden,analytics_resources:performance.getEntriesByType('resource').map((entry) => entry.name).filter((name) => /google|analytics/i.test(name))})", returnByValue: true }, sessionId);
+      error.network_evidence = { state: JSON.parse(state.result.value), requests: cdp.eventsAfter(start, sessionId).filter((event) => event.method === "Network.requestWillBeSent").map((event) => event.params.request.url) };
+      throw error;
+    }
     await waitForGaIdle(cdp, start, sessionId, "career form success");
     const events = cdp.eventsAfter(start, sessionId);
     const successes = gaFor(events, "career_form_success");
