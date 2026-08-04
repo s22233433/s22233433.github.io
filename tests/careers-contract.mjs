@@ -28,7 +28,8 @@ for (const [file, route] of pages) {
 const rootCareer = fs.readFileSync(path.join(root, "careers/index.html"), "utf8");
 for (const field of ["full_name", "email", "career_direction", "experience_background", "introduction", "resume_file", "privacy_consent"]) assert.match(rootCareer, new RegExp(`name="${field}"`), `Career form includes ${field}.`);
 for (const field of ["full_name", "email", "career_direction", "experience_background", "introduction", "privacy_consent"]) assert.match(rootCareer, new RegExp(`name="${field}"[^>]*required`), `Career form requires ${field}.`);
-assert.match(rootCareer, /formsubmit\.co\/ajax\/hr@zhenguocool\.com/, "Career form forwards basic details to HR.");
+assert.match(rootCareer, /action="\/api\/careers"/, "Career form forwards basic details through the same-origin endpoint.");
+assert.match(rootCareer, /name="website"/, "Career form needs a honeypot field.");
 assert.match(rootCareer, /data-resume-file/, "Career form exposes a local resume file check.");
 assert.match(rootCareer, /10 \* 1024 \* 1024/, "Career form checks the 10 MB attachment ceiling.");
 assert.match(rootCareer, /data\.delete\("resume_file"\)/, "Career form never sends resume files through FormSubmit.");

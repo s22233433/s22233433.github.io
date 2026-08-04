@@ -167,6 +167,7 @@
     .career-form .form-note, .career-form .form-error, .career-form .form-success { margin:0; color:var(--muted); font-size:14px; }
     .career-form .form-error { color:#a73525; font-weight:900; }
     .career-form .form-success { color:var(--forest); font-weight:900; }
+    .form-trap { position:absolute; left:-10000px; width:1px; height:1px; overflow:hidden; }
     .language-links { display:flex; flex-wrap:wrap; gap:10px; font-size:13px; }
     .language-links a { color:var(--muted); }
     .language-links a[aria-current="page"] { color:var(--ink); font-weight:900; text-decoration:underline; text-underline-offset:4px; }
@@ -187,14 +188,10 @@
     <section><div class="wrap"><h2>What happens after you share your profile</h2><div class="grid steps"><article class="card"><h3>Share your profile</h3><p>Tell us the direction you want to explore, your background, portfolio, and a short introduction.</p></article>
           <article class="card"><h3>Human review and first fit check</h3><p>We compare experience, working style, and availability with current and future project needs.</p></article>
           <article class="card"><h3>We contact you when there is a fit</h3><p>We will reach out by email when a relevant collaboration or role conversation arises; not every profile receives an immediate response.</p></article></div></div></section>
-    <section id="career-form"><div class="wrap"><form class="career-form" action="https://formsubmit.co/ajax/hr@zhenguocool.com" method="POST" novalidate>
-      <input type="hidden" name="_subject" value="ZhenguoCool｜人才資料">
-      <input type="hidden" name="_template" value="table">
-      <input type="hidden" name="_captcha" value="false">
-      <input type="hidden" name="submission_type" value="careers_talent_pool">
+    <section id="career-form"><div class="wrap"><form class="career-form" action="/api/careers" method="POST" novalidate>
       <h2>Share your profile</h2><p class="career-note">Basic details are forwarded to hr@zhenguocool.com through FormSubmit. Resume files are not uploaded through this form; please send them separately by email attachment.</p>
       <div class="form-grid"><label>Name<input name="full_name" autocomplete="name" required></label><label>Email<input type="email" name="email" autocomplete="email" required></label><label>Area of interest<select name="career_direction" required><option value="">Select one</option><option>Creator marketing projects</option><option>Creator partnerships and business development</option><option>Content and SEO project operations</option><option>Another related area</option></select></label><label>Experience or relevant background<input name="experience_background" required></label></div>
-      <label>Portfolio or LinkedIn (optional)<input type="url" name="portfolio_url" inputmode="url" placeholder="https://"></label><label>Short introduction<textarea name="introduction" required></textarea></label>
+      <input class="form-trap" name="website" tabindex="-1" autocomplete="off" aria-hidden="true"><label>Portfolio or LinkedIn (optional)<input type="url" name="portfolio_url" inputmode="url" placeholder="https://"></label><label>Short introduction<textarea name="introduction" required></textarea></label>
       <label>Resume file (send separately by email attachment)<input type="file" name="resume_file" accept=".pdf,.doc,.docx,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document" data-resume-file><span class="form-note">You may choose a file to check its type and size; this file is not uploaded through the form.</span></label>
       <label class="form-consent"><input type="checkbox" name="privacy_consent" value="agreed" required><span>I agree that ZhenguoCool may use these basic details to respond to my talent-pool inquiry. <a href="../../privacy/passive-analytics/" target="_blank" rel="noopener noreferrer">Current privacy policy</a></span></label>
       <button class="button primary" type="submit">Send basic details</button><a href="mailto:hr@zhenguocool.com" data-track-event="contact_click" data-track-location="careers-email">Email your resume attachment</a><p class="form-error" data-career-error hidden></p><p class="form-success" data-career-success hidden></p>
@@ -214,19 +211,30 @@
       const success = form.querySelector("[data-career-success]");
       const submit = form.querySelector('button[type="submit"]');
       let submitting = false;
+      const track = (event) => {
+        if (window.zgTrack) return window.zgTrack(event);
+        window.dataLayer = window.dataLayer || [];
+        window.dataLayer.push({ event });
+        return Promise.resolve();
+      };
+      form.addEventListener("focusin", () => track("career_form_start"), { once: true });
       form.addEventListener("submit", async (event) => {
         event.preventDefault();
         if (!form.reportValidity() || submitting) return;
         const file = form.elements.resume_file.files[0];
         if (file && (!/.(pdf|doc|docx)$/i.test(file.name) || file.size > 10 * 1024 * 1024)) { error.textContent = copy.fileError; error.hidden = false; return; }
         error.hidden = true; success.hidden = true; submitting = true; submit.disabled = true;
+        track("career_form_submit");
         const data = new FormData(form);
         data.delete("resume_file");
         try {
-          const response = await fetch(form.action, { method: "POST", body: data, headers: { Accept: "application/json" } });
+          let response = await fetch(form.action, { method: "POST", body: data, headers: { Accept: "application/json" } });
+          // Keep the existing GitHub Pages deployment receiving applications until the custom domain points to Pages Functions.
+          if (response.status === 404) response = await fetch("https://formsubmit.co/ajax/hr@zhenguocool.com", { method: "POST", body: data, headers: { Accept: "application/json" } });
           if (!response.ok) throw new Error("Career form delivery failed");
+          track("career_form_success");
           success.textContent = copy.success; success.hidden = false; form.reset();
-        } catch (_error) { error.textContent = copy.error; error.hidden = false; }
+        } catch (_error) { track("career_form_error"); error.textContent = copy.error; error.hidden = false; }
         finally { submitting = false; submit.disabled = false; }
       });
     })();

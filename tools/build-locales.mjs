@@ -1695,7 +1695,7 @@ const careerCopy = {
     processTitle: "留下資料後，會怎麼進行",
     process: [["提交人才資料", "告訴我們你想投入的方向、經驗、作品集與簡短自介。"], ["人工閱讀與初步比對", "我們會依當下與未來專案需求，確認經驗、合作方式與可投入範圍是否相符。"], ["有合適機會再聯繫", "若出現適合的合作或職務交流機會，會以 Email 聯繫；未必每一份資料都會立即回覆。"]],
     formTitle: "留下人才資料",
-    formIntro: "基本資料會透過 FormSubmit 轉寄至 hr@zhenguocool.com。履歷附件不會由本表單上傳，請另以 Email 附件寄送。",
+    formIntro: "基本資料會安全轉寄至 hr@zhenguocool.com。履歷附件不會由本表單上傳，請另以 Email 附件寄送。",
     name: "姓名", email: "Email", direction: "想投入的方向", directionOptions: ["創作者行銷專案", "創作者合作與商業發展", "內容與 SEO 專案營運", "其他相關方向"],
     experience: "年資或相關背景", portfolio: "作品集或 LinkedIn（選填）", introLabel: "簡短自介", resume: "履歷檔案（請改以 Email 附件寄送）", consent: "我同意榛菓為回覆人才交流需求使用上述基本資料。", privacy: "現有隱私權政策", submit: "送出基本資料", emailCta: "以 Email 寄送履歷附件", select: "請選擇", fileNote: "可先選檔檢查格式與大小；本檔案不會經由此表單上傳。", fileError: "履歷檔請使用 PDF、DOC 或 DOCX，且不超過 10 MB。", success: "基本資料已送出。請以 Email 另附履歷檔，讓我們能完整閱讀你的背景。", error: "送出失敗，請稍後再試，或直接以 Email 聯繫。",
     faqTitle: "常見問題",
@@ -1811,6 +1811,7 @@ ${JSON.stringify(buildCareerSchema(locale), null, 2)}
     .career-form .form-note, .career-form .form-error, .career-form .form-success { margin:0; color:var(--muted); font-size:14px; }
     .career-form .form-error { color:#a73525; font-weight:900; }
     .career-form .form-success { color:var(--forest); font-weight:900; }
+    .form-trap { position:absolute; left:-10000px; width:1px; height:1px; overflow:hidden; }
     .language-links { display:flex; flex-wrap:wrap; gap:10px; font-size:13px; }
     .language-links a { color:var(--muted); }
     .language-links a[aria-current="page"] { color:var(--ink); font-weight:900; text-decoration:underline; text-underline-offset:4px; }
@@ -1824,14 +1825,10 @@ ${JSON.stringify(buildCareerSchema(locale), null, 2)}
     <section><div class="wrap"><h2>${escapeHtml(copy.profileTitle)}</h2><div class="grid">${cards}</div></div></section>
     <section class="faq"><div class="wrap"><h2>${escapeHtml(copy.directionTitle)}</h2><div class="grid">${directions}</div></div></section>
     <section><div class="wrap"><h2>${escapeHtml(copy.processTitle)}</h2><div class="grid steps">${steps}</div></div></section>
-    <section id="career-form"><div class="wrap"><form class="career-form" action="https://formsubmit.co/ajax/hr@zhenguocool.com" method="POST" novalidate>
-      <input type="hidden" name="_subject" value="ZhenguoCool｜人才資料">
-      <input type="hidden" name="_template" value="table">
-      <input type="hidden" name="_captcha" value="false">
-      <input type="hidden" name="submission_type" value="careers_talent_pool">
+    <section id="career-form"><div class="wrap"><form class="career-form" action="/api/careers" method="POST" novalidate>
       <h2>${escapeHtml(copy.formTitle)}</h2><p class="career-note">${escapeHtml(copy.formIntro)}</p>
       <div class="form-grid"><label>${escapeHtml(copy.name)}<input name="full_name" autocomplete="name" required></label><label>${escapeHtml(copy.email)}<input type="email" name="email" autocomplete="email" required></label><label>${escapeHtml(copy.direction)}<select name="career_direction" required><option value="">${escapeHtml(copy.select)}</option>${copy.directionOptions.map((item) => `<option>${escapeHtml(item)}</option>`).join("")}</select></label><label>${escapeHtml(copy.experience)}<input name="experience_background" required></label></div>
-      <label>${escapeHtml(copy.portfolio)}<input type="url" name="portfolio_url" inputmode="url" placeholder="https://"></label><label>${escapeHtml(copy.introLabel)}<textarea name="introduction" required></textarea></label>
+      <input class="form-trap" name="website" tabindex="-1" autocomplete="off" aria-hidden="true"><label>${escapeHtml(copy.portfolio)}<input type="url" name="portfolio_url" inputmode="url" placeholder="https://"></label><label>${escapeHtml(copy.introLabel)}<textarea name="introduction" required></textarea></label>
       <label>${escapeHtml(copy.resume)}<input type="file" name="resume_file" accept=".pdf,.doc,.docx,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document" data-resume-file><span class="form-note">${escapeHtml(copy.fileNote)}</span></label>
       <label class="form-consent"><input type="checkbox" name="privacy_consent" value="agreed" required><span>${escapeHtml(copy.consent)} <a href="${prefix}privacy/passive-analytics/" target="_blank" rel="noopener noreferrer">${escapeHtml(copy.privacy)}</a></span></label>
       <button class="button primary" type="submit">${escapeHtml(copy.submit)}</button><a href="mailto:hr@zhenguocool.com" data-track-event="contact_click" data-track-location="careers-email">${escapeHtml(copy.emailCta)}</a><p class="form-error" data-career-error hidden></p><p class="form-success" data-career-success hidden></p>
@@ -1849,19 +1846,30 @@ ${JSON.stringify(buildCareerSchema(locale), null, 2)}
       const success = form.querySelector("[data-career-success]");
       const submit = form.querySelector('button[type="submit"]');
       let submitting = false;
+      const track = (event) => {
+        if (window.zgTrack) return window.zgTrack(event);
+        window.dataLayer = window.dataLayer || [];
+        window.dataLayer.push({ event });
+        return Promise.resolve();
+      };
+      form.addEventListener("focusin", () => track("career_form_start"), { once: true });
       form.addEventListener("submit", async (event) => {
         event.preventDefault();
         if (!form.reportValidity() || submitting) return;
         const file = form.elements.resume_file.files[0];
         if (file && (!/\.(pdf|doc|docx)$/i.test(file.name) || file.size > 10 * 1024 * 1024)) { error.textContent = copy.fileError; error.hidden = false; return; }
         error.hidden = true; success.hidden = true; submitting = true; submit.disabled = true;
+        track("career_form_submit");
         const data = new FormData(form);
         data.delete("resume_file");
         try {
-          const response = await fetch(form.action, { method: "POST", body: data, headers: { Accept: "application/json" } });
+          let response = await fetch(form.action, { method: "POST", body: data, headers: { Accept: "application/json" } });
+          // Keep the existing GitHub Pages deployment receiving applications until the custom domain points to Pages Functions.
+          if (response.status === 404) response = await fetch("https://formsubmit.co/ajax/hr@zhenguocool.com", { method: "POST", body: data, headers: { Accept: "application/json" } });
           if (!response.ok) throw new Error("Career form delivery failed");
+          track("career_form_success");
           success.textContent = copy.success; success.hidden = false; form.reset();
-        } catch (_error) { error.textContent = copy.error; error.hidden = false; }
+        } catch (_error) { track("career_form_error"); error.textContent = copy.error; error.hidden = false; }
         finally { submitting = false; submit.disabled = false; }
       });
     })();

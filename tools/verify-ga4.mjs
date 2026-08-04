@@ -100,7 +100,7 @@ class Cdp {
         this.events.push({ ...message, observed_at: new Date().toISOString(), observed_ms: Date.now() });
         if (message.method === "Fetch.requestPaused") {
           const url = message.params.request.url;
-          if (this.formSubmitResponse && url.includes("formsubmit.co")) {
+          if (this.formSubmitResponse && (url.includes("formsubmit.co") || ["/api/contact", "/api/careers"].includes(new URL(url).pathname))) {
             const body = Buffer.from(JSON.stringify(this.formSubmitResponse < 400 ? { success: "true" } : { success: "false" })).toString("base64");
             this.send("Fetch.fulfillRequest", { requestId: message.params.requestId, responseCode: this.formSubmitResponse, responseHeaders: [{ name: "content-type", value: "application/json" }, { name: "access-control-allow-origin", value: site }], body }, message.sessionId).catch((error) => {
               this.fetchFulfillErrors.push({ paused_session: message.sessionId, configured_session: this.formSubmitSessionId, error: error.message });
@@ -397,6 +397,15 @@ const fillForm = `
   }
 `;
 
+const fillCareerForm = `
+  for (const field of form.querySelectorAll('input[required], select[required], textarea[required]')) {
+    if (field.type === 'email') field.value = 'ga4-test@example.invalid';
+    else if (field.type === 'checkbox') field.checked = true;
+    else if (field.tagName === 'SELECT') field.selectedIndex = 1;
+    else field.value = 'GA4 verification';
+  }
+`;
+
 async function runLeadCheck(cdp, mode) {
   return withPage(cdp, async (sessionId) => {
     const url = withDebug(`${site}/`);
@@ -408,7 +417,7 @@ async function runLeadCheck(cdp, mode) {
       cdp.formSubmitResponse = mode === "error" ? 500 : 200;
       cdp.formSubmitSessionId = sessionId;
       cdp.fetchFulfillErrors = [];
-      await cdp.send("Fetch.enable", { patterns: [{ urlPattern: "*formsubmit.co/*", requestStage: "Request" }] }, sessionId);
+      await cdp.send("Fetch.enable", { patterns: [{ urlPattern: "*://*/api/contact*", requestStage: "Request" }, { urlPattern: "*formsubmit.co/*", requestStage: "Request" }] }, sessionId);
     }
     const expression = `(() => {
       const form = document.querySelector('#lead-form');
@@ -462,6 +471,41 @@ async function runLeadCheck(cdp, mode) {
       pii_findings: pii,
       passed: leads.length === expected && (expected === 0 || is2xx(leads[0])) && validation.passed && pii.length === 0,
       reason: leads.length !== expected ? [`Expected ${expected} generate_lead event(s); received ${leads.length}.`] : expected && !is2xx(leads[0]) ? [`Expected a 2xx response; received ${statusText(leads[0])}.`] : validation.passed && !pii.length ? [] : ["Lead event parameter or privacy validation failed."]
+    };
+  });
+}
+
+async function runCareerFormCheck(cdp) {
+  return withPage(cdp, async (sessionId) => {
+    const url = withDebug(`${site}/careers/`);
+    const loaded = await visit(cdp, sessionId, url);
+    await waitForUi(cdp, sessionId, ".career-form");
+    const start = cdp.events.length;
+    cdp.formSubmitResponse = 200;
+    cdp.formSubmitSessionId = sessionId;
+    cdp.fetchFulfillErrors = [];
+    await cdp.send("Fetch.enable", { patterns: [{ urlPattern: "*://*/api/careers*", requestStage: "Request" }, { urlPattern: "*formsubmit.co/*", requestStage: "Request" }] }, sessionId);
+    const submitted = await cdp.send("Runtime.evaluate", { expression: `(() => { const form = document.querySelector('.career-form'); ${fillCareerForm} form.dispatchEvent(new Event('submit', {bubbles:true, cancelable:true})); })()`, awaitPromise: true }, sessionId);
+    if (submitted.exceptionDetails) throw new Error(`Career form test evaluation failed: ${submitted.exceptionDetails.exception?.description || submitted.exceptionDetails.text}`);
+    await waitForCollectResponse(cdp, start, sessionId, (event) => event.event === "career_form_success", "career_form_success");
+    await waitForGaIdle(cdp, start, sessionId, "career form success");
+    const events = cdp.eventsAfter(start, sessionId);
+    const successes = gaFor(events, "career_form_success");
+    const pii = scansForPii(requestRows(events));
+    const validation = eventParameters(successes[0], { url, title: loaded.page.title, locale: loaded.page.locale, debug: true });
+    return {
+      event: "career_form_success",
+      test: "career form success",
+      test_page: url,
+      expected_count: 1,
+      actual_count: successes.length,
+      duplicate: successes.length > 1,
+      http_status: successes[0]?.http_status ?? null,
+      parameters: validation,
+      raw_collects: requestRows(events),
+      pii_findings: pii,
+      passed: successes.length === 1 && is2xx(successes[0]) && validation.passed && pii.length === 0,
+      reason: successes.length !== 1 ? [`Expected one career_form_success event; received ${successes.length}.`] : !is2xx(successes[0]) ? [`Expected a 2xx response; received ${statusText(successes[0])}.`] : validation.passed && !pii.length ? [] : ["Career event parameter or privacy validation failed."]
     };
   });
 }
@@ -663,7 +707,8 @@ try {
   ];
   const selectedLanguageDefinitions = languageDefinitions.filter((item) => selected(item.name));
   const leadModes = ["empty", "invalid", "error", "success", "double"].filter(selected);
-  const interactionTotal = selectedClickDefinitions.length + selectedLanguageDefinitions.length + leadModes.length;
+  const careerChecks = includeCareers && selected("career form success") ? ["career form success"] : [];
+  const interactionTotal = selectedClickDefinitions.length + selectedLanguageDefinitions.length + leadModes.length + careerChecks.length;
   await writeProgress("interactions", 0, interactionTotal, "starting");
   for (const [interactionIndex, definition] of selectedClickDefinitions.entries()) {
     await writeProgress("interactions", interactionIndex, interactionTotal, definition.name);
@@ -679,6 +724,11 @@ try {
     await writeProgress("interactions", selectedClickDefinitions.length + selectedLanguageDefinitions.length + leadIndex, interactionTotal, `generate_lead ${mode}`);
     const outcome = await retryCheck(`generate_lead ${mode}`, () => runLeadCheck(cdp, mode));
     interactions.push(outcome.result ? { ...outcome.result, attempts: outcome.attempts } : { event: "generate_lead", test: mode, test_page: withDebug(`${site}/`), expected_count: ["success", "double"].includes(mode) ? 1 : 0, actual_count: 0, duplicate: false, raw_collects: [], pii_findings: [], passed: false, attempts: outcome.attempts, reason: ["No attempt completed the lead test."] });
+  }
+  for (const [careerIndex, name] of careerChecks.entries()) {
+    await writeProgress("interactions", selectedClickDefinitions.length + selectedLanguageDefinitions.length + leadModes.length + careerIndex, interactionTotal, name);
+    const outcome = await retryCheck(name, () => runCareerFormCheck(cdp));
+    interactions.push(outcome.result ? { ...outcome.result, attempts: outcome.attempts } : { event: "career_form_success", test: name, test_page: withDebug(`${site}/careers/`), expected_count: 1, actual_count: 0, duplicate: false, raw_collects: [], pii_findings: [], passed: false, attempts: outcome.attempts, reason: ["No attempt completed the career form test."] });
   }
   await writeProgress("lifecycle", 0, 3, "starting");
   const lifecycle = targets.length ? [] : await runLifecycleChecks(cdp);

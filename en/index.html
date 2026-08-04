@@ -969,6 +969,7 @@
       color: var(--ink); font: inherit; font-size: 15px; line-height: 1.4; padding: 11px 12px;
     }
     .lead-form textarea { min-height: 92px; resize: vertical; }
+    .form-trap { position:absolute; left:-10000px; width:1px; height:1px; overflow:hidden; }
     .lead-form input:focus, .lead-form select:focus, .lead-form textarea:focus { outline: 3px solid rgba(255,255,255,.36); outline-offset: 1px; }
     .lead-form .button { width: 100%; cursor: pointer; }
     .lead-form .button[disabled] { cursor: wait; opacity: .72; }
@@ -1751,16 +1752,13 @@
           <div class="final-actions"><a class="button primary" href="#contact-form" data-track-event="quote_request_click" data-track-location="contact" data-i18n="finalCtaPrimary">Get Initial Campaign Advice</a><a class="button secondary on-dark" href="#cases" data-track-event="case_study_click" data-track-location="contact" data-i18n="finalCtaSecondary">View Past Cases</a></div>
         </div>
         <div class="contact-card">
-          <form id="lead-form" class="lead-form" action="https://formsubmit.co/ajax/contact@zhenguocool.com" method="POST">
-            <input type="hidden" name="_subject" value="榛菓行銷｜新的合作需求">
-            <input type="hidden" name="_template" value="table">
-            <input type="hidden" name="_captcha" value="false">
-            <input type="hidden" name="_next" value="https://zhenguocool.com/thanks/">
+          <form id="lead-form" class="lead-form" action="/api/contact" method="POST">
             <input type="hidden" name="utm_source" value="">
             <input type="hidden" name="utm_medium" value="">
             <input type="hidden" name="utm_campaign" value="">
             <input type="hidden" name="utm_content" value="">
             <input type="hidden" name="landing_page" value="">
+            <input class="form-trap" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
             <h3 data-i18n="formTitle">Share your project brief</h3>
             <div class="form-grid">
               <label><span data-i18n="formBrand">Brand name</span><input name="brand_name" autocomplete="organization" required></label>
@@ -2979,11 +2977,14 @@
         trackEvent("lead_form_submit");
 
         try {
-          const response = await fetch(leadForm.action, {
+          const data = new FormData(leadForm);
+          let response = await fetch(leadForm.action, {
             method: "POST",
-            body: new FormData(leadForm),
+            body: data,
             headers: { Accept: "application/json" }
           });
+          // Keep the existing GitHub Pages deployment receiving inquiries until the custom domain points to Pages Functions.
+          if (response.status === 404) response = await fetch("https://formsubmit.co/ajax/contact@zhenguocool.com", { method: "POST", body: data, headers: { Accept: "application/json" } });
           if (!response.ok) throw new Error("Form delivery failed");
           localStorage.setItem("zg_pending_generate_lead", JSON.stringify(window.zgPagePayload ? window.zgPagePayload() : {
             page_path: `${location.pathname}${location.search}`,

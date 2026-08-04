@@ -44,6 +44,6 @@ const analytics = read("web-assets/analytics.js");
 assert.match(analytics, /target_url/, "Analytics keeps target_url.");
 assert.doesNotMatch(analytics, /source_page|link_url|product_view/, "Analytics does not introduce duplicate page or product-view parameters.");
 const verifier = read("tools/verify-ga4.mjs");
-assert.match(verifier, /const interactionTotal = selectedClickDefinitions\.length \+ selectedLanguageDefinitions\.length \+ leadModes\.length;/, "GA verifier derives this run's interaction total.");
+assert.match(verifier, /const interactionTotal = selectedClickDefinitions\.length \+ selectedLanguageDefinitions\.length \+ leadModes\.length \+ careerChecks\.length;/, "GA verifier derives this run's interaction total.");
 assert.doesNotMatch(verifier, /writeProgress\("interactions", 0, 14,/, "GA verifier does not retain the old hard-coded interaction total.");
 console.log("product discovery contract: pass");
