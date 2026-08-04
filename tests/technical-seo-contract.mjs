@@ -61,4 +61,8 @@ for (const file of ["index.html", "zh-tw/index.html", "zh-cn/index.html", "en/in
   assert.match(html, /--teal: #0d7d80;/, `${file} keeps the AA teal token.`);
 }
 
+for (const file of ["privacy/passive-analytics/index.html", "en/privacy/passive-analytics/index.html"]) {
+  assert.match(read(file), /mailto:privacy@zhenguocool\.com/, `${file} routes privacy inquiries to the public privacy inbox.`);
+}
+
 console.log("technical SEO contract: pass");

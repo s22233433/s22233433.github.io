@@ -843,7 +843,7 @@ const organizationSchema = (locale) => ({
   name: locale.key === "en" ? "Zhenguo Marketing Co., Ltd." : locale.label,
   alternateName: "ZHENGUOCool",
   url: baseUrl,
-  email: "weiting@zhenguocool.com",
+  email: "contact@zhenguocool.com",
   sameAs: ["https://www.instagram.com/kolmasters_tw"],
   address: [
     {
@@ -972,6 +972,14 @@ const seoRelativePrefix = (locale) => locale.isRoot ? "../../" : "../../../";
 const seoPageAlternates = (page) => [
   ...seoLocales.map((locale) => `<link rel="alternate" hreflang="${seoLanguage(locale).hreflang}" href="${seoPageUrl(page, locale)}">`),
   `<link rel="alternate" hreflang="x-default" href="${seoPageUrl(page, rootLocale)}">`
+].join("\n  ");
+
+const careerUrl = (locale) => locale.isRoot ? `${baseUrl}careers/` : `${locale.url}careers/`;
+const careerAlternates = () => [
+  `<link rel="alternate" hreflang="zh-Hant" href="${careerUrl(locales[0])}">`,
+  `<link rel="alternate" hreflang="zh-Hans" href="${careerUrl(locales[1])}">`,
+  `<link rel="alternate" hreflang="en" href="${careerUrl(locales[2])}">`,
+  `<link rel="alternate" hreflang="x-default" href="${careerUrl(rootLocale)}">`
 ].join("\n  ");
 
 const homeGuideIndex = {
@@ -1672,6 +1680,196 @@ ${JSON.stringify(seoPageSchema(page, locale), null, 2)}
 `;
 };
 
+const careerCopy = {
+  "zh-Hant": {
+    title: "加入榛菓 Cool｜創作者行銷人才庫",
+    description: "加入榛菓 Cool 人才庫。若你關心創作者合作、內容判讀、專案執行或 SEO 營運，留下背景與作品集；有合適合作機會時我們會主動聯繫。",
+    eyebrow: "JOIN ZHENGUOCOOL",
+    h1: "加入榛菓 Cool 人才庫",
+    intro: "我們把創作者合作當成需要判斷、協作與交付的專案。這不是一份公開職缺清單；若你的經驗與未來專案相符，我們會主動聯繫進一步交流。",
+    heroCta: "留下人才資料",
+    profileTitle: "我們重視的工作方式",
+    profileCards: [["把合作拆成可執行的節點", "能把市場、創作者、內容、時程與交付整理成讓團隊能接手的下一步。"], ["尊重內容，也說清楚邊界", "理解創作者需要保有個人表達，同時能把品牌限制、授權與審稿條件說清楚。"], ["用資料輔助，而不是取代判斷", "願意從公開內容、合作紀錄與回覆節奏找訊號，再做有脈絡的推薦。"], ["願意把事情做完", "能持續跟進邀約、寄樣、初稿、上刊與結案，而不是只停在建立名單。"]],
+    directionTitle: "可先交流的職能方向",
+    directions: [["創作者行銷專案", "協助策略拆解、人選提案、合作洽談、brief、時程、審稿與結案整理。"], ["創作者合作與商業發展", "協助整理創作者定位、合作機會與品牌溝通；以雙方條件清楚為前提。"], ["內容與 SEO 專案營運", "協助把內容主題、案例、服務頁與專案知識整理成可讀、可維護的網站資產。"]],
+    processTitle: "留下資料後，會怎麼進行",
+    process: [["提交人才資料", "告訴我們你想投入的方向、經驗、作品集與簡短自介。"], ["人工閱讀與初步比對", "我們會依當下與未來專案需求，確認經驗、合作方式與可投入範圍是否相符。"], ["有合適機會再聯繫", "若出現適合的合作或職務交流機會，會以 Email 聯繫；未必每一份資料都會立即回覆。"]],
+    formTitle: "留下人才資料",
+    formIntro: "基本資料會透過 FormSubmit 轉寄至 hr@zhenguocool.com。履歷附件不會由本表單上傳，請另以 Email 附件寄送。",
+    name: "姓名", email: "Email", direction: "想投入的方向", directionOptions: ["創作者行銷專案", "創作者合作與商業發展", "內容與 SEO 專案營運", "其他相關方向"],
+    experience: "年資或相關背景", portfolio: "作品集或 LinkedIn（選填）", introLabel: "簡短自介", resume: "履歷檔案（請改以 Email 附件寄送）", consent: "我同意榛菓為回覆人才交流需求使用上述基本資料。", privacy: "現有隱私權政策", submit: "送出基本資料", emailCta: "以 Email 寄送履歷附件", select: "請選擇", fileNote: "可先選檔檢查格式與大小；本檔案不會經由此表單上傳。", fileError: "履歷檔請使用 PDF、DOC 或 DOCX，且不超過 10 MB。", success: "基本資料已送出。請以 Email 另附履歷檔，讓我們能完整閱讀你的背景。", error: "送出失敗，請稍後再試，或直接以 Email 聯繫。",
+    faqTitle: "常見問題",
+    faqs: [["目前有公開職缺嗎？", "本頁是人才庫，不代表每個方向都有正在招募的正式職缺。我們會在出現相符的合作或交流機會時聯繫。"], ["履歷要怎麼提供？", "請先送出基本資料，再將履歷以附件寄至 hr@zhenguocool.com。為避免未確認的第三方附件處理，本表單不會上傳或保存檔案。"], ["一定需要網紅行銷經驗嗎？", "不一定。只要你能說明與創作者合作、內容、專案協作、商業溝通或 SEO 營運相關的可轉移經驗，就適合留下資料。"]],
+    relatedTitle: "先了解榛菓正在做的事",
+    serviceCta: "查看 KOL 行銷專案", caseCta: "查看飲料品牌案例", contactCta: "品牌合作洽詢"
+  },
+  "zh-Hans": {
+    title: "加入榛菓 Cool｜创作者营销人才库",
+    description: "加入榛菓 Cool 人才库。若你关注创作者合作、内容判断、项目执行或 SEO 运营，留下背景与作品集；有合适机会时我们会联系你。",
+    eyebrow: "JOIN ZHENGUOCOOL",
+    h1: "加入榛菓 Cool 人才库",
+    intro: "我们将创作者合作视为需要判断、协作与交付的项目。这不是公开职位清单；若你的经验与未来项目相符，我们会主动联系进一步交流。",
+    heroCta: "留下人才资料",
+    profileTitle: "我们重视的工作方式",
+    profileCards: [["把合作拆成可执行节点", "能将市场、创作者、内容、排期与交付整理成团队可接手的下一步。"], ["尊重内容，也说清边界", "理解创作者需要保有个人表达，同时能明确品牌限制、授权与审核条件。"], ["用数据辅助，而不是替代判断", "愿意从公开内容、合作记录与回复节奏寻找信号，再做有语境的推荐。"], ["愿意把事情做完", "能持续跟进邀约、寄样、初稿、发布与结案，而不是只停在建立名单。"]],
+    directionTitle: "可先交流的职能方向",
+    directions: [["创作者营销项目", "协助策略拆解、候选提案、合作洽谈、brief、排期、审核与结案整理。"], ["创作者合作与商业发展", "协助整理创作者定位、合作机会与品牌沟通；以双方条件清晰为前提。"], ["内容与 SEO 项目运营", "协助将内容主题、案例、服务页与项目知识整理成可读、可维护的网站资产。"]],
+    processTitle: "留下资料后，会怎么进行",
+    process: [["提交人才资料", "告诉我们你想投入的方向、经验、作品集与简短自介。"], ["人工阅读与初步匹配", "我们会依据当下与未来项目需求，确认经验、合作方式与可投入范围是否相符。"], ["有合适机会再联系", "若出现适合的合作或职位交流机会，会以 Email 联系；未必每份资料都会立即回复。"]],
+    formTitle: "留下人才资料",
+    formIntro: "基本资料会通过 FormSubmit 转发至 hr@zhenguocool.com。履历附件不会由本表单上传，请另以 Email 附件发送。",
+    name: "姓名", email: "Email", direction: "想投入的方向", directionOptions: ["创作者营销项目", "创作者合作与商业发展", "内容与 SEO 项目运营", "其他相关方向"],
+    experience: "年资或相关背景", portfolio: "作品集或 LinkedIn（选填）", introLabel: "简短自介", resume: "履历文件（请改以 Email 附件发送）", consent: "我同意榛菓为回复人才交流需求使用上述基本资料。", privacy: "现有隐私权政策", submit: "提交基本资料", emailCta: "以 Email 发送履历附件", select: "请选择", fileNote: "可先选文件检查格式和大小；本文件不会通过此表单上传。", fileError: "履历文件请使用 PDF、DOC 或 DOCX，且不超过 10 MB。", success: "基本资料已提交。请以 Email 另附履历文件，让我们能完整阅读你的背景。", error: "提交失败，请稍后重试，或直接通过 Email 联系。",
+    faqTitle: "常见问题",
+    faqs: [["目前有公开职位吗？", "本页是人才库，不代表每个方向都有正在招聘的正式职位。我们会在出现相符的合作或交流机会时联系。"], ["履历要怎么提供？", "请先提交基本资料，再将履历以附件发送至 hr@zhenguocool.com。为避免未经确认的第三方附件处理，本表单不会上传或保存文件。"], ["一定需要网红营销经验吗？", "不一定。只要你能说明与创作者合作、内容、项目协作、商业沟通或 SEO 运营相关的可转移经验，就适合留下资料。"]],
+    relatedTitle: "先了解榛菓正在做的事",
+    serviceCta: "查看 KOL 营销项目", caseCta: "查看饮料品牌案例", contactCta: "品牌合作咨询"
+  },
+  en: {
+    title: "Join ZhenguoCool | Creator Marketing Talent Pool",
+    description: "Join ZhenguoCool's creator marketing talent pool. Share your background and portfolio if you work in creator partnerships, content, project delivery, or SEO operations; we will contact you when a suitable opportunity arises.",
+    eyebrow: "JOIN ZHENGUOCOOL",
+    h1: "Join the ZhenguoCool talent pool",
+    intro: "We treat creator partnerships as projects that need judgment, collaboration, and delivery. This is not a list of open roles; we will reach out when your experience matches a future opportunity.",
+    heroCta: "Share your profile",
+    profileTitle: "How we like to work",
+    profileCards: [["Turn collaboration into clear steps", "You can organize market, creator, content, timing, and delivery details into a next step a team can own."], ["Respect content and state the boundaries", "You make room for a creator's voice while clearly communicating brand constraints, rights, and review terms."], ["Use data to support judgment", "You can read signals in public content, delivery records, and response rhythm before making a contextual recommendation."], ["Follow work through", "You can follow outreach, seeding, first drafts, publishing, and close-out rather than stopping at a list."]],
+    directionTitle: "Areas we can start a conversation about",
+    directions: [["Creator marketing projects", "Strategy breakdown, shortlist proposals, outreach, briefs, scheduling, review, and close-out organization."], ["Creator partnerships and business development", "Creator positioning, partnership opportunities, and brand communication with clear expectations for both sides."], ["Content and SEO project operations", "Organizing content themes, cases, service pages, and project knowledge into readable, maintainable web assets."]],
+    processTitle: "What happens after you share your profile",
+    process: [["Share your profile", "Tell us the direction you want to explore, your background, portfolio, and a short introduction."], ["Human review and first fit check", "We compare experience, working style, and availability with current and future project needs."], ["We contact you when there is a fit", "We will reach out by email when a relevant collaboration or role conversation arises; not every profile receives an immediate response."]],
+    formTitle: "Share your profile",
+    formIntro: "Basic details are forwarded to hr@zhenguocool.com through FormSubmit. Resume files are not uploaded through this form; please send them separately by email attachment.",
+    name: "Name", email: "Email", direction: "Area of interest", directionOptions: ["Creator marketing projects", "Creator partnerships and business development", "Content and SEO project operations", "Another related area"],
+    experience: "Experience or relevant background", portfolio: "Portfolio or LinkedIn (optional)", introLabel: "Short introduction", resume: "Resume file (send separately by email attachment)", consent: "I agree that ZhenguoCool may use these basic details to respond to my talent-pool inquiry.", privacy: "Current privacy policy", submit: "Send basic details", emailCta: "Email your resume attachment", select: "Select one", fileNote: "You may choose a file to check its type and size; this file is not uploaded through the form.", fileError: "Please use a PDF, DOC, or DOCX resume no larger than 10 MB.", success: "Your basic details were sent. Please email your resume as an attachment so we can review your background fully.", error: "We could not send your details. Please try again later or contact us by email.",
+    faqTitle: "Frequently asked questions",
+    faqs: [["Are there open positions right now?", "This is a talent pool, not a promise that every area has an active opening. We contact people when a relevant collaboration or role conversation arises."], ["How should I send my resume?", "Submit your basic details first, then email your resume as an attachment to hr@zhenguocool.com. The form does not upload or retain files while third-party attachment handling is unconfirmed."], ["Do I need influencer-marketing experience?", "Not necessarily. Relevant transferable experience in creator partnerships, content, project coordination, commercial communication, or SEO operations is useful to share."]],
+    relatedTitle: "Learn what ZhenguoCool works on",
+    serviceCta: "Explore KOL marketing projects", caseCta: "View a beverage-brand case", contactCta: "Brand partnership inquiry"
+  }
+};
+
+const buildCareerSchema = (locale) => {
+  const copy = careerCopy[locale.key];
+  const url = careerUrl(locale);
+  return {
+    "@context": "https://schema.org",
+    "@graph": [
+      organizationSchema(locale),
+      { "@type": "WebPage", "@id": `${url}#webpage`, name: copy.h1, description: copy.description, url, inLanguage: locale.htmlLang, publisher: { "@id": `${baseUrl}#organization` } },
+      { "@type": "FAQPage", "@id": `${url}#faq`, mainEntity: copy.faqs.map(([name, text]) => ({ "@type": "Question", name, acceptedAnswer: { "@type": "Answer", text } })) },
+      { "@type": "BreadcrumbList", "@id": `${url}#breadcrumb`, itemListElement: [{ "@type": "ListItem", position: 1, name: locale.key === "en" ? "Home" : "首頁", item: locale.isRoot ? baseUrl : locale.url }, { "@type": "ListItem", position: 2, name: copy.h1, item: url }] }
+    ]
+  };
+};
+
+const renderCareersPage = (locale) => {
+  const copy = careerCopy[locale.key];
+  const url = careerUrl(locale);
+  const prefix = locale.isRoot ? "../" : "../../";
+  const cards = copy.profileCards.map(([title, body]) => `<article class="card"><h3>${escapeHtml(title)}</h3><p>${escapeHtml(body)}</p></article>`).join("\n          ");
+  const directions = copy.directions.map(([title, body]) => `<article class="card"><h3>${escapeHtml(title)}</h3><p>${escapeHtml(body)}</p></article>`).join("\n          ");
+  const steps = copy.process.map(([title, body]) => `<article class="card"><h3>${escapeHtml(title)}</h3><p>${escapeHtml(body)}</p></article>`).join("\n          ");
+  const faqs = copy.faqs.map(([title, body]) => `<article class="card"><h3>${escapeHtml(title)}</h3><p>${escapeHtml(body)}</p></article>`).join("\n          ");
+  const languageLinks = allLocales.map((target) => `<a href="${careerUrl(target)}" data-lang-link="${target.key}"${target.key === locale.key ? ' aria-current="page"' : ""}>${target.key === "zh-Hant" ? "繁中" : target.key === "zh-Hans" ? "简中" : "EN"}</a>`).join(" ");
+  const scriptCopy = JSON.stringify({ fileError: copy.fileError, success: copy.success, error: copy.error });
+  return `<!DOCTYPE html>
+<html lang="${locale.htmlLang}">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="${escapeAttr(copy.description)}">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="${url}">
+  ${careerAlternates()}
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="${escapeAttr(locale.label)}">
+  <meta property="og:title" content="${escapeAttr(copy.title)}">
+  <meta property="og:description" content="${escapeAttr(copy.description)}">
+  <meta property="og:url" content="${url}">
+  <meta property="og:image" content="${baseUrl}${socialShareImage}">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="${escapeAttr(copy.title)}">
+  <meta name="twitter:description" content="${escapeAttr(copy.description)}">
+  <title>${escapeHtml(copy.title)}</title>
+  <script src="${prefix}web-assets/analytics-config.js?v=${analyticsAssetVersion}" defer></script>
+  <script src="${prefix}web-assets/analytics.js?v=${analyticsAssetVersion}" defer></script>
+  <script type="application/ld+json">
+${JSON.stringify(buildCareerSchema(locale), null, 2)}
+  </script>
+  <style>${serviceCss}
+    .career-note { max-width:780px; color:var(--muted); }
+    .career-form { display:grid; gap:14px; max-width:760px; padding:28px; border:1px solid var(--line); border-radius:8px; background:#fff; box-shadow:0 16px 42px rgba(20,33,61,.06); }
+    .career-form h2 { margin-bottom:0; }
+    .career-form label { display:grid; gap:6px; color:var(--ink); font-size:14px; font-weight:900; }
+    .career-form input, .career-form select, .career-form textarea { width:100%; border:1px solid var(--line); border-radius:6px; background:#fff; color:var(--ink); font:inherit; line-height:1.4; padding:11px 12px; }
+    .career-form textarea { min-height:112px; resize:vertical; }
+    .career-form input:focus, .career-form select:focus, .career-form textarea:focus, .career-form a:focus-visible { outline:3px solid rgba(13,125,128,.3); outline-offset:2px; }
+    .career-form .form-grid { display:grid; grid-template-columns:repeat(2, minmax(0, 1fr)); gap:12px; }
+    .career-form .form-consent { grid-template-columns:auto 1fr; align-items:start; font-weight:700; }
+    .career-form .form-consent input { width:auto; margin-top:5px; }
+    .career-form .form-note, .career-form .form-error, .career-form .form-success { margin:0; color:var(--muted); font-size:14px; }
+    .career-form .form-error { color:#a73525; font-weight:900; }
+    .career-form .form-success { color:var(--forest); font-weight:900; }
+    .language-links { display:flex; flex-wrap:wrap; gap:10px; font-size:13px; }
+    .language-links a { color:var(--muted); }
+    .language-links a[aria-current="page"] { color:var(--ink); font-weight:900; text-decoration:underline; text-underline-offset:4px; }
+    @media (max-width:760px) { .career-form { padding:20px; } .career-form .form-grid { grid-template-columns:1fr; } }
+  </style>
+</head>
+<body>
+  <header><div class="wrap nav"><a class="brand" href="${prefix}"><span>${escapeHtml(locale.label)}</span><small>ZHENGUOCOOL</small></a><nav class="nav-links" aria-label="${escapeAttr(copy.h1)}"><a href="${prefix}#services">${locale.key === "en" ? "Services" : "服務"}</a><a class="nav-cta" href="#career-form" data-track-event="contact_click" data-track-location="careers-nav">${escapeHtml(copy.heroCta)}</a></nav></div></header>
+  <main>
+    <section class="hero"><div class="wrap"><span class="eyebrow">${escapeHtml(copy.eyebrow)}</span><h1>${escapeHtml(copy.h1)}</h1><p>${escapeHtml(copy.intro)}</p><div class="actions"><a class="button primary" href="#career-form" data-track-event="contact_click" data-track-location="careers-hero">${escapeHtml(copy.heroCta)}</a></div></div></section>
+    <section><div class="wrap"><h2>${escapeHtml(copy.profileTitle)}</h2><div class="grid">${cards}</div></div></section>
+    <section class="faq"><div class="wrap"><h2>${escapeHtml(copy.directionTitle)}</h2><div class="grid">${directions}</div></div></section>
+    <section><div class="wrap"><h2>${escapeHtml(copy.processTitle)}</h2><div class="grid steps">${steps}</div></div></section>
+    <section id="career-form"><div class="wrap"><form class="career-form" action="https://formsubmit.co/ajax/hr@zhenguocool.com" method="POST" novalidate>
+      <input type="hidden" name="_subject" value="ZhenguoCool｜人才資料">
+      <input type="hidden" name="_template" value="table">
+      <input type="hidden" name="_captcha" value="false">
+      <input type="hidden" name="submission_type" value="careers_talent_pool">
+      <h2>${escapeHtml(copy.formTitle)}</h2><p class="career-note">${escapeHtml(copy.formIntro)}</p>
+      <div class="form-grid"><label>${escapeHtml(copy.name)}<input name="full_name" autocomplete="name" required></label><label>${escapeHtml(copy.email)}<input type="email" name="email" autocomplete="email" required></label><label>${escapeHtml(copy.direction)}<select name="career_direction" required><option value="">${escapeHtml(copy.select)}</option>${copy.directionOptions.map((item) => `<option>${escapeHtml(item)}</option>`).join("")}</select></label><label>${escapeHtml(copy.experience)}<input name="experience_background" required></label></div>
+      <label>${escapeHtml(copy.portfolio)}<input type="url" name="portfolio_url" inputmode="url" placeholder="https://"></label><label>${escapeHtml(copy.introLabel)}<textarea name="introduction" required></textarea></label>
+      <label>${escapeHtml(copy.resume)}<input type="file" name="resume_file" accept=".pdf,.doc,.docx,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document" data-resume-file><span class="form-note">${escapeHtml(copy.fileNote)}</span></label>
+      <label class="form-consent"><input type="checkbox" name="privacy_consent" value="agreed" required><span>${escapeHtml(copy.consent)} <a href="${prefix}privacy/passive-analytics/" target="_blank" rel="noopener noreferrer">${escapeHtml(copy.privacy)}</a></span></label>
+      <button class="button primary" type="submit">${escapeHtml(copy.submit)}</button><a href="mailto:hr@zhenguocool.com" data-track-event="contact_click" data-track-location="careers-email">${escapeHtml(copy.emailCta)}</a><p class="form-error" data-career-error hidden></p><p class="form-success" data-career-success hidden></p>
+    </form></div></section>
+    <section class="faq"><div class="wrap"><h2>${escapeHtml(copy.faqTitle)}</h2><div class="grid">${faqs}</div></div></section>
+    <section><div class="wrap"><h2>${escapeHtml(copy.relatedTitle)}</h2><div class="actions"><a class="button" href="${prefix}services/kol-marketing/" data-track-event="service_cta_click" data-track-location="careers-related-service" data-service-name="kol-marketing">${escapeHtml(copy.serviceCta)}</a><a class="button" href="${prefix}cases/korea-kol-goodme/" data-track-event="case_study_click" data-track-location="careers-related-case">${escapeHtml(copy.caseCta)}</a><a class="button" href="${prefix}#contact-form" data-track-event="contact_click" data-track-location="careers-related-contact">${escapeHtml(copy.contactCta)}</a></div></div></section>
+  </main>
+  <footer><div class="wrap"><nav class="language-links" aria-label="${escapeAttr(copy.h1)}">${languageLinks}</nav><p>© 2026 ${escapeHtml(locale.label)} / ZHENGUOCool. All Rights Reserved.</p></div></footer>
+  <script>
+    (() => {
+      const form = document.querySelector(".career-form");
+      if (!form) return;
+      const copy = ${scriptCopy};
+      const error = form.querySelector("[data-career-error]");
+      const success = form.querySelector("[data-career-success]");
+      const submit = form.querySelector('button[type="submit"]');
+      let submitting = false;
+      form.addEventListener("submit", async (event) => {
+        event.preventDefault();
+        if (!form.reportValidity() || submitting) return;
+        const file = form.elements.resume_file.files[0];
+        if (file && (!/\.(pdf|doc|docx)$/i.test(file.name) || file.size > 10 * 1024 * 1024)) { error.textContent = copy.fileError; error.hidden = false; return; }
+        error.hidden = true; success.hidden = true; submitting = true; submit.disabled = true;
+        const data = new FormData(form);
+        data.delete("resume_file");
+        try {
+          const response = await fetch(form.action, { method: "POST", body: data, headers: { Accept: "application/json" } });
+          if (!response.ok) throw new Error("Career form delivery failed");
+          success.textContent = copy.success; success.hidden = false; form.reset();
+        } catch (_error) { error.textContent = copy.error; error.hidden = false; }
+        finally { submitting = false; submit.disabled = false; }
+      });
+    })();
+  </script>
+</body>
+</html>`;
+};
+
 const thanksUi = {
   "zh-Hant": { title: "已收到合作需求", body: "謝謝你提供專案資訊。我們會依目標市場、預算與時程整理第一版合作方向，再與你聯繫。", cta: "回到首頁" },
   "zh-Hans": { title: "已收到合作需求", body: "谢谢你提供项目信息。我们会依目标市场、预算与时程整理第一版合作方向，再与你联系。", cta: "回到首页" },
@@ -1743,6 +1941,12 @@ for (const page of seoPhaseOnePages) {
   }
 }
 
+for (const locale of allLocales) {
+  const dir = locale.isRoot ? path.join(root, "careers") : path.join(root, locale.dir, "careers");
+  fs.mkdirSync(dir, { recursive: true });
+  fs.writeFileSync(path.join(dir, "index.html"), renderCareersPage(locale));
+}
+
 const rootThanksDir = path.join(root, "thanks");
 fs.mkdirSync(rootThanksDir, { recursive: true });
 fs.writeFileSync(path.join(rootThanksDir, "index.html"), renderThankYouPage(rootLocale));
@@ -1771,6 +1975,13 @@ for (const locale of locales) {
     ]
   });
 }
+const careerSitemapAlternates = [
+  ["zh-Hant", careerUrl(locales[0])],
+  ["zh-Hans", careerUrl(locales[1])],
+  ["en", careerUrl(locales[2])],
+  ["x-default", careerUrl(rootLocale)]
+];
+for (const locale of allLocales) sitemapItems.push({ loc: careerUrl(locale), priority: locale.isRoot ? "0.65" : "0.6", alternates: careerSitemapAlternates });
 for (const page of servicePages) {
   const alternates = [
     ...locales.map((locale) => [locale.htmlLang, serviceUrl(page, locale)]),

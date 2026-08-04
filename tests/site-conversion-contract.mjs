@@ -45,6 +45,7 @@ assert.match(leadForm, /FormSubmit 轉寄至公司信箱/, "Lead form needs a ne
 assert.match(home, /lead_form_start/, "Lead form needs a first-interaction funnel event.");
 assert.match(home, /name="utm_source"/, "Lead form needs UTM capture.");
 assert.match(home, /formsubmit\.co\/ajax/, "Lead form needs a delivery endpoint.");
+assert.match(home, /formsubmit\.co\/ajax\/contact@zhenguocool\.com/, "Brand inquiries route to the public contact inbox.");
 assert.match(home, /thanks\//, "Lead form needs a thank-you destination.");
 assert.match(home, /web-assets\/og-zhenguocool-campaign-plan\.webp/, "Homepage needs the current share image.");
 
