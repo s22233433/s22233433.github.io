@@ -938,6 +938,7 @@ const renderHomePage = (locale, isRoot = false) => {
   html = html.replace(/<script type="application\/ld\+json" id="structured-data">[\s\S]*?<\/script>/, `<script type="application/ld+json" id="structured-data">\n${JSON.stringify(buildHomeSchema(copy, locale), null, 2)}\n  </script>`);
   html = localizeElements(html, copy);
   html = setLanguageLinks(html, locale, isRoot);
+  html = html.replace(/href="careers\//g, `href="${careerUrl(locale)}`);
   html = html.replace("</main>", `${renderHomeGuideIndex(locale)}\n  </main>`);
   if (!isRoot) {
     html = html
