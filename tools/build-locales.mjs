@@ -492,6 +492,18 @@ const servicePages = [
       "zh-Hant": ["3C／家電適合短影音還是 YouTube 評測？", "取決於產品是否需要深度解釋。功能單純可用短影音建立記憶點；需要比較、安裝或長期實測時，較適合長影音或多階段內容。"],
       "zh-Hans": ["3C／家电适合短视频还是 YouTube 评测？", "取决于产品是否需要深度解释。功能单纯可用短视频建立记忆点；需要比较、安装或长期实测时，较适合长视频或多阶段内容。"],
       en: ["Should electronics use short video or YouTube reviews?", "It depends on explanation depth. Simple features can use short video for recall; products needing comparison, installation, or longer testing fit long-form or staged content better."]
+    },
+    detailTitle: { en: "Consumer electronics influencer campaign planning" },
+    detailCards: {
+      en: [
+        ["Illustrative campaign structures, not claimed results", "A launch may use a small creator set for a hands-on explanation, a wider set for distinct use cases, or staged short- and long-form content. The right structure depends on the product, retail path, review capacity, and rights required; these are planning examples, not past-client results."],
+        ["Creator selection for electronics", "Screen for the ability to explain the category accurately, demonstrate the relevant setup or use case, reach the intended buyer context, and deliver reliably. A large audience alone does not prove that a creator can test, compare, or teach the product well."],
+        ["Deliverables and rights", "Confirm the format, mandatory product facts, loaner or sample return process, draft checkpoints, live link, source-file need, and any brand, website, or paid-media usage separately. Original publishing does not automatically include reuse rights."],
+        ["Taiwan and Japan execution", "Keep the market plan separate: localized product materials, shipping, retail links, working language, disclosure, and customer support should be ready for each market. Local requirements and product claims need confirmation with the appropriate local specialists."],
+        ["Electronics launch timeline", "Work backward from the launch date: lock product readiness and the brief first, then creator screening, shipping or loaner handling, testing time, draft review, publishing, and post-launch asset or link collection. Do not schedule a publish date before the product can be experienced as intended."],
+        ["Common launch failure points", "Typical avoidable failures include sending incomplete specifications, changing firmware or availability after a creator starts testing, treating product delivery as content approval, and negotiating paid use only after publishing."],
+        ["Brand preparation checklist", "Prepare the product version, supported facts and restricted claims, setup instructions, comparison boundaries, retail destination, stock and launch timing, review owner, customer-support route, and any known rights requirement before outreach."]
+      ]
     }
   },
   {
@@ -1212,6 +1224,7 @@ const renderServicePage = (page, locale) => {
   const steps = serviceWorkflowSteps(page, locale).map(([step, body]) => `<article class="card"><h3>${escapeHtml(step)}</h3><p>${escapeHtml(body)}</p></article>`).join("\n          ");
   const faqCards = faqs.map(([question, answer]) => `<article class="card"><h3>${escapeHtml(question)}</h3><p>${escapeHtml(answer)}</p></article>`).join("\n          ");
   const guideCards = decisionGuide.map(([title, body]) => `<article class="card"><h3>${escapeHtml(title)}</h3><p>${escapeHtml(body)}</p></article>`).join("\n          ");
+  const detailCards = (page.detailCards?.[locale.key] || []).map(([title, body]) => `<article class="card"><h3>${escapeHtml(title)}</h3><p>${escapeHtml(body)}</p></article>`).join("\n          ");
   const caseCards = relatedStudies.map((study) => `<article class="card"><h3>${escapeHtml(study.title[locale.key])}</h3><p>${escapeHtml(study.summary[locale.key])}</p><p style="margin-top:16px"><a class="button" href="${prefix}cases/${study.slug}/">${escapeHtml(caseUi[locale.key].readCase)}</a></p></article>`).join("\n          ");
   return `<!DOCTYPE html>
 <html lang="${locale.htmlLang}">
@@ -1279,7 +1292,15 @@ ${JSON.stringify(buildServiceSchema(page, locale), null, 2)}
           ${guideCards}
         </div>
       </div>
-    </section>
+    </section>${detailCards ? `
+    <section class="service-details">
+      <div class="wrap">
+        <h2>${escapeHtml(page.detailTitle[locale.key])}</h2>
+        <div class="grid">
+          ${detailCards}
+        </div>
+      </div>
+    </section>` : ""}
 ${comparison ? `<section class="service-comparison">
       <div class="wrap">
         <div class="card">

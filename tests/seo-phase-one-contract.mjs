@@ -73,6 +73,16 @@ for (const page of seoPhaseOnePages) {
 assert.equal(urls.length, 27, "Phase one must emit 27 direct language routes");
 assert.equal(titles.size, 27, "All phase-one pages must have unique titles");
 
+const roiPages = {
+  "en/insights/japan-influencer-marketing-guide-article/index.html": ["Influencer Marketing in Japan: Japanese Creator Campaign Guide", "Influencer marketing in Japan: a Japanese influencer marketing decision guide"],
+  "en/insights/taiwan-influencer-marketing-costs-2026/index.html": ["Taiwan Influencer Marketing Costs: 2026 Pricing and Agency Fees", "Taiwan influencer campaign pricing: costs, agency fees, and scope"],
+  "en/services/consumer-electronics-influencer-marketing/index.html": ["Illustrative campaign structures, not claimed results", "Creator selection for electronics", "Deliverables and rights", "Taiwan and Japan execution", "Electronics launch timeline", "Common launch failure points", "Brand preparation checklist"]
+};
+for (const [relative, requiredText] of Object.entries(roiPages)) {
+  const html = fs.readFileSync(path.join(root, relative), "utf8");
+  for (const text of requiredText) assert.ok(html.includes(text), `${relative} includes ROI content: ${text}`);
+}
+
 const sitemap = fs.readFileSync(path.join(root, "sitemap.xml"), "utf8");
 for (const url of urls) assert.ok(sitemap.includes(`<loc>${url}</loc>`), `Sitemap includes ${url}`);
 
