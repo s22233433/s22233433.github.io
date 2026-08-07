@@ -22,6 +22,7 @@
   <title>Join ZhenguoCool | Creator Marketing Talent Pool</title>
   <script src="../../web-assets/analytics-config.js?v=20260803-1" defer></script>
   <script src="../../web-assets/analytics.js?v=20260803-1" defer></script>
+  <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
   <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -194,6 +195,7 @@
       <input class="form-trap" name="website" tabindex="-1" autocomplete="off" aria-hidden="true"><label>Portfolio or LinkedIn (optional)<input type="url" name="portfolio_url" inputmode="url" placeholder="https://"></label><label>Short introduction<textarea name="introduction" required></textarea></label>
       <label>Resume file (send separately by email attachment)<input type="file" name="resume_file" accept=".pdf,.doc,.docx,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document" data-resume-file><span class="form-note">You may choose a file to check its type and size; this file is not uploaded through the form.</span></label>
       <label class="form-consent"><input type="checkbox" name="privacy_consent" value="agreed" required><span>I agree that ZhenguoCool may use these basic details to respond to my talent-pool inquiry. <a href="../../privacy/passive-analytics/" target="_blank" rel="noopener noreferrer">Current privacy policy</a></span></label>
+      <div class="cf-turnstile" data-sitekey="0x4AAAAAAEJikTk921Gin-ob" data-theme="auto"></div>
       <button class="button primary" type="submit">Send basic details</button><a href="mailto:hr@zhenguocool.com" data-track-event="contact_click" data-track-location="careers-email">Email your resume attachment</a><p class="form-error" data-career-error hidden></p><p class="form-success" data-career-success hidden></p>
     </form></div></section>
     <section class="faq"><div class="wrap"><h2>Frequently asked questions</h2><div class="grid"><article class="card"><h3>Are there open positions right now?</h3><p>This is a talent pool, not a promise that every area has an active opening. We contact people when a relevant collaboration or role conversation arises.</p></article>
@@ -231,8 +233,8 @@
           const response = await fetch(form.action, { method: "POST", body: data, headers: { Accept: "application/json" } });
           if (!response.ok) throw new Error("Career form delivery failed");
           track("career_form_success");
-          success.textContent = copy.success; success.hidden = false; form.reset();
-        } catch (_error) { track("career_form_error"); error.textContent = copy.error; error.hidden = false; }
+          success.textContent = copy.success; success.hidden = false; form.reset(); if (window.turnstile) window.turnstile.reset();
+        } catch (_error) { if (window.turnstile) window.turnstile.reset(); track("career_form_error"); error.textContent = copy.error; error.hidden = false; }
         finally { submitting = false; submit.disabled = false; }
       });
     })();

@@ -43,6 +43,7 @@
   <title>Zhenguo Marketing | Overseas KOL/KOC Campaign Execution Team</title>
   <script src="../web-assets/analytics-config.js?v=20260803-1" defer></script>
   <script src="../web-assets/analytics.js?v=20260803-1" defer></script>
+  <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
   <script type="application/ld+json" id="structured-data">
 {
   "@context": "https://schema.org",
@@ -1772,6 +1773,7 @@
               <label><span data-i18n="formGoal">Campaign goal (optional)</span><select name="cooperation_goal"><option value="" data-i18n="formSelect">Select one</option><option data-i18n="formGoalAwareness">Awareness / launch</option><option data-i18n="formGoalAssets">Content assets</option><option data-i18n="formGoalSales">Sales / traffic</option><option data-i18n="formGoalTrust">Trust / word of mouth</option></select></label>
             </div>
             <label><span data-i18n="formMessage">Additional context (optional)</span><textarea name="message"></textarea></label>
+            <div class="cf-turnstile" data-sitekey="0x4AAAAAAEJikTk921Gin-ob" data-theme="auto"></div>
             <button class="button primary" type="submit" data-i18n="formSubmit">Submit project brief</button>
             <p class="form-note" data-i18n="formNote">Brand name, work email, and target market are required; the rest can be added later. By submitting, you agree that we may securely store the information to respond to your inquiry.</p>
             <p class="form-error" data-form-error hidden></p>
@@ -2998,6 +3000,7 @@
           const thanksPath = localeMatch ? `/${localeMatch[1]}/thanks/` : "/thanks/";
           window.location.assign(thanksPath);
         } catch (_error) {
+          if (window.turnstile) window.turnstile.reset();
           leadSubmitting = false;
           if (submitButton) submitButton.disabled = false;
           if (error) {

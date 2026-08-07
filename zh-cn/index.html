@@ -43,6 +43,7 @@
   <title>榛果营销 | 海内外 KOL/KOC 营销执行团队</title>
   <script src="../web-assets/analytics-config.js?v=20260803-1" defer></script>
   <script src="../web-assets/analytics.js?v=20260803-1" defer></script>
+  <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
   <script type="application/ld+json" id="structured-data">
 {
   "@context": "https://schema.org",
@@ -1772,6 +1773,7 @@
               <label><span data-i18n="formGoal">合作目标（选填）</span><select name="cooperation_goal"><option value="" data-i18n="formSelect">请选择</option><option data-i18n="formGoalAwareness">曝光 / 新品上市</option><option data-i18n="formGoalAssets">内容素材</option><option data-i18n="formGoalSales">销售 / 导流</option><option data-i18n="formGoalTrust">口碑 / 品牌信任</option></select></label>
             </div>
             <label><span data-i18n="formMessage">补充需求（选填）</span><textarea name="message"></textarea></label>
+            <div class="cf-turnstile" data-sitekey="0x4AAAAAAEJikTk921Gin-ob" data-theme="auto"></div>
             <button class="button primary" type="submit" data-i18n="formSubmit">提交合作需求</button>
             <p class="form-note" data-i18n="formNote">品牌名称、工作 Email 与目标市场为必填；其余可稍后补充。提交即表示同意我们为回复合作需求安全保存所填资料。</p>
             <p class="form-error" data-form-error hidden></p>
@@ -2998,6 +3000,7 @@
           const thanksPath = localeMatch ? `/${localeMatch[1]}/thanks/` : "/thanks/";
           window.location.assign(thanksPath);
         } catch (_error) {
+          if (window.turnstile) window.turnstile.reset();
           leadSubmitting = false;
           if (submitButton) submitButton.disabled = false;
           if (error) {

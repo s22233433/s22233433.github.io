@@ -1796,6 +1796,7 @@ const renderCareersPage = (locale) => {
   <title>${escapeHtml(copy.title)}</title>
   <script src="${prefix}web-assets/analytics-config.js?v=${analyticsAssetVersion}" defer></script>
   <script src="${prefix}web-assets/analytics.js?v=${analyticsAssetVersion}" defer></script>
+  <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
   <script type="application/ld+json">
 ${JSON.stringify(buildCareerSchema(locale), null, 2)}
   </script>
@@ -1833,6 +1834,7 @@ ${JSON.stringify(buildCareerSchema(locale), null, 2)}
       <input class="form-trap" name="website" tabindex="-1" autocomplete="off" aria-hidden="true"><label>${escapeHtml(copy.portfolio)}<input type="url" name="portfolio_url" inputmode="url" placeholder="https://"></label><label>${escapeHtml(copy.introLabel)}<textarea name="introduction" required></textarea></label>
       <label>${escapeHtml(copy.resume)}<input type="file" name="resume_file" accept=".pdf,.doc,.docx,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document" data-resume-file><span class="form-note">${escapeHtml(copy.fileNote)}</span></label>
       <label class="form-consent"><input type="checkbox" name="privacy_consent" value="agreed" required><span>${escapeHtml(copy.consent)} <a href="${prefix}privacy/passive-analytics/" target="_blank" rel="noopener noreferrer">${escapeHtml(copy.privacy)}</a></span></label>
+      <div class="cf-turnstile" data-sitekey="0x4AAAAAAEJikTk921Gin-ob" data-theme="auto"></div>
       <button class="button primary" type="submit">${escapeHtml(copy.submit)}</button><a href="mailto:hr@zhenguocool.com" data-track-event="contact_click" data-track-location="careers-email">${escapeHtml(copy.emailCta)}</a><p class="form-error" data-career-error hidden></p><p class="form-success" data-career-success hidden></p>
     </form></div></section>
     <section class="faq"><div class="wrap"><h2>${escapeHtml(copy.faqTitle)}</h2><div class="grid">${faqs}</div></div></section>
@@ -1868,8 +1870,8 @@ ${JSON.stringify(buildCareerSchema(locale), null, 2)}
           const response = await fetch(form.action, { method: "POST", body: data, headers: { Accept: "application/json" } });
           if (!response.ok) throw new Error("Career form delivery failed");
           track("career_form_success");
-          success.textContent = copy.success; success.hidden = false; form.reset();
-        } catch (_error) { track("career_form_error"); error.textContent = copy.error; error.hidden = false; }
+          success.textContent = copy.success; success.hidden = false; form.reset(); if (window.turnstile) window.turnstile.reset();
+        } catch (_error) { if (window.turnstile) window.turnstile.reset(); track("career_form_error"); error.textContent = copy.error; error.hidden = false; }
         finally { submitting = false; submit.disabled = false; }
       });
     })();

@@ -8,6 +8,17 @@ const readValue = (form, name, maxLength = 500) => {
   return typeof value === "string" ? value.trim().slice(0, maxLength) : "";
 };
 
+const verifyTurnstile = async (request, secret, token) => {
+  const body = new FormData();
+  body.set("secret", secret);
+  body.set("response", token);
+  const remoteIp = request.headers.get("CF-Connecting-IP");
+  if (remoteIp) body.set("remoteip", remoteIp);
+  const response = await fetch("https://challenges.cloudflare.com/turnstile/v0/siteverify", { method: "POST", body });
+  if (!response.ok) throw new Error("Turnstile verification unavailable");
+  return (await response.json()).success === true;
+};
+
 export const handleForm = async ({ request, env }, config) => {
   if (request.method !== "POST") return json(405, { ok: false });
   const origin = request.headers.get("origin");
@@ -20,6 +31,14 @@ export const handleForm = async ({ request, env }, config) => {
     return json(400, { ok: false });
   }
   if (readValue(form, "website")) return json(400, { ok: false });
+  if (!env.TURNSTILE_SECRET) return json(503, { ok: false });
+  const turnstileToken = readValue(form, "cf-turnstile-response", 2048);
+  if (!turnstileToken) return json(403, { ok: false });
+  try {
+    if (!await verifyTurnstile(request, env.TURNSTILE_SECRET, turnstileToken)) return json(403, { ok: false });
+  } catch {
+    return json(502, { ok: false });
+  }
 
   const values = Object.fromEntries(config.fields.map(([name, maxLength]) => [name, readValue(form, name, maxLength)]));
   if (config.required.some((name) => !values[name]) || !/^\S+@\S+\.\S+$/.test(values.email || "")) return json(422, { ok: false });
