@@ -3,15 +3,16 @@ import { onRequest as contact } from "../functions/api/contact.js";
 import { onRequest as careers } from "../functions/api/careers.js";
 
 const verifier = await import("node:fs/promises").then(({ readFile }) => readFile(new URL("../tools/verify-ga4.mjs", import.meta.url), "utf8"));
-assert.match(verifier, /formsubmit\.co/, "GA verification must intercept FormSubmit instead of delivering a real test inquiry.");
+assert.match(verifier, /\/api\/contact/, "GA verification must intercept the Cloudflare form endpoint.");
 assert.match(verifier, /career_form_success/, "GA verification must cover successful career submissions without PII.");
 
-const originalFetch = globalThis.fetch;
-const endpoint = "https://formsubmit.co/ajax/test@example.com";
-let forwarded;
-globalThis.fetch = async (url, init) => {
-  forwarded = { url, body: init.body };
-  return new Response(JSON.stringify({ success: true }), { status: 200 });
+const writes = [];
+const db = {
+  prepare: (sql) => ({
+    bind: (...values) => ({
+      run: async () => { writes.push({ sql, values }); return { success: true }; }
+    })
+  })
 };
 
 const formRequest = (path, values) => {
@@ -20,20 +21,20 @@ const formRequest = (path, values) => {
   return new Request(`https://zhenguocool-site.pages.dev${path}`, { method: "POST", body });
 };
 
-let response = await contact({ request: formRequest("/api/contact", { brand_name: "Brand", email: "team@example.com", target_market: "Japan", message: "Need help", ignored: "never forward" }), env: { CONTACT_FORM_ENDPOINT: endpoint } });
+let response = await contact({ request: formRequest("/api/contact", { brand_name: "Brand", email: "team@example.com", target_market: "Japan", message: "Need help", ignored: "never store" }), env: { FORM_DB: db } });
 assert.equal(response.status, 200);
-assert.equal(forwarded.url, endpoint);
-assert.equal(await forwarded.body.get("brand_name"), "Brand");
-assert.equal(forwarded.body.get("ignored"), null);
+assert.deepEqual(writes[0].values.slice(0, 4), ["contact", "team@example.com", "", "Brand"]);
+assert.equal(JSON.parse(writes[0].values[4]).ignored, undefined);
 
-response = await careers({ request: formRequest("/api/careers", { full_name: "Name", email: "person@example.com", career_direction: "SEO", experience_background: "3 years", introduction: "Hello", privacy_consent: "agreed", resume_file: "not forwarded" }), env: { CAREERS_FORM_ENDPOINT: endpoint } });
+response = await careers({ request: formRequest("/api/careers", { full_name: "Name", email: "person@example.com", career_direction: "SEO", experience_background: "3 years", introduction: "Hello", privacy_consent: "agreed", resume_file: "not stored" }), env: { FORM_DB: db } });
 assert.equal(response.status, 200);
-assert.equal(forwarded.body.get("resume_file"), null);
+assert.equal(JSON.parse(writes[1].values[4]).resume_file, undefined);
 
-response = await contact({ request: formRequest("/api/contact", { brand_name: "Brand", email: "not-an-email", target_market: "Japan" }), env: { CONTACT_FORM_ENDPOINT: endpoint } });
+response = await contact({ request: formRequest("/api/contact", { brand_name: "Brand", email: "not-an-email", target_market: "Japan" }), env: { FORM_DB: db } });
 assert.equal(response.status, 422);
-response = await contact({ request: formRequest("/api/contact", { brand_name: "Brand", email: "team@example.com", target_market: "Japan", website: "bot" }), env: { CONTACT_FORM_ENDPOINT: endpoint } });
+response = await contact({ request: formRequest("/api/contact", { brand_name: "Brand", email: "team@example.com", target_market: "Japan", website: "bot" }), env: { FORM_DB: db } });
 assert.equal(response.status, 400);
+response = await contact({ request: formRequest("/api/contact", { brand_name: "Brand", email: "team@example.com", target_market: "Japan" }), env: {} });
+assert.equal(response.status, 503);
 
-globalThis.fetch = originalFetch;
 console.log("pages functions contract: pass");

@@ -1697,7 +1697,7 @@ const careerCopy = {
     processTitle: "留下資料後，會怎麼進行",
     process: [["提交人才資料", "告訴我們你想投入的方向、經驗、作品集與簡短自介。"], ["人工閱讀與初步比對", "我們會依當下與未來專案需求，確認經驗、合作方式與可投入範圍是否相符。"], ["有合適機會再聯繫", "若出現適合的合作或職務交流機會，會以 Email 聯繫；未必每一份資料都會立即回覆。"]],
     formTitle: "留下人才資料",
-    formIntro: "基本資料會安全轉寄至 hr@zhenguocool.com。履歷附件不會由本表單上傳，請另以 Email 附件寄送。",
+    formIntro: "基本資料會安全保存，供人才合作聯繫使用。履歷附件不會由本表單上傳，請另以 Email 附件寄至 hr@zhenguocool.com。",
     name: "姓名", email: "Email", direction: "想投入的方向", directionOptions: ["創作者行銷專案", "創作者合作與商業發展", "內容與 SEO 專案營運", "其他相關方向"],
     experience: "年資或相關背景", portfolio: "作品集或 LinkedIn（選填）", introLabel: "簡短自介", resume: "履歷檔案（請改以 Email 附件寄送）", consent: "我同意榛菓為回覆人才交流需求使用上述基本資料。", privacy: "現有隱私權政策", submit: "送出基本資料", emailCta: "以 Email 寄送履歷附件", select: "請選擇", fileNote: "可先選檔檢查格式與大小；本檔案不會經由此表單上傳。", fileError: "履歷檔請使用 PDF、DOC 或 DOCX，且不超過 10 MB。", success: "基本資料已送出。請以 Email 另附履歷檔，讓我們能完整閱讀你的背景。", error: "送出失敗，請稍後再試，或直接以 Email 聯繫。",
     faqTitle: "常見問題",
@@ -1719,7 +1719,7 @@ const careerCopy = {
     processTitle: "留下资料后，会怎么进行",
     process: [["提交人才资料", "告诉我们你想投入的方向、经验、作品集与简短自介。"], ["人工阅读与初步匹配", "我们会依据当下与未来项目需求，确认经验、合作方式与可投入范围是否相符。"], ["有合适机会再联系", "若出现适合的合作或职位交流机会，会以 Email 联系；未必每份资料都会立即回复。"]],
     formTitle: "留下人才资料",
-    formIntro: "基本资料会通过 FormSubmit 转发至 hr@zhenguocool.com。履历附件不会由本表单上传，请另以 Email 附件发送。",
+    formIntro: "基本资料会安全保存，供人才合作联系使用。履历附件不会由本表单上传，请另以 Email 附件发送至 hr@zhenguocool.com。",
     name: "姓名", email: "Email", direction: "想投入的方向", directionOptions: ["创作者营销项目", "创作者合作与商业发展", "内容与 SEO 项目运营", "其他相关方向"],
     experience: "年资或相关背景", portfolio: "作品集或 LinkedIn（选填）", introLabel: "简短自介", resume: "履历文件（请改以 Email 附件发送）", consent: "我同意榛菓为回复人才交流需求使用上述基本资料。", privacy: "现有隐私权政策", submit: "提交基本资料", emailCta: "以 Email 发送履历附件", select: "请选择", fileNote: "可先选文件检查格式和大小；本文件不会通过此表单上传。", fileError: "履历文件请使用 PDF、DOC 或 DOCX，且不超过 10 MB。", success: "基本资料已提交。请以 Email 另附履历文件，让我们能完整阅读你的背景。", error: "提交失败，请稍后重试，或直接通过 Email 联系。",
     faqTitle: "常见问题",
@@ -1741,7 +1741,7 @@ const careerCopy = {
     processTitle: "What happens after you share your profile",
     process: [["Share your profile", "Tell us the direction you want to explore, your background, portfolio, and a short introduction."], ["Human review and first fit check", "We compare experience, working style, and availability with current and future project needs."], ["We contact you when there is a fit", "We will reach out by email when a relevant collaboration or role conversation arises; not every profile receives an immediate response."]],
     formTitle: "Share your profile",
-    formIntro: "Basic details are forwarded to hr@zhenguocool.com through FormSubmit. Resume files are not uploaded through this form; please send them separately by email attachment.",
+    formIntro: "Basic details are stored securely for recruiting follow-up. Resume files are not uploaded through this form; please email them separately to hr@zhenguocool.com.",
     name: "Name", email: "Email", direction: "Area of interest", directionOptions: ["Creator marketing projects", "Creator partnerships and business development", "Content and SEO project operations", "Another related area"],
     experience: "Experience or relevant background", portfolio: "Portfolio or LinkedIn (optional)", introLabel: "Short introduction", resume: "Resume file (send separately by email attachment)", consent: "I agree that ZhenguoCool may use these basic details to respond to my talent-pool inquiry.", privacy: "Current privacy policy", submit: "Send basic details", emailCta: "Email your resume attachment", select: "Select one", fileNote: "You may choose a file to check its type and size; this file is not uploaded through the form.", fileError: "Please use a PDF, DOC, or DOCX resume no larger than 10 MB.", success: "Your basic details were sent. Please email your resume as an attachment so we can review your background fully.", error: "We could not send your details. Please try again later or contact us by email.",
     faqTitle: "Frequently asked questions",
@@ -1827,7 +1827,7 @@ ${JSON.stringify(buildCareerSchema(locale), null, 2)}
     <section><div class="wrap"><h2>${escapeHtml(copy.profileTitle)}</h2><div class="grid">${cards}</div></div></section>
     <section class="faq"><div class="wrap"><h2>${escapeHtml(copy.directionTitle)}</h2><div class="grid">${directions}</div></div></section>
     <section><div class="wrap"><h2>${escapeHtml(copy.processTitle)}</h2><div class="grid steps">${steps}</div></div></section>
-    <section id="career-form"><div class="wrap"><form class="career-form" action="https://formsubmit.co/ajax/hr@zhenguocool.com" method="POST" novalidate>
+    <section id="career-form"><div class="wrap"><form class="career-form" action="${prefix}api/careers" method="POST" novalidate>
       <h2>${escapeHtml(copy.formTitle)}</h2><p class="career-note">${escapeHtml(copy.formIntro)}</p>
       <div class="form-grid"><label>${escapeHtml(copy.name)}<input name="full_name" autocomplete="name" required></label><label>${escapeHtml(copy.email)}<input type="email" name="email" autocomplete="email" pattern="[^\\s@]+@[^\\s@]+\\.[^\\s@]+" required></label><label>${escapeHtml(copy.direction)}<select name="career_direction" required><option value="">${escapeHtml(copy.select)}</option>${copy.directionOptions.map((item) => `<option>${escapeHtml(item)}</option>`).join("")}</select></label><label>${escapeHtml(copy.experience)}<input name="experience_background" required></label></div>
       <input class="form-trap" name="website" tabindex="-1" autocomplete="off" aria-hidden="true"><label>${escapeHtml(copy.portfolio)}<input type="url" name="portfolio_url" inputmode="url" placeholder="https://"></label><label>${escapeHtml(copy.introLabel)}<textarea name="introduction" required></textarea></label>

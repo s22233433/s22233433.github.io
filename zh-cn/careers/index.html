@@ -188,8 +188,8 @@
     <section><div class="wrap"><h2>留下资料后，会怎么进行</h2><div class="grid steps"><article class="card"><h3>提交人才资料</h3><p>告诉我们你想投入的方向、经验、作品集与简短自介。</p></article>
           <article class="card"><h3>人工阅读与初步匹配</h3><p>我们会依据当下与未来项目需求，确认经验、合作方式与可投入范围是否相符。</p></article>
           <article class="card"><h3>有合适机会再联系</h3><p>若出现适合的合作或职位交流机会，会以 Email 联系；未必每份资料都会立即回复。</p></article></div></div></section>
-    <section id="career-form"><div class="wrap"><form class="career-form" action="https://formsubmit.co/ajax/hr@zhenguocool.com" method="POST" novalidate>
-      <h2>留下人才资料</h2><p class="career-note">基本资料会通过 FormSubmit 转发至 hr@zhenguocool.com。履历附件不会由本表单上传，请另以 Email 附件发送。</p>
+    <section id="career-form"><div class="wrap"><form class="career-form" action="../../api/careers" method="POST" novalidate>
+      <h2>留下人才资料</h2><p class="career-note">基本资料会安全保存，供人才合作联系使用。履历附件不会由本表单上传，请另以 Email 附件发送至 hr@zhenguocool.com。</p>
       <div class="form-grid"><label>姓名<input name="full_name" autocomplete="name" required></label><label>Email<input type="email" name="email" autocomplete="email" pattern="[^\s@]+@[^\s@]+\.[^\s@]+" required></label><label>想投入的方向<select name="career_direction" required><option value="">请选择</option><option>创作者营销项目</option><option>创作者合作与商业发展</option><option>内容与 SEO 项目运营</option><option>其他相关方向</option></select></label><label>年资或相关背景<input name="experience_background" required></label></div>
       <input class="form-trap" name="website" tabindex="-1" autocomplete="off" aria-hidden="true"><label>作品集或 LinkedIn（选填）<input type="url" name="portfolio_url" inputmode="url" placeholder="https://"></label><label>简短自介<textarea name="introduction" required></textarea></label>
       <label>履历文件（请改以 Email 附件发送）<input type="file" name="resume_file" accept=".pdf,.doc,.docx,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document" data-resume-file><span class="form-note">可先选文件检查格式和大小；本文件不会通过此表单上传。</span></label>

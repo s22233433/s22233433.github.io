@@ -24,18 +24,18 @@ export const handleForm = async ({ request, env }, config) => {
   const values = Object.fromEntries(config.fields.map(([name, maxLength]) => [name, readValue(form, name, maxLength)]));
   if (config.required.some((name) => !values[name]) || !/^\S+@\S+\.\S+$/.test(values.email || "")) return json(422, { ok: false });
 
-  const endpoint = env[config.endpointBinding];
-  if (!endpoint) return json(503, { ok: false });
-
-  const outgoing = new FormData();
-  outgoing.set("_subject", config.subject);
-  outgoing.set("_template", "table");
-  outgoing.set("_captcha", "false");
-  Object.entries(values).forEach(([name, value]) => outgoing.set(name, value));
-
+  if (!env.FORM_DB) return json(503, { ok: false });
   try {
-    const response = await fetch(endpoint, { method: "POST", headers: { Accept: "application/json" }, body: outgoing });
-    if (!response.ok) return json(502, { ok: false });
+    await env.FORM_DB.prepare(`
+      INSERT INTO form_submissions (form_type, email, name, organization, payload_json)
+      VALUES (?, ?, ?, ?, ?)
+    `).bind(
+      config.type,
+      values.email,
+      values[config.nameField] || "",
+      values[config.organizationField] || "",
+      JSON.stringify(values)
+    ).run();
   } catch {
     return json(502, { ok: false });
   }

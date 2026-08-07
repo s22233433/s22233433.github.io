@@ -41,10 +41,10 @@ for (const field of ["brand_name", "email", "target_market"]) {
 for (const field of ["contact_name", "product_category", "budget_range", "launch_timing", "cooperation_goal"]) {
   assert.doesNotMatch(leadForm, new RegExp(`name="${field}"[^>]*required`), `Lead form needs ${field} to remain optional.`);
 }
-assert.match(leadForm, /FormSubmit 轉寄至公司信箱/, "Lead form needs a nearby data-use notice.");
+assert.match(leadForm, /安全保存所填資料/, "Lead form needs a nearby data-use notice.");
 assert.match(home, /lead_form_start/, "Lead form needs a first-interaction funnel event.");
 assert.match(home, /name="utm_source"/, "Lead form needs UTM capture.");
-assert.match(home, /action="https:\/\/formsubmit\.co\/ajax\/weiting@zhenguocool\.com"/, "Lead form needs the activated FormSubmit endpoint.");
+assert.match(home, /action="\/api\/contact"/, "Lead form needs the Cloudflare Pages Function endpoint.");
 assert.match(leadForm, /type="email"[^>]+pattern=/, "Lead form rejects incomplete email domains before submission.");
 assert.match(home, /name="website"/, "Lead form needs a honeypot field.");
 assert.match(home, /thanks\//, "Lead form needs a thank-you destination.");

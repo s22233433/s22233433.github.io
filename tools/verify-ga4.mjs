@@ -84,8 +84,8 @@ class Cdp {
     this.id = 0;
     this.pending = new Map();
     this.events = [];
-    this.formSubmitResponse = null;
-    this.formSubmitSessionId = null;
+    this.formApiResponse = null;
+    this.formApiSessionId = null;
     this.fetchFulfillErrors = [];
   }
 
@@ -100,10 +100,10 @@ class Cdp {
         this.events.push({ ...message, observed_at: new Date().toISOString(), observed_ms: Date.now() });
         if (message.method === "Fetch.requestPaused") {
           const url = message.params.request.url;
-          if (this.formSubmitResponse && (url.includes("formsubmit.co") || ["/api/contact", "/api/careers"].includes(new URL(url).pathname))) {
-            const body = Buffer.from(JSON.stringify(this.formSubmitResponse < 400 ? { success: "true" } : { success: "false" })).toString("base64");
-            this.send("Fetch.fulfillRequest", { requestId: message.params.requestId, responseCode: this.formSubmitResponse, responseHeaders: [{ name: "content-type", value: "application/json" }, { name: "access-control-allow-origin", value: site }], body }, message.sessionId).catch((error) => {
-              this.fetchFulfillErrors.push({ paused_session: message.sessionId, configured_session: this.formSubmitSessionId, error: error.message });
+          if (this.formApiResponse && ["/api/contact", "/api/careers"].includes(new URL(url).pathname)) {
+            const body = Buffer.from(JSON.stringify(this.formApiResponse < 400 ? { success: "true" } : { success: "false" })).toString("base64");
+            this.send("Fetch.fulfillRequest", { requestId: message.params.requestId, responseCode: this.formApiResponse, responseHeaders: [{ name: "content-type", value: "application/json" }, { name: "access-control-allow-origin", value: site }], body }, message.sessionId).catch((error) => {
+              this.fetchFulfillErrors.push({ paused_session: message.sessionId, configured_session: this.formApiSessionId, error: error.message });
             });
           }
         }
@@ -414,10 +414,10 @@ async function runLeadCheck(cdp, mode) {
     const start = cdp.events.length;
     const isInvalid = mode === "empty" || mode === "invalid";
     if (!isInvalid) {
-      cdp.formSubmitResponse = mode === "error" ? 500 : 200;
-      cdp.formSubmitSessionId = sessionId;
+      cdp.formApiResponse = mode === "error" ? 500 : 200;
+      cdp.formApiSessionId = sessionId;
       cdp.fetchFulfillErrors = [];
-      await cdp.send("Fetch.enable", { patterns: [{ urlPattern: "*://*/api/contact*", requestStage: "Request" }, { urlPattern: "*formsubmit.co/*", requestStage: "Request" }] }, sessionId);
+      await cdp.send("Fetch.enable", { patterns: [{ urlPattern: "*://*/api/contact*", requestStage: "Request" }] }, sessionId);
     }
     const expression = `(() => {
       const form = document.querySelector('#lead-form');
@@ -481,10 +481,10 @@ async function runCareerFormCheck(cdp) {
     const loaded = await visit(cdp, sessionId, url);
     await waitForUi(cdp, sessionId, ".career-form");
     const start = cdp.events.length;
-    cdp.formSubmitResponse = 200;
-    cdp.formSubmitSessionId = sessionId;
+    cdp.formApiResponse = 200;
+    cdp.formApiSessionId = sessionId;
     cdp.fetchFulfillErrors = [];
-    await cdp.send("Fetch.enable", { patterns: [{ urlPattern: "*://*/api/careers*", requestStage: "Request" }, { urlPattern: "*formsubmit.co/*", requestStage: "Request" }] }, sessionId);
+    await cdp.send("Fetch.enable", { patterns: [{ urlPattern: "*://*/api/careers*", requestStage: "Request" }] }, sessionId);
     const submitted = await cdp.send("Runtime.evaluate", { expression: `(() => { const form = document.querySelector('.career-form'); ${fillCareerForm} form.dispatchEvent(new Event('submit', {bubbles:true, cancelable:true})); })()`, awaitPromise: true }, sessionId);
     if (submitted.exceptionDetails) throw new Error(`Career form test evaluation failed: ${submitted.exceptionDetails.exception?.description || submitted.exceptionDetails.text}`);
     try {
