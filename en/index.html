@@ -1753,7 +1753,7 @@
           <div class="final-actions"><a class="button primary" href="#contact-form" data-track-event="quote_request_click" data-track-location="contact" data-i18n="finalCtaPrimary">Get Initial Campaign Advice</a><a class="button secondary on-dark" href="#cases" data-track-event="case_study_click" data-track-location="contact" data-i18n="finalCtaSecondary">View Past Cases</a></div>
         </div>
         <div class="contact-card">
-          <form id="lead-form" class="lead-form" action="/api/contact" method="POST">
+          <form id="lead-form" class="lead-form" action="https://formsubmit.co/ajax/weiting@zhenguocool.com" method="POST">
             <input type="hidden" name="utm_source" value="">
             <input type="hidden" name="utm_medium" value="">
             <input type="hidden" name="utm_campaign" value="">
@@ -1764,7 +1764,7 @@
             <div class="form-grid">
               <label><span data-i18n="formBrand">Brand name</span><input name="brand_name" autocomplete="organization" required></label>
               <label><span data-i18n="formContact">Contact name (optional)</span><input name="contact_name" autocomplete="name"></label>
-              <label><span data-i18n="formEmail">Work email</span><input type="email" name="email" autocomplete="email" required></label>
+              <label><span data-i18n="formEmail">Work email</span><input type="email" name="email" autocomplete="email" pattern="[^\s@]+@[^\s@]+\.[^\s@]+" required></label>
               <label><span data-i18n="formCategory">Product category (optional)</span><input name="product_category"></label>
               <label><span data-i18n="formMarket">Target market</span><select name="target_market" required><option value="" data-i18n="formSelect">Select one</option><option>台灣</option><option>日本</option><option>韓國</option><option>美國</option><option>東南亞</option><option data-i18n="formMarketOther">Other / multiple markets</option></select></label>
               <label><span data-i18n="formBudget">Estimated budget (optional)</span><select name="budget_range"><option value="" data-i18n="formSelect">Select one</option><option>NT$50,000 以下</option><option>NT$50,000–150,000</option><option>NT$150,000–300,000</option><option>NT$300,000 以上</option><option data-i18n="formBudgetDiscuss">Need to discuss</option></select></label>
@@ -2982,13 +2982,11 @@
 
         try {
           const data = new FormData(leadForm);
-          let response = await fetch(leadForm.action, {
+          const response = await fetch(leadForm.action, {
             method: "POST",
             body: data,
             headers: { Accept: "application/json" }
           });
-          // Keep the existing GitHub Pages deployment receiving inquiries until the custom domain points to Pages Functions.
-          if (response.status === 404) response = await fetch("https://formsubmit.co/ajax/contact@zhenguocool.com", { method: "POST", body: data, headers: { Accept: "application/json" } });
           if (!response.ok) throw new Error("Form delivery failed");
           localStorage.setItem("zg_pending_generate_lead", JSON.stringify(window.zgPagePayload ? window.zgPagePayload() : {
             page_path: `${location.pathname}${location.search}`,

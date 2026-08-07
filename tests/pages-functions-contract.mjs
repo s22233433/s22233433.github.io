@@ -3,7 +3,7 @@ import { onRequest as contact } from "../functions/api/contact.js";
 import { onRequest as careers } from "../functions/api/careers.js";
 
 const verifier = await import("node:fs/promises").then(({ readFile }) => readFile(new URL("../tools/verify-ga4.mjs", import.meta.url), "utf8"));
-assert.match(verifier, /\/api\/contact/, "GA verification must intercept the Pages endpoint instead of delivering a real test inquiry.");
+assert.match(verifier, /formsubmit\.co/, "GA verification must intercept FormSubmit instead of delivering a real test inquiry.");
 assert.match(verifier, /career_form_success/, "GA verification must cover successful career submissions without PII.");
 
 const originalFetch = globalThis.fetch;

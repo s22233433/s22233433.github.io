@@ -188,9 +188,9 @@
     <section><div class="wrap"><h2>留下資料後，會怎麼進行</h2><div class="grid steps"><article class="card"><h3>提交人才資料</h3><p>告訴我們你想投入的方向、經驗、作品集與簡短自介。</p></article>
           <article class="card"><h3>人工閱讀與初步比對</h3><p>我們會依當下與未來專案需求，確認經驗、合作方式與可投入範圍是否相符。</p></article>
           <article class="card"><h3>有合適機會再聯繫</h3><p>若出現適合的合作或職務交流機會，會以 Email 聯繫；未必每一份資料都會立即回覆。</p></article></div></div></section>
-    <section id="career-form"><div class="wrap"><form class="career-form" action="/api/careers" method="POST" novalidate>
+    <section id="career-form"><div class="wrap"><form class="career-form" action="https://formsubmit.co/ajax/hr@zhenguocool.com" method="POST" novalidate>
       <h2>留下人才資料</h2><p class="career-note">基本資料會安全轉寄至 hr@zhenguocool.com。履歷附件不會由本表單上傳，請另以 Email 附件寄送。</p>
-      <div class="form-grid"><label>姓名<input name="full_name" autocomplete="name" required></label><label>Email<input type="email" name="email" autocomplete="email" required></label><label>想投入的方向<select name="career_direction" required><option value="">請選擇</option><option>創作者行銷專案</option><option>創作者合作與商業發展</option><option>內容與 SEO 專案營運</option><option>其他相關方向</option></select></label><label>年資或相關背景<input name="experience_background" required></label></div>
+      <div class="form-grid"><label>姓名<input name="full_name" autocomplete="name" required></label><label>Email<input type="email" name="email" autocomplete="email" pattern="[^\s@]+@[^\s@]+\.[^\s@]+" required></label><label>想投入的方向<select name="career_direction" required><option value="">請選擇</option><option>創作者行銷專案</option><option>創作者合作與商業發展</option><option>內容與 SEO 專案營運</option><option>其他相關方向</option></select></label><label>年資或相關背景<input name="experience_background" required></label></div>
       <input class="form-trap" name="website" tabindex="-1" autocomplete="off" aria-hidden="true"><label>作品集或 LinkedIn（選填）<input type="url" name="portfolio_url" inputmode="url" placeholder="https://"></label><label>簡短自介<textarea name="introduction" required></textarea></label>
       <label>履歷檔案（請改以 Email 附件寄送）<input type="file" name="resume_file" accept=".pdf,.doc,.docx,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document" data-resume-file><span class="form-note">可先選檔檢查格式與大小；本檔案不會經由此表單上傳。</span></label>
       <label class="form-consent"><input type="checkbox" name="privacy_consent" value="agreed" required><span>我同意榛菓為回覆人才交流需求使用上述基本資料。 <a href="../../privacy/passive-analytics/" target="_blank" rel="noopener noreferrer">現有隱私權政策</a></span></label>
@@ -228,9 +228,7 @@
         const data = new FormData(form);
         data.delete("resume_file");
         try {
-          let response = await fetch(form.action, { method: "POST", body: data, headers: { Accept: "application/json" } });
-          // Keep the existing GitHub Pages deployment receiving applications until the custom domain points to Pages Functions.
-          if (response.status === 404) response = await fetch("https://formsubmit.co/ajax/hr@zhenguocool.com", { method: "POST", body: data, headers: { Accept: "application/json" } });
+          const response = await fetch(form.action, { method: "POST", body: data, headers: { Accept: "application/json" } });
           if (!response.ok) throw new Error("Career form delivery failed");
           track("career_form_success");
           success.textContent = copy.success; success.hidden = false; form.reset();

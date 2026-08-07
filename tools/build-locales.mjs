@@ -938,6 +938,7 @@ const renderHomePage = (locale, isRoot = false) => {
   html = html.replace(/<script type="application\/ld\+json" id="structured-data">[\s\S]*?<\/script>/, `<script type="application/ld+json" id="structured-data">\n${JSON.stringify(buildHomeSchema(copy, locale), null, 2)}\n  </script>`);
   html = localizeElements(html, copy);
   html = setLanguageLinks(html, locale, isRoot);
+  html = html.replaceAll(`${baseUrl}careers/`, careerUrl(locale));
   html = html.replace(/href="careers\//g, `href="${careerUrl(locale)}`);
   html = html.replace("</main>", `${renderHomeGuideIndex(locale)}\n  </main>`);
   if (!isRoot) {
@@ -1826,9 +1827,9 @@ ${JSON.stringify(buildCareerSchema(locale), null, 2)}
     <section><div class="wrap"><h2>${escapeHtml(copy.profileTitle)}</h2><div class="grid">${cards}</div></div></section>
     <section class="faq"><div class="wrap"><h2>${escapeHtml(copy.directionTitle)}</h2><div class="grid">${directions}</div></div></section>
     <section><div class="wrap"><h2>${escapeHtml(copy.processTitle)}</h2><div class="grid steps">${steps}</div></div></section>
-    <section id="career-form"><div class="wrap"><form class="career-form" action="/api/careers" method="POST" novalidate>
+    <section id="career-form"><div class="wrap"><form class="career-form" action="https://formsubmit.co/ajax/hr@zhenguocool.com" method="POST" novalidate>
       <h2>${escapeHtml(copy.formTitle)}</h2><p class="career-note">${escapeHtml(copy.formIntro)}</p>
-      <div class="form-grid"><label>${escapeHtml(copy.name)}<input name="full_name" autocomplete="name" required></label><label>${escapeHtml(copy.email)}<input type="email" name="email" autocomplete="email" required></label><label>${escapeHtml(copy.direction)}<select name="career_direction" required><option value="">${escapeHtml(copy.select)}</option>${copy.directionOptions.map((item) => `<option>${escapeHtml(item)}</option>`).join("")}</select></label><label>${escapeHtml(copy.experience)}<input name="experience_background" required></label></div>
+      <div class="form-grid"><label>${escapeHtml(copy.name)}<input name="full_name" autocomplete="name" required></label><label>${escapeHtml(copy.email)}<input type="email" name="email" autocomplete="email" pattern="[^\\s@]+@[^\\s@]+\\.[^\\s@]+" required></label><label>${escapeHtml(copy.direction)}<select name="career_direction" required><option value="">${escapeHtml(copy.select)}</option>${copy.directionOptions.map((item) => `<option>${escapeHtml(item)}</option>`).join("")}</select></label><label>${escapeHtml(copy.experience)}<input name="experience_background" required></label></div>
       <input class="form-trap" name="website" tabindex="-1" autocomplete="off" aria-hidden="true"><label>${escapeHtml(copy.portfolio)}<input type="url" name="portfolio_url" inputmode="url" placeholder="https://"></label><label>${escapeHtml(copy.introLabel)}<textarea name="introduction" required></textarea></label>
       <label>${escapeHtml(copy.resume)}<input type="file" name="resume_file" accept=".pdf,.doc,.docx,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document" data-resume-file><span class="form-note">${escapeHtml(copy.fileNote)}</span></label>
       <label class="form-consent"><input type="checkbox" name="privacy_consent" value="agreed" required><span>${escapeHtml(copy.consent)} <a href="${prefix}privacy/passive-analytics/" target="_blank" rel="noopener noreferrer">${escapeHtml(copy.privacy)}</a></span></label>
@@ -1864,9 +1865,7 @@ ${JSON.stringify(buildCareerSchema(locale), null, 2)}
         const data = new FormData(form);
         data.delete("resume_file");
         try {
-          let response = await fetch(form.action, { method: "POST", body: data, headers: { Accept: "application/json" } });
-          // Keep the existing GitHub Pages deployment receiving applications until the custom domain points to Pages Functions.
-          if (response.status === 404) response = await fetch("https://formsubmit.co/ajax/hr@zhenguocool.com", { method: "POST", body: data, headers: { Accept: "application/json" } });
+          const response = await fetch(form.action, { method: "POST", body: data, headers: { Accept: "application/json" } });
           if (!response.ok) throw new Error("Career form delivery failed");
           track("career_form_success");
           success.textContent = copy.success; success.hidden = false; form.reset();
