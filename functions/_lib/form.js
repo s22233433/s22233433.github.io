@@ -19,7 +19,16 @@ const verifyTurnstile = async (request, secret, token) => {
   return (await response.json()).success === true;
 };
 
-export const handleForm = async ({ request, env }, config) => {
+const notify = async (service, type, values) => {
+  const response = await service.fetch("https://form-notifier.internal/", {
+    method: "POST",
+    headers: { "content-type": "application/json" },
+    body: JSON.stringify({ type, values })
+  });
+  if (!response.ok) throw new Error(`Form notification failed: ${response.status}`);
+};
+
+export const handleForm = async ({ request, env, waitUntil }, config) => {
   if (request.method !== "POST") return json(405, { ok: false });
   const origin = request.headers.get("origin");
   if (origin && new URL(origin).origin !== new URL(request.url).origin) return json(403, { ok: false });
@@ -57,6 +66,11 @@ export const handleForm = async ({ request, env }, config) => {
     ).run();
   } catch {
     return json(502, { ok: false });
+  }
+  if (env.FORM_NOTIFIER) {
+    const task = notify(env.FORM_NOTIFIER, config.type, values).catch((error) => console.error(error.message));
+    if (typeof waitUntil === "function") waitUntil(task);
+    else await task;
   }
   return json(200, { ok: true });
 };

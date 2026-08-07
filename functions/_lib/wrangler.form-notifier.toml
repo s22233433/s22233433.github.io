@@ -1,0 +1,9 @@
+name = "zhenguocool-form-notifier"
+main = "notifier-worker.js"
+compatibility_date = "2026-08-04"
+workers_dev = false
+
+[[send_email]]
+name = "EMAIL"
+destination_address = "weiting@zhenguocool.com"
+allowed_sender_addresses = ["forms@notify.zhenguocool.com"]
