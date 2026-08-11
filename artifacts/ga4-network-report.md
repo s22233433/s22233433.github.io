@@ -1,6 +1,6 @@
 # GA4 Network Report
 
-Generated: 2026-07-27T17:21:04.318Z
+Generated: 2026-08-11T14:57:45.373Z
 
 ## Test method
 
@@ -14,30 +14,33 @@ Generated: 2026-07-27T17:21:04.318Z
 
 | Locale | URL | page_view | HTTP | Measurement ID | Result |
 | --- | --- | ---: | ---: | --- | --- |
-| zh-TW | https://zhenguocool.com/services/influencer-marketing-agency/ | 1 | 200 | G-3G60NBREE3 | PASS |
-| zh-CN | https://zhenguocool.com/zh-cn/services/influencer-marketing-agency/ | 1 | 200 | G-3G60NBREE3 | PASS |
-| en | https://zhenguocool.com/en/services/influencer-marketing-agency/ | 1 | 200 | G-3G60NBREE3 | PASS |
-| zh-TW | https://zhenguocool.com/services/overseas-influencer-marketing-guide/ | 1 | 200 | G-3G60NBREE3 | PASS |
-| zh-CN | https://zhenguocool.com/zh-cn/services/overseas-influencer-marketing-guide/ | 1 | 200 | G-3G60NBREE3 | PASS |
-| en | https://zhenguocool.com/en/services/overseas-influencer-marketing-guide/ | 1 | 200 | G-3G60NBREE3 | PASS |
-| zh-TW | https://zhenguocool.com/services/japan-influencer-marketing-guide/ | 1 | 200 | G-3G60NBREE3 | PASS |
-| zh-CN | https://zhenguocool.com/zh-cn/services/japan-influencer-marketing-guide/ | 1 | 200 | G-3G60NBREE3 | PASS |
-| en | https://zhenguocool.com/en/services/japan-influencer-marketing-guide/ | 1 | 200 | G-3G60NBREE3 | PASS |
-| zh-TW | https://zhenguocool.com/services/tiktok-koc-marketing-guide/ | 1 | 200 | G-3G60NBREE3 | PASS |
-| zh-CN | https://zhenguocool.com/zh-cn/services/tiktok-koc-marketing-guide/ | 1 | 200 | G-3G60NBREE3 | PASS |
-| en | https://zhenguocool.com/en/services/tiktok-koc-marketing-guide/ | 1 | 200 | G-3G60NBREE3 | PASS |
-| zh-TW | https://zhenguocool.com/services/influencer-marketing-costs/ | 1 | 200 | G-3G60NBREE3 | PASS |
-| zh-CN | https://zhenguocool.com/zh-cn/services/influencer-marketing-costs/ | 1 | 200 | G-3G60NBREE3 | PASS |
-| en | https://zhenguocool.com/en/services/influencer-marketing-costs/ | 1 | 200 | G-3G60NBREE3 | PASS |
-| zh-TW | https://zhenguocool.com/insights/taiwan-influencer-marketing-costs-2026/ | 1 | 200 | G-3G60NBREE3 | PASS |
-| zh-CN | https://zhenguocool.com/zh-cn/insights/taiwan-influencer-marketing-costs-2026/ | 1 | 200 | G-3G60NBREE3 | PASS |
-| en | https://zhenguocool.com/en/insights/taiwan-influencer-marketing-costs-2026/ | 1 | 200 | G-3G60NBREE3 | PASS |
-| zh-TW | https://zhenguocool.com/insights/how-to-choose-influencer-marketing-agency/ | 1 | 200 | G-3G60NBREE3 | PASS |
-| zh-CN | https://zhenguocool.com/zh-cn/insights/how-to-choose-influencer-marketing-agency/ | 1 | 200 | G-3G60NBREE3 | PASS |
-| en | https://zhenguocool.com/en/insights/how-to-choose-influencer-marketing-agency/ | 1 | 200 | G-3G60NBREE3 | PASS |
-| zh-TW | https://zhenguocool.com/insights/japan-influencer-marketing-guide-article/ | 1 | 200 | G-3G60NBREE3 | PASS |
-| zh-CN | https://zhenguocool.com/zh-cn/insights/japan-influencer-marketing-guide-article/ | 1 | 200 | G-3G60NBREE3 | PASS |
-| en | https://zhenguocool.com/en/insights/japan-influencer-marketing-guide-article/ | 1 | 200 | G-3G60NBREE3 | PASS |
+| zh-TW | https://zhenguocool.com/services/influencer-marketing-agency/ | 1 | 200 | G-HDSJX9TX6E | PASS |
+| zh-CN | https://zhenguocool.com/zh-cn/services/influencer-marketing-agency/ | 1 | 200 | G-HDSJX9TX6E | PASS |
+| en | https://zhenguocool.com/en/services/influencer-marketing-agency/ | 1 | 200 | G-HDSJX9TX6E | PASS |
+| zh-TW | https://zhenguocool.com/services/overseas-influencer-marketing-guide/ | 1 | 200 | G-HDSJX9TX6E | PASS |
+| zh-CN | https://zhenguocool.com/zh-cn/services/overseas-influencer-marketing-guide/ | 1 | 200 | G-HDSJX9TX6E | PASS |
+| en | https://zhenguocool.com/en/services/overseas-influencer-marketing-guide/ | 1 | 200 | G-HDSJX9TX6E | PASS |
+| zh-TW | https://zhenguocool.com/services/japan-influencer-marketing-guide/ | 1 | 200 | G-HDSJX9TX6E | PASS |
+| zh-CN | https://zhenguocool.com/zh-cn/services/japan-influencer-marketing-guide/ | 1 | 200 | G-HDSJX9TX6E | PASS |
+| en | https://zhenguocool.com/en/services/japan-influencer-marketing-guide/ | 1 | 200 | G-HDSJX9TX6E | PASS |
+| zh-TW | https://zhenguocool.com/services/tiktok-koc-marketing-guide/ | 1 | 200 | G-HDSJX9TX6E | PASS |
+| zh-CN | https://zhenguocool.com/zh-cn/services/tiktok-koc-marketing-guide/ | 1 | 200 | G-HDSJX9TX6E | PASS |
+| en | https://zhenguocool.com/en/services/tiktok-koc-marketing-guide/ | 1 | 200 | G-HDSJX9TX6E | PASS |
+| zh-TW | https://zhenguocool.com/services/influencer-marketing-costs/ | 1 | 200 | G-HDSJX9TX6E | PASS |
+| zh-CN | https://zhenguocool.com/zh-cn/services/influencer-marketing-costs/ | 1 | 200 | G-HDSJX9TX6E | PASS |
+| en | https://zhenguocool.com/en/services/influencer-marketing-costs/ | 1 | 200 | G-HDSJX9TX6E | PASS |
+| zh-TW | https://zhenguocool.com/insights/taiwan-influencer-marketing-costs-2026/ | 1 | 200 | G-HDSJX9TX6E | PASS |
+| zh-CN | https://zhenguocool.com/zh-cn/insights/taiwan-influencer-marketing-costs-2026/ | 1 | 200 | G-HDSJX9TX6E | PASS |
+| en | https://zhenguocool.com/en/insights/taiwan-influencer-marketing-costs-2026/ | 1 | 200 | G-HDSJX9TX6E | PASS |
+| zh-TW | https://zhenguocool.com/insights/how-to-choose-influencer-marketing-agency/ | 1 | 200 | G-HDSJX9TX6E | PASS |
+| zh-CN | https://zhenguocool.com/zh-cn/insights/how-to-choose-influencer-marketing-agency/ | 1 | 200 | G-HDSJX9TX6E | PASS |
+| en | https://zhenguocool.com/en/insights/how-to-choose-influencer-marketing-agency/ | 1 | 200 | G-HDSJX9TX6E | PASS |
+| zh-TW | https://zhenguocool.com/insights/japan-influencer-marketing-guide-article/ | 1 | 200 | G-HDSJX9TX6E | PASS |
+| zh-CN | https://zhenguocool.com/zh-cn/insights/japan-influencer-marketing-guide-article/ | 1 | 200 | G-HDSJX9TX6E | PASS |
+| en | https://zhenguocool.com/en/insights/japan-influencer-marketing-guide-article/ | 1 | 200 | G-HDSJX9TX6E | PASS |
+| zh-TW | https://zhenguocool.com/insights/beverage-kol-marketing-guide/ | 1 | 200 | G-HDSJX9TX6E | PASS |
+| zh-CN | https://zhenguocool.com/zh-cn/insights/beverage-kol-marketing-guide/ | 1 | 200 | G-HDSJX9TX6E | PASS |
+| en | https://zhenguocool.com/en/insights/beverage-kol-marketing-guide/ | 1 | 200 | G-HDSJX9TX6E | PASS |
 
 ## Shared classification regression
 
