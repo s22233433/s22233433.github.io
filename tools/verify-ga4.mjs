@@ -7,7 +7,7 @@ import { seoPhaseOnePages } from "./seo-phase-one-content.mjs";
 const site = (process.env.SITE_URL || "https://zhenguocool.com").replace(/\/$/, "");
 const chrome = process.env.CHROME_BIN || "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome";
 const port = Number(process.env.GA4_CDP_PORT || 9500 + (process.pid % 300));
-const measurementId = "G-3G60NBREE3";
+const measurementId = "G-HDSJX9TX6E";
 const timeoutMs = Number(process.env.GA4_TIMEOUT_MS || 12000);
 const targets = process.env.GA4_TARGETS ? process.env.GA4_TARGETS.split("|").filter(Boolean) : [];
 const includeProductDiscovery = process.env.GA4_PRODUCT_DISCOVERY === "1";

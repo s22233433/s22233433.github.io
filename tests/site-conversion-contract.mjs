@@ -26,9 +26,9 @@ assert.deepEqual(runLocaleEntry({ saved: "zh-Hant", languages: ["en-US"] }), [],
 assert.deepEqual(runLocaleEntry({ pathname: "/en/", languages: ["zh-CN"] }), [], "Localized routes must not redirect again.");
 assert.match(home, /localStorage\.setItem\("zg_locale", link\.dataset\.langLink\)/, "Manual language choices need to be remembered.");
 
-assert.match(analyticsConfig, /G-3G60NBREE3/, "Shared analytics config needs the ZhenguoCool GA4 measurement ID.");
+assert.match(analyticsConfig, /G-HDSJX9TX6E/, "Shared analytics config needs the ZhenguoCool GA4 measurement ID.");
 for (const file of fs.readdirSync(root, { recursive: true }).filter((file) => file.endsWith(".html") && !file.startsWith("mytools/") && !file.startsWith("tools/"))) {
-  assert.match(fs.readFileSync(path.join(root, file), "utf8"), /(web-assets\/analytics\.js|googletagmanager\.com\/gtag\/js\?id=G-3G60NBREE3)/, `Missing analytics entry point: ${file}`);
+  assert.match(fs.readFileSync(path.join(root, file), "utf8"), /(web-assets\/analytics\.js|googletagmanager\.com\/gtag\/js\?id=G-HDSJX9TX6E)/, `Missing analytics entry point: ${file}`);
 }
 
 assert.match(home, /<form[^>]+id="lead-form"/, "Homepage needs a qualifying lead form.");
