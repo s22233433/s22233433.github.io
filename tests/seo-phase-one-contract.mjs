@@ -20,7 +20,7 @@ const coreServiceSlugs = [
   "influencer-marketing-costs"
 ];
 
-assert.equal(seoPhaseOnePages.length, 9, "Phase one must contain exactly nine topics");
+assert.equal(seoPhaseOnePages.length, 12, "Phase one must contain exactly twelve topics");
 
 for (const page of seoPhaseOnePages) {
   assert.ok(["service", "article"].includes(page.kind), `${page.slug} has a supported page kind`);
@@ -70,8 +70,8 @@ for (const page of seoPhaseOnePages) {
   }
 }
 
-assert.equal(urls.length, 27, "Phase one must emit 27 direct language routes");
-assert.equal(titles.size, 27, "All phase-one pages must have unique titles");
+assert.equal(urls.length, 36, "Phase one must emit 36 direct language routes");
+assert.equal(titles.size, 36, "All phase-one pages must have unique titles");
 
 const roiPages = {
   "en/insights/japan-influencer-marketing-guide-article/index.html": ["Influencer Marketing in Japan: Japanese Creator Campaign Guide", "Influencer marketing in Japan: a Japanese influencer marketing decision guide"],
@@ -90,6 +90,18 @@ for (const [relative, requiredText] of Object.entries({
 })) {
   const html = fs.readFileSync(path.join(root, relative), "utf8");
   for (const text of requiredText) assert.ok(html.includes(text), `${relative} includes Taiwan AEO content: ${text}`);
+}
+
+for (const [relative, requiredText] of Object.entries({
+  "insights/taiwan-kol-koc-selection-guide/index.html": ["台灣 KOL／KOC 怎麼選？", "可以直接推薦幾位台灣網紅嗎？", "六項篩選標準"],
+  "zh-cn/insights/china-brands-taiwan-influencer-marketing/index.html": ["中国品牌如何做台湾网红营销？", "本地化不只是繁简转换", "可以保证台湾市场曝光或销售吗？"],
+  "insights/taiwan-influencer-campaign-brief-checklist/index.html": ["台灣網紅合作 Brief 怎麼寫？", "四、授權與費用", "原始貼文可以直接拿去投廣告嗎？"],
+  "en/insights/taiwan-kol-koc-selection-guide/index.html": ["How to Choose Taiwan KOLs and KOCs", "Six selection signals"],
+  "en/insights/china-brands-taiwan-influencer-marketing/index.html": ["Taiwan Influencer Marketing for China Brands", "Localization is more than character conversion"],
+  "en/insights/taiwan-influencer-campaign-brief-checklist/index.html": ["Taiwan Influencer Campaign Brief Template", "Rights and cost"]
+})) {
+  const html = fs.readFileSync(path.join(root, relative), "utf8");
+  for (const text of requiredText) assert.ok(html.includes(text), `${relative} includes new AEO content: ${text}`);
 }
 
 for (const relative of ["index.html", "zh-tw/index.html", "zh-cn/index.html", "en/index.html"]) {
