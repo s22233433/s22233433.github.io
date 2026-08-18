@@ -878,7 +878,20 @@ const organizationSchema = (locale) => ({
 const buildHomeSchema = (copy, locale) => ({
   "@context": "https://schema.org",
   "@graph": [
-    organizationSchema(locale),
+    {
+      ...organizationSchema(locale),
+      legalName: locale.key === "en" ? "Zhenguo Marketing Co., Ltd." : "榛菓行銷有限公司",
+      logo: `${baseUrl}web-assets/icons/icon-512.png`,
+      description: copy.metaDescription,
+      areaServed: ["Taiwan", "China", "Japan", "South Korea", "Southeast Asia", "United States"],
+      knowsAbout: ["Taiwan influencer marketing", "KOL marketing", "KOC marketing", "creator screening", "creator campaign management", "content review", "usage rights"],
+      contactPoint: {
+        "@type": "ContactPoint",
+        contactType: "sales",
+        email: "contact@zhenguocool.com",
+        availableLanguage: ["zh-TW", "zh-CN", "en"]
+      }
+    },
     {
       "@type": "WebSite",
       "@id": `${baseUrl}#website`,

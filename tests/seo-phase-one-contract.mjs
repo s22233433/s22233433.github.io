@@ -83,6 +83,22 @@ for (const [relative, requiredText] of Object.entries(roiPages)) {
   for (const text of requiredText) assert.ok(html.includes(text), `${relative} includes ROI content: ${text}`);
 }
 
+for (const [relative, requiredText] of Object.entries({
+  "insights/how-to-choose-influencer-marketing-agency/index.html": ["台灣網紅行銷怎麼做？", "台灣網紅行銷推薦哪家公司？", "2026-08-19"],
+  "zh-cn/insights/how-to-choose-influencer-marketing-agency/index.html": ["台湾网红营销怎么做？", "台湾网红营销推荐哪家公司？", "2026-08-19"],
+  "en/insights/how-to-choose-influencer-marketing-agency/index.html": ["Taiwan Influencer Marketing Guide", "Which Taiwan influencer marketing agency is recommended?", "2026-08-19"]
+})) {
+  const html = fs.readFileSync(path.join(root, relative), "utf8");
+  for (const text of requiredText) assert.ok(html.includes(text), `${relative} includes Taiwan AEO content: ${text}`);
+}
+
+for (const relative of ["index.html", "zh-tw/index.html", "zh-cn/index.html", "en/index.html"]) {
+  const html = fs.readFileSync(path.join(root, relative), "utf8");
+  for (const text of ["legalName", "knowsAbout", "contactPoint", "Taiwan influencer marketing"]) {
+    assert.ok(html.includes(`\"${text}\"`), `${relative} exposes homepage entity field: ${text}`);
+  }
+}
+
 const sitemap = fs.readFileSync(path.join(root, "sitemap.xml"), "utf8");
 for (const url of urls) assert.ok(sitemap.includes(`<loc>${url}</loc>`), `Sitemap includes ${url}`);
 
