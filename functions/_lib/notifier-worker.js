@@ -1,5 +1,5 @@
 const FIELDS = {
-  contact: ["brand_name", "contact_name", "email", "product_category", "target_market", "budget_range", "launch_timing", "cooperation_goal", "message", "utm_source", "utm_medium", "utm_campaign", "utm_content", "landing_page"],
+  contact: ["brand_name", "contact_name", "messaging_id", "email", "product_category", "target_market", "budget_range", "launch_timing", "cooperation_goal", "message", "utm_source", "utm_medium", "utm_campaign", "utm_content", "landing_page"],
   careers: ["full_name", "email", "career_direction", "experience_background", "portfolio_url", "introduction", "privacy_consent"]
 };
 

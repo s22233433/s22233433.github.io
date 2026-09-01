@@ -994,6 +994,7 @@
     .lead-form { display: grid; gap: 14px; }
     .lead-form h3 { margin: 0; font-size: 22px; }
     .form-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+    .form-grid .form-field-wide { grid-column: 1 / -1; }
     .lead-form label { display: grid; gap: 6px; color: #fff5ef; font-size: 13px; font-weight: 900; }
     .lead-form input, .lead-form select, .lead-form textarea {
       width: 100%; border: 1px solid rgba(255,255,255,.36); border-radius: 6px; background: rgba(255,255,255,.96);
@@ -1795,6 +1796,7 @@
             <div class="form-grid">
               <label><span data-i18n="formBrand">品牌名稱</span><input name="brand_name" autocomplete="organization" required></label>
               <label><span data-i18n="formContact">聯絡人（選填）</span><input name="contact_name" autocomplete="name"></label>
+              <label class="form-field-wide"><span data-i18n="formMessaging">LINE ID／WeChat ID（選填）</span><input name="messaging_id" autocomplete="off" maxlength="200"></label>
               <label><span data-i18n="formEmail">工作 Email</span><input type="email" name="email" autocomplete="email" pattern="[^\s@]+@[^\s@]+\.[^\s@]+" required></label>
               <label><span data-i18n="formCategory">產品品類（選填）</span><input name="product_category"></label>
               <label><span data-i18n="formMarket">目標市場</span><select name="target_market" required><option value="" data-i18n="formSelect">請選擇</option><option>台灣</option><option>日本</option><option>韓國</option><option>美國</option><option>東南亞</option><option data-i18n="formMarketOther">其他 / 多市場</option></select></label>
@@ -2086,6 +2088,7 @@
                 "formTitle": "提交合作需求",
                 "formBrand": "品牌名稱",
                 "formContact": "聯絡人（選填）",
+                "formMessaging": "LINE ID／WeChat ID（選填）",
                 "formEmail": "工作 Email",
                 "formCategory": "產品品類（選填）",
                 "formMarket": "目標市場",
@@ -2434,6 +2437,7 @@
                 "formTitle": "提交合作需求",
                 "formBrand": "品牌名称",
                 "formContact": "联系人（选填）",
+                "formMessaging": "LINE ID／WeChat ID（选填）",
                 "formEmail": "工作 Email",
                 "formCategory": "产品品类（选填）",
                 "formMarket": "目标市场",
@@ -2782,6 +2786,7 @@
                 "formTitle": "Share your project brief",
                 "formBrand": "Brand name",
                 "formContact": "Contact name (optional)",
+                "formMessaging": "LINE ID / WeChat ID (optional)",
                 "formEmail": "Work email",
                 "formCategory": "Product category (optional)",
                 "formMarket": "Target market",

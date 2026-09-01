@@ -38,7 +38,7 @@ const leadForm = home.match(/<form[^>]+id="lead-form"[\s\S]*?<\/form>/)?.[0] || 
 for (const field of ["brand_name", "email", "target_market"]) {
   assert.match(leadForm, new RegExp(`name="${field}"[^>]*required`), `Lead form needs ${field} to remain required.`);
 }
-for (const field of ["contact_name", "product_category", "budget_range", "launch_timing", "cooperation_goal"]) {
+for (const field of ["contact_name", "messaging_id", "product_category", "budget_range", "launch_timing", "cooperation_goal"]) {
   assert.doesNotMatch(leadForm, new RegExp(`name="${field}"[^>]*required`), `Lead form needs ${field} to remain optional.`);
 }
 assert.match(leadForm, /安全保存所填資料/, "Lead form needs a nearby data-use notice.");
