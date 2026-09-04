@@ -20,7 +20,7 @@ const coreServiceSlugs = [
   "influencer-marketing-costs"
 ];
 
-assert.equal(seoPhaseOnePages.length, 12, "Phase one must contain exactly twelve topics");
+assert.equal(seoPhaseOnePages.length, 13, "SEO content must contain thirteen topics");
 
 for (const page of seoPhaseOnePages) {
   assert.ok(["service", "article"].includes(page.kind), `${page.slug} has a supported page kind`);
@@ -70,8 +70,8 @@ for (const page of seoPhaseOnePages) {
   }
 }
 
-assert.equal(urls.length, 36, "Phase one must emit 36 direct language routes");
-assert.equal(titles.size, 36, "All phase-one pages must have unique titles");
+assert.equal(urls.length, 39, "SEO content must emit 39 direct language routes");
+assert.equal(titles.size, 39, "All SEO pages must have unique titles");
 
 const roiPages = {
   "en/insights/japan-influencer-marketing-guide-article/index.html": ["Influencer Marketing in Japan: Japanese Creator Campaign Guide", "Influencer marketing in Japan: a Japanese influencer marketing decision guide"],

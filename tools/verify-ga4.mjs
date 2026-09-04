@@ -673,6 +673,15 @@ try {
   }
   const interactions = [];
   const clickDefinitions = [
+    ...locales.flatMap((locale) => ["hero", "final"].map((location) => ({
+      name: `Taiwan service ${locale.key} ${location}`,
+      url: `${site}${locale.prefix}/services/taiwan-influencer-marketing/`,
+      selector: `[data-track-event="service_cta_click"][data-track-location="${location}"]`,
+      event: "service_cta_click", location
+    }))),
+    { name: "Taiwan service case link", url: `${site}/services/taiwan-influencer-marketing/`, selector: '[data-track-location="taiwan-service-case"][href$="/cases/camay-curling-iron/"]', event: "case_study_click", location: "taiwan-service-case" },
+    { name: "Taiwan service guide entry", url: `${site}/insights/china-brands-taiwan-influencer-marketing/`, selector: '[data-track-location="related-taiwan-service"]', event: "article_cta_click", location: "related-taiwan-service", parameters: { service_name: "taiwan-influencer-marketing" } },
+    { name: "Taiwan service case entry", url: `${site}/cases/camay-curling-iron/`, selector: '[data-track-location="case-taiwan-service"]', event: "service_cta_click", location: "case-taiwan-service", parameters: { service_name: "taiwan-influencer-marketing" } },
     { name: "service hero CTA", url: `${site}/services/influencer-marketing-agency/`, selector: '[data-track-event="service_cta_click"][data-track-location="hero"]', event: "service_cta_click", location: "hero" },
     { name: "service final CTA", url: `${site}/services/influencer-marketing-agency/`, selector: '[data-track-event="service_cta_click"][data-track-location="final"]', event: "service_cta_click", location: "final" },
     { name: "article hero CTA", url: `${site}/insights/how-to-choose-influencer-marketing-agency/`, selector: '[data-track-event="article_cta_click"][data-track-location="hero"]', event: "article_cta_click", location: "hero" },

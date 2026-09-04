@@ -1401,7 +1401,9 @@ const renderCasePage = (study, locale) => {
   const assetPrefix = locale.isRoot ? "../../" : "../../../";
   const sections = study.content[locale.key].map((body, index) => `<article class="card"><h3>${escapeHtml(ui.labels[index])}</h3><p>${escapeHtml(body)}</p></article>`).join("\n          ");
   const serviceLinks = study.relatedServices.map((slug) => servicePages.find((page) => page.slug === slug)).filter(Boolean)
-    .map((page) => `<a class="button" href="${prefix}services/${page.slug}/">${escapeHtml(page.name[locale.key])}</a>`).join("\n          ");
+    .map((page) => `<a class="button" href="${prefix}services/${page.slug}/">${escapeHtml(page.name[locale.key])}</a>`).join("\n          ")
+    + (["camay-curling-iron", "liming-weiquan-cheer"].includes(study.slug)
+      ? `\n          <a class="button" href="${seoPageUrl(seoPhaseOnePages.find((page) => page.slug === "taiwan-influencer-marketing"), locale)}" data-track-event="service_cta_click" data-track-location="case-taiwan-service" data-service-name="taiwan-influencer-marketing">${escapeHtml(seoPhaseOnePages.find((page) => page.slug === "taiwan-influencer-marketing").copy[locale.key].h1)}</a>` : "");
   const detail = study.detail?.[locale.key];
   const beverageGuide = seoPhaseOnePages.find((page) => page.slug === "beverage-kol-marketing-guide");
   const caseDetailCss = detail ? `
@@ -1567,6 +1569,7 @@ const seoPageSchema = (page, locale) => {
   const primary = page.kind === "article"
     ? { "@type": "BlogPosting", "@id": `${url}#article`, headline: copy.h1, description: copy.description, mainEntityOfPage: url, datePublished: page.published || "2026-07-23", dateModified: page.modified || page.published || "2026-07-23", author: { "@id": `${baseUrl}#organization` }, publisher: { "@id": `${baseUrl}#organization` }, inLanguage: seoLanguage(locale).html }
     : { "@type": "Service", "@id": `${url}#service`, name: copy.h1, description: copy.description, provider: { "@id": `${baseUrl}#organization` }, serviceType: copy.h1, areaServed: ["Taiwan", "Japan", "United States", "South Korea", "Southeast Asia"], url, inLanguage: seoLanguage(locale).html };
+  if (page.slug === "taiwan-influencer-marketing") primary.areaServed = ["Taiwan"];
   return {
     "@context": "https://schema.org",
     "@graph": [
@@ -1582,7 +1585,7 @@ const seoPageSchema = (page, locale) => {
         "@id": `${url}#breadcrumb`,
         itemListElement: [
           { "@type": "ListItem", position: 1, name: ui.home, item: locale.isRoot ? baseUrl : locale.url },
-          { "@type": "ListItem", position: 2, name: page.kind === "article" ? ui.insights : ui.services, item: `${locale.isRoot ? baseUrl : locale.url}${directory}/` },
+          { "@type": "ListItem", position: 2, name: page.kind === "article" ? ui.insights : ui.services, item: page.slug === "taiwan-influencer-marketing" ? `${locale.url}#services` : `${locale.isRoot ? baseUrl : locale.url}${directory}/` },
           { "@type": "ListItem", position: 3, name: copy.h1, item: url }
         ]
       }
@@ -1602,6 +1605,8 @@ const renderSeoPage = (page, locale) => {
   const language = seoLanguage(locale);
   const url = seoPageUrl(page, locale);
   const prefix = seoRelativePrefix(locale);
+  const isTaiwan = page.slug === "taiwan-influencer-marketing";
+  const contactHref = isTaiwan ? `${locale.isRoot ? `${baseUrl}zh-tw/` : locale.url}#lead-form` : `${prefix}#contact-form`;
   const evidenceCards = page.evidence.map((key) => seoEvidence[key]).filter(Boolean).map((entry) => {
     const item = entry[locale.key];
     return `<article class="card evidence-card"><h3>${escapeHtml(item.title)}</h3><p>${escapeHtml(item.body)}</p><p class="evidence-meta">${escapeHtml(item.evidence)}</p></article>`;
@@ -1610,15 +1615,20 @@ const renderSeoPage = (page, locale) => {
   const faqCards = copy.faqs.map(([question, answer]) => `<article class="card"><h3>${escapeHtml(question)}</h3><p>${escapeHtml(answer)}</p></article>`).join("\n          ");
   const relatedLinks = page.related.map((slug) => seoPhaseOnePages.find((candidate) => candidate.slug === slug)).filter(Boolean).map((related) => {
     const trackedService = locale.isRoot && page.slug === "taiwan-influencer-marketing-costs-2026" && related.slug === "influencer-marketing-costs";
-    const attributes = trackedService ? ' data-track-event="article_cta_click" data-track-location="article-related-service" data-service-name="influencer-marketing-costs"' : "";
+    const attributes = related.slug === "taiwan-influencer-marketing"
+      ? ` data-track-event="${page.kind === "article" ? "article_cta_click" : "service_cta_click"}" data-track-location="related-taiwan-service" data-service-name="taiwan-influencer-marketing"`
+      : trackedService ? ' data-track-event="article_cta_click" data-track-location="article-related-service" data-service-name="influencer-marketing-costs"' : "";
     const productLink = trackedService ? '\n          <a class="button" href="https://zhenguocool.com/tools/instagram-insights-passive/" data-track-event="article_cta_click" data-track-location="article-related-product" data-product-name="Passive Analytics">先用 Passive Analytics 整理近期內容表現</a>' : "";
     return `<a class="button" href="${seoPageUrl(related, locale)}"${attributes}>${escapeHtml(related.copy[locale.key].h1)}</a>${productLink}`;
   }).join("\n          ");
   const relatedServiceLinks = (page.relatedServices || []).map((slug) => servicePages.find((candidate) => candidate.slug === slug)).filter(Boolean)
     .map((service) => `<a class="button" href="${serviceUrl(service, locale)}" data-track-event="article_cta_click" data-track-location="beverage-guide-service" data-service-name="${escapeAttr(service.slug)}">${escapeHtml(service.name[locale.key])}</a>`).join("\n          ");
   const relatedCaseLinks = (page.relatedCases || []).map((slug) => caseStudies.find((candidate) => candidate.slug === slug)).filter(Boolean)
-    .map((study) => `<a class="button" href="${caseStudyUrl(study, locale)}" data-track-event="case_study_click" data-track-location="beverage-guide-case">${escapeHtml(study.title[locale.key])}</a>`).join("\n          ");
-  const allRelatedLinks = [relatedLinks, relatedServiceLinks, relatedCaseLinks].filter(Boolean).join("\n          ");
+    .map((study) => isTaiwan
+      ? `<article class="card"><img src="${baseUrl}${study.image}" alt="${escapeAttr(study.title[locale.key])}" loading="lazy" style="width:100%;height:240px;object-fit:contain"><h3>${escapeHtml(study.title[locale.key])}</h3><p>${escapeHtml(study.summary[locale.key])}</p><a class="button" href="${caseStudyUrl(study, locale)}" data-track-event="case_study_click" data-track-location="taiwan-service-case">${escapeHtml(caseUi[locale.key].readCase)}</a></article>`
+      : `<a class="button" href="${caseStudyUrl(study, locale)}" data-track-event="case_study_click" data-track-location="beverage-guide-case">${escapeHtml(study.title[locale.key])}</a>`).join("\n          ");
+  const allRelatedLinks = [relatedLinks, relatedServiceLinks, isTaiwan ? "" : relatedCaseLinks].filter(Boolean).join("\n          ");
+  const taiwanCases = isTaiwan ? `\n    <section><div class="wrap"><h2>${escapeHtml(serviceCopy.caseStudiesTitle)}</h2><div class="grid">${relatedCaseLinks}</div></div></section>` : "";
   const coreModules = page.kind === "service" ? renderCoreServiceModules(page, locale) : "";
   const update = page.kind === "article" ? `<p class="updated">${escapeHtml(ui.updated)}: ${escapeHtml(page.modified || "2026-07-23")}</p>` : "";
   const updatedLine = update ? `\n        ${update}` : "";
@@ -1680,7 +1690,7 @@ ${JSON.stringify(seoPageSchema(page, locale), null, 2)}
       <a class="brand" href="${prefix}"><span>${escapeHtml(locale.label)}</span><small>${escapeHtml(serviceCopy.brandSmall)}</small></a>
       <nav class="nav-links" aria-label="${escapeAttr(ui.navigation)}">
         <a href="${prefix}#services">${escapeHtml(serviceCopy.services)}</a>
-        <a class="nav-cta" href="${prefix}#contact-form" data-track-event="${eventName}" data-track-location="nav">${escapeHtml(copy.cta)}</a>
+        <a class="nav-cta" href="${contactHref}" data-track-event="${eventName}" data-track-location="nav">${escapeHtml(copy.cta)}</a>
       </nav>
     </div>
   </header>
@@ -1690,12 +1700,12 @@ ${JSON.stringify(seoPageSchema(page, locale), null, 2)}
         <span class="eyebrow">${page.kind === "article" ? "DECISION GUIDE" : "CAMPAIGN SERVICE"}</span>
         <h1>${escapeHtml(copy.h1)}</h1>
         <div class="answer"><strong>${escapeHtml(ui.answer)}：</strong>${escapeHtml(copy.answer)}</div>${updatedLine}
-        <div class="actions"><a class="button primary" href="${prefix}#contact-form" data-track-event="${eventName}" data-track-location="hero">${escapeHtml(copy.cta)}</a></div>
+        <div class="actions"><a class="button primary" href="${contactHref}" data-track-event="${eventName}" data-track-location="hero">${escapeHtml(copy.cta)}</a></div>
       </div>
     </section>
     <section>
       <div class="wrap"><div class="grid">${sectionCards}</div></div>
-    </section>${coreModules}${evidenceSection}
+    </section>${coreModules}${evidenceSection}${taiwanCases}
     <section>
       <div class="wrap"><h2>${escapeHtml(ui.faq)}</h2><div class="grid">${faqCards}</div></div>
     </section>
@@ -1706,7 +1716,7 @@ ${JSON.stringify(seoPageSchema(page, locale), null, 2)}
       <div class="wrap">
         <h2>${escapeHtml(serviceCopy.ctaTitle)}</h2>
         <p>${escapeHtml(serviceCopy.ctaBody)}</p>
-        <div class="actions"><a class="button primary" href="${prefix}#contact-form" data-track-event="${eventName}" data-track-location="final">${escapeHtml(copy.cta)}</a></div>
+        <div class="actions"><a class="button primary" href="${contactHref}" data-track-event="${eventName}" data-track-location="final">${escapeHtml(copy.cta)}</a></div>
       </div>
     </section>
   </main>
