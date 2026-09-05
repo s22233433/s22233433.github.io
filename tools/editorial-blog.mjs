@@ -17,8 +17,8 @@ export const posts = [
     slug: 'reading-social-comment-signals', category:'社群觀察', categoryId:'observation', number:'01',
     title:'留言很多，就代表內容有效嗎？讀懂互動裡的不同訊號',
     description:'從抽獎口令、一般稱讚、產品提問到使用經驗，練習看懂留言的上下文；不把互動數直接當成購買意願。',
-    coverAlt:'四種不同形狀的對話泡泡圍繞一個觀察圓點，象徵留言有不同語意。',
-    caption:'原創圖像｜同樣是留言，留下來的理由可能完全不同。',
+    coverAlt:'自然窗光下的手機、筆記本、紙張與鉛筆，呈現停下來閱讀和整理的情境。',
+    caption:'AI 生成情境配圖｜停下來，把看見的訊號整理清楚。非真實私人訊息或工作紀錄。',
     toc:[['signals','先看大家在回應什麼'],['context','把留言放回原來的情境'],['practice','留下一個可驗證的問題']],
     body:`<p class="lead">想像兩支影片都收到一百則留言。一邊反覆出現「已追蹤、已分享」，另一邊有人問甜度、保存方式，還有人描述自己的使用經驗。它們的留言數一樣，但你能從中讀到的事情，並不一樣。</p>
     <p>這是假設情境，不是榛菓的客戶成效。這篇筆記想做的，是把「好多互動」拆成比較具體的觀察。留言不是購買紀錄，也不是觀眾內心的直接讀數；它比較像一扇小窗，讓我們看見部分願意開口的人，正在回應內容的哪一部分。</p>
@@ -38,8 +38,8 @@ export const posts = [
     slug:'beverage-content-storytelling', category:'內容拆解', categoryId:'storytelling', number:'02',
     title:'同一杯飲料，為什麼有人拍成廣告，有人拍成生活？',
     description:'用一杯虛構飲品與六格分鏡，比較產品導向和情境導向的敘事起點，觀察鏡頭、字幕與資訊如何合作。',
-    coverAlt:'一杯無品牌飲料分別出現在幾何攝影台和窗邊生活場景中的原創插畫。',
-    caption:'原創場景示意｜同一杯飲料，換一個故事起點。非真實商品或合作案例。',
+    coverAlt:'窗邊木桌上一杯透光的琥珀色冰茶，背景是模糊街景，呈現生活敘事的情境。',
+    caption:'AI 生成情境配圖｜同一杯飲料，換一個故事起點。非真實商品、拍攝現場或合作案例。',
     toc:[['opening','先決定從哪裡開始說'],['frames','六格分鏡看兩種路徑'],['information','把畫面和資訊分工']],
     body:`<p class="lead">同一杯飲料，可以從杯身的近拍開始，也可以從一個人走完很熱的路、坐下來休息開始。前者先讓我們看見產品，後者先讓我們進入情境。差別不只在畫面漂不漂亮，而在第一個被提出的問題是什麼。</p>
     <p>下面用一杯沒有品牌、沒有真實成效資料的虛構茶飲練習拆解。不是說生活化一定比廣告式有效，也不是鼓勵把商業合作偽裝成日常。我們只是把敘事拆開，看每個鏡頭正在負責哪一件事。</p>
@@ -61,8 +61,8 @@ export const posts = [
     slug:'creator-view-distribution-notes', category:'工具筆記', categoryId:'tools', number:'03',
     title:'平均觀看之外：用一張表看懂創作者近期內容的起伏',
     description:'用十篇合成貼文資料，實際計算平均觀看與中位數，再用長條圖觀察高觀看值如何影響摘要數字。',
-    coverAlt:'十條不同高度的長條與兩條參考線，象徵平均值和中位數需要搭配分布閱讀。',
-    caption:'原創資料視覺｜數字是一個入口，不是整個故事。',
+    coverAlt:'紙張上排列長短不一的橄欖色紙條和一條較長的磚紅紙條，作為數值起伏的視覺比喻。',
+    caption:'AI 生成概念配圖｜紙條只是分布的視覺比喻，不代表實際數值；精確資料見下方表格與圖表。',
     toc:[['sample','先把十篇資料攤開'],['distribution','平均值和中位數各在說什麼'],['record','替每個數字留下觀察條件']],
     body:`<p class="lead">看到「平均觀看五千」，你可能想像每篇內容大概都落在五千附近。但也可能是九篇在一千到三千之間，只有一篇三萬。兩種印象差很多，一個平均值卻未必能把差異說清楚。</p>
     <p>下面不用真實帳號，而用十筆公開列出的合成資料，練習把摘要數字拆開。它們不是市場基準、合作成效或預測模型，只是一組人人都能重算的例子。目的不是找出更漂亮的數字，而是知道摘要遺漏了什麼。</p>
@@ -80,26 +80,25 @@ export const posts = [
   }
 ];
 
-function cup(x,y,scale=1) {
-  return `<g transform="translate(${x} ${y}) scale(${scale})"><ellipse cx="65" cy="185" rx="77" ry="13" fill="#18283c" opacity=".12"/><path d="M10 10H120L104 180H28Z" fill="#faf5e8" stroke="#233546" stroke-width="3"/><path d="M17 64H113L103 172H29Z" fill="#cc793e"/><path d="M30 84L56 73L65 98L40 109ZM76 112L100 101L108 127L83 136Z" fill="#fff9e9" opacity=".72"/><path d="M78 70L97 -25" stroke="#b24530" stroke-width="8"/><ellipse cx="65" cy="10" rx="57" ry="11" fill="#fff9eb" stroke="#233546" stroke-width="3"/></g>`;
-}
 function storyFrame(n,type,title,description) {
-  const scene = type==='walk' ? '<path d="M0 110L320 75M0 155L320 120" stroke="#c6b898" stroke-width="2"/><circle cx="160" cy="35" r="15" fill="#233546"/><path d="M160 52L150 100L125 140M150 100L185 140M155 66L190 85" fill="none" stroke="#233546" stroke-width="11" stroke-linecap="round"/>' : `${type==='window'?'<path d="M40 10H280V125H40ZM160 10V125M40 65H280" fill="#dce7de" stroke="#b8cabc" stroke-width="5"/>':''}${type==='detail'?cup(69,-25,1.5):cup(115,18,.66)}`;
-  return `<div class="frame"><svg viewBox="0 0 320 175" role="img" aria-label="${esc(title)}分鏡示意"><rect width="320" height="175" fill="${type==='walk'||type==='window'?'#e8eddf':'#f3e7d1'}"/>${scene}</svg><p><b>${n} ${title}</b><br>${description}</p></div>`;
-}
-function cover(post) {
-  let art;
-  if(post.number==='01') art = `<circle cx="830" cy="306" r="210" fill="#e0e8dc"/><g stroke="#243748" stroke-width="3"><path d="M485 110H765V245H620L560 280V245H485Z" fill="#fffdf5"/><path d="M795 170H1090V310H1060V350L1000 310H795Z" fill="#cc593f"/><path d="M530 340H770V485H580L545 520V485H530Z" fill="#d8bb80"/><path d="M805 410H1110V545H900L865 577V545H805Z" fill="#fffdf5"/></g><g fill="#243748"><circle cx="560" cy="173" r="11"/><circle cx="605" cy="173" r="11"/><circle cx="650" cy="173" r="11"/><path d="M587 382H714V392H587ZM587 410H691V420H587Z"/></g><text x="920" y="272" font-family="Georgia,serif" font-size="88" fill="#fffdf5">?</text><path d="M860 470H1050M860 499H992" stroke="#243748" stroke-width="8"/>`;
-  else if(post.number==='02') art = `<path d="M600 65V565" stroke="#bdad8d" stroke-width="2"/><rect x="660" y="78" width="475" height="370" fill="#dce7de"/><path d="M898 78V448M660 263H1135" stroke="#faf5e8" stroke-width="12"/><ellipse cx="845" cy="535" rx="245" ry="24" fill="#d8bb80"/><path d="M340 540H640V510H340Z" fill="#cfaf7b"/>${cup(395,219,1.55)}${cup(820,295,1.15)}<path d="M1060 535Q1010 390 1120 320Q1170 410 1080 472" fill="#718675"/>`;
-  else art = `<rect x="450" y="92" width="680" height="452" rx="10" fill="#fffdf5"/><path d="M490 466H1090M490 145V466" fill="none" stroke="#bdad8d" stroke-width="2"/>${views.map((v,i)=>`<rect x="${511+i*56}" y="${466-v/30000*290}" width="29" height="${v/30000*290}" rx="3" fill="${i===9?'#b24530':'#648273'}"/>`).join('')}<path d="M490 ${466-mean/30000*290}H1090" stroke="#b24530" stroke-width="3"/><path d="M490 ${466-median/30000*290}H1090" stroke="#243748" stroke-width="3" stroke-dasharray="7 6"/>`;
-  return `<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630"><title>${esc(post.coverAlt)}</title><rect width="1200" height="630" fill="#f0e8d8"/><path d="M34 36H1166V594H34Z" fill="none" stroke="#cbbd9f"/><text x="70" y="125" font-family="Georgia,serif" font-size="23" letter-spacing="4" fill="#243748">ZHENGUOCOOL</text><text x="70" y="265" font-family="Georgia,serif" font-size="100" fill="#b24530">${post.number}</text><text x="75" y="323" font-family="Georgia,serif" font-size="24" letter-spacing="5" fill="#243748">FIELD NOTES</text><path d="M75 364H310" stroke="#b24530" stroke-width="3"/><text x="75" y="555" font-family="Georgia,serif" font-size="19" letter-spacing="3" fill="#526455">LOOK CLOSER.</text>${art}</svg>`;
+  const id = `story-${type}-${n}`;
+  const cup = (x,y,k=1) => `<g transform="translate(${x} ${y}) scale(${k})"><ellipse cx="85" cy="240" rx="100" ry="16" fill="#4c503d" opacity=".09"/><path d="M20 26Q85 40 150 26L134 225Q85 242 36 225Z" fill="url(#${id}-glass)" stroke="#676458" stroke-width="2"/><path d="M27 85Q85 97 143 85L132 220Q85 235 38 220Z" fill="url(#${id}-tea)"/><ellipse cx="85" cy="85" rx="58" ry="10" fill="#c79152" opacity=".8"/><g fill="#f4ebd2" fill-opacity=".58" stroke="#efe6d3" stroke-width="1"><path d="M47 75L80 70L86 102L53 108Z"/><path d="M87 108L123 96L133 123L102 138Z"/><path d="M47 141L78 133L86 164L53 169Z"/></g><path d="M43 43L53 213M126 43L118 211" fill="none" stroke="#fffdf4" stroke-opacity=".55" stroke-width="5"/><ellipse cx="85" cy="25" rx="68" ry="14" fill="#efeee4" fill-opacity=".72" stroke="#676458" stroke-width="2"/><ellipse cx="85" cy="22" rx="61" ry="9" fill="none" stroke="#a8a393"/><g fill="#fffdf4" opacity=".6"><circle cx="113" cy="151" r="2"/><circle cx="102" cy="180" r="3"/><circle cx="65" cy="185" r="2"/><circle cx="125" cy="76" r="2"/></g></g>`;
+  const window = '<path d="M35 20H605V270H35Z" fill="#dce2d3"/><path d="M42 214L220 112L342 181L474 91L600 161V267H42Z" fill="#bfcdbb" opacity=".65"/><path d="M35 270H605M319 20V270" fill="none" stroke="#8d9383" stroke-width="9"/><path d="M34 272H608L640 308H0Z" fill="#c6b49a"/><path d="M0 320H640M0 342H640M0 373H640" stroke="#baa98e" stroke-width="1"/>';
+  const street = '<path d="M0 0H640V400H0Z" fill="#e7e9df"/><path d="M0 60L260 123V262L0 368ZM640 22L399 120V262L640 388Z" fill="#d1d6ca" stroke="#858e80" stroke-width="2"/><path d="M260 262L0 400M399 262L640 400M0 338L640 350M156 303L528 308M232 279L437 281" fill="none" stroke="#acb29f"/><path d="M46 85V303M104 99V288M169 113V278M220 125V265M590 61V323M527 85V300M466 108V279" stroke="#8f998a" stroke-width="2"/><path d="M0 153L260 177M0 226L260 218M640 145L399 178M640 238L399 221" stroke="#8f998a" stroke-width="2"/><path d="M333 81V261" stroke="#7c8678" stroke-width="5"/><path d="M330 99Q255 80 280 45Q336 8 370 64Q418 114 335 121Z" fill="#99ae91"/><path d="M311 113L333 179L362 97" fill="none" stroke="#7c8678" stroke-width="3"/><path d="M70 312H217V329H70ZM89 329V364M200 329V352" fill="#b39475" stroke="#6f7162" stroke-width="3"/>';
+  let scene;
+  if(type==='walk') scene=street;
+  else if(type==='window') scene=window+cup(358,150,.72);
+  else if(type==='detail') scene='<path d="M0 295L640 235V400H0Z" fill="#d8c7a9"/>'+cup(140,-85,2);
+  else if(type==='sip') scene='<path d="M0 320H640M40 334H570" stroke="#c9bc9f" stroke-width="2"/>'+cup(174,55,1.12)+'<path d="M423 178Q483 202 464 240M444 172Q504 204 481 251" fill="none" stroke="#9fae96" stroke-width="2"/>';
+  else scene='<path d="M0 284L640 251V400H0Z" fill="#e2d5bd"/><path d="M75 371L532 300M125 397L606 321" stroke="#c9b998" stroke-width="1"/>'+cup(type==='cup'&&n==='03'?324:215,55,1.12);
+  return `<div class="frame"><svg viewBox="0 0 640 400" role="img" aria-label="${esc(title)}分鏡示意"><defs><linearGradient id="${id}-glass" x2="1" y2=".2"><stop stop-color="#f4f0de" stop-opacity=".85"/><stop offset=".45" stop-color="#fffdf8" stop-opacity=".2"/><stop offset="1" stop-color="#d1d5c5" stop-opacity=".7"/></linearGradient><linearGradient id="${id}-tea" x2=".7" y2="1"><stop stop-color="#bc8945"/><stop offset=".55" stop-color="#ad7136"/><stop offset="1" stop-color="#cb9451"/></linearGradient></defs><rect width="640" height="400" fill="#f1ede2"/>${scene}<path d="M16 35V16H35M605 16H624V35M16 365V384H35M605 384H624V365" stroke="#9c9b87" stroke-width="1" fill="none"/></svg><p><b>${n} ${title}</b><br>${description}</p></div>`;
 }
 const href = post => `/insights/${post.slug}/`;
-const asset = post => `/web-assets/blog/${post.slug}.svg`;
+export const asset = post => `/web-assets/blog/${post.slug}-v2.webp`;
 const readLink = (url,text,location='blog-related') => `<a href="${esc(url)}" data-track-event="article_index_click" data-track-location="${location}">${text}<span aria-hidden="true"> ↗</span></a>`;
 function shell({title,description,url,image,body,schema,analyticsVersion}) {
   return `<!DOCTYPE html>
-<html lang="zh-TW"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="${esc(description)}"><meta name="robots" content="index, follow"><link rel="canonical" href="${url}"><title>${esc(title)}｜榛菓筆記</title><link rel="icon" href="/web-assets/icons/favicon-32x32.png"><link rel="stylesheet" href="/web-assets/blog/editorial.css"><meta property="og:type" content="${schema['@type']==='BlogPosting'?'article':'website'}"><meta property="og:locale" content="zh_TW"><meta property="og:site_name" content="榛菓筆記"><meta property="og:title" content="${esc(title)}"><meta property="og:description" content="${esc(description)}"><meta property="og:url" content="${url}"><meta property="og:image" content="${base}/web-assets/og-zhenguocool-campaign-plan.webp"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="${esc(title)}"><meta name="twitter:description" content="${esc(description)}"><meta name="twitter:image" content="${base}/web-assets/og-zhenguocool-campaign-plan.webp"><script src="/web-assets/analytics-config.js?v=${analyticsVersion}" defer></script><script src="/web-assets/analytics.js?v=${analyticsVersion}" defer></script><script type="application/ld+json">${JSON.stringify({'@context':'https://schema.org','@graph':[schema,{'@type':'BreadcrumbList',itemListElement:[{'@type':'ListItem',position:1,name:'榛菓行銷',item:base+'/'},{'@type':'ListItem',position:2,name:'榛菓筆記',item:base+'/insights/'},...(schema['@type']==='BlogPosting'?[{'@type':'ListItem',position:3,name:title,item:url}]:[])]}]}).replace(/</g,'\u003c')}</script></head>
+<html lang="zh-TW"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="${esc(description)}"><meta name="robots" content="index, follow"><link rel="canonical" href="${url}"><title>${esc(title)}｜榛菓筆記</title><link rel="icon" href="/web-assets/icons/favicon-32x32.png"><link rel="stylesheet" href="/web-assets/blog/editorial.css?v=20260905-2"><meta property="og:type" content="${schema['@type']==='BlogPosting'?'article':'website'}"><meta property="og:locale" content="zh_TW"><meta property="og:site_name" content="榛菓筆記"><meta property="og:title" content="${esc(title)}"><meta property="og:description" content="${esc(description)}"><meta property="og:url" content="${url}"><meta property="og:image" content="${base}/web-assets/og-zhenguocool-campaign-plan.webp"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="${esc(title)}"><meta name="twitter:description" content="${esc(description)}"><meta name="twitter:image" content="${base}/web-assets/og-zhenguocool-campaign-plan.webp"><script src="/web-assets/analytics-config.js?v=${analyticsVersion}" defer></script><script src="/web-assets/analytics.js?v=${analyticsVersion}" defer></script><script type="application/ld+json">${JSON.stringify({'@context':'https://schema.org','@graph':[schema,{'@type':'BreadcrumbList',itemListElement:[{'@type':'ListItem',position:1,name:'榛菓行銷',item:base+'/'},{'@type':'ListItem',position:2,name:'榛菓筆記',item:base+'/insights/'},...(schema['@type']==='BlogPosting'?[{'@type':'ListItem',position:3,name:title,item:url}]:[])]}]}).replace(/</g,'\u003c')}</script></head>
 <body><a class="skip" href="#main">跳至內容</a><header class="site-header"><a class="wordmark" href="/insights/">榛菓<span>筆記</span><small>ZHENGUOCOOL JOURNAL</small></a><nav aria-label="網站導覽"><a href="/insights/">全部文章</a><a href="/">榛菓官網 ↗</a></nav></header><main id="main">${body}</main><footer class="site-footer"><div><strong>榛菓筆記</strong><p>把社群與內容工作，看得更仔細一點。</p></div><nav aria-label="頁尾導覽"><a href="/insights/">全部文章</a><a href="/">榛菓行銷</a></nav><small>© 2026 ZhenguoCool · 原創觀察與圖文筆記</small></footer></body></html>
 `;
 }
@@ -107,7 +106,7 @@ export function buildEditorialBlog(root, oldPages, analyticsVersion) {
   const guides = oldPages.filter(p=>p.kind==='article');
   const dir=path.join(root,'web-assets/blog'); fs.mkdirSync(dir,{recursive:true});
   for(const post of posts) {
-    fs.writeFileSync(path.join(root,asset(post)),cover(post));
+    if (!fs.existsSync(path.join(root,asset(post)))) throw new Error(`Missing editorial cover: ${asset(post)}`);
     const url=base+href(post);
     const body=`<article><header class="article-heading"><p class="eyebrow">FIELD NOTES / ${post.number} <span>${post.category}</span></p><h1>${post.title}</h1><p class="dek">${post.description}</p><p class="byline">榛菓編輯部 <span>·</span> <time datetime="${published}">${published.replaceAll('-','.')}</time></p></header><figure class="cover"><img src="${asset(post)}" width="1200" height="630" alt="${esc(post.coverAlt)}" fetchpriority="high"><figcaption>${post.caption}</figcaption></figure><div class="reading"><nav class="contents" aria-label="本文目錄"><span>這篇筆記</span>${post.toc.map(([id,title])=>`<a href="#${id}">${title}</a>`).join('')}</nav>${post.body}<section class="related"><p class="eyebrow">KEEP READING</p><h2>換個角度，繼續看</h2>${posts.filter(p=>p!==post).map(p=>readLink(href(p),esc(p.title))).join('')}${readLink('/insights/','回到全部文章')}</section></div></article>`;
     const html=shell({title:post.title,description:post.description,url,body,analyticsVersion,schema:{'@type':'BlogPosting',headline:post.title,description:post.description,url,mainEntityOfPage:url,image:base+asset(post),datePublished:published,dateModified:published,inLanguage:'zh-TW',author:{'@type':'Organization',name:'榛菓編輯部',url:base+'/insights/'},publisher:{'@type':'Organization',name:'榛菓行銷',url:base+'/'}}});

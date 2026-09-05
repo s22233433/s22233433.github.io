@@ -2,7 +2,7 @@ import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import path from 'node:path';
 import { execFileSync } from 'node:child_process';
-import { posts, views, mean, median } from '../tools/editorial-blog.mjs';
+import { posts, views, mean, median, asset } from '../tools/editorial-blog.mjs';
 import { seoPhaseOnePages } from '../tools/seo-phase-one-content.mjs';
 const root=path.resolve(import.meta.dirname,'..');
 const read=file=>fs.readFileSync(path.join(root,file),'utf8');
@@ -39,7 +39,11 @@ for(const p of posts) {
   assert.ok(!/quote_request_click|service_cta_click|<form/.test(html));
   assert.ok(html.includes('示意')||html.includes('合成資料'));
   assert.ok(p.body.replace(/<[^>]*>/g,'').length>=1000);
-  assert.ok(fs.statSync(path.join(root,`web-assets/blog/${p.slug}.svg`)).size<600000);
+  const coverPath=path.join(root,asset(p));
+  assert.ok(fs.statSync(coverPath).size<600000);
+  assert.equal(fs.readFileSync(coverPath).subarray(8,12).toString(),'WEBP');
+  assert.ok(html.includes(asset(p)));
+  assert.ok(html.includes('AI 生成'));
   assert.ok(!fs.existsSync(path.join(root,`en/insights/${p.slug}/index.html`)));
 }
 const sitemapLocs=read('sitemap.xml').match(/<loc>[^<]+<\/loc>/g);
