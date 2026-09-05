@@ -36,3 +36,6 @@
 .hybrid-signature{left:3.81%;top:94.3%;font-family:"PingFang TC",sans-serif;font-size:.75cqw;letter-spacing:.16em;color:#606a55}
 .hybrid-edition{left:22.2%;top:94.6%;font-family:"PingFang TC",sans-serif;font-size:.625cqw;letter-spacing:.1em;color:#606a55}
 .cover-link:hover .hybrid-cover>img{transform:none}
+.steps:has(>li:nth-child(4)){grid-template-columns:repeat(2,minmax(0,1fr))}
+.frame>.signal-grid{grid-template-columns:repeat(3,minmax(0,1fr))}
+@media(max-width:600px){.steps:has(>li:nth-child(4)),.frame>.signal-grid{grid-template-columns:1fr}}

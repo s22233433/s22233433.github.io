@@ -55,5 +55,15 @@ for(const p of posts) {
 const sitemapLocs=read('sitemap.xml').match(/<loc>[^<]+<\/loc>/g);
 assert.equal(new Set(sitemapLocs).size,sitemapLocs.length);
 const prior=old('sitemap.xml').match(/<loc>[^<]+<\/loc>/g);
-assert.equal(sitemapLocs.length,prior.length+4);for(const loc of prior)assert.ok(sitemapLocs.includes(loc));
-console.log('Editorial blog: PASS (4 routes, 3 illustrated articles, 7 exact-scope guide links, frozen homepages/GA, recomputed chart)');
+assert.equal(sitemapLocs.length,prior.length+posts.length+1);for(const loc of prior)assert.ok(sitemapLocs.includes(loc));
+const ids=[...read('insights/index.html').matchAll(/\bid="([^"]+)"/g)].map(m=>m[1]);
+assert.equal(new Set(ids).size,ids.length,'unique category anchor IDs');
+assert.ok(read('insights/index.html').includes(`${String(posts.length).padStart(2,'0')} STORIES`));
+for(const p of posts.filter(p=>p.published)) {
+  const html=read(`insights/${p.slug}/index.html`);
+  assert.ok(html.includes(`datetime="${p.published}"`));
+  assert.ok(html.includes(`"datePublished":"${p.published}"`));
+  assert.ok(html.includes('2026-09-06'),'fact check date is present');
+  assert.ok(/https:\/\/(blog.youtube|about.fb.com|newsroom.tiktok.com)/.test(html),'official news source');
+}
+console.log(`Editorial blog: PASS (${posts.length+1} routes, ${posts.length} illustrated articles, frozen homepages/GA, dates, unique anchors)`);

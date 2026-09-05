@@ -678,6 +678,7 @@ try {
   const clickDefinitions = [
     ...(includeBlog ? [
       ...editorialPosts.map(post => ({ name: `Blog index ${post.slug}`, url: `${site}/insights/`, selector: `h2 [data-track-location="blog-index"][href="/insights/${post.slug}/"]`, event: "article_index_click", location: "blog-index" })),
+      ...editorialPosts.filter(post => post.published).map(post => ({ name: `Blog news related ${post.slug}`, url: `${site}/insights/${post.slug}/`, selector: '[data-track-location="blog-related"]', event: "article_index_click", location: "blog-related" })),
       { name: "Blog related reading", url: `${site}/insights/${editorialPosts[0].slug}/`, selector: '[data-track-location="blog-related"]', event: "article_index_click", location: "blog-related" },
       { name: "Blog guide entry", url: `${site}/insights/taiwan-influencer-marketing-costs-2026/`, selector: '[data-track-location="guide-blog-index"]', event: "article_index_click", location: "guide-blog-index" },
       { name: "Blog existing guide", url: `${site}/insights/`, selector: '[data-track-location="blog-guide-index"]', event: "article_index_click", location: "blog-guide-index" }
