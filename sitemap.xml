@@ -1,6 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
+    <loc>https://zhenguocool.com/insights/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+
+  </url>
+  <url>
+    <loc>https://zhenguocool.com/insights/reading-social-comment-signals/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+
+  </url>
+  <url>
+    <loc>https://zhenguocool.com/insights/beverage-content-storytelling/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+
+  </url>
+  <url>
+    <loc>https://zhenguocool.com/insights/creator-view-distribution-notes/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+
+  </url>
+  <url>
     <loc>https://zhenguocool.com/</loc>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>

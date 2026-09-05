@@ -3,6 +3,7 @@ import { tmpdir } from "node:os";
 import path from "node:path";
 import { spawn } from "node:child_process";
 import { seoPhaseOnePages } from "./seo-phase-one-content.mjs";
+import { posts as editorialPosts } from "./editorial-blog.mjs";
 
 const site = (process.env.SITE_URL || "https://zhenguocool.com").replace(/\/$/, "");
 const chrome = process.env.CHROME_BIN || "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome";
@@ -15,6 +16,7 @@ const includeInternalLinking = process.env.GA4_INTERNAL_LINKING === "1";
 const includeContentOptimization = process.env.GA4_CONTENT_OPTIMIZATION === "1";
 const includeCareers = process.env.GA4_CAREERS === "1";
 const includeInternalTraffic = process.env.GA4_INTERNAL_TRAFFIC === "1";
+const includeBlog = process.env.GA4_BLOG === "1";
 const selected = (value) => !targets.length || targets.some((target) => value.includes(target));
 const reportName = targets.length ? "ga4-targeted-report" : "ga4-network-report";
 const locales = [
@@ -659,6 +661,7 @@ try {
     });
   }
   const classificationDefinitions = [
+    ...(includeBlog ? ["", ...editorialPosts.map(post => `${post.slug}/`)].map(route => ({ name: `Blog page ${route || 'index'}`, url: `${site}/insights/${route}` })) : []),
     { name: "product zh-TW", url: `${site}/tools/instagram-insights-passive/` },
     { name: "product zh-CN", url: `${site}/zh-cn/tools/instagram-insights-passive/` },
     { name: "product en", url: `${site}/en/tools/instagram-insights-passive/` },
@@ -673,6 +676,12 @@ try {
   }
   const interactions = [];
   const clickDefinitions = [
+    ...(includeBlog ? [
+      ...editorialPosts.map(post => ({ name: `Blog index ${post.slug}`, url: `${site}/insights/`, selector: `h2 [data-track-location="blog-index"][href="/insights/${post.slug}/"]`, event: "article_index_click", location: "blog-index" })),
+      { name: "Blog related reading", url: `${site}/insights/${editorialPosts[0].slug}/`, selector: '[data-track-location="blog-related"]', event: "article_index_click", location: "blog-related" },
+      { name: "Blog guide entry", url: `${site}/insights/taiwan-influencer-marketing-costs-2026/`, selector: '[data-track-location="guide-blog-index"]', event: "article_index_click", location: "guide-blog-index" },
+      { name: "Blog existing guide", url: `${site}/insights/`, selector: '[data-track-location="blog-guide-index"]', event: "article_index_click", location: "blog-guide-index" }
+    ] : []),
     ...locales.flatMap((locale) => ["hero", "final"].map((location) => ({
       name: `Taiwan service ${locale.key} ${location}`,
       url: `${site}${locale.prefix}/services/taiwan-influencer-marketing/`,
