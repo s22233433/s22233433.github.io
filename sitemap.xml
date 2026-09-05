@@ -1,46 +1,193 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>https://zhenguocool.com/insights/</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-
-  </url>
-  <url>
     <loc>https://zhenguocool.com/insights/reading-social-comment-signals/</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
-
+    <xhtml:link rel="alternate" hreflang="zh-TW" href="https://zhenguocool.com/insights/reading-social-comment-signals/" />
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://zhenguocool.com/zh-cn/insights/reading-social-comment-signals/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://zhenguocool.com/en/insights/reading-social-comment-signals/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://zhenguocool.com/insights/reading-social-comment-signals/" />
   </url>
   <url>
     <loc>https://zhenguocool.com/insights/beverage-content-storytelling/</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
-
+    <xhtml:link rel="alternate" hreflang="zh-TW" href="https://zhenguocool.com/insights/beverage-content-storytelling/" />
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://zhenguocool.com/zh-cn/insights/beverage-content-storytelling/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://zhenguocool.com/en/insights/beverage-content-storytelling/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://zhenguocool.com/insights/beverage-content-storytelling/" />
   </url>
   <url>
     <loc>https://zhenguocool.com/insights/creator-view-distribution-notes/</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
-
+    <xhtml:link rel="alternate" hreflang="zh-TW" href="https://zhenguocool.com/insights/creator-view-distribution-notes/" />
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://zhenguocool.com/zh-cn/insights/creator-view-distribution-notes/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://zhenguocool.com/en/insights/creator-view-distribution-notes/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://zhenguocool.com/insights/creator-view-distribution-notes/" />
   </url>
   <url>
     <loc>https://zhenguocool.com/insights/youtube-auto-dubbing-review/</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
-
+    <xhtml:link rel="alternate" hreflang="zh-TW" href="https://zhenguocool.com/insights/youtube-auto-dubbing-review/" />
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://zhenguocool.com/zh-cn/insights/youtube-auto-dubbing-review/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://zhenguocool.com/en/insights/youtube-auto-dubbing-review/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://zhenguocool.com/insights/youtube-auto-dubbing-review/" />
   </url>
   <url>
     <loc>https://zhenguocool.com/insights/edits-mobile-video-workflow/</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
-
+    <xhtml:link rel="alternate" hreflang="zh-TW" href="https://zhenguocool.com/insights/edits-mobile-video-workflow/" />
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://zhenguocool.com/zh-cn/insights/edits-mobile-video-workflow/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://zhenguocool.com/en/insights/edits-mobile-video-workflow/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://zhenguocool.com/insights/edits-mobile-video-workflow/" />
   </url>
   <url>
     <loc>https://zhenguocool.com/insights/tiktok-search-topic-workshop/</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
-
+    <xhtml:link rel="alternate" hreflang="zh-TW" href="https://zhenguocool.com/insights/tiktok-search-topic-workshop/" />
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://zhenguocool.com/zh-cn/insights/tiktok-search-topic-workshop/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://zhenguocool.com/en/insights/tiktok-search-topic-workshop/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://zhenguocool.com/insights/tiktok-search-topic-workshop/" />
+  </url>
+  <url>
+    <loc>https://zhenguocool.com/insights/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="zh-TW" href="https://zhenguocool.com/insights/" />
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://zhenguocool.com/zh-cn/insights/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://zhenguocool.com/en/insights/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://zhenguocool.com/insights/" />
+  </url>
+  <url>
+    <loc>https://zhenguocool.com/zh-cn/insights/reading-social-comment-signals/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="zh-TW" href="https://zhenguocool.com/insights/reading-social-comment-signals/" />
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://zhenguocool.com/zh-cn/insights/reading-social-comment-signals/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://zhenguocool.com/en/insights/reading-social-comment-signals/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://zhenguocool.com/insights/reading-social-comment-signals/" />
+  </url>
+  <url>
+    <loc>https://zhenguocool.com/zh-cn/insights/beverage-content-storytelling/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="zh-TW" href="https://zhenguocool.com/insights/beverage-content-storytelling/" />
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://zhenguocool.com/zh-cn/insights/beverage-content-storytelling/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://zhenguocool.com/en/insights/beverage-content-storytelling/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://zhenguocool.com/insights/beverage-content-storytelling/" />
+  </url>
+  <url>
+    <loc>https://zhenguocool.com/zh-cn/insights/creator-view-distribution-notes/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="zh-TW" href="https://zhenguocool.com/insights/creator-view-distribution-notes/" />
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://zhenguocool.com/zh-cn/insights/creator-view-distribution-notes/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://zhenguocool.com/en/insights/creator-view-distribution-notes/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://zhenguocool.com/insights/creator-view-distribution-notes/" />
+  </url>
+  <url>
+    <loc>https://zhenguocool.com/zh-cn/insights/youtube-auto-dubbing-review/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="zh-TW" href="https://zhenguocool.com/insights/youtube-auto-dubbing-review/" />
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://zhenguocool.com/zh-cn/insights/youtube-auto-dubbing-review/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://zhenguocool.com/en/insights/youtube-auto-dubbing-review/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://zhenguocool.com/insights/youtube-auto-dubbing-review/" />
+  </url>
+  <url>
+    <loc>https://zhenguocool.com/zh-cn/insights/edits-mobile-video-workflow/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="zh-TW" href="https://zhenguocool.com/insights/edits-mobile-video-workflow/" />
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://zhenguocool.com/zh-cn/insights/edits-mobile-video-workflow/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://zhenguocool.com/en/insights/edits-mobile-video-workflow/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://zhenguocool.com/insights/edits-mobile-video-workflow/" />
+  </url>
+  <url>
+    <loc>https://zhenguocool.com/zh-cn/insights/tiktok-search-topic-workshop/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="zh-TW" href="https://zhenguocool.com/insights/tiktok-search-topic-workshop/" />
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://zhenguocool.com/zh-cn/insights/tiktok-search-topic-workshop/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://zhenguocool.com/en/insights/tiktok-search-topic-workshop/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://zhenguocool.com/insights/tiktok-search-topic-workshop/" />
+  </url>
+  <url>
+    <loc>https://zhenguocool.com/zh-cn/insights/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="zh-TW" href="https://zhenguocool.com/insights/" />
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://zhenguocool.com/zh-cn/insights/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://zhenguocool.com/en/insights/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://zhenguocool.com/insights/" />
+  </url>
+  <url>
+    <loc>https://zhenguocool.com/en/insights/reading-social-comment-signals/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="zh-TW" href="https://zhenguocool.com/insights/reading-social-comment-signals/" />
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://zhenguocool.com/zh-cn/insights/reading-social-comment-signals/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://zhenguocool.com/en/insights/reading-social-comment-signals/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://zhenguocool.com/insights/reading-social-comment-signals/" />
+  </url>
+  <url>
+    <loc>https://zhenguocool.com/en/insights/beverage-content-storytelling/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="zh-TW" href="https://zhenguocool.com/insights/beverage-content-storytelling/" />
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://zhenguocool.com/zh-cn/insights/beverage-content-storytelling/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://zhenguocool.com/en/insights/beverage-content-storytelling/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://zhenguocool.com/insights/beverage-content-storytelling/" />
+  </url>
+  <url>
+    <loc>https://zhenguocool.com/en/insights/creator-view-distribution-notes/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="zh-TW" href="https://zhenguocool.com/insights/creator-view-distribution-notes/" />
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://zhenguocool.com/zh-cn/insights/creator-view-distribution-notes/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://zhenguocool.com/en/insights/creator-view-distribution-notes/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://zhenguocool.com/insights/creator-view-distribution-notes/" />
+  </url>
+  <url>
+    <loc>https://zhenguocool.com/en/insights/youtube-auto-dubbing-review/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="zh-TW" href="https://zhenguocool.com/insights/youtube-auto-dubbing-review/" />
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://zhenguocool.com/zh-cn/insights/youtube-auto-dubbing-review/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://zhenguocool.com/en/insights/youtube-auto-dubbing-review/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://zhenguocool.com/insights/youtube-auto-dubbing-review/" />
+  </url>
+  <url>
+    <loc>https://zhenguocool.com/en/insights/edits-mobile-video-workflow/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="zh-TW" href="https://zhenguocool.com/insights/edits-mobile-video-workflow/" />
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://zhenguocool.com/zh-cn/insights/edits-mobile-video-workflow/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://zhenguocool.com/en/insights/edits-mobile-video-workflow/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://zhenguocool.com/insights/edits-mobile-video-workflow/" />
+  </url>
+  <url>
+    <loc>https://zhenguocool.com/en/insights/tiktok-search-topic-workshop/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="zh-TW" href="https://zhenguocool.com/insights/tiktok-search-topic-workshop/" />
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://zhenguocool.com/zh-cn/insights/tiktok-search-topic-workshop/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://zhenguocool.com/en/insights/tiktok-search-topic-workshop/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://zhenguocool.com/insights/tiktok-search-topic-workshop/" />
+  </url>
+  <url>
+    <loc>https://zhenguocool.com/en/insights/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="zh-TW" href="https://zhenguocool.com/insights/" />
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://zhenguocool.com/zh-cn/insights/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://zhenguocool.com/en/insights/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://zhenguocool.com/insights/" />
   </url>
   <url>
     <loc>https://zhenguocool.com/</loc>

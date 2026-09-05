@@ -3,7 +3,7 @@ import { tmpdir } from "node:os";
 import path from "node:path";
 import { spawn } from "node:child_process";
 import { seoPhaseOnePages } from "./seo-phase-one-content.mjs";
-import { posts as editorialPosts } from "./editorial-blog.mjs";
+import { posts as editorialPosts, blogLocales } from "./editorial-blog.mjs";
 
 const site = (process.env.SITE_URL || "https://zhenguocool.com").replace(/\/$/, "");
 const chrome = process.env.CHROME_BIN || "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome";
@@ -17,6 +17,7 @@ const includeContentOptimization = process.env.GA4_CONTENT_OPTIMIZATION === "1";
 const includeCareers = process.env.GA4_CAREERS === "1";
 const includeInternalTraffic = process.env.GA4_INTERNAL_TRAFFIC === "1";
 const includeBlog = process.env.GA4_BLOG === "1";
+const includeBlogLocales = process.env.GA4_BLOG_LOCALES === "1";
 const selected = (value) => !targets.length || targets.some((target) => value.includes(target));
 const reportName = targets.length ? "ga4-targeted-report" : "ga4-network-report";
 const locales = [
@@ -294,7 +295,7 @@ async function visit(cdp, sessionId, url) {
 
 async function trigger(cdp, sessionId, selector, description, holdNavigation = false) {
   const start = cdp.events.length;
-  const expression = `(() => { const element = document.querySelector(${JSON.stringify(selector)}); if (!element) throw new Error(${JSON.stringify(`Missing selector: ${selector}`)}); ${holdNavigation ? "document.addEventListener('click', (event) => event.preventDefault(), {capture:true, once:true});" : ""} element.scrollIntoView({block:"center"}); const target_url = element instanceof HTMLAnchorElement ? element.href : location.href; element.click(); return JSON.stringify({target_url}); })()`;
+  const expression = `(() => { const element = document.querySelector(${JSON.stringify(selector)}); if (!element) throw new Error(${JSON.stringify(`Missing selector: ${selector}`)}); ${holdNavigation ? "document.addEventListener('click', (event) => event.preventDefault(), {capture:true, once:true});" : ""} element.scrollIntoView({block:"center"}); const link = element instanceof HTMLAnchorElement ? element.href : null; element.click(); return JSON.stringify({target_url:link || location.href}); })()`;
   const result = await cdp.send("Runtime.evaluate", { expression, awaitPromise: true, returnByValue: true }, sessionId);
   return { start, target_url: JSON.parse(result.result.value).target_url, description };
 }
@@ -309,7 +310,7 @@ async function runClickCheck(cdp, definition) {
     await waitForGaIdle(cdp, action.start, sessionId, definition.name);
     const events = cdp.eventsAfter(action.start, sessionId);
     const actual = gaFor(events, definition.event).filter((event) => event.cta_location === definition.location);
-    const context = { url, title: loaded.page.title, locale: loaded.page.locale, debug: true };
+    const context = { url: definition.pageUrlAfterClick ? action.target_url : url, title: loaded.page.title, locale: loaded.page.locale, debug: true };
     const validation = eventParameters(actual[0], context, { cta_location: definition.location, target_url: action.target_url, ...(definition.parameters || {}) });
     const pii = scansForPii(requestRows(events));
     return {
@@ -661,6 +662,7 @@ try {
     });
   }
   const classificationDefinitions = [
+    ...(includeBlogLocales ? blogLocales.flatMap(locale => ["", ...editorialPosts.map(post=>`${post.slug}/`)].map(route=>({name:`Blog locale page ${locale.key} ${route||'index'}`,url:`${site}/${locale.prefix}insights/${route}`}))) : []),
     ...(includeBlog ? ["", ...editorialPosts.map(post => `${post.slug}/`)].map(route => ({ name: `Blog page ${route || 'index'}`, url: `${site}/insights/${route}` })) : []),
     { name: "product zh-TW", url: `${site}/tools/instagram-insights-passive/` },
     { name: "product zh-CN", url: `${site}/zh-cn/tools/instagram-insights-passive/` },
@@ -676,6 +678,11 @@ try {
   }
   const interactions = [];
   const clickDefinitions = [
+    ...(includeBlogLocales ? blogLocales.flatMap(locale => [
+      {name:`Blog locale index ${locale.key}`,url:`${site}/${locale.prefix}insights/`,selector:`h2 [data-track-location="blog-index"][href="/${locale.prefix}insights/tiktok-search-topic-workshop/"]`,event:'article_index_click',location:'blog-index'},
+      {name:`Blog locale related ${locale.key}`,url:`${site}/${locale.prefix}insights/tiktok-search-topic-workshop/`,selector:'[data-track-location="blog-related"]',event:'article_index_click',location:'blog-related'},
+      {name:`Blog locale filter ${locale.key}`,url:`${site}/${locale.prefix}insights/`,selector:'[data-category="observation"]',event:'article_filter_click',location:'blog-filter-observation',pageUrlAfterClick:true}
+    ]) : []),
     ...(includeBlog ? [
       ...editorialPosts.map(post => ({ name: `Blog index ${post.slug}`, url: `${site}/insights/`, selector: `h2 [data-track-location="blog-index"][href="/insights/${post.slug}/"]`, event: "article_index_click", location: "blog-index" })),
       ...editorialPosts.filter(post => post.published).map(post => ({ name: `Blog news related ${post.slug}`, url: `${site}/insights/${post.slug}/`, selector: '[data-track-location="blog-related"]', event: "article_index_click", location: "blog-related" })),
@@ -726,6 +733,10 @@ try {
   ];
   const selectedClickDefinitions = clickDefinitions.filter((item) => selected(item.name));
   const languageDefinitions = [
+    ...(includeBlogLocales ? blogLocales.flatMap((locale,i)=>{const target=blogLocales[(i+1)%blogLocales.length];return [
+      {name:`Blog locale language index ${locale.key}`,url:`${site}/${locale.prefix}insights/?category=tools`,targetLink:target.key,from:locale.key,to:target.key},
+      {name:`Blog locale language article ${locale.key}`,url:`${site}/${locale.prefix}insights/youtube-auto-dubbing-review/`,targetLink:target.key,from:locale.key,to:target.key}
+    ]}) : []),
     { name: "zh-TW to zh-CN", url: `${site}/services/influencer-marketing-agency/`, targetLink: "zh-Hans", from: "zh-TW", to: "zh-CN" },
     { name: "zh-CN to en", url: `${site}/zh-cn/services/influencer-marketing-agency/`, targetLink: "en", from: "zh-CN", to: "en" },
     { name: "en to zh-TW", url: `${site}/en/services/influencer-marketing-agency/`, targetLink: "zh-Hant", from: "en", to: "zh-TW" }

@@ -1628,7 +1628,8 @@ const renderSeoPage = (page, locale) => {
     .map((study) => isTaiwan
       ? `<article class="card"><img src="${baseUrl}${study.image}" alt="${escapeAttr(study.title[locale.key])}" loading="lazy" style="width:100%;height:240px;object-fit:contain"><h3>${escapeHtml(study.title[locale.key])}</h3><p>${escapeHtml(study.summary[locale.key])}</p><a class="button" href="${caseStudyUrl(study, locale)}" data-track-event="case_study_click" data-track-location="taiwan-service-case">${escapeHtml(caseUi[locale.key].readCase)}</a></article>`
       : `<a class="button" href="${caseStudyUrl(study, locale)}" data-track-event="case_study_click" data-track-location="beverage-guide-case">${escapeHtml(study.title[locale.key])}</a>`).join("\n          ");
-  const blogIndexLink = page.kind === "article" && locale.isRoot ? '<a class="button" href="/insights/" data-track-event="article_index_click" data-track-location="guide-blog-index">全部文章｜榛菓筆記</a>' : "";
+  const blogIndexLabel = locale.key === "en" ? "All articles｜ZhenguoCool Journal" : locale.key === "zh-Hans" ? "全部文章｜榛果笔记" : "全部文章｜榛菓筆記";
+  const blogIndexLink = page.kind === "article" ? `<a class="button" href="/${locale.isRoot ? "" : locale.dir + "/"}insights/" data-track-event="article_index_click" data-track-location="guide-blog-index">${blogIndexLabel}</a>` : "";
   const allRelatedLinks = [relatedLinks, relatedServiceLinks, isTaiwan ? "" : relatedCaseLinks, blogIndexLink].filter(Boolean).join("\n          ");
   const taiwanCases = isTaiwan ? `\n    <section><div class="wrap"><h2>${escapeHtml(serviceCopy.caseStudiesTitle)}</h2><div class="grid">${relatedCaseLinks}</div></div></section>` : "";
   const coreModules = page.kind === "service" ? renderCoreServiceModules(page, locale) : "";
@@ -2012,8 +2013,7 @@ for (const locale of locales) {
   fs.writeFileSync(path.join(dir, "index.html"), renderThankYouPage(locale));
 }
 
-const editorialPaths = buildEditorialBlog(root, seoPhaseOnePages, analyticsAssetVersion);
-const sitemapItems = editorialPaths.map(route => ({ loc: `${baseUrl}${route}`, priority: "0.7", alternates: [] }));
+const sitemapItems = buildEditorialBlog(root, seoPhaseOnePages, analyticsAssetVersion);
 sitemapItems.push({
   loc: baseUrl,
   priority: "1.0",
