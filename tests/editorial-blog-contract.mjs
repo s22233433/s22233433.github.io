@@ -2,7 +2,7 @@ import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import path from 'node:path';
 import { execFileSync } from 'node:child_process';
-import { posts, views, mean, median, asset } from '../tools/editorial-blog.mjs';
+import { posts, views, mean, median, asset, shareAsset, coverCopy } from '../tools/editorial-blog.mjs';
 import { seoPhaseOnePages } from '../tools/seo-phase-one-content.mjs';
 const root=path.resolve(import.meta.dirname,'..');
 const read=file=>fs.readFileSync(path.join(root,file),'utf8');
@@ -43,6 +43,12 @@ for(const p of posts) {
   assert.ok(fs.statSync(coverPath).size<600000);
   assert.equal(fs.readFileSync(coverPath).subarray(8,12).toString(),'WEBP');
   assert.ok(html.includes(asset(p)));
+  assert.ok(html.includes(`property="og:image" content="https://zhenguocool.com${shareAsset(p)}"`));
+  assert.ok(html.includes(`name="twitter:image" content="https://zhenguocool.com${shareAsset(p)}"`));
+  assert.ok(fs.statSync(path.join(root,shareAsset(p))).size<600000);
+  for(const line of coverCopy[p.slug].headline) assert.ok(html.includes(`<span>${line}</span>`),'cover text remains HTML');
+  assert.ok(html.includes('class="hybrid-vector"'),'deterministic SVG overlay');
+  assert.ok(!html.includes('<canvas'),'no rendering runtime on production');
   assert.ok(html.includes('AI 生成'));
   assert.ok(!fs.existsSync(path.join(root,`en/insights/${p.slug}/index.html`)));
 }

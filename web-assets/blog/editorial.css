@@ -19,3 +19,20 @@
 .cover-link{border:0}
 .cover img{border:0}
 @media(max-width:600px){.story-columns{gap:14px}.story-columns h3{font-size:13px}.steps li{border-color:#d4cbb9}.note-panel{padding:23px}}
+/* Shared raster + SVG + real text; no client-side Canvas/WebGL. */
+.hybrid-cover{position:relative;container-type:inline-size;aspect-ratio:40/21;overflow:hidden;color:#29352c;text-align:left}
+.hybrid-cover>img{width:100%;height:100%;object-fit:cover}
+.hybrid-wordmark,.hybrid-headline,.hybrid-sub,.hybrid-label,.hybrid-signature,.hybrid-edition{position:absolute;margin:0!important;font-family:"Songti TC","Noto Serif TC",Georgia,serif}
+.hybrid-wordmark{left:3.75%;top:6.1%;font-size:1.56cqw;line-height:1.2}
+.hybrid-wordmark small{display:block;margin-top:1.2cqw;font-family:"PingFang TC",sans-serif;font-size:.81cqw;color:#71765f}
+.hybrid-headline{left:3.5%;top:25%;font-size:4cqw!important;line-height:1.4!important;letter-spacing:0}
+.hybrid-headline span{display:block;white-space:nowrap}
+.hybrid-headline span+span{color:#97503a}
+.hybrid-sub{left:3.81%;top:47.6%;font-size:1.25cqw!important;line-height:1.75!important;color:#5a644f}
+.hybrid-vector{position:absolute;left:1.44%;top:57.98%;width:25.5%;height:30.36%}
+.hybrid-vector svg{display:block;width:100%;height:100%}
+.hybrid-label{left:17.5%;font-family:"PingFang TC",sans-serif;font-size:.81cqw;letter-spacing:.06em;color:#68735d}
+.hybrid-label.first{top:60.2%}.hybrid-label.second{top:79.2%}
+.hybrid-signature{left:3.81%;top:94.3%;font-family:"PingFang TC",sans-serif;font-size:.75cqw;letter-spacing:.16em;color:#606a55}
+.hybrid-edition{left:22.2%;top:94.6%;font-family:"PingFang TC",sans-serif;font-size:.625cqw;letter-spacing:.1em;color:#606a55}
+.cover-link:hover .hybrid-cover>img{transform:none}

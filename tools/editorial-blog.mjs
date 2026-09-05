@@ -94,11 +94,71 @@ function storyFrame(n,type,title,description) {
   return `<div class="frame"><svg viewBox="0 0 640 400" role="img" aria-label="${esc(title)}分鏡示意"><defs><linearGradient id="${id}-glass" x2="1" y2=".2"><stop stop-color="#f4f0de" stop-opacity=".85"/><stop offset=".45" stop-color="#fffdf8" stop-opacity=".2"/><stop offset="1" stop-color="#d1d5c5" stop-opacity=".7"/></linearGradient><linearGradient id="${id}-tea" x2=".7" y2="1"><stop stop-color="#bc8945"/><stop offset=".55" stop-color="#ad7136"/><stop offset="1" stop-color="#cb9451"/></linearGradient></defs><rect width="640" height="400" fill="#f1ede2"/>${scene}<path d="M16 35V16H35M605 16H624V35M16 365V384H35M605 384H624V365" stroke="#9c9b87" stroke-width="1" fill="none"/></svg><p><b>${n} ${title}</b><br>${description}</p></div>`;
 }
 const href = post => `/insights/${post.slug}/`;
-export const asset = post => `/web-assets/blog/${post.slug}-v2.webp`;
+export const asset = post => `/web-assets/blog/${post.slug}-v3-background.webp`;
+export const shareAsset = post => `/web-assets/blog/${post.slug}-v3-social.webp`;
+
+export const coverCopy = {
+  "reading-social-comment-signals": {
+    "label": "留言訊號",
+    "category": "社群觀察 / 01",
+    "headline": [
+      "留言之外，",
+      "看見訊號。"
+    ],
+    "sub": [
+      "把熱鬧拆開，",
+      "讀懂每一句的上下文。"
+    ],
+    "labels": [
+      "OBSERVE",
+      "CONTEXT"
+    ],
+    "svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"400\" height=\"250\" viewBox=\"0 0 400 250\"><g fill=\"none\" stroke=\"#6f775e\" stroke-width=\"1.5\"><path d=\"M58 41L182 33L197 198L68 205Z\"/><path d=\"M78 69L161 63M79 86L155 82M81 126L171 120M81 142L149 138M84 162L160 158\" stroke-width=\"1\"/><path d=\"M75 100L175 93\" stroke=\"#99583b\" stroke-width=\"3\"/><circle cx=\"184\" cy=\"97\" r=\"3\" fill=\"#6f775e\"/><path d=\"M188 97C219 95 207 42 247 43H349M196 168C222 169 223 199 250 199H349\"/><path d=\"M343 39L349 43L343 47M343 195L349 199L343 203\"/><path d=\"M63 207L202 201\" opacity=\".4\"/></g></svg>"
+  },
+  "beverage-content-storytelling": {
+    "label": "飲料敘事",
+    "category": "內容觀察 / 02",
+    "headline": [
+      "同一杯茶，",
+      "兩種敘事。"
+    ],
+    "sub": [
+      "先看見產品，",
+      "或先走進一段生活。"
+    ],
+    "labels": [
+      "PRODUCT",
+      "MOMENT"
+    ],
+    "svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"400\" height=\"250\" viewBox=\"0 0 400 250\"><g fill=\"none\" stroke=\"#6f775e\" stroke-width=\"1.5\"><ellipse cx=\"112\" cy=\"52\" rx=\"46\" ry=\"9\"/><path d=\"M67 53L78 177Q112 189 146 177L158 53M75 93Q112 105 151 93\"/><ellipse cx=\"112\" cy=\"49\" rx=\"49\" ry=\"10\"/><path d=\"M83 69L92 167M140 68L133 166\" opacity=\".45\"/><path d=\"M161 95C211 94 193 42 245 43H349M148 154C213 154 204 199 250 199H349\"/><path d=\"M343 39L349 43L343 47M343 195L349 199L343 203\"/><circle cx=\"164\" cy=\"95\" r=\"3\" fill=\"#6f775e\"/><circle cx=\"149\" cy=\"154\" r=\"3\" fill=\"#6f775e\"/></g></svg>"
+  },
+  "creator-view-distribution-notes": {
+    "label": "觀看起伏",
+    "category": "工具筆記 / 03",
+    "headline": [
+      "平均之外，",
+      "還有起伏。"
+    ],
+    "sub": [
+      "一個數字，",
+      "不等於整個故事。"
+    ],
+    "labels": [
+      "MEAN",
+      "MEDIAN"
+    ],
+    "svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"400\" height=\"250\" viewBox=\"0 0 400 250\"><g stroke=\"#6f775e\" stroke-width=\"1\" fill=\"none\"><path d=\"M45 38V198H220\"/></g><rect x=\"56\" y=\"191.76\" width=\"8\" height=\"6.24\" fill=\"#818c72\"/><rect x=\"71\" y=\"190.2\" width=\"8\" height=\"7.800000000000001\" fill=\"#818c72\"/><rect x=\"86\" y=\"188.64\" width=\"8\" height=\"9.36\" fill=\"#818c72\"/><rect x=\"101\" y=\"187.6\" width=\"8\" height=\"10.4\" fill=\"#818c72\"/><rect x=\"116\" y=\"186.56\" width=\"8\" height=\"11.44\" fill=\"#818c72\"/><rect x=\"131\" y=\"185.52\" width=\"8\" height=\"12.48\" fill=\"#818c72\"/><rect x=\"146\" y=\"184.48\" width=\"8\" height=\"13.52\" fill=\"#818c72\"/><rect x=\"161\" y=\"182.4\" width=\"8\" height=\"15.600000000000001\" fill=\"#818c72\"/><rect x=\"176\" y=\"180.84\" width=\"8\" height=\"17.16\" fill=\"#818c72\"/><rect x=\"191\" y=\"42\" width=\"8\" height=\"156\" fill=\"#99583b\"/><g fill=\"none\" stroke=\"#6f775e\" stroke-width=\"1.3\"><path d=\"M48 172H226C246 172 223 43 255 43H349\"/><path d=\"M48 186H226C245 187 235 199 255 199H349\" stroke-dasharray=\"3 3\"/><path d=\"M343 39L349 43L343 47M343 195L349 199L343 203\"/></g></svg>"
+  }
+};
+function renderCover(post, eager=false) {
+  const copy=coverCopy[post.slug];
+  return `<div class="hybrid-cover"><img src="${asset(post)}" width="1600" height="840" alt="${esc(post.coverAlt)}" ${eager?'fetchpriority="high"':'loading="lazy"'}><div class="hybrid-wordmark" aria-hidden="true">榛菓筆記<small>${esc(copy.category)}</small></div><p class="hybrid-headline">${copy.headline.map(line=>`<span>${esc(line)}</span>`).join('')}</p><p class="hybrid-sub">${copy.sub.map(esc).join('<br>')}</p><div class="hybrid-vector" aria-hidden="true">${copy.svg}</div><span class="hybrid-label first" aria-hidden="true">${esc(copy.labels[0])}</span><span class="hybrid-label second" aria-hidden="true">${esc(copy.labels[1])}</span><small class="hybrid-signature" aria-hidden="true">ZHENGUOCOOL</small><small class="hybrid-edition" aria-hidden="true">FIELD NOTES</small></div>`;
+}
+
 const readLink = (url,text,location='blog-related') => `<a href="${esc(url)}" data-track-event="article_index_click" data-track-location="${location}">${text}<span aria-hidden="true"> ↗</span></a>`;
-function shell({title,description,url,image,body,schema,analyticsVersion}) {
+function shell({title,description,url,image='/web-assets/og-zhenguocool-campaign-plan.webp',body,schema,analyticsVersion}) {
   return `<!DOCTYPE html>
-<html lang="zh-TW"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="${esc(description)}"><meta name="robots" content="index, follow"><link rel="canonical" href="${url}"><title>${esc(title)}｜榛菓筆記</title><link rel="icon" href="/web-assets/icons/favicon-32x32.png"><link rel="stylesheet" href="/web-assets/blog/editorial.css?v=20260905-2"><meta property="og:type" content="${schema['@type']==='BlogPosting'?'article':'website'}"><meta property="og:locale" content="zh_TW"><meta property="og:site_name" content="榛菓筆記"><meta property="og:title" content="${esc(title)}"><meta property="og:description" content="${esc(description)}"><meta property="og:url" content="${url}"><meta property="og:image" content="${base}/web-assets/og-zhenguocool-campaign-plan.webp"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="${esc(title)}"><meta name="twitter:description" content="${esc(description)}"><meta name="twitter:image" content="${base}/web-assets/og-zhenguocool-campaign-plan.webp"><script src="/web-assets/analytics-config.js?v=${analyticsVersion}" defer></script><script src="/web-assets/analytics.js?v=${analyticsVersion}" defer></script><script type="application/ld+json">${JSON.stringify({'@context':'https://schema.org','@graph':[schema,{'@type':'BreadcrumbList',itemListElement:[{'@type':'ListItem',position:1,name:'榛菓行銷',item:base+'/'},{'@type':'ListItem',position:2,name:'榛菓筆記',item:base+'/insights/'},...(schema['@type']==='BlogPosting'?[{'@type':'ListItem',position:3,name:title,item:url}]:[])]}]}).replace(/</g,'\u003c')}</script></head>
+<html lang="zh-TW"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="${esc(description)}"><meta name="robots" content="index, follow"><link rel="canonical" href="${url}"><title>${esc(title)}｜榛菓筆記</title><link rel="icon" href="/web-assets/icons/favicon-32x32.png"><link rel="stylesheet" href="/web-assets/blog/editorial.css?v=20260906-3"><meta property="og:type" content="${schema['@type']==='BlogPosting'?'article':'website'}"><meta property="og:locale" content="zh_TW"><meta property="og:site_name" content="榛菓筆記"><meta property="og:title" content="${esc(title)}"><meta property="og:description" content="${esc(description)}"><meta property="og:url" content="${url}"><meta property="og:image" content="${base}${image}"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="${esc(title)}"><meta name="twitter:description" content="${esc(description)}"><meta name="twitter:image" content="${base}${image}"><script src="/web-assets/analytics-config.js?v=${analyticsVersion}" defer></script><script src="/web-assets/analytics.js?v=${analyticsVersion}" defer></script><script type="application/ld+json">${JSON.stringify({'@context':'https://schema.org','@graph':[schema,{'@type':'BreadcrumbList',itemListElement:[{'@type':'ListItem',position:1,name:'榛菓行銷',item:base+'/'},{'@type':'ListItem',position:2,name:'榛菓筆記',item:base+'/insights/'},...(schema['@type']==='BlogPosting'?[{'@type':'ListItem',position:3,name:title,item:url}]:[])]}]}).replace(/</g,'\u003c')}</script></head>
 <body><a class="skip" href="#main">跳至內容</a><header class="site-header"><a class="wordmark" href="/insights/">榛菓<span>筆記</span><small>ZHENGUOCOOL JOURNAL</small></a><nav aria-label="網站導覽"><a href="/insights/">全部文章</a><a href="/">榛菓官網 ↗</a></nav></header><main id="main">${body}</main><footer class="site-footer"><div><strong>榛菓筆記</strong><p>把社群與內容工作，看得更仔細一點。</p></div><nav aria-label="頁尾導覽"><a href="/insights/">全部文章</a><a href="/">榛菓行銷</a></nav><small>© 2026 ZhenguoCool · 原創觀察與圖文筆記</small></footer></body></html>
 `;
 }
@@ -106,13 +166,13 @@ export function buildEditorialBlog(root, oldPages, analyticsVersion) {
   const guides = oldPages.filter(p=>p.kind==='article');
   const dir=path.join(root,'web-assets/blog'); fs.mkdirSync(dir,{recursive:true});
   for(const post of posts) {
-    if (!fs.existsSync(path.join(root,asset(post)))) throw new Error(`Missing editorial cover: ${asset(post)}`);
+    for (const file of [asset(post),shareAsset(post)]) if (!fs.existsSync(path.join(root,file))) throw new Error(`Missing editorial cover: ${file}`);
     const url=base+href(post);
-    const body=`<article><header class="article-heading"><p class="eyebrow">FIELD NOTES / ${post.number} <span>${post.category}</span></p><h1>${post.title}</h1><p class="dek">${post.description}</p><p class="byline">榛菓編輯部 <span>·</span> <time datetime="${published}">${published.replaceAll('-','.')}</time></p></header><figure class="cover"><img src="${asset(post)}" width="1200" height="630" alt="${esc(post.coverAlt)}" fetchpriority="high"><figcaption>${post.caption}</figcaption></figure><div class="reading"><nav class="contents" aria-label="本文目錄"><span>這篇筆記</span>${post.toc.map(([id,title])=>`<a href="#${id}">${title}</a>`).join('')}</nav>${post.body}<section class="related"><p class="eyebrow">KEEP READING</p><h2>換個角度，繼續看</h2>${posts.filter(p=>p!==post).map(p=>readLink(href(p),esc(p.title))).join('')}${readLink('/insights/','回到全部文章')}</section></div></article>`;
-    const html=shell({title:post.title,description:post.description,url,body,analyticsVersion,schema:{'@type':'BlogPosting',headline:post.title,description:post.description,url,mainEntityOfPage:url,image:base+asset(post),datePublished:published,dateModified:published,inLanguage:'zh-TW',author:{'@type':'Organization',name:'榛菓編輯部',url:base+'/insights/'},publisher:{'@type':'Organization',name:'榛菓行銷',url:base+'/'}}});
+    const body=`<article><header class="article-heading"><p class="eyebrow">FIELD NOTES / ${post.number} <span>${post.category}</span></p><h1>${post.title}</h1><p class="dek">${post.description}</p><p class="byline">榛菓編輯部 <span>·</span> <time datetime="${published}">${published.replaceAll('-','.')}</time></p></header><figure class="cover">${renderCover(post,true)}<figcaption>${post.caption}</figcaption></figure><div class="reading"><nav class="contents" aria-label="本文目錄"><span>這篇筆記</span>${post.toc.map(([id,title])=>`<a href="#${id}">${title}</a>`).join('')}</nav>${post.body}<section class="related"><p class="eyebrow">KEEP READING</p><h2>換個角度，繼續看</h2>${posts.filter(p=>p!==post).map(p=>readLink(href(p),esc(p.title))).join('')}${readLink('/insights/','回到全部文章')}</section></div></article>`;
+    const html=shell({title:post.title,description:post.description,url,image:shareAsset(post),body,analyticsVersion,schema:{'@type':'BlogPosting',headline:post.title,description:post.description,url,mainEntityOfPage:url,image:base+shareAsset(post),datePublished:published,dateModified:published,inLanguage:'zh-TW',author:{'@type':'Organization',name:'榛菓編輯部',url:base+'/insights/'},publisher:{'@type':'Organization',name:'榛菓行銷',url:base+'/'}}});
     const pageDir=path.join(root,'insights',post.slug);fs.mkdirSync(pageDir,{recursive:true});fs.writeFileSync(path.join(pageDir,'index.html'),html);
   }
-  const cards=posts.map(post=>`<article class="post-card" id="${post.categoryId}"><a class="cover-link" href="${href(post)}" data-track-event="article_index_click" data-track-location="blog-index" aria-label="閱讀：${esc(post.title)}"><img src="${asset(post)}" width="1200" height="630" alt="${esc(post.coverAlt)}" loading="lazy"></a><p class="eyebrow">${post.category} <span>NO. ${post.number}</span></p><h2>${readLink(href(post),esc(post.title),'blog-index')}</h2><p>${post.description}</p><time datetime="${published}">${published.replaceAll('-','.')}</time></article>`).join('');
+  const cards=posts.map(post=>`<article class="post-card" id="${post.categoryId}"><a class="cover-link" href="${href(post)}" data-track-event="article_index_click" data-track-location="blog-index" aria-label="閱讀：${esc(post.title)}">${renderCover(post)}</a><p class="eyebrow">${post.category} <span>NO. ${post.number}</span></p><h2>${readLink(href(post),esc(post.title),'blog-index')}</h2><p>${post.description}</p><time datetime="${published}">${published.replaceAll('-','.')}</time></article>`).join('');
   const body=`<div class="journal-intro"><p class="eyebrow">OBSERVATIONS, STORIES &amp; PRACTICE</p><h1>把日常滑過的，<br><em>再看仔細一點。</em></h1><div class="intro-bottom"><p>關於社群、創作者與內容工作的觀察。<br>有時拆解一則留言，有時只是換個角度看一杯茶。</p><span class="edition">榛菓筆記<br>VOL. 01 / 2026</span></div></div><nav class="categories" aria-label="文章分類"><a href="#observation">社群觀察</a><a href="#storytelling">內容拆解</a><a href="#tools">工具筆記</a><a href="#guides">決策指南</a></nav><section class="latest" aria-label="最新圖文文章"><div class="section-label"><h2>新筆記</h2><span>03 STORIES</span></div><div class="post-grid">${cards}</div></section><section class="guide-index" id="guides"><div class="section-label"><h2>決策指南</h2><span>07 GUIDES</span></div><p>需要更完整的市場與合作整理？既有指南都在這裡。</p><ol>${guides.map((p,i)=>`<li><span>${String(i+1).padStart(2,'0')}</span>${readLink('/insights/'+p.slug+'/',esc(p.copy['zh-Hant'].h1),'blog-guide-index')}</li>`).join('')}</ol></section>`;
   fs.writeFileSync(path.join(root,'insights/index.html'),shell({title:'榛菓筆記：社群觀察、內容拆解與工具分享',description:'分享社群、創作者與內容工作的原創觀察、圖文拆解與工具筆記，也整理榛菓既有市場決策指南。',url:base+'/insights/',body,analyticsVersion,schema:{'@type':'CollectionPage',name:'榛菓筆記',url:base+'/insights/',inLanguage:'zh-TW',hasPart:posts.map(p=>({'@type':'BlogPosting',headline:p.title,url:base+href(p)}))}}));
   return ['insights/',...posts.map(p=>'insights/'+p.slug+'/')];
