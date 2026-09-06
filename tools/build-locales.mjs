@@ -2,6 +2,7 @@ import fs from "node:fs";
 import path from "node:path";
 import { seoEvidence, seoPhaseOnePages } from "./seo-phase-one-content.mjs";
 import { buildEditorialBlog } from "./editorial-blog.mjs";
+import { caseHero, caseDecisions, caseHandover, taiwanDecisionModules, pricingDecisionModules, historicalPricing, decisionCss } from "./decision-page-modules.mjs";
 
 const root = path.resolve(import.meta.dirname, "..");
 const analyticsAssetVersion = "20260811-1";
@@ -1465,7 +1466,7 @@ ${JSON.stringify(buildCaseSchema(study, locale), null, 2)}
   </script>
   <style>${serviceCss}
     .case-image { width:100%; max-width:760px; margin-top:32px; border:1px solid var(--line); border-radius:8px; background:#fff; }
-    .case-summary { max-width:780px; color:#40516c; font-size:clamp(18px,2vw,22px); }${caseDetailCss}
+    .case-summary { max-width:780px; color:#40516c; font-size:clamp(18px,2vw,22px); }${caseDetailCss}${decisionCss}
   </style>
 </head>
 <body>
@@ -1481,13 +1482,12 @@ ${JSON.stringify(buildCaseSchema(study, locale), null, 2)}
   <main>
     <section class="hero">
       <div class="wrap">
-        <span class="eyebrow">CASE STUDY</span>
-        <h1>${escapeHtml(study.title[locale.key])}</h1>
-        <p class="case-summary">${escapeHtml(study.summary[locale.key])}</p>
-        <img class="case-image" src="${assetPrefix}${study.image}" alt="${escapeAttr(study.title[locale.key])}">
+        ${caseHero(study, locale, `${assetPrefix}${study.image}`)}
       </div>
     </section>
+    ${caseDecisions(study, locale)}
     ${caseContent}
+    ${caseHandover(study, locale)}
     <section>
       <div class="wrap">
         <h2>${escapeHtml(ui.relatedServices)}</h2>
@@ -1607,11 +1607,15 @@ const renderSeoPage = (page, locale) => {
   const url = seoPageUrl(page, locale);
   const prefix = seoRelativePrefix(locale);
   const isTaiwan = page.slug === "taiwan-influencer-marketing";
+  const isPricingGuide = page.slug === "taiwan-influencer-marketing-costs-2026";
   const contactHref = isTaiwan ? `${locale.isRoot ? `${baseUrl}zh-tw/` : locale.url}#lead-form` : `${prefix}#contact-form`;
-  const evidenceCards = page.evidence.map((key) => seoEvidence[key]).filter(Boolean).map((entry) => {
+  const evidenceCard = (key) => {
+    const entry = seoEvidence[key];
+    if (!entry) return "";
     const item = entry[locale.key];
     return `<article class="card evidence-card"><h3>${escapeHtml(item.title)}</h3><p>${escapeHtml(item.body)}</p><p class="evidence-meta">${escapeHtml(item.evidence)}</p></article>`;
-  }).join("\n          ");
+  };
+  const evidenceCards = page.evidence.filter(key => !isPricingGuide || key !== "price-reference").map(evidenceCard).join("\n          ");
   const sectionCards = copy.sections.map(([title, points]) => `<article class="card"><h2>${escapeHtml(title)}</h2><ul>${points.map((point) => `<li>${escapeHtml(point)}</li>`).join("")}</ul></article>`).join("\n          ");
   const faqCards = copy.faqs.map(([question, answer]) => `<article class="card"><h3>${escapeHtml(question)}</h3><p>${escapeHtml(answer)}</p></article>`).join("\n          ");
   const relatedLinks = page.related.map((slug) => seoPhaseOnePages.find((candidate) => candidate.slug === slug)).filter(Boolean).map((related) => {
@@ -1631,7 +1635,15 @@ const renderSeoPage = (page, locale) => {
   const blogIndexLabel = locale.key === "en" ? "All articles｜ZhenguoCool Journal" : locale.key === "zh-Hans" ? "全部文章｜榛果笔记" : "全部文章｜榛菓筆記";
   const blogIndexLink = page.kind === "article" ? `<a class="button" href="/${locale.isRoot ? "" : locale.dir + "/"}insights/" data-track-event="article_index_click" data-track-location="guide-blog-index">${blogIndexLabel}</a>` : "";
   const allRelatedLinks = [relatedLinks, relatedServiceLinks, isTaiwan ? "" : relatedCaseLinks, blogIndexLink].filter(Boolean).join("\n          ");
-  const taiwanCases = isTaiwan ? `\n    <section><div class="wrap"><h2>${escapeHtml(serviceCopy.caseStudiesTitle)}</h2><div class="grid">${relatedCaseLinks}</div></div></section>` : "";
+  const taiwanCases = isTaiwan ? `<section class="taiwan-case-proof"><div class="wrap"><h2>${escapeHtml(serviceCopy.caseStudiesTitle)}</h2><div class="grid">${relatedCaseLinks}</div></div></section>` : "";
+  const supportModules = isTaiwan ? taiwanDecisionModules(locale) : isPricingGuide ? pricingDecisionModules(locale) : "";
+  const notesLabel = isTaiwan
+    ? (locale.key === "en" ? "Execution details and scope boundaries" : locale.key === "zh-Hans" ? "查看执行细节与合作边界" : "查看執行細節與合作邊界")
+    : (locale.key === "en" ? "More on formats and quote comparisons" : locale.key === "zh-Hans" ? "进一步了解内容形式与报价口径" : "進一步了解內容格式與報價口徑");
+  const sectionArea = isTaiwan || isPricingGuide
+    ? `<section class="service-notes"><div class="wrap"><details><summary>${notesLabel}</summary><div class="grid">${sectionCards}</div></details></div></section>`
+    : `<section>\n      <div class="wrap"><div class="grid">${sectionCards}</div></div>\n    </section>`;
+  const historicalSection = isPricingGuide ? historicalPricing(locale, evidenceCard("price-reference")) : "";
   const coreModules = page.kind === "service" ? renderCoreServiceModules(page, locale) : "";
   const update = page.kind === "article" ? `<p class="updated">${escapeHtml(ui.updated)}: ${escapeHtml(page.modified || "2026-07-23")}</p>` : "";
   const updatedLine = update ? `\n        ${update}` : "";
@@ -1658,7 +1670,7 @@ const renderSeoPage = (page, locale) => {
   <meta name="twitter:description" content="${escapeAttr(copy.description)}">
   <title>${escapeHtml(copy.title)}</title>
   <script src="${prefix}web-assets/analytics-config.js?v=${analyticsAssetVersion}" defer></script>
-  <script src="${prefix}web-assets/analytics.js?v=${analyticsAssetVersion}" defer></script>
+  <script src="${prefix}web-assets/analytics.js?v=${analyticsAssetVersion}" defer></script>${isPricingGuide ? '\n  <script src="/web-assets/decision-support.js?v=20260906-1" defer></script>' : ""}
   <script type="application/ld+json">
 ${JSON.stringify(seoPageSchema(page, locale), null, 2)}
   </script>
@@ -1684,7 +1696,7 @@ ${JSON.stringify(seoPageSchema(page, locale), null, 2)}
     .timeline-item h3 { margin:8px 0; font-size:19px; }
     .timeline-item p { margin:0; color:var(--muted); }
     .evidence-meta { margin-top:14px !important; padding-top:12px; border-top:1px solid var(--line); color:#526074 !important; font-size:13px; line-height:1.55; }
-    @media (max-width:760px) { .core-module { padding:48px 0; } .timeline { grid-template-columns:1fr; } .timeline-item { min-height:0; display:grid; grid-template-columns:52px 1fr; gap:10px; } .timeline-item h3 { margin-top:2px; } }
+    @media (max-width:760px) { .core-module { padding:48px 0; } .timeline { grid-template-columns:1fr; } .timeline-item { min-height:0; display:grid; grid-template-columns:52px 1fr; gap:10px; } .timeline-item h3 { margin-top:2px; } }${isTaiwan || isPricingGuide ? decisionCss : ""}
   </style>
 </head>
 <body>
@@ -1706,9 +1718,7 @@ ${JSON.stringify(seoPageSchema(page, locale), null, 2)}
         <div class="actions"><a class="button primary" href="${contactHref}" data-track-event="${eventName}" data-track-location="hero">${escapeHtml(copy.cta)}</a></div>
       </div>
     </section>
-    <section>
-      <div class="wrap"><div class="grid">${sectionCards}</div></div>
-    </section>${coreModules}${evidenceSection}${taiwanCases}
+    ${taiwanCases}${supportModules}${sectionArea}${coreModules}${evidenceSection}${historicalSection}
     <section>
       <div class="wrap"><h2>${escapeHtml(ui.faq)}</h2><div class="grid">${faqCards}</div></div>
     </section>

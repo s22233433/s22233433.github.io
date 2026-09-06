@@ -12,7 +12,9 @@ for(const locale of blogLocales)for(const p of seoPhaseOnePages.filter(p=>p.kind
  const file=`${locale.prefix}insights/${p.slug}/index.html`;
  const label=locale.key==='en'?'All articles｜ZhenguoCool Journal':locale.key==='zh-CN'?'全部文章｜榛果笔记':'全部文章｜榛菓筆記';
  const added=`\n          <a class="button" href="${indexHref(locale)}" data-track-event="article_index_click" data-track-location="guide-blog-index">${label}</a>`;
- assert.equal(read(file).split(added).length,2);assert.equal(read(file).replace(added,''),old(file),'guide change limited to locale-correct journal entry');
+ assert.equal(read(file).split(added).length,2);
+ // The separately approved pricing refresh has its own frozen-metadata/scope contract.
+ if(p.slug!=='taiwan-influencer-marketing-costs-2026')assert.equal(read(file).replace(added,''),old(file),'guide change limited to locale-correct journal entry');
 }
 assert.equal(views.reduce((a,b)=>a+b,0),50000);assert.equal(mean,5000);assert.equal(median,2300);
 assert.deepEqual([...posts].sort(newestFirst).map(p=>p.number),['06','05','04','03','02','01']);

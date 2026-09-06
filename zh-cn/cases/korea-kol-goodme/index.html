@@ -148,6 +148,19 @@
     .case-timeline h3 { margin:8px 0; font-size:19px; }
     .case-checklist .button { margin-top:12px; }
     @media (max-width:760px) { .case-split, .case-story, .case-timeline { grid-template-columns:1fr; } .case-timeline article { display:grid; grid-template-columns:52px 1fr; gap:10px; } .case-timeline h3 { margin-top:2px; } }
+ .module-intro{max-width:850px;color:var(--muted);line-height:1.8}.module-note{font-size:14px;color:var(--muted)}
+ .step-no{font:italic 30px Georgia,serif;color:var(--coral)}.scope-columns,.reading-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:28px}
+ .scope-columns>article{border-top:2px solid var(--coral);padding:24px 0}.scope-columns h3,.reading-grid h3{font-size:22px;line-height:1.4;margin:12px 0}.scope-columns ul{padding-left:20px;color:var(--muted)}.scope-columns li+li{margin-top:12px}
+ .scope-columns dt{font-size:13px;font-weight:800;margin-top:20px;color:var(--ink)}.scope-columns dd{margin:5px 0 0;color:var(--muted);line-height:1.7}
+ .sample-module,.case-reasoning,.pricing-scenarios{background:#f3f0e8}.sample-heading{display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap}.sample-tag{border:1px solid #68766c;padding:6px 12px;color:#405446;font-size:12px;letter-spacing:.07em}
+ .decision-table{overflow-x:auto;background:#fff;border:1px solid var(--line);margin:24px 0}.decision-table table{width:100%;min-width:600px;border-collapse:collapse;text-align:left}.decision-table caption{text-align:left;padding:16px 20px;font-weight:800;color:var(--ink)}.decision-table th,.decision-table td{padding:18px 20px;line-height:1.7;vertical-align:top;border-bottom:1px solid var(--line)}.decision-table thead th{background:#20332d;color:#fff;font-size:14px}.decision-table tbody th{background:#f8f6ef;color:var(--ink);width:22%;font-size:15px}.decision-table td{color:var(--muted)}.decision-table tr:last-child>*{border-bottom:0}
+ .case-opening{display:grid;grid-template-columns:minmax(0,.85fr) minmax(0,1.15fr);gap:48px;align-items:start}.case-opening h1{font-size:clamp(36px,4vw,60px);line-height:1.16}.case-facts{margin:28px 0 0;border-top:1px solid var(--line)}.case-facts>div{display:grid;grid-template-columns:90px 1fr;gap:20px;border-bottom:1px solid var(--line);padding:16px 0}.case-facts dt{color:var(--muted);font-size:13px}.case-facts dd{margin:0;font-size:16px;font-weight:700}
+ .case-asset{margin:0;min-width:0}.case-asset img{display:block;width:100%;height:auto;border:1px solid var(--line)}.case-asset figcaption{font-size:12px;line-height:1.65;color:var(--muted);padding-top:12px}.asset-reading{border-top:1px solid var(--line);margin-top:48px;padding-top:24px}.asset-reading h2{font-size:26px}.reading-grid article{border-left:2px solid #c7cdbf;padding-left:20px}.reading-grid p{color:var(--muted);font-size:15px;line-height:1.8}
+ .reasoning-list{max-width:950px}.reasoning-list article{display:grid;grid-template-columns:60px 1fr;gap:20px;border-top:1px solid #ced3c9;padding:24px 0}.reasoning-list h3{font-size:22px;margin:0 0 10px}.reasoning-list p{color:var(--muted);margin:0;line-height:1.8}.case-boundary{display:grid;grid-template-columns:1fr 1fr;gap:32px;margin-top:32px}.case-boundary>div{border-left:3px solid var(--teal);padding:0 24px}.case-boundary h3{margin:0 0 12px}.case-boundary p{margin:0;color:var(--muted);line-height:1.8}
+ .pricing-request textarea{width:100%;max-width:900px;padding:24px;font-family:inherit;font-size:16px;line-height:1.8;color:var(--ink);background:#fff;border:1px solid var(--line);border-radius:4px;resize:vertical}.pricing-request button{font:inherit;cursor:pointer}.pricing-request [role=status]{font-size:14px;color:var(--muted)}.historical-pricing{background:#f6f4ef}.historical-pricing summary,.service-notes summary{cursor:pointer;font-weight:800;font-size:20px;padding:16px 0}.historical-pricing .grid,.service-notes .grid{margin-top:16px}
+ .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}.decision-table:focus-visible,summary:focus-visible,button:focus-visible,textarea:focus-visible{outline:3px solid var(--teal);outline-offset:4px}
+ @media(max-width:760px){.case-opening,.scope-columns,.reading-grid,.case-boundary{grid-template-columns:1fr}.case-opening{gap:18px}.case-opening>div{display:contents}.case-opening .eyebrow{order:0}.case-opening h1{order:1;font-size:36px;margin:0}.case-opening .case-summary{order:2;margin:0}.case-opening .case-asset{order:3}.case-opening .case-facts{order:4;margin-top:0}.scope-columns,.reading-grid{gap:16px}.asset-reading{margin-top:30px}.case-facts>div{grid-template-columns:80px 1fr}.decision-table th,.decision-table td{padding:14px}.case-boundary>div{padding-left:18px}.reasoning-list article{grid-template-columns:38px 1fr;gap:12px}.pricing-request textarea{padding:16px;font-size:16px}html[lang=en] .case-opening h1{font-size:32px}}
+
   </style>
 </head>
 <body>
@@ -163,12 +176,10 @@
   <main>
     <section class="hero">
       <div class="wrap">
-        <span class="eyebrow">CASE STUDY</span>
-        <h1>韩国 KOL x 古茗饮料</h1>
-        <p class="case-summary">以韩国创作者实访门店，把旅行路线、饮品体验与社交内容串成可理解的品牌故事。</p>
-        <img class="case-image" src="../../../web-assets/case-goodme-korean-kol.webp" alt="韩国 KOL x 古茗饮料">
+        <div class="case-opening"><div><span class="eyebrow">CASE STUDY / CROSS-MARKET STORY</span><h1>韩国 KOL x 古茗饮料</h1><p class="case-summary">以韩国创作者实访门店，把旅行路线、饮品体验与社交内容串成可理解的品牌故事。</p><dl class="case-facts"><div><dt>市场切入</dt><dd>韩国受众理解中国茶饮门店</dd></div><div><dt>内容方法</dt><dd>实访、选饮与跨语言情境</dd></div><div><dt>合作角色</dt><dd>创作者到店、内容与链接整理</dd></div></dl></div><figure class="case-asset"><img src="../../../web-assets/case-goodme-korean-kol.webp" alt="韩国 KOL x 古茗饮料" width="1180" height="1043" fetchpriority="high"><figcaption>既有公开展示的案例素材：门店招牌与韩文社交帖文画面并置。以下标注整理跨市场内容线索。</figcaption></figure></div><div class="asset-reading" aria-label="案例素材与内容解读"><h2>从画面看内容安排</h2><div class="reading-grid"><article><span class="step-no">01</span><h3>门店先提供辨识线索</h3><p>招牌先让陌生受众看见品牌与到店场景，降低理解门槛。</p></article><article><span class="step-no">02</span><h3>语言转换要保留脉络</h3><p>韩文社交文字提醒跨语言内容要同时处理品牌名称、品项描述与合作标示。</p></article><article><span class="step-no">03</span><h3>建立内容证据链</h3><p>以“门店线索 → 到店叙事 → 饮品选择 → 发布链接”串起内容，形成不同于单纯产品介绍的海外视角。</p></article></div></div>
       </div>
     </section>
+    <section class="case-reasoning"><div class="wrap"><span class="eyebrow">DECISIONS / EXECUTION</span><h2>内容决策｜先交接情境，再交接产品</h2><div class="reasoning-list"><article><span class="step-no">01</span><div><h3>先翻译产品，还是先翻译情境？</h3><p>先交代旅程或城市路线，再介绍饮品，让陌生品牌有可理解的到店理由。</p></div></article><article><span class="step-no">02</span><div><h3>如何避免海外内容只剩打卡？</h3><p>把门店线索、到店原因、个人感受与品牌资讯排成可核对段落，保留创作者语气。</p></div></article><article><span class="step-no">03</span><div><h3>交付验收看什么？</h3><p>先核对发布内容与链接，再分开检查语言、合作标示与权利。</p></div></article></div></div></section>
     <section class="case-detail">
       <div class="wrap">
         <div class="case-summary-band"><span class="eyebrow">项目摘要</span><h2>关键判断</h2><p>饮料品牌进入陌生市场时，门店、选饮与个人感受必须先成为可信的到店故事；创作者不只是负责露出产品。</p></div>
@@ -179,6 +190,7 @@
         <div class="case-split"><article><h2>交付与可复用学习</h2><p>本案以内容与链接整理作为结案基础。可复用的学习不在于套用单一话术，而是先把海外创作者的到店理由、内容节奏与品牌讯息放进同一份可执行的 brief。</p></article><article class="case-checklist"><h2>饮料品牌决策指南</h2><p>本页未公开没有可追溯证据支持的曝光、销售、排名或费用数字；不以空白数字卡取代实际交付说明。</p><a class="button" href="https://zhenguocool.com/zh-cn/insights/beverage-kol-marketing-guide/" data-track-event="article_cta_click" data-track-location="case-beverage-guide">阅读饮料品牌 KOL 营销指南</a></article></div>
       </div>
     </section>
+    <section class="case-handover"><div class="wrap"><h2>交付内容与验收参考</h2><p class="module-intro">公开页面披露的交付是发布内容与链接整理，以及海外创作者补足在地门店情境的可复用学习；以下是建议验收清单，不是完整执行记录。页面未提供完整数量、项目日期、创作者名单、实际触达或授权条款。</p><div class="decision-table" role="region" aria-label="交付内容与验收参考" tabindex="0"><table><caption>交付内容与验收参考</caption><thead><tr><th scope="col">项目</th><th scope="col">核对重点</th></tr></thead><tbody><tr><th scope="row">既有交付物</th><td>核对公开页面提到的发布内容与链接整理；若保存截图或原始文件，另记录版本与来源。</td></tr><tr><th scope="row">跨语言与标示</th><td>对照韩文原文、品牌名称、饮品描述与商业合作标示，确认翻译不扩大产品说法。</td></tr><tr><th scope="row">到店与授权记录</th><td>建议补齐门店、到店时间、发布链接、素材使用范围与期限。</td></tr></tbody></table></div><div class="case-boundary"><div><h3>可延伸的应用</h3><p>可把招牌、旅行脉络、选饮与创作者语气整理成跨语言 brief，再接上审核、标示与链接交付；先确认产品资料、店点资讯与权利。</p></div><div><h3>阅读说明</h3><p>本页聚焦门店与韩文帖文呈现的内容线索，未发布观看、触达、销售、排名、费用或完整授权条款；画面不构成结果承诺。</p></div></div></div></section>
     <section>
       <div class="wrap">
         <h2>相关服务页</h2>

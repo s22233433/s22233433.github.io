@@ -133,6 +133,19 @@
 
     .case-image { width:100%; max-width:760px; margin-top:32px; border:1px solid var(--line); border-radius:8px; background:#fff; }
     .case-summary { max-width:780px; color:#40516c; font-size:clamp(18px,2vw,22px); }
+ .module-intro{max-width:850px;color:var(--muted);line-height:1.8}.module-note{font-size:14px;color:var(--muted)}
+ .step-no{font:italic 30px Georgia,serif;color:var(--coral)}.scope-columns,.reading-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:28px}
+ .scope-columns>article{border-top:2px solid var(--coral);padding:24px 0}.scope-columns h3,.reading-grid h3{font-size:22px;line-height:1.4;margin:12px 0}.scope-columns ul{padding-left:20px;color:var(--muted)}.scope-columns li+li{margin-top:12px}
+ .scope-columns dt{font-size:13px;font-weight:800;margin-top:20px;color:var(--ink)}.scope-columns dd{margin:5px 0 0;color:var(--muted);line-height:1.7}
+ .sample-module,.case-reasoning,.pricing-scenarios{background:#f3f0e8}.sample-heading{display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap}.sample-tag{border:1px solid #68766c;padding:6px 12px;color:#405446;font-size:12px;letter-spacing:.07em}
+ .decision-table{overflow-x:auto;background:#fff;border:1px solid var(--line);margin:24px 0}.decision-table table{width:100%;min-width:600px;border-collapse:collapse;text-align:left}.decision-table caption{text-align:left;padding:16px 20px;font-weight:800;color:var(--ink)}.decision-table th,.decision-table td{padding:18px 20px;line-height:1.7;vertical-align:top;border-bottom:1px solid var(--line)}.decision-table thead th{background:#20332d;color:#fff;font-size:14px}.decision-table tbody th{background:#f8f6ef;color:var(--ink);width:22%;font-size:15px}.decision-table td{color:var(--muted)}.decision-table tr:last-child>*{border-bottom:0}
+ .case-opening{display:grid;grid-template-columns:minmax(0,.85fr) minmax(0,1.15fr);gap:48px;align-items:start}.case-opening h1{font-size:clamp(36px,4vw,60px);line-height:1.16}.case-facts{margin:28px 0 0;border-top:1px solid var(--line)}.case-facts>div{display:grid;grid-template-columns:90px 1fr;gap:20px;border-bottom:1px solid var(--line);padding:16px 0}.case-facts dt{color:var(--muted);font-size:13px}.case-facts dd{margin:0;font-size:16px;font-weight:700}
+ .case-asset{margin:0;min-width:0}.case-asset img{display:block;width:100%;height:auto;border:1px solid var(--line)}.case-asset figcaption{font-size:12px;line-height:1.65;color:var(--muted);padding-top:12px}.asset-reading{border-top:1px solid var(--line);margin-top:48px;padding-top:24px}.asset-reading h2{font-size:26px}.reading-grid article{border-left:2px solid #c7cdbf;padding-left:20px}.reading-grid p{color:var(--muted);font-size:15px;line-height:1.8}
+ .reasoning-list{max-width:950px}.reasoning-list article{display:grid;grid-template-columns:60px 1fr;gap:20px;border-top:1px solid #ced3c9;padding:24px 0}.reasoning-list h3{font-size:22px;margin:0 0 10px}.reasoning-list p{color:var(--muted);margin:0;line-height:1.8}.case-boundary{display:grid;grid-template-columns:1fr 1fr;gap:32px;margin-top:32px}.case-boundary>div{border-left:3px solid var(--teal);padding:0 24px}.case-boundary h3{margin:0 0 12px}.case-boundary p{margin:0;color:var(--muted);line-height:1.8}
+ .pricing-request textarea{width:100%;max-width:900px;padding:24px;font-family:inherit;font-size:16px;line-height:1.8;color:var(--ink);background:#fff;border:1px solid var(--line);border-radius:4px;resize:vertical}.pricing-request button{font:inherit;cursor:pointer}.pricing-request [role=status]{font-size:14px;color:var(--muted)}.historical-pricing{background:#f6f4ef}.historical-pricing summary,.service-notes summary{cursor:pointer;font-weight:800;font-size:20px;padding:16px 0}.historical-pricing .grid,.service-notes .grid{margin-top:16px}
+ .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}.decision-table:focus-visible,summary:focus-visible,button:focus-visible,textarea:focus-visible{outline:3px solid var(--teal);outline-offset:4px}
+ @media(max-width:760px){.case-opening,.scope-columns,.reading-grid,.case-boundary{grid-template-columns:1fr}.case-opening{gap:18px}.case-opening>div{display:contents}.case-opening .eyebrow{order:0}.case-opening h1{order:1;font-size:36px;margin:0}.case-opening .case-summary{order:2;margin:0}.case-opening .case-asset{order:3}.case-opening .case-facts{order:4;margin-top:0}.scope-columns,.reading-grid{gap:16px}.asset-reading{margin-top:30px}.case-facts>div{grid-template-columns:80px 1fr}.decision-table th,.decision-table td{padding:14px}.case-boundary>div{padding-left:18px}.reasoning-list article{grid-template-columns:38px 1fr;gap:12px}.pricing-request textarea{padding:16px;font-size:16px}html[lang=en] .case-opening h1{font-size:32px}}
+
   </style>
 </head>
 <body>
@@ -148,12 +161,10 @@
   <main>
     <section class="hero">
       <div class="wrap">
-        <span class="eyebrow">CASE STUDY</span>
-        <h1>凱夢捲髮棒</h1>
-        <p class="case-summary">以男性造型需求切入，透過創作者實測與功能拆解，讓產品賣點被看懂。</p>
-        <img class="case-image" src="../../../web-assets/case-camay-curling-iron.webp" alt="凱夢捲髮棒">
+        <div class="case-opening"><div><span class="eyebrow">CASE STUDY / PRODUCT STORY</span><h1>凱夢捲髮棒</h1><p class="case-summary">以男性造型需求切入，透過創作者實測與功能拆解，讓產品賣點被看懂。</p><dl class="case-facts"><div><dt>市場切入</dt><dd>男性日常造型</dd></div><div><dt>內容方法</dt><dd>實測、步驟拆解與功能對應</dd></div><div><dt>合作角色</dt><dd>創作者示範與產品資訊整理</dd></div></dl></div><figure class="case-asset"><img src="../../../web-assets/case-camay-curling-iron.webp" alt="凱夢捲髮棒" width="1180" height="1024" fetchpriority="high"><figcaption>既有公開展示的案例素材：產品包裝與談男性造型的 Instagram 貼文摘錄並置。以下標註整理畫面中的內容安排。</figcaption></figure></div><div class="asset-reading" aria-label="案例素材與內容判讀"><h2>從畫面看內容安排</h2><div class="reading-grid"><article><span class="step-no">01</span><h3>先放進日常整理</h3><p>產品包裝與貼文把造型工具放進男性日常整理脈絡，先從使用情境建立理解入口。</p></article><article><span class="step-no">02</span><h3>讓功能有畫面對應</h3><p>髮根、瀏海與功能拆解可各配一個可回看的示範動作，讓文字與畫面互相對照。</p></article><article><span class="step-no">03</span><h3>保留個人感</h3><p>保留創作者的示範順序與語氣，再用短句補充產品資訊，兼顧個人感與可讀性。</p></article></div></div>
       </div>
     </section>
+    <section class="case-reasoning"><div class="wrap"><span class="eyebrow">DECISIONS / EXECUTION</span><h2>內容決策｜把賣點變成可檢查的段落</h2><div class="reasoning-list"><article><span class="step-no">01</span><div><h3>先講什麼？</h3><p>從男性日常整理問題切入，再接產品資訊，讓受眾知道為何觀看示範。</p></div></article><article><span class="step-no">02</span><div><h3>功能怎麼被看懂？</h3><p>每個功能配一段動作、部位或前後對照，避免只呈現規格文字。</p></div></article><article><span class="step-no">03</span><div><h3>素材如何交付？</h3><p>短影音、社群素材、版本與再利用用途分開整理，方便品牌後續選擇。</p></div></article></div></div></section>
     <section>
       <div class="wrap">
         <div class="grid">
@@ -167,6 +178,7 @@
         </div>
       </div>
     </section>
+    <section class="case-handover"><div class="wrap"><h2>交付內容與驗收參考</h2><p class="module-intro">公開頁面披露的交付是短影音與社群素材整理，並提出可再利用的內容方向；以下是建議驗收清單，不是完整執行紀錄。頁面未提供完整數量、專案日期、創作者名單、實際觸及或授權條款。</p><div class="decision-table" role="region" aria-label="交付內容與驗收參考" tabindex="0"><table><caption>交付內容與驗收參考</caption><thead><tr><th scope="col">項目</th><th scope="col">核對重點</th></tr></thead><tbody><tr><th scope="row">既有交付物</th><td>核對公開頁面提到的短影音與社群素材整理；若有額外版本，補上檔名、格式與狀態。</td></tr><tr><th scope="row">內容與產品資訊</th><td>對照已核准資料，確認髮根、瀏海等描述有對應畫面；不把功能文字延伸成精確性能說法。</td></tr><tr><th scope="row">再利用與權利</th><td>分開記錄自然發布、品牌社群、網站或付費使用的範圍、期限與核准人。</td></tr></tbody></table></div><div class="case-boundary"><div><h3>可延伸的應用</h3><p>可把男性造型情境拆成短影音、UGC 或社群教學；先確認產品說明、禁用說法、審稿與使用權，再決定腳本與創作者。</p></div><div><h3>閱讀說明</h3><p>本頁聚焦內容方向與公開資產，未發布觀看、互動、轉換、費用或完整授權條款；畫面與文案不構成性能、安全或結果承諾。</p></div></div></div></section>
     <section>
       <div class="wrap">
         <h2>相關服務頁</h2>

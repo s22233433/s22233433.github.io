@@ -18,6 +18,9 @@ const includeCareers = process.env.GA4_CAREERS === "1";
 const includeInternalTraffic = process.env.GA4_INTERNAL_TRAFFIC === "1";
 const includeBlog = process.env.GA4_BLOG === "1";
 const includeBlogLocales = process.env.GA4_BLOG_LOCALES === "1";
+const includeDecisionRefresh = process.env.GA4_DECISION_REFRESH === "1";
+const decisionCaseRoutes = ['', 'zh-tw/', 'zh-cn/', 'en/'].flatMap(prefix => ['camay-curling-iron', 'liming-weiquan-cheer', 'korea-kol-goodme'].map(slug => `${prefix}cases/${slug}/`));
+const decisionSeoRoutes = ['', 'zh-cn/', 'en/'].flatMap(prefix => [`${prefix}services/taiwan-influencer-marketing/`, `${prefix}insights/taiwan-influencer-marketing-costs-2026/`]);
 const selected = (value) => !targets.length || targets.some((target) => value.includes(target));
 const reportName = targets.length ? "ga4-targeted-report" : "ga4-network-report";
 const locales = [
@@ -662,6 +665,7 @@ try {
     });
   }
   const classificationDefinitions = [
+    ...(includeDecisionRefresh ? [...decisionCaseRoutes,...decisionSeoRoutes].map(route=>({name:`Decision refresh page ${route}`,url:`${site}/${route}`})) : []),
     ...(includeBlogLocales ? blogLocales.flatMap(locale => ["", ...editorialPosts.map(post=>`${post.slug}/`)].map(route=>({name:`Blog locale page ${locale.key} ${route||'index'}`,url:`${site}/${locale.prefix}insights/${route}`}))) : []),
     ...(includeBlog ? ["", ...editorialPosts.map(post => `${post.slug}/`)].map(route => ({ name: `Blog page ${route || 'index'}`, url: `${site}/insights/${route}` })) : []),
     { name: "product zh-TW", url: `${site}/tools/instagram-insights-passive/` },
@@ -678,6 +682,15 @@ try {
   }
   const interactions = [];
   const clickDefinitions = [
+    ...(includeDecisionRefresh ? [
+      ...decisionCaseRoutes.map(route=>({name:`Decision refresh case CTA ${route}`,url:`${site}/${route}`,selector:'[data-track-location="case-cta"]',event:'case_study_click',location:'case-cta'})),
+      ...['','zh-cn/','en/'].flatMap(prefix=>[
+        {name:`Decision refresh service proof ${prefix||'root'}`,url:`${site}/${prefix}services/taiwan-influencer-marketing/`,selector:'[data-track-location="taiwan-service-case"]',event:'case_study_click',location:'taiwan-service-case'},
+        {name:`Decision refresh service final ${prefix||'root'}`,url:`${site}/${prefix}services/taiwan-influencer-marketing/`,selector:'[data-track-location="final"]',event:'service_cta_click',location:'final'},
+        {name:`Decision refresh pricing copy ${prefix||'root'}`,url:`${site}/${prefix}insights/taiwan-influencer-marketing-costs-2026/`,selector:'[data-copy-inquiry]',event:'article_cta_click',location:'pricing-copy-brief'},
+        {name:`Decision refresh pricing service ${prefix||'root'}`,url:`${site}/${prefix}insights/taiwan-influencer-marketing-costs-2026/`,selector:'[data-track-location="related-taiwan-service"]',event:'article_cta_click',location:'related-taiwan-service'}
+      ])
+    ] : []),
     ...(includeBlogLocales ? blogLocales.flatMap(locale => [
       {name:`Blog locale index ${locale.key}`,url:`${site}/${locale.prefix}insights/`,selector:`h2 [data-track-location="blog-index"][href="/${locale.prefix}insights/tiktok-search-topic-workshop/"]`,event:'article_index_click',location:'blog-index'},
       {name:`Blog locale related ${locale.key}`,url:`${site}/${locale.prefix}insights/tiktok-search-topic-workshop/`,selector:'[data-track-location="blog-related"]',event:'article_index_click',location:'blog-related'},
