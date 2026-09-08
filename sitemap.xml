@@ -190,6 +190,61 @@
     <xhtml:link rel="alternate" hreflang="x-default" href="https://zhenguocool.com/insights/" />
   </url>
   <url>
+    <loc>https://zhenguocool.com/tools/quotation-generator/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://zhenguocool.com/tools/quotation-generator/updates/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.4</priority>
+  </url>
+  <url>
+    <loc>https://zhenguocool.com/tools/email-signature-generator/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://zhenguocool.com/tools/email-signature-generator/updates/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.4</priority>
+  </url>
+  <url>
+    <loc>https://zhenguocool.com/tools/qr-code-generator/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://zhenguocool.com/tools/qr-code-generator/updates/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.4</priority>
+  </url>
+  <url>
+    <loc>https://zhenguocool.com/tools/script-word-counter/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://zhenguocool.com/tools/script-word-counter/updates/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.4</priority>
+  </url>
+  <url>
+    <loc>https://zhenguocool.com/tools/social-image-tool/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://zhenguocool.com/tools/social-image-tool/updates/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.4</priority>
+  </url>
+  <url>
+    <loc>https://zhenguocool.com/privacy/tools/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.3</priority>
+  </url>
+  <url>
     <loc>https://zhenguocool.com/</loc>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>

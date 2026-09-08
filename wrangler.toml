@@ -12,6 +12,10 @@ database_name = "FORM_DB"
 binding = "FORM_NOTIFIER"
 service = "zhenguocool-form-notifier"
 
+[[services]]
+binding = "TOOL_FEEDBACK"
+service = "zhenguocool-tool-feedback"
+
 [[env.production.d1_databases]]
 database_id = "204a4171-efe0-4400-9fbb-166c43eff6f5"
 binding = "FORM_DB"
@@ -20,3 +24,7 @@ database_name = "FORM_DB"
 [[env.production.services]]
 binding = "FORM_NOTIFIER"
 service = "zhenguocool-form-notifier"
+
+[[env.production.services]]
+binding = "TOOL_FEEDBACK"
+service = "zhenguocool-tool-feedback"

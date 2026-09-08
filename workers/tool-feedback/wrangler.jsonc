@@ -1,0 +1,20 @@
+{
+  "$schema": "../../node_modules/wrangler/config-schema.json",
+  "name": "zhenguocool-tool-feedback",
+  "main": "index.mjs",
+  "compatibility_date": "2026-09-08",
+  "compatibility_flags": ["nodejs_compat"],
+  "workers_dev": false,
+  "preview_urls": false,
+  "routes": [{"pattern":"staff.zhenguocool.com/tool-feedback*","zone_id":"9bdf20130c5cdba2417c7b7dacd8814e"}],
+  "observability": {"enabled": true,"head_sampling_rate": 0.1},
+  "limits": {"cpu_ms": 50},
+  "d1_databases": [{"binding":"DB","database_name":"zhenguocool-tool-feedback","database_id":"94347562-3adc-40b4-b457-62c62a0eb5e6"}],
+  "vars": {
+    "ENABLED":"true",
+    "TURNSTILE_SITEKEY":"0x4AAAAAAEsxwxe7YMuMaBF3",
+    "TEAM_DOMAIN":"https://zhenguocool.cloudflareaccess.com",
+    "POLICY_AUD":"4aeac568ed8b14d1522956a083dd058a7317c8ccd34248e2ac9d681a0cf6c90d",
+    "ADMIN_EMAIL":"weiting@zhenguocool.com"
+  }
+}

@@ -2,6 +2,7 @@ import fs from "node:fs";
 import path from "node:path";
 import { seoEvidence, seoPhaseOnePages } from "./seo-phase-one-content.mjs";
 import { buildEditorialBlog } from "./editorial-blog.mjs";
+import { buildPublicTools } from "./build-public-tools.mjs";
 import { caseHero, caseDecisions, caseHandover, taiwanDecisionModules, pricingDecisionModules, historicalPricing, decisionCss } from "./decision-page-modules.mjs";
 
 const root = path.resolve(import.meta.dirname, "..");
@@ -2023,7 +2024,7 @@ for (const locale of locales) {
   fs.writeFileSync(path.join(dir, "index.html"), renderThankYouPage(locale));
 }
 
-const sitemapItems = buildEditorialBlog(root, seoPhaseOnePages, analyticsAssetVersion);
+const sitemapItems = [...buildEditorialBlog(root, seoPhaseOnePages, analyticsAssetVersion), ...buildPublicTools(root, analyticsAssetVersion)];
 sitemapItems.push({
   loc: baseUrl,
   priority: "1.0",

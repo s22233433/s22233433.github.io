@@ -1,0 +1,140 @@
+<!doctype html><html lang="zh-TW"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Email 簽名檔產生器｜免費線上工具｜榛菓</title><meta name="description" content="用三種輕量模板製作可貼到 Gmail、Outlook 或 Apple Mail 的 Email 簽名檔；內容只在目前瀏覽器處理。"><meta name="robots" content="index,follow"><link rel="canonical" href="https://zhenguocool.com/tools/email-signature-generator/"><meta property="og:title" content="Email 簽名檔產生器｜免費線上工具"><meta property="og:description" content="用三種輕量模板製作可貼到 Gmail、Outlook 或 Apple Mail 的 Email 簽名檔；內容只在目前瀏覽器處理。"><meta property="og:url" content="https://zhenguocool.com/tools/email-signature-generator/"><meta property="og:type" content="website"><meta property="og:image" content="https://zhenguocool.com/web-assets/og-zhenguocool-campaign-plan.webp"><link rel="stylesheet" href="/web-assets/public-tools/tools.css?v=20260908-1"><style>
+    .signature-tool{--signature-ink:#172033;--signature-muted:#647087;--signature-line:#d9e0eb;--signature-accent:#315b9d;align-items:start}
+    .signature-tool .panel{min-width:0}
+    .signature-tool .panel-heading{display:flex;justify-content:space-between;gap:16px;align-items:start;margin-bottom:20px}
+    .signature-tool .panel-heading h2{margin:0;color:var(--signature-ink);font-size:clamp(22px,3vw,32px);line-height:1.12}
+    .signature-tool .panel-intro{max-width:600px;margin:10px 0 0;color:var(--signature-muted);line-height:1.7}
+    .signature-tool .signature-fields{grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+    .signature-tool .signature-fields label:first-child:last-child,.signature-tool .signature-logo-field label{grid-column:1/-1}
+    .signature-tool .signature-bilingual-fields{padding-top:14px;border-top:1px solid var(--signature-line)}
+    .signature-tool .field-help{margin:8px 0 0;color:var(--signature-muted);font-size:12px;line-height:1.6}
+    .signature-tool input[type=color]{min-height:42px;padding:4px}
+    .signature-tool .actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:20px}
+    .signature-tool .actions button{min-height:42px;padding:10px 14px;border:1px solid var(--signature-line);border-radius:999px;background:#fff;color:var(--signature-ink);cursor:pointer}
+    .signature-tool .actions .primary{border-color:var(--signature-accent);background:var(--signature-accent);color:#fff}
+    .signature-tool .actions button:focus-visible{outline:3px solid #315b9d44;outline-offset:2px}
+    .signature-tool .notice{min-height:24px;margin:16px 0 0;color:var(--signature-muted);font-size:13px}
+    .signature-tool .notice[data-tone=error]{color:#a33d52}
+    .signature-tool .signature-output-label{color:var(--signature-muted);font-size:12px}
+    .signature-tool .signature-preview-grid{display:grid;grid-template-columns:minmax(0,1.45fr) minmax(220px,.75fr);gap:14px;align-items:start}
+    .signature-tool .signature-preview-card{min-width:0;padding:14px;background:#f6f8fb;border:1px solid var(--signature-line);border-radius:14px}
+    .signature-tool .preview-label{display:block;margin-bottom:12px;color:var(--signature-muted);font-size:11px;letter-spacing:.08em;text-transform:uppercase}
+    .signature-tool .signature-preview-canvas{min-height:138px;padding:18px;background:#fff;border-radius:9px;overflow:auto}
+    .signature-tool .signature-preview-narrow{max-width:260px;margin:0 auto}
+    .signature-tool .signature-source-label{display:grid;gap:8px;margin-top:16px;color:var(--signature-muted);font-size:12px}
+    .signature-tool #signature-html-source{width:100%;resize:vertical;border:1px solid var(--signature-line);border-radius:8px;background:#fbfcfe;color:var(--signature-ink);font:12px/1.55 ui-monospace,SFMono-Regular,Menlo,monospace}
+    .signature-tool .signature-install{margin-top:18px;padding-top:16px;border-top:1px solid var(--signature-line);color:var(--signature-muted);font-size:13px;line-height:1.7}
+    .signature-tool .signature-install summary{color:var(--signature-ink);font-weight:700;cursor:pointer}
+    .signature-tool .signature-install ol{padding-left:20px}
+    @media (max-width:760px){.signature-tool .signature-fields{grid-template-columns:1fr}.signature-tool .signature-fields label:first-child:last-child,.signature-tool .signature-logo-field label{grid-column:auto}.signature-tool .signature-preview-grid{grid-template-columns:1fr}.signature-tool .signature-preview-narrow{max-width:100%}.signature-tool .panel-heading{display:block}.signature-tool .signature-output-label{display:block;margin-top:8px}}
+  </style><script>/* Never encode workspace input in page URLs or analytics. */{const p=new URLSearchParams(location.search),s=new URLSearchParams();for(const k of ['ga_debug','ga_internal'])if(['0','1'].includes(p.get(k)))s.set(k,p.get(k));history.replaceState(null,'',location.pathname+(s.size?'?'+s:''));}</script><script src="/web-assets/analytics-config.js?v=20260811-1" defer></script><script src="/web-assets/analytics.js?v=20260811-1" defer></script><script type="module" src="/web-assets/public-tools/common.mjs?v=20260908-1"></script><script type="module" src="/web-assets/public-tools/email-signature.mjs?v=20260908-1"></script><script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"WebApplication","name":"Email 簽名檔產生器｜免費線上工具","url":"https://zhenguocool.com/tools/email-signature-generator/","description":"用三種輕量模板製作可貼到 Gmail、Outlook 或 Apple Mail 的 Email 簽名檔；內容只在目前瀏覽器處理。","inLanguage":"zh-TW","applicationCategory":"BusinessApplication","operatingSystem":"Modern web browser","isAccessibleForFree":true,"softwareVersion":"1.0.0"},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"工具","item":"https://zhenguocool.com/tools/"},{"@type":"ListItem","position":2,"name":"Email 簽名檔產生器","item":"https://zhenguocool.com/tools/email-signature-generator/"}]},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"為什麼 Logo 沒有出現在簽名檔？","acceptedAnswer":{"@type":"Answer","text":"請確認使用 Logo 商務版，且圖片網址是可直接讀取、沒有帳密的 HTTPS 公開網址。部分郵件客戶端仍可能預設阻擋外部圖片。"}},{"@type":"Question","name":"可以直接貼到 Gmail 或 Outlook 嗎？","acceptedAnswer":{"@type":"Answer","text":"可以先複製排版 HTML，再到郵件客戶端的簽名設定區貼上；貼上後請寄測試信確認換行、圖片與連結。"}},{"@type":"Question","name":"這個工具會上傳我的聯絡資料嗎？","acceptedAnswer":{"@type":"Answer","text":"不會。產生、預覽與複製都在目前瀏覽器處理，不會自動保存或寄出郵件。"}}]}]}</script></head><body data-tool-id="email-signature" data-tool-version="1.0.0"><a class="skip" href="#tool-workspace">跳至工具</a><header class="site-header"><a class="brand" href="/tools/">ZHENGUOCOOL<span>日常工作，簡單完成。</span></a><nav><a href="/tools/">所有工具</a><a href="/">榛菓官網 ↗</a></nav></header><main class="tool-shell"><div class="tool-intro"><p class="eyebrow">BROWSER TOOLS / 1.0.0</p><h1>Email 簽名檔產生器</h1><p>用三種輕量模板製作可貼到 Gmail、Outlook 或 Apple Mail 的 Email 簽名檔；內容只在目前瀏覽器處理。</p><p class="privacy-note">免登入｜工具工作資料不傳至伺服器｜回報需另行主動送出</p></div><section id="tool-workspace" aria-label="Email 簽名檔產生器">
+    <div class="tool-grid signature-tool" data-tool="email-signature">
+      <section class="panel signature-editor-panel" aria-labelledby="signature-editor-title">
+        <div class="panel-heading">
+          <div>
+            <p class="eyebrow">EMAIL SIGNATURE</p>
+            <h2 id="signature-editor-title">先整理資訊，再貼進郵件設定</h2>
+            <p class="panel-intro">選擇版型、填入需要的欄位，右側會同步產生排版與純文字版本。沒有填寫的欄位不會留下多餘分隔線。</p>
+          </div>
+        </div>
+        <form id="email-signature-form" class="signature-form" novalidate>
+          <div class="fields signature-fields">
+            <label>版型
+              <select name="template" id="signature-template">
+                <option value="plain">純文字商務</option>
+                <option value="logo">Logo 商務</option>
+                <option value="bilingual">中英雙語</option>
+              </select>
+            </label>
+            <label>主色
+              <input name="color" type="color" value="#315b9d" aria-describedby="signature-color-help">
+            </label>
+            <label>字級（px）
+              <input name="fontSize" type="number" min="10" max="22" step="1" value="14" inputmode="numeric">
+            </label>
+          </div>
+          <p class="field-help" id="signature-color-help">主色只會套用在產生的文字與分隔線，郵件客戶端可能有自己的顯示差異。</p>
+          <div class="fields signature-fields">
+            <label>姓名
+              <input name="name" autocomplete="name" placeholder="例：王小明">
+            </label>
+            <label>職稱
+              <input name="title" autocomplete="organization-title" placeholder="例：專案經理">
+            </label>
+            <label>公司／品牌
+              <input name="company" autocomplete="organization" placeholder="例：榛菓行銷">
+            </label>
+            <label>電話
+              <input name="phone" type="tel" autocomplete="tel" placeholder="例：02-1234-5678">
+            </label>
+            <label>Email
+              <input name="email" type="email" autocomplete="email" placeholder="例：hello@example.com">
+            </label>
+            <label>網站（選填）
+              <input name="website" type="url" inputmode="url" placeholder="https://example.com">
+            </label>
+            <label>LINE／WeChat 顯示文字（選填）
+              <input name="chatLabel" placeholder="例：LINE：@example">
+            </label>
+            <label>LINE／WeChat 連結（選填）
+              <input name="chatUrl" type="url" inputmode="url" placeholder="https://line.me/...">
+            </label>
+          </div>
+          <div class="fields signature-fields signature-bilingual-fields">
+            <label>英文姓名（雙語版選填）
+              <input name="nameEn" autocomplete="name" placeholder="例：Ming Wang">
+            </label>
+            <label>英文職稱（雙語版選填）
+              <input name="titleEn" autocomplete="organization-title" placeholder="例：Project Manager">
+            </label>
+            <label>英文公司／品牌（雙語版選填）
+              <input name="companyEn" autocomplete="organization" placeholder="例：ZhenguoCool">
+            </label>
+          </div>
+          <div class="fields signature-logo-field">
+            <label>Logo 公開 HTTPS 圖片網址（Logo 版選填）
+              <input name="logoUrl" type="url" inputmode="url" placeholder="https://example.com/logo.png" aria-describedby="signature-logo-help">
+            </label>
+          </div>
+          <p class="field-help" id="signature-logo-help">只接受你已公開且可直接讀取的 HTTPS 圖片網址；不會上傳或代管圖片。網址含帳密、Script 或事件內容時會被略過。</p>
+          <div class="actions">
+            <button class="primary" type="button" id="copy-signature-html">複製排版 HTML</button>
+            <button type="button" id="copy-signature-text">複製純文字</button>
+            <button type="reset" id="reset-signature">清除欄位</button>
+          </div>
+        </form>
+        <p class="notice" id="signature-notice" role="status" aria-live="polite">尚未填寫內容；先填姓名或公司即可預覽。</p>
+      </section>
+      <section class="panel signature-output-panel" aria-labelledby="signature-preview-title">
+        <div class="panel-heading">
+          <div>
+            <p class="eyebrow">PREVIEW</p>
+            <h2 id="signature-preview-title">排版預覽</h2>
+          </div>
+          <span class="signature-output-label">不會寄出郵件 · 預覽連結不開啟，複製後可使用</span>
+        </div>
+        <div class="signature-preview-grid">
+          <div class="preview signature-preview-card">
+            <span class="preview-label">桌機寬版</span>
+            <div class="signature-preview-canvas signature-preview-wide" id="signature-preview-wide"></div>
+          </div>
+          <div class="preview signature-preview-card signature-preview-narrow-card">
+            <span class="preview-label">窄版／手機</span>
+            <div class="signature-preview-canvas signature-preview-narrow" id="signature-preview-narrow"></div>
+          </div>
+        </div>
+        <label class="signature-source-label">HTML 原始碼（可檢查後自行貼上）
+          <textarea id="signature-html-source" rows="7" readonly spellcheck="false"></textarea>
+        </label>
+        <details class="signature-install">
+          <summary>Gmail、Outlook、Apple Mail 怎麼安裝？</summary>
+          <ol>
+            <li>按「複製排版 HTML」，在郵件客戶端的簽名設定區貼上；若只出現純文字，改用「複製純文字」或直接貼到支援格式的編輯器。</li>
+            <li>Gmail：設定 → 查看所有設定 → 一般 → 簽名；Outlook：設定 → 郵件 → 撰寫與回覆；Apple Mail：Mail → 設定 → 簽名。</li>
+            <li>寄一封測試信給自己，確認圖片載入、手機換行與連結，再決定是否套用到正式帳號。</li>
+          </ol>
+          <p>不同郵件客戶端對外部圖片、字型與 CSS 的支援不同；本工具不保證未測試的客戶端顯示完全一致。</p>
+        </details>
+      </section>
+    </div>
+  </section><section class="help-section"><h2>使用方式與注意事項</h2><div class="help-grid"><article><h3>安全輸出</h3><p>文字會先做 HTML escape；網站、LINE／WeChat 與 Logo 圖片只接受不含帳密的 HTTPS 網址，不接受 javascript:、事件屬性或上傳檔案。</p></article><article><h3>圖片限制</h3><p>Logo 由你提供公開圖片網址，郵件客戶端可能預設阻擋外部圖片；本工具不代管圖片，也不會追蹤開信。</p></article><article><h3>相容性</h3><p>Gmail、Outlook、Apple Mail 的貼上與外部圖片支援不同。請寄測試信確認；未實測的客戶端不作完全一致承諾。</p></article><article><h3>資料範圍</h3><p>輸入只在目前分頁記憶體中處理，不會自動保存、寄信或送到回報系統。</p></article></div><h2>常見問題</h2><details><summary>為什麼 Logo 沒有出現在簽名檔？</summary><p>請確認使用 Logo 商務版，且圖片網址是可直接讀取、沒有帳密的 HTTPS 公開網址。部分郵件客戶端仍可能預設阻擋外部圖片。</p></details><details><summary>可以直接貼到 Gmail 或 Outlook 嗎？</summary><p>可以先複製排版 HTML，再到郵件客戶端的簽名設定區貼上；貼上後請寄測試信確認換行、圖片與連結。</p></details><details><summary>這個工具會上傳我的聯絡資料嗎？</summary><p>不會。產生、預覽與複製都在目前瀏覽器處理，不會自動保存或寄出郵件。</p></details></section><section class="updates-section"><h2>更新紀錄</h2><article class="release"><div><strong>v1.0.0</strong> <time datetime="2026-09-08">2026-09-08</time></div><ul><li>初版：提供純文字商務、Logo 商務與中英雙語三種模板。</li><li>初版：加入 HTML／純文字複製、安全 HTTPS 網址檢查與郵件客戶端安裝說明。</li></ul></article><a href="/tools/email-signature-generator/updates/" data-tool-link="tool_update_click">查看完整更新紀錄 →</a></section><section class="support-section" id="feedback"><h2>功能建議與問題回報</h2><p>不要附上客戶報價、聯絡資料、Wi-Fi 密碼或其他機密內容。此表單不會自動附帶工具輸入或檔案。</p><details id="feedback-details"><summary>留下建議／回報問題</summary><form id="tool-feedback-form"><div class="fields"><label>類型<select name="type"><option value="suggestion">功能建議</option><option value="bug">錯誤回報</option><option value="question">使用問題</option></select></label><label>暱稱（選填）<input name="nickname" maxlength="40" autocomplete="off"></label><label>標題<input name="title" required maxlength="100"></label><label>Email（選填，不公開）<input name="email" type="email" maxlength="254" autocomplete="email"></label></div><label>內容<textarea name="body" required maxlength="2000" rows="5"></textarea></label><label class="check"><input name="public_opt_in" type="checkbox">我同意內容經審核、移除個資後公開在此工具頁。</label><label class="trap" aria-hidden="true">Website<input name="website" tabindex="-1" autocomplete="off"></label><div id="tool-turnstile"></div><button type="submit" disabled>送出回報</button><p id="feedback-status" role="status" aria-live="polite">開啟回報功能中…</p></form></details><h3>公開建議與回覆</h3><p class="muted">只顯示已同意公開且經審核的內容；公開不代表已排入開發。</p><div id="tool-comments">尚未載入留言。</div><button type="button" id="comments-more">載入留言</button></section></main><footer class="site-footer"><p>工作內容在你的瀏覽器處理。頁面會使用匿名使用事件；回報內容與工具資料不會送入 GA。</p><a href="/privacy/tools/">工具隱私說明</a> · <a href="/services/taiwan-influencer-marketing/" data-tool-link="tool_cta_click">需要台灣創作者合作執行？</a><p>© 榛菓行銷</p></footer></body></html>

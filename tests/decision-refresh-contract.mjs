@@ -39,7 +39,9 @@ for(const f of targets){
   assert.match(html,/"dateModified": "2026-09-06"/);
  }
 }
-for(const f of ['index.html','zh-tw/index.html','zh-cn/index.html','en/index.html','sitemap.xml','web-assets/analytics.js','web-assets/analytics-config.js'])assert.equal(read(f),old(f),`Frozen ${f}`);
+for(const f of ['index.html','zh-tw/index.html','zh-cn/index.html','en/index.html','web-assets/analytics.js','web-assets/analytics-config.js'])assert.equal(read(f),old(f),`Frozen ${f}`);
+// Public tools now add their own explicitly tested routes; preserve every prior URL block.
+for(const block of old('sitemap.xml').match(/  <url>[\s\S]*?<\/url>/g))assert.ok(read('sitemap.xml').includes(block),'Preserve existing sitemap entries');
 // Clipboard success and denied-permission fallback both preserve the original text.
 let click,notice='',selected=false,written='';
 const field={value:'A\nB',focus(){},select(){selected=true;}},button={dataset:{copySuccess:'copied',copyFallback:'select'},addEventListener(type,fn){assert.equal(type,'click');click=fn;}},status={set textContent(v){notice=v;}};
