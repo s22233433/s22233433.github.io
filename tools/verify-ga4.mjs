@@ -4,6 +4,7 @@ import path from "node:path";
 import { spawn } from "node:child_process";
 import { seoPhaseOnePages } from "./seo-phase-one-content.mjs";
 import { posts as editorialPosts, blogLocales } from "./editorial-blog.mjs";
+import { publicToolLinks, publicToolPages, publicToolTargets } from "./public-tools-ga-targets.mjs";
 
 const site = (process.env.SITE_URL || "https://zhenguocool.com").replace(/\/$/, "");
 const chrome = process.env.CHROME_BIN || "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome";
@@ -19,10 +20,11 @@ const includeInternalTraffic = process.env.GA4_INTERNAL_TRAFFIC === "1";
 const includeBlog = process.env.GA4_BLOG === "1";
 const includeBlogLocales = process.env.GA4_BLOG_LOCALES === "1";
 const includeDecisionRefresh = process.env.GA4_DECISION_REFRESH === "1";
+const includePublicTools = process.env.GA4_PUBLIC_TOOLS === "1";
 const decisionCaseRoutes = ['', 'zh-tw/', 'zh-cn/', 'en/'].flatMap(prefix => ['camay-curling-iron', 'liming-weiquan-cheer', 'korea-kol-goodme'].map(slug => `${prefix}cases/${slug}/`));
 const decisionSeoRoutes = ['', 'zh-cn/', 'en/'].flatMap(prefix => [`${prefix}services/taiwan-influencer-marketing/`, `${prefix}insights/taiwan-influencer-marketing-costs-2026/`]);
 const selected = (value) => !targets.length || targets.some((target) => value.includes(target));
-const reportName = targets.length ? "ga4-targeted-report" : "ga4-network-report";
+const reportName = includePublicTools ? (targets.length ? "ga4-public-tools-targeted-report" : "ga4-public-tools-report") : targets.length ? "ga4-targeted-report" : "ga4-network-report";
 const locales = [
   { key: "zh-TW", prefix: "", lang: "zh-TW" },
   { key: "zh-CN", prefix: "/zh-cn", lang: "zh-CN" },
@@ -30,7 +32,7 @@ const locales = [
 ];
 const collectHosts = new Set(["www.google-analytics.com", "google-analytics.com", "analytics.google.com", "region1.google-analytics.com"]);
 const piiKey = /(^|[_.])(email|e-mail|phone|tel|name|contact|company|brand|message|body)([_.]|$)/i;
-const allowedEventKeys = new Set(["ep.service_name", "ep.product_name", "ep.content_slug", "ep.content_type", "ep.locale", "ep.page_path", "ep.cta_location", "ep.target_url", "ep.from_locale", "ep.to_locale", "ep.debug_mode"]);
+const allowedEventKeys = new Set(["ep.service_name", "ep.product_name", "ep.content_slug", "ep.content_type", "ep.locale", "ep.page_path", "ep.cta_location", "ep.target_url", "ep.from_locale", "ep.to_locale", "ep.debug_mode", "ep.tool_id", "ep.tool_version", "ep.output_format"]);
 const emailValue = /[^\s@]+@[^\s@]+\.[^\s@]+/;
 const phoneValue = /(?:\+?\d[\s().-]?){7,}\d/;
 const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
@@ -53,15 +55,17 @@ const paramsFrom = (url, postData = "") => {
   return params;
 };
 
-const parseCollect = (request, status = null) => {
+const parseCollect = (request, status = null, postData = request.postData || "", batchIndex = null) => {
   const target = new URL(request.url);
   if (!collectHosts.has(target.hostname) || !target.pathname.endsWith("/g/collect")) return null;
-  const parameters = paramsFrom(request.url, request.postData || "");
+  const parameters = paramsFrom(request.url, postData);
   const value = (key) => Array.isArray(parameters[key]) ? parameters[key].at(-1) : parameters[key] || null;
   return {
     request_id: request.requestId,
     raw_url: request.url,
     raw_post_data: request.postData || null,
+    raw_event_line: postData || null,
+    batch_index: batchIndex,
     parameters,
     tid: value("tid"),
     event: value("en"),
@@ -77,6 +81,9 @@ const parseCollect = (request, status = null) => {
     target_url: value("ep.target_url"),
     from_locale: value("ep.from_locale"),
     to_locale: value("ep.to_locale"),
+    tool_id: value("ep.tool_id"),
+    tool_version: value("ep.tool_version"),
+    output_format: value("ep.output_format"),
     debug_mode: value("ep.debug_mode"),
     traffic_type: value("tt"),
     request_time: request.timestamp,
@@ -151,15 +158,57 @@ const requestRows = (events) => {
   const statuses = new Map(events.filter((event) => event.method === "Network.responseReceived").map((event) => [event.params.requestId, event.params.response.status]));
   return events
     .filter((event) => event.method === "Network.requestWillBeSent")
-    .map((event) => parseCollect({ requestId: event.params.requestId, ...event.params.request }, statuses.get(event.params.requestId) || null))
+    .flatMap((event) => {
+      const request = { requestId: event.params.requestId, ...event.params.request };
+      const lines = request.postData ? String(request.postData).split(/\r?\n/).filter(Boolean) : [""];
+      return lines.map((line, index) => parseCollect(request, statuses.get(event.params.requestId) || null, line, lines.length > 1 ? index : null));
+    })
     .filter(Boolean);
 };
 
-const scansForPii = (collects) => collects.flatMap((collect) => Object.entries(collect.parameters).flatMap(([key, value]) => {
+const batchParserRegression = requestRows([{
+  method: "Network.requestWillBeSent",
+  params: {
+    requestId: "batch-regression",
+    request: {
+      url: "https://www.google-analytics.com/g/collect?tid=G-TEST",
+      postData: "en=tool_complete&ep.tool_id=quotation&ep.output_format=preview\r\nen=tool_export&ep.tool_id=quotation&ep.output_format=pdf"
+    }
+  }
+}, {
+  method: "Network.responseReceived",
+  params: { requestId: "batch-regression", response: { status: 204 } }
+}]);
+if (batchParserRegression.length !== 2 || batchParserRegression[0].event !== "tool_complete" || batchParserRegression[1].event !== "tool_export" || batchParserRegression[1].http_status !== 204) {
+  throw new Error("GA4 batch POST parser regression failed.");
+}
+
+const scansForPii = (collects, options = {}) => collects.flatMap((collect) => Object.entries(collect.parameters).flatMap(([key, value]) => {
   const values = Array.isArray(value) ? value : [value];
+  if (options.ignoreAutomaticFormFields && collect.event === "form_start" && key === "ep.first_field_name") return [];
   const sensitiveKey = piiKey.test(key) && !allowedEventKeys.has(key);
   return values.flatMap((item) => (sensitiveKey || emailValue.test(item) || (key.startsWith("ep.") && !allowedEventKeys.has(key) && phoneValue.test(item))) ? [{ request_id: collect.request_id, event: collect.event, key, value: item }] : []);
 }));
+
+const decodeNetworkValue = (value) => {
+  try { return decodeURIComponent(String(value || "").replace(/\+/g, " ")); } catch { return String(value || ""); }
+};
+
+const scanInputLeaks = (events, canaries = []) => {
+  const needles = [...new Set(canaries.map(value => String(value || "")).filter(Boolean))];
+  const findings = [];
+  for (const event of events.filter(item => item.method === "Network.requestWillBeSent")) {
+    const request = event.params.request;
+    if (!request || /^(?:blob|data|about|chrome):/iu.test(request.url || "")) continue;
+    for (const [channel, raw] of [["url", request.url], ["postData", request.postData]]) {
+      const decoded = decodeNetworkValue(raw);
+      for (const canary of needles) {
+        if (decoded.includes(canary)) findings.push({ request_id: event.params.requestId, channel, canary, request_url: request.url });
+      }
+    }
+  }
+  return findings;
+};
 
 const gaFor = (events, eventName) => requestRows(events).filter((event) => event.event === eventName);
 const is2xx = (event) => Number.isInteger(event?.http_status) && event.http_status >= 200 && event.http_status < 300;
@@ -222,14 +271,24 @@ async function waitForChrome() {
   throw new Error("Chrome CDP did not start");
 }
 
-async function withPage(cdp, callback) {
+async function withPage(cdp, callback, options = {}) {
   const context = await cdp.send("Target.createBrowserContext");
   try {
+    if (options.clipboard) {
+      try {
+        await cdp.send("Browser.grantPermissions", { origin: site, permissions: ["clipboardReadWrite"], browserContextId: context.browserContextId });
+      } catch {
+        // Clipboard operations still have the browser's visible fallback.
+      }
+      try {
+        await cdp.send("Browser.grantPermissions", { origin: site, permissions: ["clipboardSanitizedWrite"], browserContextId: context.browserContextId });
+      } catch {}
+    }
     const target = await cdp.send("Target.createTarget", { url: "about:blank", browserContextId: context.browserContextId });
     const attached = await cdp.send("Target.attachToTarget", { targetId: target.targetId, flatten: true });
     const sessionId = attached.sessionId;
     await Promise.all(["Network.enable", "Page.enable", "Runtime.enable"].map((method) => cdp.send(method, {}, sessionId)));
-    return await callback(sessionId);
+    return await callback(sessionId, context.browserContextId);
   } finally {
     await cdp.send("Target.disposeBrowserContext", { browserContextId: context.browserContextId });
   }
@@ -269,7 +328,7 @@ async function waitForGaIdle(cdp, after, sessionId, description) {
 }
 
 async function pageInfo(cdp, sessionId) {
-  const result = await cdp.send("Runtime.evaluate", { expression: "JSON.stringify({title:document.title,locale:document.documentElement.lang,url:location.href})", returnByValue: true }, sessionId);
+  const result = await cdp.send("Runtime.evaluate", { expression: "JSON.stringify({title:document.title,locale:document.documentElement.lang,url:location.href,tool_id:document.body?.dataset?.toolId || null,tool_version:document.body?.dataset?.toolVersion || null})", returnByValue: true }, sessionId);
   return JSON.parse(result.result.value);
 }
 
@@ -559,6 +618,310 @@ async function runLifecycleChecks(cdp) {
   return checks;
 }
 
+async function evaluateExpression(cdp, sessionId, expression) {
+  const result = await cdp.send("Runtime.evaluate", { expression, awaitPromise: true, returnByValue: true, userGesture: true }, sessionId);
+  if (result.exceptionDetails) throw new Error(result.exceptionDetails.exception?.description || result.exceptionDetails.text || "Browser expression failed.");
+  return result.result?.value;
+}
+
+async function waitForPublicUi(cdp, sessionId, selector) {
+  await cdp.waitFor(0, sessionId, async () => {
+    const expression = "Boolean(document.readyState === 'complete' && document.querySelector(" + JSON.stringify(selector) + ") && typeof window.zgTrack === 'function' && typeof window.zgToolEvent === 'function')";
+    const result = await cdp.send("Runtime.evaluate", { expression, returnByValue: true }, sessionId);
+    return result.result.value === true;
+  }, "public tool UI " + selector, Math.min(timeoutMs, 8000));
+}
+
+async function waitForPublicSelector(cdp, sessionId, selector) {
+  await cdp.waitFor(0, sessionId, async () => {
+    const expression = "Boolean(document.querySelector(" + JSON.stringify(selector) + "))";
+    const result = await cdp.send("Runtime.evaluate", { expression, returnByValue: true }, sessionId);
+    return result.result.value === true;
+  }, "public tool output " + selector, Math.min(timeoutMs, 8000));
+}
+
+async function publicClick(cdp, sessionId, selector) {
+  const expression = "(() => { const element = document.querySelector(" + JSON.stringify(selector) + "); if (!element) throw new Error('Missing selector: ' + " + JSON.stringify(selector) + "); element.scrollIntoView({block:'center'}); element.click(); return true; })()";
+  return evaluateExpression(cdp, sessionId, expression);
+}
+
+function publicEventMatches(row, expected, target) {
+  return row.event === expected.event
+    && row.tool_id === target.id
+    && (expected.format === undefined ? row.output_format === null : row.output_format === expected.format);
+}
+
+function publicEventParameters(event, context, target, format) {
+  const base = eventParameters(event, context);
+  const mismatches = [...base.mismatches];
+  const expected = {
+    ...base.expected,
+    tool_id: target.id,
+    tool_version: context.tool_version || "present",
+    output_format: format ?? null,
+    cta_location: null,
+    target_url: null
+  };
+  const actual = {
+    ...base.actual,
+    tool_id: event?.tool_id || null,
+    tool_version: event?.tool_version || null,
+    output_format: event?.output_format || null
+  };
+  if (event?.tool_id !== target.id) mismatches.push({ key: "tool_id", expected: target.id, actual: event?.tool_id || null });
+  if (!event?.tool_version || (context.tool_version && event.tool_version !== context.tool_version)) mismatches.push({ key: "tool_version", expected: context.tool_version || "present", actual: event?.tool_version || null });
+  if ((format ?? null) !== (event?.output_format || null)) mismatches.push({ key: "output_format", expected: format ?? null, actual: event?.output_format || null });
+  for (const key of ["cta_location", "target_url"]) {
+    if (event?.[key] !== null) mismatches.push({ key, expected: null, actual: event?.[key] || null });
+  }
+  return { expected, actual, mismatches, passed: mismatches.length === 0 };
+}
+
+async function waitForPublicEvents(cdp, start, sessionId, expected, target, description) {
+  return cdp.waitFor(start, sessionId, (events) => {
+    const rows = requestRows(events);
+    return expected.every(item => rows.some(row => publicEventMatches(row, item, target) && is2xx(row)));
+  }, description, timeoutMs);
+}
+
+async function runPublicPageCheck(cdp, definition) {
+  return withPage(cdp, async (sessionId) => {
+    const url = withDebug(site + definition.path);
+    const loaded = await visit(cdp, sessionId, url);
+    const pageViews = gaFor(loaded.events, "page_view");
+    const pageView = pageViews[0];
+    const validation = eventParameters(pageView, { url, title: loaded.page.title, locale: loaded.page.locale, debug: true });
+    const pii = scansForPii(loaded.collects);
+    return {
+      event: "page_view",
+      test: definition.kind + " " + definition.path,
+      test_page: url,
+      expected_count: 1,
+      actual_count: pageViews.length,
+      duplicate: pageViews.length > 1,
+      http_status: pageView?.http_status ?? loaded.http_status,
+      measurement_id: pageView?.tid || null,
+      parameters: validation,
+      raw_collects: loaded.collects,
+      pii_findings: pii,
+      passed: loaded.http_status === 200 && pageViews.length === 1 && pageView?.tid === measurementId && is2xx(pageView) && validation.passed && pii.length === 0,
+      reason: loaded.http_status !== 200 ? ["HTTP status was " + loaded.http_status + "."] : pageViews.length !== 1 ? ["Expected one page_view; received " + pageViews.length + "."] : pageView?.tid !== measurementId ? ["Measurement ID was " + (pageView?.tid || "missing") + "."] : !is2xx(pageView) ? ["Expected a 2xx response; received " + statusText(pageView) + "."] : validation.passed && !pii.length ? [] : ["Page-view parameter or privacy validation failed."]
+    };
+  });
+}
+
+async function runPublicOperationCheck(cdp, target, action) {
+  return withPage(cdp, async (sessionId) => {
+    const url = withDebug(site + target.path);
+    const loaded = await visit(cdp, sessionId, url);
+    await waitForPublicUi(cdp, sessionId, target.uiSelector);
+    await cdp.send("Page.bringToFront", {}, sessionId).catch(() => {});
+    const start = cdp.events.length;
+    let executionError = null;
+    let outputReady = !action.waitFor;
+    let downloadReady = !action.download;
+    try {
+      await evaluateExpression(cdp, sessionId, target.setup);
+      for (const before of action.before || []) {
+        await publicClick(cdp, sessionId, before.selector);
+        if (action.beforeWaitFor) await waitForPublicSelector(cdp, sessionId, action.beforeWaitFor);
+      }
+      await publicClick(cdp, sessionId, action.click.selector);
+      if (action.waitFor) {
+        await waitForPublicSelector(cdp, sessionId, action.waitFor);
+        outputReady = true;
+      }
+      if (action.download) {
+        await cdp.waitFor(start, sessionId, events => events.some(event => event.method === "Page.downloadWillBegin"), "download " + action.name, timeoutMs);
+        downloadReady = true;
+      }
+    } catch (error) {
+      executionError = error;
+    }
+    if (!executionError) {
+      try { await waitForPublicEvents(cdp, start, sessionId, action.expect, target, "events for " + target.id + " " + action.name); } catch {}
+    }
+    const events = cdp.eventsAfter(start, sessionId);
+    const rows = requestRows(events);
+    const expectedResults = action.expect.map(item => {
+      const matches = rows.filter(row => publicEventMatches(row, item, target));
+      const validation = matches.length ? publicEventParameters(matches[0], { url, title: loaded.page.title, locale: loaded.page.locale, debug: true, tool_version: loaded.page.tool_version }, target, item.format) : null;
+      return { ...item, actual_count: matches.length, http_status: matches[0]?.http_status ?? null, parameters: validation, passed: matches.length === 1 && is2xx(matches[0]) && validation?.passed === true };
+    });
+    const pii = scansForPii(rows, { ignoreAutomaticFormFields: true });
+    const inputLeaks = scanInputLeaks(events, target.canary);
+    const startRows = rows.filter(row => publicEventMatches(row, { event: "tool_start" }, target));
+    const reasons = [];
+    if (executionError) reasons.push(executionError.message);
+    if (!outputReady) reasons.push("The tool did not reach its success state.");
+    if (!downloadReady) reasons.push("No browser download was observed.");
+    if (startRows.length !== 1) reasons.push("Expected one tool_start; received " + startRows.length + ".");
+    for (const result of expectedResults) {
+      if (result.actual_count !== 1) reasons.push("Expected one " + result.event + (result.format ? " (" + result.format + ")" : "") + "; received " + result.actual_count + ".");
+      else if (!is2xx({ http_status: result.http_status })) reasons.push("Expected a 2xx response for " + result.event + "; received " + statusText({ http_status: result.http_status }) + ".");
+      else if (!result.parameters?.passed) reasons.push(result.event + " parameters or privacy validation failed.");
+    }
+    if (pii.length) reasons.push("PII or input-content values were found in GA requests.");
+    if (inputLeaks.length) reasons.push("Input canary values appeared in an outbound URL or postData.");
+    return {
+      event: "tool_operation",
+      test: target.id + " " + action.name,
+      test_page: url,
+      expected_count: action.expect.length,
+      actual_count: expectedResults.reduce((sum, item) => sum + item.actual_count, 0),
+      duplicate: expectedResults.some(item => item.actual_count > 1),
+      http_status: expectedResults.find(item => item.actual_count)?.http_status ?? null,
+      expected_events: expectedResults,
+      raw_collects: rows,
+      pii_findings: pii,
+      input_leaks: inputLeaks,
+      download_count: events.filter(event => event.method === "Page.downloadWillBegin").length,
+      passed: !reasons.length,
+      reason: reasons
+    };
+  }, { clipboard: true });
+}
+
+async function runPublicLinkCheck(cdp, definition) {
+  return withPage(cdp, async (sessionId) => {
+    const url = withDebug(site + definition.path);
+    const loaded = await visit(cdp, sessionId, url);
+    await waitForPublicUi(cdp, sessionId, definition.selector);
+    const start = cdp.events.length;
+    let executionError = null;
+    try {
+      await evaluateExpression(cdp, sessionId, "(() => { const element = document.querySelector(" + JSON.stringify(definition.selector) + "); if (!element) throw new Error('Missing selector: ' + " + JSON.stringify(definition.selector) + "); if (element instanceof HTMLAnchorElement) element.href = '#'; return true; })()");
+      await publicClick(cdp, sessionId, definition.selector);
+    } catch (error) { executionError = error; }
+    if (!executionError) {
+      try { await waitForPublicEvents(cdp, start, sessionId, [{ event: definition.event }], { id: definition.id }, definition.event + " " + definition.name); } catch {}
+    }
+    const events = cdp.eventsAfter(start, sessionId);
+    const rows = requestRows(events);
+    const matches = rows.filter(row => publicEventMatches(row, { event: definition.event }, { id: definition.id }));
+    const validation = matches.length ? publicEventParameters(matches[0], { url, title: loaded.page.title, locale: loaded.page.locale, debug: true, tool_version: loaded.page.tool_version }, { id: definition.id }) : null;
+    const pii = scansForPii(rows);
+    const reasons = [];
+    if (executionError) reasons.push(executionError.message);
+    if (matches.length !== 1) reasons.push("Expected one " + definition.event + "; received " + matches.length + ".");
+    else if (!is2xx(matches[0])) reasons.push("Expected a 2xx response; received " + statusText(matches[0]) + ".");
+    else if (!validation?.passed) reasons.push(definition.event + " parameters or privacy validation failed.");
+    if (pii.length) reasons.push("PII or input-content values were found in GA requests.");
+    return {
+      event: definition.event,
+      test: definition.name,
+      test_page: url,
+      expected_count: 1,
+      actual_count: matches.length,
+      duplicate: matches.length > 1,
+      http_status: matches[0]?.http_status ?? null,
+      parameters: validation,
+      raw_collects: rows,
+      pii_findings: pii,
+      passed: !reasons.length,
+      reason: reasons
+    };
+  });
+}
+
+const publicMarkdown = (report) => {
+  const pageRows = report.coverage.map(item => "| " + item.test + " | " + item.test_page + " | " + item.actual_count + " | " + (item.http_status ?? "-") + " | " + (item.passed ? "PASS" : "FAIL") + " |").join("\n");
+  const operationRows = report.operations.map(item => "| " + item.test + " | " + item.actual_count + "/" + item.expected_count + " | " + (item.download_count ?? "-") + " | " + (item.passed ? "PASS" : "FAIL") + " |").join("\n");
+  const linkRows = report.links.map(item => "| " + item.event + " | " + item.test + " | " + item.actual_count + " | " + (item.passed ? "PASS" : "FAIL") + " |").join("\n");
+  const failures = report.failures.length ? report.failures.map(item => "- **" + item.event + " / " + (item.test || item.test_page) + "**: " + item.reason.join(" ")).join("\n") : "- None.";
+  return "# GA4 Public Tools Report\n\nGenerated: " + report.generated_at + "\n\n## Page-view coverage\n\n| Kind | URL | Page views | HTTP | Result |\n| --- | --- | ---: | ---: | --- |\n" + pageRows + "\n\n## Real tool operations\n\n| Operation | Events | Downloads | Result |\n| --- | ---: | ---: | --- |\n" + operationRows + "\n\n## Related and update CTA events\n\n| Event | Test | Actual | Result |\n| --- | --- | ---: | --- |\n" + linkRows + "\n\n## Failed items\n\n" + failures + "\n\nRaw request rows, response status, custom parameters, and PII scan findings are in the JSON report.\n";
+};
+
+const writePublicProgress = async (phase, completed, total, detail) => {
+  await mkdir("artifacts", { recursive: true });
+  await writeFile("artifacts/ga4-public-tools-progress.json", JSON.stringify({ updated_at: new Date().toISOString(), phase, completed, total, detail }, null, 2) + "\n");
+};
+
+async function runPublicVerification(cdp) {
+  const coverage = [];
+  const operations = [];
+  const links = [];
+  const inScope = values => !targets.length || values.some(value => selected(value));
+  const pageDefinitions = publicToolPages.filter(definition => inScope([definition.path, definition.kind, definition.id]));
+  const operationDefinitions = publicToolTargets.flatMap(target => target.actions.map(action => ({ target, action }))).filter(definition => inScope([definition.target.id, definition.target.path, definition.action.name, definition.target.id + " " + definition.action.name]));
+  const linkDefinitions = publicToolLinks.filter(definition => inScope([definition.id, definition.path, definition.name, definition.event]));
+  for (const [index, definition] of pageDefinitions.entries()) {
+    await writePublicProgress("coverage", index, pageDefinitions.length, definition.path);
+    const outcome = await retryCheck("public page " + definition.path, () => runPublicPageCheck(cdp, definition), 2);
+    coverage.push(outcome.result ? { ...outcome.result, attempts: outcome.attempts } : {
+      event: "page_view",
+      test: definition.kind + " " + definition.path,
+      test_page: withDebug(site + definition.path),
+      expected_count: 1,
+      actual_count: 0,
+      duplicate: false,
+      raw_collects: [],
+      pii_findings: [],
+      passed: false,
+      attempts: outcome.attempts,
+      reason: ["No public-tool page_view attempt received the expected collect request."]
+    });
+  }
+  for (const [index, definition] of operationDefinitions.entries()) {
+    await writePublicProgress("operations", index, operationDefinitions.length, definition.target.id + " " + definition.action.name);
+    const outcome = await retryCheck("public operation " + definition.target.id + " " + definition.action.name, () => runPublicOperationCheck(cdp, definition.target, definition.action), 2);
+    operations.push(outcome.result ? { ...outcome.result, attempts: outcome.attempts } : {
+      event: "tool_operation",
+      test: definition.target.id + " " + definition.action.name,
+      test_page: withDebug(site + definition.target.path),
+      expected_count: definition.action.expect.length,
+      actual_count: 0,
+      duplicate: false,
+      raw_collects: [],
+      pii_findings: [],
+      passed: false,
+      attempts: outcome.attempts,
+      reason: ["No public-tool operation attempt completed."]
+    });
+  }
+  for (const [index, definition] of linkDefinitions.entries()) {
+    await writePublicProgress("links", index, linkDefinitions.length, definition.name);
+    const outcome = await retryCheck("public link " + definition.name, () => runPublicLinkCheck(cdp, definition), 2);
+    links.push(outcome.result ? { ...outcome.result, attempts: outcome.attempts } : {
+      event: definition.event,
+      test: definition.name,
+      test_page: withDebug(site + definition.path),
+      expected_count: 1,
+      actual_count: 0,
+      duplicate: false,
+      raw_collects: [],
+      pii_findings: [],
+      passed: false,
+      attempts: outcome.attempts,
+      reason: ["No public-tool CTA attempt received the expected collect request."]
+    });
+  }
+  const failures = [...coverage, ...operations, ...links].filter(item => !item.passed);
+  return {
+    mode: "GA4_PUBLIC_TOOLS",
+    generated_at: new Date().toISOString(),
+    site,
+    measurement_id: measurementId,
+    selected_targets: targets,
+    storage_isolation: "A new CDP BrowserContext is created per check; no cookies, localStorage, or sessionStorage are reused.",
+    coverage,
+    operations,
+    links,
+    interaction_events: [...operations, ...links],
+    failures,
+    summary: {
+      coverage_passed: coverage.filter(item => item.passed).length,
+      coverage_total: coverage.length,
+      operations_passed: operations.filter(item => item.passed).length,
+      operations_total: operations.length,
+      links_passed: links.filter(item => item.passed).length,
+      links_total: links.length,
+      interactions_passed: [...operations, ...links].filter(item => item.passed).length,
+      interactions_total: operations.length + links.length
+    }
+  };
+}
+
 const markdown = (report) => {
   const coverageRows = report.coverage.map((item) => `| ${item.locale} | ${item.url} | ${item.page_view_count} | ${item.http_status || "-"} | ${item.measurement_id || "-"} | ${item.passed ? "PASS" : "FAIL"} |`).join("\n");
   const classificationRows = report.classification.map((item) => `| ${item.test} | ${item.test_page} | ${item.parameters.actual.content_type || "-"} | ${item.parameters.actual.content_slug || "-"} | ${item.http_status ?? "-"} | ${item.passed ? "PASS" : "FAIL"} |`).join("\n");
@@ -622,6 +985,14 @@ try {
   const version = await waitForChrome();
   cdp = new Cdp(version.webSocketDebuggerUrl);
   await cdp.open();
+  if (includePublicTools) {
+    const report = await runPublicVerification(cdp);
+    await mkdir("artifacts", { recursive: true });
+    await writeFile("artifacts/" + reportName + ".json", JSON.stringify(report, null, 2) + "\n");
+    await writeFile("artifacts/" + reportName + ".md", publicMarkdown(report));
+    console.log(JSON.stringify(report.summary));
+    if (report.failures.length) process.exitCode = 1;
+  } else {
   const coverage = [];
   const coverageTargets = seoPhaseOnePages.flatMap((page) => locales.map((locale) => ({ page, locale }))).filter(({ page, locale }) => selected(pageUrl(page, locale)));
   for (const [coverageIndex, { page, locale }] of coverageTargets.entries()) {
@@ -808,6 +1179,7 @@ try {
   await writeFile(`artifacts/${reportName}.md`, markdown(report));
   console.log(JSON.stringify(report.summary));
   if (report.failures.length) process.exitCode = 1;
+  }
 } catch (error) {
   await mkdir("artifacts", { recursive: true });
   await writeFile("artifacts/ga4-network-error.json", `${JSON.stringify({ generated_at: new Date().toISOString(), site, message: error.message, stack: error.stack, network_evidence: error.network_evidence || null }, null, 2)}\n`);
