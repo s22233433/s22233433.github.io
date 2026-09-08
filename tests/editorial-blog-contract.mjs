@@ -59,5 +59,5 @@ for(const locale of blogLocales){
  }
 }
 const locs=read('sitemap.xml').match(/<loc>[^<]+<\/loc>/g),prior=old('sitemap.xml').match(/<loc>[^<]+<\/loc>/g);
-assert.equal(new Set(locs).size,locs.length);assert.equal(locs.length,prior.length+(posts.length+1)*blogLocales.length+11);for(const loc of prior)assert.ok(locs.includes(loc));
+assert.equal(new Set(locs).size,locs.length);assert.equal(locs.length,prior.length+(posts.length+1)*blogLocales.length+13);for(const loc of prior)assert.ok(locs.includes(loc));
 console.log('PASS: 21 localized journal routes, complete translations, reciprocal language links, correct ordering, share assets and frozen homepages/GA');

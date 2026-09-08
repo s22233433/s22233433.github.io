@@ -722,6 +722,7 @@ async function runPublicOperationCheck(cdp, target, action) {
     let downloadReady = !action.download;
     try {
       await evaluateExpression(cdp, sessionId, target.setup);
+      if (action.setup) await evaluateExpression(cdp, sessionId, action.setup);
       for (const before of action.before || []) {
         await publicClick(cdp, sessionId, before.selector);
         if (action.beforeWaitFor) await waitForPublicSelector(cdp, sessionId, action.beforeWaitFor);

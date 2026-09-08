@@ -49,6 +49,18 @@ const expected = (event, format) => ({ event, ...(format ? { format } : {}) });
 
 export const publicToolTargets = Object.freeze([
   {
+    id: 'daily-draw', slug: 'daily-draw', path: '/tools/daily-draw/', uiSelector: '#draw-app[data-ready="true"]',
+    setup: setValue('#draw-options', '抽籤測試甲\n抽籤測試乙\n抽籤測試丙'),
+    canary: ['抽籤測試甲', '抽籤測試乙', '抽籤測試丙'],
+    actions: [
+      { name: 'pick', before: [], click: click('#draw-submit'), waitFor: '#draw-output .draw-result-card', expect: [expected('tool_start'), expected('tool_complete', 'preview')] },
+      { name: 'double click', before: [click('#draw-submit')], click: click('#draw-submit'), waitFor: '#draw-output .draw-result-card', expect: [expected('tool_start'), expected('tool_complete', 'preview')] },
+      { name: 'groups', before: [], setup: setValue('#draw-mode', 'groups'), click: click('#draw-submit'), waitFor: '#draw-output[data-mode="groups"] .draw-result-card', expect: [expected('tool_start'), expected('tool_complete', 'preview')] },
+      { name: 'copy text', before: [click('#draw-submit')], beforeWaitFor: '#draw-output .draw-result-card', click: click('#draw-copy'), expect: [expected('tool_start'), expected('tool_complete', 'preview'), expected('tool_export', 'text')] },
+      { name: 'download PNG', before: [click('#draw-submit')], beforeWaitFor: '#draw-output .draw-result-card', click: click('#draw-png'), expect: [expected('tool_start'), expected('tool_complete', 'preview'), expected('tool_export', 'png')], download: true }
+    ]
+  },
+  {
     id: 'quotation',
     slug: 'quotation-generator',
     path: '/tools/quotation-generator/',

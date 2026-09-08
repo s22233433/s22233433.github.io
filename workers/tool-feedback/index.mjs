@@ -1,6 +1,6 @@
 import {adminIdentity} from './access.mjs';
 import {adminHtml} from './admin.mjs';
-const tools=new Set(['quotation','email-signature','qr-code','script-counter','social-image']);
+const tools=new Set(['quotation','email-signature','qr-code','script-counter','social-image','daily-draw']);
 const moderation=new Set(['pending','approved','rejected','hidden']),states=new Set(['received','reviewing','completed']);
 const json=(status,body)=>new Response(JSON.stringify(body),{status,headers:{'content-type':'application/json; charset=utf-8','cache-control':'no-store','x-content-type-options':'nosniff','x-robots-tag':'noindex, nofollow'}});
 const uuid=s=>typeof s==='string'&&/^[0-9a-f]{8}-(?:[0-9a-f]{4}-){3}[0-9a-f]{12}$/i.test(s);

@@ -1,0 +1,24 @@
+import assert from 'node:assert/strict';
+import fs from 'node:fs';
+import {execFileSync} from 'node:child_process';
+import {PRESETS,parseOptions,randomInt,shuffled,selectItems,splitGroups,summaryText} from '../web-assets/public-tools/daily-draw.mjs';
+import {submission} from '../workers/tool-feedback/index.mjs';
+assert.deepEqual(parseOptions(' A \nＡ\na\n\n台北\r\n台北\n👩‍💻'),{items:['A','台北','👩‍💻'],duplicates:3});
+assert.deepEqual(parseOptions(' \n'),{items:[],duplicates:0});
+assert.throws(()=>parseOptions('a'.repeat(101)),/100/);assert.throws(()=>parseOptions('a'.repeat(30001)),/30,000/);assert.throws(()=>parseOptions(Array.from({length:201},(_,i)=>'人'+i).join('\n')),/200/);
+assert.equal(parseOptions('😀'.repeat(100)).items.length,1);assert.throws(()=>parseOptions(null));
+let calls=0;assert.equal(randomInt(3,a=>{a[0]=calls++?2:4294967295;}),2);assert.equal(calls,2);
+assert.throws(()=>randomInt(0));assert.throws(()=>randomInt(201));
+const frequencies=Array(7).fill(0);for(let i=0;i<70;i++)frequencies[randomInt(7,a=>{a[0]=i;})]++;assert.deepEqual(frequencies,Array(7).fill(10));
+const list=['甲','乙','丙','丁','戊'],zero=()=>0;
+assert.deepEqual(shuffled(list,zero).sort(),[...list].sort());assert.deepEqual(list,['甲','乙','丙','丁','戊']);
+const first=selectItems(list,3,[],zero),second=selectItems(list,2,first,zero);assert.equal(new Set([...first,...second]).size,5);assert.throws(()=>selectItems(list,1,[...first,...second]),/抽完/);assert.throws(()=>selectItems(list,6),/不足/);assert.throws(()=>selectItems(list,1.2));
+for(let size=2;size<=200;size++){const people=Array.from({length:size},(_,i)=>String(i)),groups=splitGroups(people,Math.min(size,7));assert.deepEqual(groups.flat().sort(),[...people].sort());assert.ok(Math.max(...groups.map(g=>g.length))-Math.min(...groups.map(g=>g.length))<=1);}
+assert.throws(()=>splitGroups(list,6));assert.throws(()=>splitGroups(list,1));
+assert.equal(PRESETS.taipei.items.length,23);assert.equal(PRESETS.taichung.items.length,18);for(const p of Object.values(PRESETS))assert.equal(parseOptions(p.items.join('\n')).items.length,p.items.length);
+assert.match(summaryText({title:'測試',round:1,mode:'groups',groups:[['甲'],['乙']]}),/第 2 組\n乙/);
+assert.equal(submission({tool_id:'daily-draw',version:'1.0.0',locale:'zh-TW',type:'question',request_id:crypto.randomUUID(),title:'測試',body:'測試',public_opt_in:false}).tool_id,'daily-draw');
+const read=p=>fs.readFileSync(new URL('../'+p,import.meta.url),'utf8'),before=p=>execFileSync('git',['show','99d1c194f6fb12070ec4412b222af07e2d96c160:'+p],{encoding:'utf8'});
+for(const slug of ['quotation-generator','email-signature-generator','qr-code-generator','script-word-counter','social-image-tool'])for(const suffix of ['','updates/']){const p='tools/'+slug+'/'+suffix+'index.html';assert.equal(read(p),before(p),'prior tool changed '+p);}
+const h=read('tools/daily-draw/index.html');assert.match(h,/2026-09-09/);assert.match(h,/EntertainmentApplication/);assert.match(h,/id="draw-options"/);assert.match(h,/data-tool-id="daily-draw"/);assert.ok(!read('web-assets/public-tools/daily-draw.mjs').match(/localStorage|sessionStorage|fetch\(/));
+console.log('PASS: daily draw normalization, unbiased rejection, no-repeat exhaustion, balanced groups, presets, feedback ID, and prior tool byte freeze');

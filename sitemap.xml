@@ -240,6 +240,16 @@
     <priority>0.4</priority>
   </url>
   <url>
+    <loc>https://zhenguocool.com/tools/daily-draw/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://zhenguocool.com/tools/daily-draw/updates/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.4</priority>
+  </url>
+  <url>
     <loc>https://zhenguocool.com/privacy/tools/</loc>
     <changefreq>monthly</changefreq>
     <priority>0.3</priority>
