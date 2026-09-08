@@ -134,6 +134,7 @@ function triggerDownload(blob, filename) {
   link.href = url;
   link.download = filename;
   link.click();
+  window.zgToolEvent?.('tool_export', { format: blob.type === 'image/png' ? 'png' : 'svg' });
   setTimeout(() => URL.revokeObjectURL(url), 1000);
 }
 
@@ -152,7 +153,9 @@ export function initQrTool(root = typeof document === 'undefined' ? null : docum
   const pngButton = $('#qr-download-png');
   const svgButton = $('#qr-download-svg');
   let current = null;
+  let completedSvg = '';
   let renderTimer = 0;
+  const markComplete = () => { if (current && current.svg !== completedSvg) { completedSvg = current.svg; window.zgToolEvent?.('tool_complete', { format: 'preview' }); } };
 
   const updateFields = () => Object.entries(fields).forEach(([name, element]) => { if (element) element.hidden = type.value !== name; });
   const formPayload = () => buildQrPayload({ type: type.value, url: $('#qr-url')?.value, text: $('#qr-text')?.value, ssid: $('#qr-wifi-ssid')?.value, password: $('#qr-wifi-password')?.value, security: $('#qr-wifi-security')?.value, hidden: $('#qr-wifi-hidden')?.checked });
@@ -195,16 +198,18 @@ export function initQrTool(root = typeof document === 'undefined' ? null : docum
   const scheduleRender = () => { clearTimeout(renderTimer); renderTimer = setTimeout(render, 120); };
   type.addEventListener('change', render);
   scope.querySelectorAll('input, textarea, select').forEach(element => element.addEventListener('input', scheduleRender));
-  $('#qr-generate')?.addEventListener('click', render);
+  $('#qr-generate')?.addEventListener('click', () => { render(); markComplete(); });
   pngButton?.addEventListener('click', async () => {
-    if (!current) return;
+    if (!render()) return;
     try {
       const canvas = document.createElement('canvas');
       drawQrCanvas(canvas, current.matrix, current);
-      triggerDownload(await canvasToBlob(canvas, 'image/png'), 'qr-code.png');
+      const blob = await canvasToBlob(canvas, 'image/png');
+      markComplete();
+      triggerDownload(blob, 'qr-code.png');
     } catch (error) { notice.textContent = error.message; notice.dataset.level = 'error'; }
   });
-  svgButton?.addEventListener('click', () => { if (!current) return; triggerDownload(new Blob([current.svg], { type: 'image/svg+xml' }), 'qr-code.svg'); });
+  svgButton?.addEventListener('click', () => { if (!render()) return; markComplete(); triggerDownload(new Blob([current.svg], { type: 'image/svg+xml' }), 'qr-code.svg'); });
   updateFields();
   render();
   return { render, getCurrent: () => current };
