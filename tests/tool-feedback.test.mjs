@@ -1,6 +1,7 @@
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import {DatabaseSync} from 'node:sqlite';
+import vm from 'node:vm';
 import worker,{submission,moderationInput,publicRecord} from '../workers/tool-feedback/index.mjs';
 import {claimsIdentity,adminIdentity} from '../workers/tool-feedback/access.mjs';
 const sqlite=new DatabaseSync(':memory:');sqlite.exec(fs.readFileSync(new URL('../workers/tool-feedback/schema.sql',import.meta.url),'utf8'));
@@ -38,3 +39,7 @@ assert.equal((await worker.fetch(req('submit',{...sample,request_id:crypto.rando
 assert.equal((await worker.fetch(req('submit',sample),{...env,ENABLED:'false'})).status,503);
 assert.equal((await worker.fetch(new Request('https://staff.zhenguocool.com/public/messages?tool=quotation'),env)).status,404);
 assert.ok(!('email' in publicRecord({email:'secret'})));globalThis.fetch=originalFetch;sqlite.close();console.log('PASS: feedback validation, atomic storage, replay, moderation consent, public projection, audit, auth, CSRF boundary, rate limit, size and fail-closed');
+let configCalls=0;const uiStatus={textContent:''},uiDetails=Object.assign(new EventTarget(),{open:true}),uiButton={disabled:true},uiForm=Object.assign(new EventTarget(),{querySelector:()=>uiButton});
+const uiNodes={'#tool-feedback-form':uiForm,'#feedback-details':uiDetails,'#feedback-status':uiStatus,'#comments-more':new EventTarget(),'#tool-comments':{}};
+vm.runInNewContext(fs.readFileSync(new URL('../web-assets/public-tools/common.mjs',import.meta.url),'utf8'),{document:{body:{dataset:{toolId:'quotation',toolVersion:'1.0.0'}},querySelector:s=>uiNodes[s]||null,querySelectorAll:()=>[]},window:{addEventListener(){}},crypto,fetch:async()=>{configCalls++;return Response.json({enabled:false});},URLSearchParams,Event,setTimeout});
+await new Promise(setImmediate);assert.equal(configCalls,1);assert.match(uiStatus.textContent,/暫時無法使用/);console.log('PASS: feedback opened before module initialization is initialized once');
