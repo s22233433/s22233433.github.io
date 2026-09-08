@@ -3,6 +3,7 @@ import fs from 'node:fs';
 import {execFileSync} from 'node:child_process';
 import {PRESETS,parseOptions,randomInt,shuffled,selectItems,splitGroups,summaryText} from '../web-assets/public-tools/daily-draw.mjs';
 import {submission} from '../workers/tool-feedback/index.mjs';
+import {renderHelp} from '../tools/build-public-tools.mjs';
 assert.deepEqual(parseOptions(' A \nＡ\na\n\n台北\r\n台北\n👩‍💻'),{items:['A','台北','👩‍💻'],duplicates:3});
 assert.deepEqual(parseOptions(' \n'),{items:[],duplicates:0});
 assert.throws(()=>parseOptions('a'.repeat(101)),/100/);assert.throws(()=>parseOptions('a'.repeat(30001)),/30,000/);assert.throws(()=>parseOptions(Array.from({length:201},(_,i)=>'人'+i).join('\n')),/200/);
@@ -22,3 +23,11 @@ const read=p=>fs.readFileSync(new URL('../'+p,import.meta.url),'utf8'),before=p=
 for(const slug of ['quotation-generator','email-signature-generator','qr-code-generator','script-word-counter','social-image-tool'])for(const suffix of ['','updates/']){const p='tools/'+slug+'/'+suffix+'index.html';assert.equal(read(p),before(p),'prior tool changed '+p);}
 const h=read('tools/daily-draw/index.html');assert.match(h,/2026-09-09/);assert.match(h,/EntertainmentApplication/);assert.match(h,/id="draw-options"/);assert.match(h,/data-tool-id="daily-draw"/);assert.ok(!read('web-assets/public-tools/daily-draw.mjs').match(/localStorage|sessionStorage|fetch\(/));
 console.log('PASS: daily draw normalization, unbiased rejection, no-repeat exhaustion, balanced groups, presets, feedback ID, and prior tool byte freeze');
+assert.equal((h.match(/<ul class="help-sources">/g)||[]).length,1);
+assert.match(h,/<a href="https:\/\/www\.metro\.taipei\/News_Content\.aspx\?n=320CF0D294FF9489&amp;s=6F817AB5AC4A87D5"/);
+assert.match(h,/<a href="https:\/\/www\.tmrt\.com\.tw\/metro-life\/station-information"/);
+assert.doesNotMatch(h,/&lt;a\s|&amp;amp;s=/);
+assert.match(renderHelp(['Heading','<img src=x onerror=alert(1)>']),/&lt;img/);
+assert.throws(()=>renderHelp(['Heading','Body',[['unsafe','javascript:alert(1)']]]));
+assert.throws(()=>renderHelp(['Heading','Body',[['unsafe','https://user:pass@example.com/']]]));
+console.log('PASS: help sources are real safe links; body escaping remains enabled');
