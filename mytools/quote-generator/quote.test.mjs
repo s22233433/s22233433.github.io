@@ -11,6 +11,10 @@ assert.equal(readStore(JSON.stringify({ activeDraftId: legacyDraft.id, drafts: [
 assert.equal(readStore(JSON.stringify({ version: 1, activeDraftId: 'missing', drafts: [legacyDraft] })).activeDraftId, null);
 assert.equal(calculateQuote({ items: [{ unitPrice: 100, quantity: 1 }], serviceRate: 0, payments: [1] }).total, 105);
 assert.equal(calculateQuote({ items: [{ unitPrice: 100, quantity: 1 }], serviceRate: 50, serviceMode: 'fixed', payments: [1] }).serviceFee, 50);
+const mixedQuote = calculateQuote({ items: [{ pricingMode: 'fixed', unitPrice: 3000, quantity: 10 }, { pricingMode: 'list', unitPrice: 50000, quantity: 2 }], serviceRate: 0.15, payments: [0.1, 0.48, 0.42] });
+assert.deepEqual(mixedQuote, { itemSubtotal: 30000, serviceFee: 4500, pretaxTotal: 34500, tax: 1725, total: 36225, paymentRate: 1 });
+assert.equal(calculateQuote({ items: [{ pricingMode: 'list', unitPrice: 50000, quantity: 2 }], serviceRate: 0.15, payments: [1] }).total, 0);
+assert.equal(calculateQuote({ items: [{ pricingMode: 'list', unitPrice: 50000, quantity: 2 }], serviceRate: 1000, serviceMode: 'fixed', payments: [1] }).total, 1050);
 console.log('quote V1 draft data helpers pass');
 
 const page = await readFile(new URL('./index.html', import.meta.url), 'utf8');
