@@ -38,4 +38,10 @@ assert.match(page, /\.three-columns\{grid-template-columns:repeat\(3,minmax\(0,1
 assert.match(page, /form\.elements\.quoteDate\.value=new Date\(\)\.toISOString\(\)\.slice\(0,10\)/);
 assert.match(page, /expiry\.setDate\(expiry\.getDate\(\)\+14\)/);
 assert.match(page, /@media print\{\.paper\{min-height:0\}\}/);
+assert.match(page, /客戶統一編號（選填）<input name="clientTaxId"/);
+assert.match(page, /id="preview-client-tax-id"/);
+assert.match(page, /setText\('#preview-client-tax-id',value\('clientTaxId'\)\)/);
+assert.match(page, /第一次名單提供天數（工作天）<input name="candidateDeliveryDays" type="number" min="1" value="7"/);
+assert.match(page, /id="preview-candidate-delivery-days"/);
+assert.match(page, /收到委刊單回簽後的<span id="preview-candidate-delivery-days">7<\/span>個工作天內提供/);
 console.log('quote V1 draft UI is present');
