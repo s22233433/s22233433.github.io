@@ -30,6 +30,7 @@ node tests/site-conversion-contract.mjs
 node tests/technical-seo-contract.mjs
 node tests/internal-linking-contract.mjs
 node tests/analytics-classification-contract.mjs
+node tests/creator-recruitment-live.mjs
 git diff --check
 ```
 
@@ -37,4 +38,8 @@ git diff --check
 
 ## 發布狀態
 
-部署驗證進行中；最終結果以本文件後續驗證紀錄為準。
+2026-11-12：已發布至正式站。頁面版本 `17620ba`；Cloudflare Pages deployment `3de1af01-c51d-4415-b355-e4c30f8fbfa3`，Worker version `54497340-a994-4650-9c46-9a57b484d327`。
+
+已確認正式 config 開啟收件、4 個前端資產與本機內容一致、首頁／人才頁／sitemap 有入口、SEO 可索引、無合作方素材，非法資料 HTTP 422、跨來源 HTTP 403，公開 gateway 不允許管理路徑；未登入名單 API 導向 Access（HTTP 302）。既有 contact／careers handler 與本機回歸通過。
+
+尚未完成：真實 Turnstile 正向送件、登入後的名單與匯出操作。Access 驗證碼已交由使用者完成，勿把上述檢查視為完整正向驗收。Google 收錄與排名尚未驗證；sitemap 可供抓取不代表已收錄。
