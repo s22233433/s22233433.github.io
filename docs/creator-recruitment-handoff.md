@@ -42,4 +42,6 @@ git diff --check
 
 已確認正式 config 開啟收件、4 個前端資產與本機內容一致、首頁／人才頁／sitemap 有入口、SEO 可索引、無合作方素材，非法資料 HTTP 422、跨來源 HTTP 403，公開 gateway 不允許管理路徑；未登入名單 API 導向 Access（HTTP 302）。既有 contact／careers handler 與本機回歸通過。
 
-尚未完成：真實 Turnstile 正向送件、登入後的名單與匯出操作。Access 驗證碼已交由使用者完成，勿把上述檢查視為完整正向驗收。Google 收錄與排名尚未驗證；sitemap 可供抓取不代表已收錄。
+正向驗收已完成：使用者提供 Access 驗證碼後成功登入；正式 Turnstile 自動通過，瀏覽器送出明確標示的合成測試資料並收到申請編號。後台顯示 1 筆，CSV HTTP 200 且包含測試資料；直接 D1 回讀確認隱私版本、同意、禁止合作夥伴分享及 180 天期限。分析事件不含測試 Email。測試資料已依精確 ID／Email／名稱刪除並回讀為 0 筆。
+
+Google 收錄與排名尚未驗證；sitemap 可供抓取不代表已收錄。每日清理 Cron 已部署，正式首個排程時間尚未到達；到期清理程式已通過本機真 SQLite 驗證。
