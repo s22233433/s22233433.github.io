@@ -31,7 +31,7 @@ export function buildCreatorRecruitment(root,analyticsVersion){
  const footer=source.match(/<footer\b[\s\S]*?<\/footer>/)[0];
  const sourceCss=source.match(/<style>([\s\S]*?)<\/style>/)[1];
  const assets=path.join(root,'web-assets/recruitment');fs.mkdirSync(assets,{recursive:true});
- fs.writeFileSync(path.join(assets,'site-shell.css'),sourceCss);
+ fs.writeFileSync(path.join(assets,'site-shell.css'),sourceCss.trimEnd()+'\n');
  const title='台灣直播主招募｜抖音直播合作・新手可報名｜榛菓行銷';
  const description='榛菓行銷招募有意探索中國大陸抖音 Douyin 的台灣直播主，歡迎才藝、聊天互動與短影音創作者及直播新手。年滿18歲即可登記合作意願，了解申請條件、準備資料、兼職評估與合作流程。';
  const schema={'@context':'https://schema.org','@graph':[{'@type':'WebPage','@id':base+route+'#webpage',name:title,url:base+route,description,inLanguage:'zh-TW',dateModified:'2026-11-12',publisher:{'@type':'Organization',name:config.privacyController,url:base+'/'}},{'@type':'BreadcrumbList',itemListElement:[{'@type':'ListItem',position:1,name:'榛菓行銷',item:base+'/'},{'@type':'ListItem',position:2,name:'台灣主播招募計畫',item:base+route}]},{'@type':'FAQPage',mainEntity:faqs.map(([q,a])=>({'@type':'Question',name:q,acceptedAnswer:{'@type':'Answer',text:a}}))}]};
