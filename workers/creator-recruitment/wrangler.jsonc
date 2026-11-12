@@ -1,0 +1,38 @@
+{
+  "name": "zhenguocool-creator-recruitment",
+  "main": "index.mjs",
+  "compatibility_date": "2026-09-08",
+  "workers_dev": false,
+  "preview_urls": false,
+  "routes": [
+    {
+      "pattern": "staff.zhenguocool.com/creator-recruitment*",
+      "zone_id": "9bdf20130c5cdba2417c7b7dacd8814e"
+    }
+  ],
+  "observability": {
+    "enabled": false
+  },
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "zhenguocool-website-forms",
+      "database_id": "204a4171-efe0-4400-9fbb-166c43eff6f5"
+    }
+  ],
+  "vars": {
+    "ENABLED": "true",
+    "APPROVED_POLICY_VERSION": "tw-creator-2026-11-12-v1",
+    "RETENTION_DAYS": "180",
+    "TURNSTILE_SITEKEY": "0x4AAAAAAF90tUI1kwKU8rAw",
+    "TEAM_DOMAIN": "https://zhenguocool.cloudflareaccess.com",
+    "POLICY_AUD": "4aeac568ed8b14d1522956a083dd058a7317c8ccd34248e2ac9d681a0cf6c90d",
+    "ADMIN_EMAIL": "weiting@zhenguocool.com",
+    "CSV_ENABLED": "true"
+  },
+  "triggers": {
+    "crons": [
+      "0 19 * * *"
+    ]
+  }
+}

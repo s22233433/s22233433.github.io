@@ -28,3 +28,11 @@ service = "zhenguocool-form-notifier"
 [[env.production.services]]
 binding = "TOOL_FEEDBACK"
 service = "zhenguocool-tool-feedback"
+
+[[services]]
+binding = "CREATOR_RECRUITMENT"
+service = "zhenguocool-creator-recruitment"
+
+[[env.production.services]]
+binding = "CREATOR_RECRUITMENT"
+service = "zhenguocool-creator-recruitment"

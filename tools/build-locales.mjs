@@ -3,6 +3,8 @@ import path from "node:path";
 import { seoEvidence, seoPhaseOnePages } from "./seo-phase-one-content.mjs";
 import { buildEditorialBlog } from "./editorial-blog.mjs";
 import { buildPublicTools } from "./build-public-tools.mjs";
+import { recruitment } from './recruitment-config.mjs';
+import { buildCreatorRecruitment } from "./build-creator-recruitment.mjs";
 import { caseHero, caseDecisions, caseHandover, taiwanDecisionModules, pricingDecisionModules, historicalPricing, decisionCss } from "./decision-page-modules.mjs";
 
 const root = path.resolve(import.meta.dirname, "..");
@@ -969,6 +971,9 @@ const renderHomePage = (locale, isRoot = false) => {
   html = html.replaceAll(`${baseUrl}careers/`, careerUrl(locale));
   html = html.replace(/href="careers\//g, `href="${careerUrl(locale)}`);
   html = html.replace("</main>", `${renderHomeGuideIndex(locale)}\n  </main>`);
+  html = html.replace(/<p data-creator-recruitment-entry>[\s\S]*?<\/p>/g, "");
+  if (recruitment.approved) html = html.replace("</footer>", `<p data-creator-recruitment-entry><a href="/tw-creator-recruitment/">${locale.key === "en" ? "Taiwan livestream creator opportunities (Chinese)" : locale.key === "zh-Hans" ? "台湾直播主招募与合作" : "台灣直播主招募與合作"}</a></p></footer>`);
+
   if (!isRoot) {
     html = html
       .replace(/\s*<meta name="google-site-verification"[^>]*>\n?/, "\n")
@@ -1883,6 +1888,7 @@ ${JSON.stringify(buildCareerSchema(locale), null, 2)}
   <header><div class="wrap nav"><a class="brand" href="${prefix}"><span>${escapeHtml(locale.label)}</span><small>ZHENGUOCOOL</small></a><nav class="nav-links" aria-label="${escapeAttr(copy.h1)}"><a href="${prefix}#services">${locale.key === "en" ? "Services" : "服務"}</a><a class="nav-cta" href="#career-form" data-track-event="contact_click" data-track-location="careers-nav">${escapeHtml(copy.heroCta)}</a></nav></div></header>
   <main>
     <section class="hero"><div class="wrap"><span class="eyebrow">${escapeHtml(copy.eyebrow)}</span><h1>${escapeHtml(copy.h1)}</h1><p>${escapeHtml(copy.intro)}</p><div class="actions"><a class="button primary" href="#career-form" data-track-event="contact_click" data-track-location="careers-hero">${escapeHtml(copy.heroCta)}</a></div></div></section>
+    ${recruitment.approved ? `<section><div class="wrap"><h2>${locale.key === "en" ? "Interested in livestream creator partnerships?" : locale.key === "zh-Hans" ? "想了解直播主合作？" : "想了解直播主合作？"}</h2><p>${locale.key === "en" ? "Explore opportunities for Taiwan creators. Registration is available in Traditional Chinese." : locale.key === "zh-Hans" ? "年满18岁、对直播有兴趣的创作者，可至繁体中文专页了解条件与登记合作意愿。" : "年滿18歲、對直播有興趣的創作者，可至專頁了解條件與登記合作意願。"}</p><a class="button" href="/tw-creator-recruitment/">${locale.key === "en" ? "Taiwan livestream creator registration" : locale.key === "zh-Hans" ? "台湾直播主招募" : "台灣直播主招募"}</a></div></section>` : ""}
     <section><div class="wrap"><h2>${escapeHtml(copy.profileTitle)}</h2><div class="grid">${cards}</div></div></section>
     <section class="faq"><div class="wrap"><h2>${escapeHtml(copy.directionTitle)}</h2><div class="grid">${directions}</div></div></section>
     <section><div class="wrap"><h2>${escapeHtml(copy.processTitle)}</h2><div class="grid steps">${steps}</div></div></section>
@@ -2024,7 +2030,7 @@ for (const locale of locales) {
   fs.writeFileSync(path.join(dir, "index.html"), renderThankYouPage(locale));
 }
 
-const sitemapItems = [...buildEditorialBlog(root, seoPhaseOnePages, analyticsAssetVersion), ...buildPublicTools(root, analyticsAssetVersion)];
+const sitemapItems = [...buildEditorialBlog(root, seoPhaseOnePages, analyticsAssetVersion), ...buildPublicTools(root, analyticsAssetVersion), ...buildCreatorRecruitment(root, analyticsAssetVersion)];
 sitemapItems.push({
   loc: baseUrl,
   priority: "1.0",
